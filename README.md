@@ -7,6 +7,7 @@ WordOff est un jeu de lettres réalisé en Java à l'aide de la librairie JavaFX
 ### Ajout de nouvelles fonctionnalités
 
 Afin d'ajouter de nouvelles fonctionnalités, les étapes suivantes doivent être suivies:
+
     1. Créez une nouvelle branche appelée feature-[nom de fichier]-[nom de la branche].
     2. Développez dans une nouvelle branche associée à la branche liée à la fonctionnalité (feature).
     3. Examen de code + tests unitaires avant de fusionner la branche de développement dans la branche feature associée.

@@ -1,0 +1,12 @@
+Interface :
+JavaFX
+Scenebuilder
+
+Projet : 
+Maven
+
+Sérialisation :
+JSON (GSON)
+
+BD :
+JDBC

@@ -1,4 +1,4 @@
-# Règles du jeu
+﻿# Règles du jeu
 
 ## Caractéristiques
 
@@ -36,6 +36,7 @@
 * Tournoi
     * De 1 à 20 joueurs par tournoi
     * Dure 5 jours (séparée en 5 journée de 24 heures)
+    * Si le tour n'est pas joué = 0pts pour le jour en question
     * Contre une IA (pour l'échange de lettres, les malus, etc)
     * La victoire du tournoi est décidée à la fin du 5ème jour
     * Possibilité de rejouer 1x par jour son tour pour 1 étoile.
@@ -80,7 +81,7 @@
     * Statistiques
         * Derniers score du jeu
         * Parties gagnées / jouées et en pourcent
-        * Niveau de difficulté
+        * Niveau de difficulté (correspond au score du mot moyen)
         * Score moyen par mot
         * Meilleur score
         * Meilleur mot

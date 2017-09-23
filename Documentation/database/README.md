@@ -8,28 +8,36 @@ Crée avec `UMLet`.
 
 ## Nomenclature
 
-User
-~ Un utilisateur du jeu (compte invité créé automatiquement si nécessaire)
-~ Un unique utilisateur représentant une "intelligence artificielle"
+### User
 
-Game
-~ Une partie
+* Un utilisateur du jeu (compte invité créé automatiquement si nécessaire)
+* Un unique utilisateur représentant une "intelligence artificielle"
 
-Tournament
-~ Un tournoi
+### Game
 
-Challenge
-~ Un challenge envoyé à un utilisateur
-~ Les status possible: `discarded`, `waiting`, `done`
+* Une partie
 
-Tile
-~ Une tuile représentant une lettre et sa valeur
+### Tournament
 
-Case
-~ Une case où l'on peut poser une tuile
+* Un tournoi
 
-Tileset
-~ Un ensemble de tuiles disponible pour une partie
+### Challenge
 
-Language
-~ Le langage de la partie.
+* Un challenge envoyé à un utilisateur
+* Les status possible: `discarded`, `waiting`, `done`
+
+### Tile
+
+* Une tuile représentant une lettre et sa valeur
+
+### Case
+
+* Une case où l'on peut poser une tuile
+
+### Tileset
+
+* Un ensemble de tuiles disponible pour une partie
+
+### Language
+
+* Le langage de la partie.

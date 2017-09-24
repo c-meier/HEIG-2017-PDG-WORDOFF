@@ -14,7 +14,7 @@ Afin d'ajouter de nouvelles fonctionnalités, les étapes suivantes doivent êtr
 4. Une fois la fonctionnalitée terminée, supprimez l'ancienne ou les anciennes branches de développement.
     1. Fusionnez la branche *master** dans la branche **feature**.
     2. Fusionnez la branche **feature** dans la branche **master** après la résolution des conflits et une deuxième série de tests.
-    5. Supprimez la branche **feature** une fois fusionnée avec **master**.
+5. Supprimez la branche **feature** une fois fusionnée avec **master**.
 
 La branche **master** devrait représenter l'avancement général du projet. Chaque branche **feature** devrait représenter la progression globale d'une fonctionnalité.
 

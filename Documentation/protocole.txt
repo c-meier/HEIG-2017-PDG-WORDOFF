@@ -1,0 +1,23 @@
+La communication entre le client et le serveur se fera via des objets JSON. Ces deux acteurs vont s'écouter en permanence et traiter les messages dès qu'ils les reçoivent.
+
+Les messages seront traitée de manière stateless (sans état) pour simplifier la tâche. Les messages seront de la forme:
+
+{"type":"game_start_request", "user":"guest00000", "game_type":"random_game"}
+
+{"type":"play_move", "gameID":"ABC123EFG456", "user":"guest00000", "word":"chien"}
+
+
+Le client pourra envoyer les requêtes suivantes:
+	- login_request
+	- game_start_request
+	- play_move
+	- chat_message
+	- use_power (hint, discard letters...)
+	
+Le server pourra envoyer les requêtes suivantes:
+	- login_response
+	- game_start_response
+	- new_game_started
+	- game_state_update
+
+A compléter: contenu des requêtes + autres requêtes

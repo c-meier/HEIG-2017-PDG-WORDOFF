@@ -4,16 +4,18 @@ Les messages seront traitée de manière stateless (sans état) pour simplifier la 
 
 {"type":"game_start_request", "user":"guest00000", "game_type":"random_game"}
 
-{"type":"play_move", "gameID":"ABC123EFG456", "user":"guest00000", "word":"chien"}
+{"type":"play_move", "gameID":"ABC123EFG456", "user":"guest00000", "word":["5243", "1523", "5235"]}
+
+(Le mot à jouer est un tableau d'ID de tuiles: on connaît ainsi l'ordre et les tuiles exactes qui composent le mot)
 
 
 Le client pourra envoyer les requêtes suivantes:
-	- login_request
+	- login_request 
 	- game_start_request
 	- play_move
 	- chat_message
 	- use_power (hint, discard letters...)
-	
+
 Le server pourra envoyer les requêtes suivantes:
 	- login_response
 	- game_start_response

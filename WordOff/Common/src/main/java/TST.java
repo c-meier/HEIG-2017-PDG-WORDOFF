@@ -223,7 +223,7 @@ class TST {
      * @param list
      */
     private void fillAnagrams(String str, String key, Node r, List<String> list) {
-        if (r == null) {
+        if (r == null || str.isEmpty()) {
             return;
         }
 

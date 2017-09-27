@@ -1,10 +1,13 @@
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Project : WordOff
  * Date : 27.09.17
  *
  * @brief Implémentation des Tertiary Search Tries dans le but de stocker un dictionnaire
  */
-public class TST {
+class TST {
     /**
      * @brief Structure d'un noeud du TST
      */
@@ -17,8 +20,8 @@ public class TST {
         int nodeHeight; // hauteur du noeud dans l'arbre (sert à l'équilibrage)
 
         /**
-         * @brief Constructeur du noeud
          * @param data le caractère du noeud
+         * @brief Constructeur du noeud
          */
         public Node(char data) {
             this.data = data;
@@ -54,19 +57,19 @@ public class TST {
     }
 
     /**
-     * @brief insère un mot dans l'arbre
      * @param key
+     * @brief insère un mot dans l'arbre
      */
     public void insert(String key) {
         root = insert(root, key, 0);
     }
 
     /**
-     * @brief insère un mot dans l'arbre à partir de la index-ième lettre
-     * @param r racine du mot
-     * @param key mot à insérer
+     * @param r     racine du mot
+     * @param key   mot à insérer
      * @param index index de la première lettre
      * @return le noeud auquel la dernière lettre a été insérée
+     * @brief insère un mot dans l'arbre à partir de la index-ième lettre
      */
     private Node insert(Node r, String key, int index) {
         char c = key.charAt(index);
@@ -96,8 +99,8 @@ public class TST {
     }
 
     /**
-     * @param r noeud racine de la recherche
-     * @param key mot recherché
+     * @param r     noeud racine de la recherche
+     * @param key   mot recherché
      * @param index première lettre du mot cherché
      * @return true ssi le mot est contenu dans l'arbre
      */
@@ -145,8 +148,8 @@ public class TST {
     }
 
     /**
-     * @brief Met à jour la hauteur du noeud en argument
      * @param r
+     * @brief Met à jour la hauteur du noeud en argument
      */
     private void updateNodeHeight(Node r) {
         r.nodeHeight = Math.max(height(r.right), height(r.left)) + 1;
@@ -164,9 +167,9 @@ public class TST {
     }
 
     /**
-     * @brief effectue une rotation du sous arbre de racine r vers la droite
      * @param r
      * @return la nouvelle racine du sous-arbre
+     * @brief effectue une rotation du sous arbre de racine r vers la droite
      */
     private Node rotateRight(Node r) {
         Node y = r.left;
@@ -179,9 +182,9 @@ public class TST {
     }
 
     /**
-     * @brief effectue une rotation du sous arbre de racine r vers la gauche
      * @param r
      * @return la nouvelle racine du sous-arbre
+     * @brief effectue une rotation du sous arbre de racine r vers la gauche
      */
     private Node rotateLeft(Node r) {
         Node y = r.right;
@@ -202,6 +205,45 @@ public class TST {
             return 0;
         }
         return height(r.left) - height(r.right);
+    }
+
+    public List<String> getAnagrams(String str) {
+        LinkedList<String> list = new LinkedList<>();
+        if (root != null) {
+            fillAnagrams(str, "", root, list);
+        }
+        return list;
+    }
+
+    /**
+     * Remplit la liste list avec des anagrammes de str et de toutes ses sous-chaines de caractères
+     * @param str
+     * @param key
+     * @param r
+     * @param list
+     */
+    private void fillAnagrams(String str, String key, Node r, List<String> list) {
+        if (r == null) {
+            return;
+        }
+
+        // cherche dans les sous-arbres gauche et droit
+        fillAnagrams(str, key, r.left, list);
+        fillAnagrams(str, key, r.right, list);
+
+        // si la lettre du noeud est dans le mot, on la retire et on descend
+        if (str.contains("" + r.data)) {
+            key = key + r.data; // on ajoute la lettre au mot en formation
+
+            // si le mot en formation existe, on ajoute sa clé à la liste
+            if (r.isEnd) {
+                list.add(key);
+            }
+
+            // on descend avec une lettre en moins
+            str = str.replaceFirst("" + r.data, "");
+            fillAnagrams(str, key, r.middle, list);
+        }
     }
 }
 

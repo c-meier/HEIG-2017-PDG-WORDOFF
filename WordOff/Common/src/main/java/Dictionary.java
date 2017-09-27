@@ -2,6 +2,7 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -28,6 +29,7 @@ public class Dictionary {
                         .replaceAll("[^A-Za-z]", "");
 
                 if (w.length() > 1) {
+                    // les mots doivent avoir plus d'une lettre pour être joués dans WordOff
                     tst.insert(w);
                 }
             });
@@ -37,9 +39,19 @@ public class Dictionary {
         }
     }
 
-    public boolean contains(String word) {
-        String w = word.toUpperCase();
+    /**
+     * @param str
+     * @return vrai ssi str se trouve dans le dictionaire
+     */
+    public boolean contains(String str) {
+        return tst.contains(str.toUpperCase());
+    }
 
-        return tst.contains(w);
+    /**
+     * @param str
+     * @return une liste de mots formés des lettres de str se trouvant dans le dictionaire
+     */
+    public List<String> getAnagrams(String str) {
+        return tst.getAnagrams(str.toUpperCase());
     }
 }

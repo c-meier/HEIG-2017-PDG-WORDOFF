@@ -91,8 +91,8 @@ public class TST {
      * @param word mot recherché
      * @return true ssi le mot est contenu dans l'arbre
      */
-    public boolean search(String word) {
-        return search(root, word, 0);
+    public boolean contains(String word) {
+        return contains(root, word, 0);
     }
 
     /**
@@ -101,7 +101,7 @@ public class TST {
      * @param index première lettre du mot cherché
      * @return true ssi le mot est contenu dans l'arbre
      */
-    private boolean search(Node r, String key, int index) {
+    private boolean contains(Node r, String key, int index) {
         char c;
         c = key.charAt(index);
         if (r == null) {
@@ -109,16 +109,16 @@ public class TST {
         }
 
         if (c < r.data) {
-            return search(r.left, key, index);
+            return contains(r.left, key, index);
         } else if (c > r.data) {
-            return search(r.right, key, index);
+            return contains(r.right, key, index);
         } else {
             if (r.isEnd && index == key.length() - 1) {
                 return true;
             } else if (index == key.length() - 1) {
                 return false;
             } else {
-                return search(r.middle, key, index + 1);
+                return contains(r.middle, key, index + 1);
             }
         }
     }

@@ -18,13 +18,13 @@ public class TSTTest {
         tst.insert("\'kay");
 
         assertFalse(tst.isEmpty());
-        assertTrue(tst.search("\'kay"));
-        assertFalse(tst.search("\'ka"));
-        assertFalse(tst.search("\'kayy"));
-        assertTrue(tst.search("Ceci est un mot"));
+        assertTrue(tst.contains("\'kay"));
+        assertFalse(tst.contains("\'ka"));
+        assertFalse(tst.contains("\'kayy"));
+        assertTrue(tst.contains("Ceci est un mot"));
 
         tst.clear();
         assertTrue(tst.isEmpty());
-        assertFalse(tst.search("\'kay"));
+        assertFalse(tst.contains("\'kay"));
     }
 }

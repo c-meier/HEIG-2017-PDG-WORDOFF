@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 /**
  * Project : WordOff
- * Author(s) : Antoine Friant
  * Date : 27.09.17
  */
 public class TSTTest {

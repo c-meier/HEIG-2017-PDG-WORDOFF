@@ -1,14 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml" fx:controller="FXMLController">
-    <children>
-        <Button layoutX="126" layoutY="90" text="Click Me!" onAction="#handleButtonAction" fx:id="button" />
-        <Label layoutX="126" layoutY="120" minHeight="16" minWidth="69" fx:id="label" />
-    </children>
-</AnchorPane>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <HBox prefHeight="0.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar prefHeight="33.0" prefWidth="600.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="Utilisateur" />
+                <Menu mnemonicParsing="false" text="Argent" />
+              </menus>
+            </MenuBar>
+            <MenuBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="600.0">
+              <menus>
+                <Menu mnemonicParsing="false">
+                     <graphic>
+                        <MenuButton mnemonicParsing="false" text="Paramètres">
+                          <items>
+                          <MenuItem mnemonicParsing="false" text="Paramètres d'utilisateur" />
+                              <MenuItem mnemonicParsing="false" text="Paramètres du jeu" />
+                              <MenuItem mnemonicParsing="false" text="Aide et assistance" />
+                          </items>
+                        </MenuButton>
+                     </graphic>
+                </Menu>
+                <Menu mnemonicParsing="false">
+                     <graphic>
+                        <MenuButton mnemonicParsing="false" text="Informations">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Messages" />
+                            <MenuItem mnemonicParsing="false" text="Invitations en attente" />
+                          </items>
+                        </MenuButton>
+                     </graphic>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <TabPane prefHeight="895.0" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="Parties">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+          <Tab text="Tournois">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+</BorderPane>

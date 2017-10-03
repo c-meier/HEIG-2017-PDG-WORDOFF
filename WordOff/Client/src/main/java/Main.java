@@ -1,5 +1,3 @@
-import java.nio.file.Paths;
-
 /**
  * Project : WordOff
  * Date : 26.09.17
@@ -10,6 +8,6 @@ public class Main {
 
         // dico test
         Dictionary dico = new Dictionary(Constants.FRENCH_DICTIONARY);
-        System.out.println(dico.getAnagrams("gfewgio"));
+        System.out.println(dico.getAnagrams("astuce"));
     }
 }

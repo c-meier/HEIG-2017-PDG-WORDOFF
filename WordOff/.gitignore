@@ -65,3 +65,6 @@ modules.xml
 ### Ajout par Antoine
 .idea/vcs.xml
 .idea/
+
+# Maven
+target/

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.controller.GameScreenFXMLController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.controller.GameScreenController">
    <center>
       <SplitPane dividerPositions="0.6398559423769508" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
@@ -75,7 +75,7 @@
         <menus>
           <Menu mnemonicParsing="false">
                <graphic>
-                  <Button id="gotoMenu" mnemonicParsing="false" onAction="#handleGotoMenu" text="Retour au menu" />
+                  <Button mnemonicParsing="false" onAction="#handleGotoMenu" text="Retour" />
                </graphic>
           </Menu>
         </menus>

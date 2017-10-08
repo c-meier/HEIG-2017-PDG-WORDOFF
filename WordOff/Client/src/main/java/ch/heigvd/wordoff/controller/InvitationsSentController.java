@@ -1,6 +1,5 @@
 package ch.heigvd.wordoff.controller;
 
-
 import ch.heigvd.wordoff.MainApp;
 import java.io.IOException;
 import java.net.URL;
@@ -13,17 +12,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 
 /**
+ * FXML Controller class
  *
  * @author Gabriel Luthier
  */
-public class GameScreenFXMLController implements Initializable {
-    
-    @FXML
-    private Button gotoMenu;
-    
+public class InvitationsSentController implements Initializable {
+
     @FXML
     private void handleGotoMenu(ActionEvent event) {
         try {
@@ -33,12 +29,16 @@ public class GameScreenFXMLController implements Initializable {
             Scene scene = new Scene(root);
             MainApp.getStage().setScene(scene);
         } catch (IOException ex) {
-            Logger.getLogger(GameScreenFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InvitationsSentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    
 }

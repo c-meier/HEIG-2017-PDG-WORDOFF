@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.controller.MainMenuFXMLController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.controller.MainMenuController">
    <top>
       <HBox prefHeight="24.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
          <children>
@@ -23,16 +23,20 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Username">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Mon profil" />
-                        <MenuItem mnemonicParsing="false" text="Liste d'amis" />
-                        <MenuItem mnemonicParsing="false" text="Messages" />
-                        <MenuItem mnemonicParsing="false" text="Paramètres" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleGotoProfile" text="Mon profil" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleGotoFriends" text="Liste d'amis" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleGotoMessages" text="Messages" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleGotoSettings" text="Paramètres" />
                      </items></Menu>
               </menus>
             </MenuBar>
             <MenuBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="600.0">
               <menus>
-                <Menu mnemonicParsing="false" text="Notifications (1)" />
+                <Menu mnemonicParsing="false" text="Notifications (1)">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleGotoInvitationsRecieved" text="Invitations reçues" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleGotoInvitationsSent" text="Invitations envoyées (1)" />
+                     </items></Menu>
               </menus>
             </MenuBar>
          </children>
@@ -56,7 +60,7 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <GridPane layoutX="70.0" layoutY="129.0" prefHeight="507.0" prefWidth="412.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <GridPane layoutX="70.0" layoutY="129.0" prefHeight="526.0" prefWidth="444.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 </columnConstraints>
@@ -76,7 +80,7 @@
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                              <children>
                                                 <ListView layoutX="120.0" layoutY="-53.0" prefHeight="127.0" prefWidth="410.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                <Button id="gotoGame" layoutX="155.0" layoutY="52.0" mnemonicParsing="false" onAction="#handleGotoGame" text="Test goto game" />
+                                                <Button layoutX="155.0" layoutY="52.0" mnemonicParsing="false" onAction="#handleGotoGame" text="Test goto game" />
                                              </children>
                                           </AnchorPane>
                                       </items>
@@ -132,7 +136,7 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <GridPane prefHeight="507.0" prefWidth="412.0">
+                              <GridPane prefHeight="527.0" prefWidth="444.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                  </columnConstraints>
@@ -150,7 +154,7 @@
                                           </AnchorPane>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                              <children>
-                                                <ListView layoutX="120.0" layoutY="-53.0" prefHeight="127.0" prefWidth="410.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <ListView layoutX="120.0" layoutY="-53.0" prefHeight="212.0" prefWidth="336.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
                                        </items>

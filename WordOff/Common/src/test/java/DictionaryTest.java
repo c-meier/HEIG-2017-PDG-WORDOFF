@@ -12,8 +12,8 @@ public class DictionaryTest {
 
     @BeforeClass
     public static void init() {
-        dicoFr = new Dictionary(Constants.FRENCH_DICTIONARY);
-        dicoEng = new Dictionary(Constants.ENGLISH_DICTIONARY);
+        dicoFr = new Dictionary(DictionaryTest.class.getResource(Constants.FRENCH_DICTIONARY).getPath());
+        dicoEng = new Dictionary(DictionaryTest.class.getResource(Constants.ENGLISH_DICTIONARY).getPath());
     }
 
     @Test

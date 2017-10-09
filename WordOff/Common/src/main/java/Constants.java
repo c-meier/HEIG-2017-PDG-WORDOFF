@@ -4,6 +4,8 @@
  */
 public class Constants {
     // source : https://github.com/ManiacDC/TypingAid/tree/master/Wordlists
-    public static final String ENGLISH_DICTIONARY = "../Common/src/main/resources/dictionary/english.txt";
-    public static final String FRENCH_DICTIONARY = "../Common/src/main/resources/dictionary/french.txt";
+    public static final String ENGLISH_DICTIONARY = "/dictionary/english_dico_scrabble.txt";
+    public static final String FRENCH_DICTIONARY = "/dictionary/french_dico_scrabble.txt";
+
+    public static final int SERVER_PORT = 34567;
 }

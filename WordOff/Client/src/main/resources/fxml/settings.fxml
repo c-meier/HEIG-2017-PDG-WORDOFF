@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<BorderPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.controller.SettingsController">
+   <center>
+      <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="mainFxmlClass">
+          <stylesheets>
+              <URL value="@/styles/Styles.css" />
+          </stylesheets>
+         <children>
+            <GridPane prefHeight="559.0" prefWidth="898.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <SplitPane dividerPositions="0.2" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <Label layoutX="386.0" layoutY="9.0" text="Paramètres d'utilisateur" />
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <GridPane layoutX="323.0" layoutY="28.0" prefHeight="145.0" prefWidth="896.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <TextArea prefHeight="200.0" prefWidth="200.0" text="Mon profil (Guest5888902)&#10;Modifier ton profil de joueur WordOff" />
+                                    <TextArea prefHeight="200.0" prefWidth="200.0" text="Code de récompense&#10;Partage et gagne des récompenses pour toi et tes amis" GridPane.rowIndex="1" />
+                                    <TextArea prefHeight="200.0" prefWidth="200.0" text="Gérer les joueurs&#10;Modifier tes amis et ta lste noire" GridPane.rowIndex="2" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+                  <SplitPane dividerPositions="0.2" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.rowIndex="1">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <Label layoutX="400.0" layoutY="9.0" text="Paramètres du jeu" />
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <GridPane layoutX="310.0" layoutY="27.0" prefHeight="144.0" prefWidth="896.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <TextArea prefHeight="200.0" prefWidth="200.0" text="Activer le son: jouer la musique et les effets sonores" />
+                                    <TextArea prefHeight="200.0" prefWidth="200.0" text="Activer les vibrations: ressentez le jeu" GridPane.rowIndex="1" />
+                                    <TextArea prefHeight="200.0" prefWidth="200.0" text="Recevoir des notifications: savoir quand c'est ton tour" GridPane.rowIndex="2" />
+                                    <TextArea prefHeight="200.0" prefWidth="200.0" text="Activer l'aide dans le jeu" GridPane.rowIndex="3" />
+                                    <TextArea prefHeight="200.0" prefWidth="200.0" text="Langue de l'application: définir à français" GridPane.rowIndex="4" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+                  <SplitPane dividerPositions="0.1717171717171717" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.rowIndex="2">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <Label layoutX="402.0" layoutY="6.0" text="Aide et assistance" />
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <GridPane layoutX="263.0" layoutY="14.0" prefHeight="144.0" prefWidth="896.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <TextArea prefHeight="200.0" prefWidth="200.0" text="Commentaires&#10;Aide-nous à améliorer le jeu" />
+                                    <TextArea prefHeight="200.0" prefWidth="200.0" text="WordOff sur Facebook&#10;Rencontre d'autres fans et reste à jour" GridPane.rowIndex="1" />
+                                    <TextArea prefHeight="200.0" prefWidth="200.0" text="Mentions légales&#10;Licence et informations sur la société" GridPane.rowIndex="2" />
+                                    <TextArea prefHeight="200.0" prefWidth="200.0" text="WordOff (2.1.16 #1)" GridPane.rowIndex="3" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </GridPane>
+         </children>
+      </AnchorPane>
+   </center>
+   <top>
+      <MenuBar prefHeight="26.0" prefWidth="833.0" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false">
+               <graphic>
+                  <Button mnemonicParsing="false" onAction="#handleGotoMenu" text="Retour" />
+               </graphic>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>

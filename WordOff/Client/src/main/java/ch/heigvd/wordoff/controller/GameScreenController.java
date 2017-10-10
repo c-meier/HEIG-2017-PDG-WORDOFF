@@ -22,15 +22,9 @@ public class GameScreenController implements Initializable {
 
     @FXML
     private void handleGotoMenu(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/mainMenu.fxml"));
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-            MainApp.getStage().setScene(scene);
-        } catch (IOException ex) {
-            Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String controller = "/fxml/mainMenu.fxml";
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(controller));
+        MainApp.changeScene(controller, loader);
     }
     
     @Override

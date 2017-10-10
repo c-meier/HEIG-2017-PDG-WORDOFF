@@ -51,15 +51,8 @@ public class MainMenuController implements Initializable {
     }
     
     private void changeScene(String sceneController) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneController));
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-            MainApp.getStage().setScene(scene);
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneController));
+        MainApp.changeScene(sceneController, loader);
     }
     
     @Override

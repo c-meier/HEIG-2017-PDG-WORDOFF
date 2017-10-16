@@ -15,7 +15,6 @@ public class MainApp extends Application {
 
     private static Stage stage;
 
-
     @Override
     public void start(Stage stage) throws Exception {
         MainApp.stage = stage;

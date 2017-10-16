@@ -39,7 +39,7 @@ public abstract class Rack {
      * @param tile tuile à ajouter
      */
     protected boolean addTile(Tile tile) {
-        if(tiles.size() < sizeRack){
+        if(tiles.size() < sizeRack && !tiles.contains(tile)){
             tiles.add(tile);
             return true;
         }
@@ -51,4 +51,7 @@ public abstract class Rack {
         return tiles;
     }
 
+    protected int getSizeRack(){
+        return sizeRack;
+    }
 }

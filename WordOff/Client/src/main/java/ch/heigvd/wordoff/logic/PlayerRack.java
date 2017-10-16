@@ -51,4 +51,13 @@ public class PlayerRack extends Rack{
     public ObservableList<Tile> getRack() {
         return super.getRack();
     }
+
+    /**
+     * Retourne la taille du rack
+     * @return
+     */
+    @Override
+    public int getSizeRack(){
+        return super.getSizeRack();
+    }
 }

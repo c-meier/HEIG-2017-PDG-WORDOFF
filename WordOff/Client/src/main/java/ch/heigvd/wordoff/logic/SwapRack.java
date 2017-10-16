@@ -68,10 +68,19 @@ public class SwapRack extends Rack {
              score *= 2;
         } else {
             for (Tile t : super.getRack()) {
-                score -= t.getValue();
+                score -= t.getScore();
             }
         }
 
         return score;
+    }
+
+    /**
+     * Retourne la taille du rack
+     * @return
+     */
+    @Override
+    public int getSizeRack(){
+        return super.getSizeRack();
     }
 }

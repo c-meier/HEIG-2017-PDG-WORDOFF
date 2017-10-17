@@ -124,4 +124,34 @@ public class Challenge {
     public int getSizeChallenge() {
         return sizeChallenge;
     }
+
+    public boolean addTile(Tile tile){
+        for(Slot s : slots){
+            if(s.isEmpty()){
+                return s.addTile(tile);
+            }
+        }
+        return false;
+    }
+
+    public boolean addTileToPos(Tile tile, int pos) {
+        if (slots.get(pos).isEmpty()) {
+            slots.get(pos).addTile(tile);
+            return true;
+        }
+        return false;
+    }
+
+    public Tile getTileToPos(int pos) {
+        if (!slots.get(pos).isEmpty()) {
+            return slots.get(pos).removeTile();
+        }
+        return null;
+    }
+
+    public void moveTo(int fromPos, int toPos) {
+        if (!slots.get(fromPos).isEmpty() && slots.get(toPos).isEmpty()) {
+            slots.get(toPos).addTile(slots.get(fromPos).removeTile());
+        }
+    }
 }

@@ -7,13 +7,13 @@ import java.util.ArrayList;
 
 public class PlayerRack extends Rack {
 
-    private static final int sizeRack = 7;
+    private static final int maxSizeRack = 7;
 
     /**
      * Constructeur
      */
     public PlayerRack() {
-        super(sizeRack);
+        super(maxSizeRack);
     }
 
     /**
@@ -63,7 +63,7 @@ public class PlayerRack extends Rack {
      * @return
      */
     @Override
-    public int getSizeRack() {
-        return super.getSizeRack();
+    public int getMaxSizeRack() {
+        return super.getMaxSizeRack();
     }
 }

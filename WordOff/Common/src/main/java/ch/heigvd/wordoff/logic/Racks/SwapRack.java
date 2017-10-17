@@ -6,13 +6,13 @@ import java.util.ArrayList;
 
 public class SwapRack extends Rack {
 
-    private static final int sizeRack = 2;
+    private static final int maxSizeRack = 2;
 
     /**
      * Constructeur
      */
     public SwapRack() {
-        super(sizeRack);
+        super(maxSizeRack);
     }
 
     /**
@@ -82,7 +82,7 @@ public class SwapRack extends Rack {
      * @return
      */
     @Override
-    public int getSizeRack() {
-        return super.getSizeRack();
+    public int getMaxSizeRack() {
+        return super.getMaxSizeRack();
     }
 }

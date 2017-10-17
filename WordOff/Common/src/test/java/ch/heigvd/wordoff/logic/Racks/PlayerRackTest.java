@@ -58,9 +58,9 @@ public class PlayerRackTest {
     @Test
     public void testGetSizeRack() {
         PlayerRack pRack = new PlayerRack();
-        assertEquals(7, pRack.getSizeRack());
+        assertEquals(7, pRack.getMaxSizeRack());
         pRack.addTile(listeTile.get(0));
-        assertEquals(7, pRack.getSizeRack());
+        assertEquals(7, pRack.getMaxSizeRack());
     }
 
     @Test

@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 public abstract class Rack {
     private ArrayList<Tile> tiles;
-    private int sizeRack;
+    private int maxSizeRack;
 
-    public Rack(int sizeRack) {
-        this.sizeRack = sizeRack;
+    public Rack(int maxSizeRack) {
+        this.maxSizeRack = maxSizeRack;
         tiles = new ArrayList<>();
     }
 
@@ -40,7 +40,7 @@ public abstract class Rack {
      * @param tile tuile à ajouter
      */
     protected boolean addTile(Tile tile) {
-        if (tiles.size() < sizeRack && !tiles.contains(tile)) {
+        if (tiles.size() < maxSizeRack && !tiles.contains(tile)) {
             tiles.add(tile);
             return true;
         }
@@ -52,7 +52,7 @@ public abstract class Rack {
         return tiles;
     }
 
-    protected int getSizeRack() {
-        return sizeRack;
+    protected int getMaxSizeRack() {
+        return maxSizeRack;
     }
 }

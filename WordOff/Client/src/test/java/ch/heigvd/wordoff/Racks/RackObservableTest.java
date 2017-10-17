@@ -45,7 +45,7 @@ public class RackObservableTest {
     @Test
     public void testGetSizeMax() {
         RackObservable rackO = new RackObservable(7);
-        assertEquals(7, rackO.getMaxSize());
+        assertEquals(7, rackO.getMaxSizeRack());
     }
 
     @Test

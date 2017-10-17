@@ -47,9 +47,9 @@ public class SwapRackTest {
     @Test
     public void testGetSizeRack() {
         SwapRack spRack = new SwapRack();
-        assertEquals(2, spRack.getSizeRack());
+        assertEquals(2, spRack.getMaxSizeRack());
         spRack.addTile(tile);
-        assertEquals(2, spRack.getSizeRack());
+        assertEquals(2, spRack.getMaxSizeRack());
     }
 
     @Test

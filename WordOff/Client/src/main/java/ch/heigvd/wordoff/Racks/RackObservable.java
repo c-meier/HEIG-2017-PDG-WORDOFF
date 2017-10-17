@@ -55,7 +55,7 @@ public class RackObservable extends Rack {
     }
 
 
-    public int getMaxSize(){
-        return super.getSizeRack();
+    public int getMaxSizeRack(){
+        return super.getMaxSizeRack();
     }
 }

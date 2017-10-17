@@ -1,16 +1,18 @@
-import ch.heigvd.wordoff.logic.*;
+package ch.heigvd.wordoff.logic;
 
+import ch.heigvd.wordoff.Constants;
+import ch.heigvd.wordoff.Dictionary;
+import ch.heigvd.wordoff.logic.Tile;
+import javafx.collections.ObservableList;
 import org.junit.*;
-import static org.junit.Assert.*;
-
 
 import java.util.ArrayList;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
+import static org.junit.Assert.*;
 
 public class ChallengeTest {
     static ArrayList initSlot;
-    static ObservableList slots;
+    static Challenge ch;
 
     @BeforeClass
     public static void init() {
@@ -22,19 +24,13 @@ public class ChallengeTest {
         initSlot.add(1);
         initSlot.add(4);
         initSlot.add(5);
-        slots = FXCollections.observableArrayList();
-        slots.add(new Slot());
-        slots.add(new L2());
-        slots.add(new Swap());
-        slots.add(new Slot());
-        slots.add(new Slot());
-        slots.add(new Swap());
-        slots.add(new SevenThTest());
+
+        ch = new Challenge(new Side(), initSlot, new Dictionary(Constants.ENGLISH_DICTIONARY));
     }
 
     @Test
     public void testGetSlots() {
-        Challenge ch = new Challenge(new Side(), initSlot);
+        Challenge ch = new Challenge(new Side(), initSlot, new Dictionary(Constants.ENGLISH_DICTIONARY));
         ObservableList<Slot> chSlots = ch.getSlots();
         assertEquals(Slot.class, chSlots.get(0).getClass());
         assertEquals(L2.class, chSlots.get(1).getClass());
@@ -47,7 +43,7 @@ public class ChallengeTest {
 
     @Test
     public void testGetScore(){
-        Challenge ch = new Challenge(new Side(), initSlot);
+        Challenge ch = new Challenge(new Side(), initSlot,new Dictionary(Constants.ENGLISH_DICTIONARY));
         ObservableList<Slot> chSlots = ch.getSlots();
 
         chSlots.get(0).addTile(new Tile(0,'h',4));
@@ -65,7 +61,7 @@ public class ChallengeTest {
 
     @Test
     public void testCheckWord(){
-        Challenge ch = new Challenge(new Side(), initSlot);
+        Challenge ch = new Challenge(new Side(), initSlot, new Dictionary(Constants.ENGLISH_DICTIONARY));
         ObservableList<Slot> chSlots = ch.getSlots();
         chSlots.get(0).addTile(new Tile(0,'h',4));
         chSlots.get(1).addTile(new Tile(1,'e',1)); // Case x2
@@ -76,5 +72,15 @@ public class ChallengeTest {
         assertTrue(ch.checkWord());
         chSlots.get(5).addTile(new Tile(5,'w',10));
         assertFalse(ch.checkWord());
+    }
+
+    @Test
+    public void testGetSizeChallenge(){
+        Challenge ch = new Challenge(new Side(), initSlot, new Dictionary(Constants.ENGLISH_DICTIONARY));
+        assertEquals(7, ch.getSizeChallenge());
+    }
+    @Test
+    public void testPlayTurn(){
+
     }
 }

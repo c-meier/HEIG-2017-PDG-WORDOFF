@@ -1,4 +1,5 @@
-import ch.heigvd.wordoff.logic.Tile;
+package ch.heigvd.wordoff.logic;
+
 import org.junit.*;
 import static org.junit.Assert.*;
 

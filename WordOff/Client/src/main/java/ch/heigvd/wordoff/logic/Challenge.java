@@ -1,13 +1,18 @@
 package ch.heigvd.wordoff.logic;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
+
+import ch.heigvd.wordoff.Dictionary;
 
 public class Challenge {
     private Side side;
     private ObservableList<Slot> slots = FXCollections.observableArrayList();
     private ArrayList<Slot> swapSlots;
     private final int sizeChallenge = 7;
+    Dictionary dictionary;
     // Identifiant des cases
     private final int basicSlot = 1;
     private final int l2Slot = 2;
@@ -16,12 +21,13 @@ public class Challenge {
     private final int sevenThSlot = 5;
 
 
-    public Challenge(Side side, ArrayList<Integer> slots) {
+    public Challenge(Side side, ArrayList<Integer> slots, Dictionary dictionary) {
         this.side = side;
         initChallenge(slots);
+        this.dictionary = dictionary;
     }
 
-    private void initChallenge(ArrayList<Integer> slots) {
+    public void initChallenge(ArrayList<Integer> slots) {
         for (int i = 0; i < sizeChallenge; i++)
             switch (slots.get(i)) {
                 case basicSlot:
@@ -50,13 +56,14 @@ public class Challenge {
      * Vérifie si le mot existe auprès du dictionnaire
      */
     public boolean checkWord() {
-       String word = null;
-        for(Slot s : slots){
-            char c = s.getTile().getValue();
-            word += c;
-       }
-       // Check via dico
-       return true;
+        String word = "";
+        for (Slot s : slots) {
+            if (null != s.getTile()) {
+                char c = s.getTile().getValue();
+                word += c;
+            }
+        }
+        return dictionary.contains(word);
     }
 
     /**

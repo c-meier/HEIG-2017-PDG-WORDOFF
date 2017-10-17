@@ -1,10 +1,9 @@
-import ch.heigvd.wordoff.logic.Challenge;
-import ch.heigvd.wordoff.logic.L3;
-import ch.heigvd.wordoff.logic.Tile;
+package ch.heigvd.wordoff.logic;
+
 import org.junit.*;
 import static org.junit.Assert.*;
 
-public class L3Test {
+public class L2Test {
     static Tile tile;
 
     @BeforeClass
@@ -14,12 +13,14 @@ public class L3Test {
 
     @Test
     public void testGetScore(){
-        L3 l3 = new L3();
+        L2 l2 = new L2();
         // Cas vide score = 0
-        assertEquals(0,l3.getScore());
+        assertEquals(0,l2.getScore());
 
         // Cas non vide score = score de la tuile *2
-        l3.addTile(tile);
-        assertEquals(tile.getScore()*3, l3.getScore());
+        l2.addTile(tile);
+        Assert.assertEquals(tile.getScore()*2, l2.getScore());
+
     }
+
 }

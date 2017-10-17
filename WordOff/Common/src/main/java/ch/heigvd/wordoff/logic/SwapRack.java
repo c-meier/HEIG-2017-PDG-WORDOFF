@@ -10,7 +10,6 @@ public class SwapRack extends Rack {
      * Constructeur
      */
     public SwapRack() {
-        super();
         super.setSize(sizeRack);
     }
 

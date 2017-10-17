@@ -1,6 +1,5 @@
-import ch.heigvd.wordoff.logic.Challenge;
-import ch.heigvd.wordoff.logic.Slot;
-import ch.heigvd.wordoff.logic.Tile;
+package ch.heigvd.wordoff.logic;
+
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -46,7 +45,6 @@ public class SlotTest {
 
         // Slot de base, retourne score de la tuile
         slot.addTile(tile);
-        assertEquals(tile.getScore(),slot.getScore());
+        Assert.assertEquals(tile.getScore(),slot.getScore());
     }
 }
-

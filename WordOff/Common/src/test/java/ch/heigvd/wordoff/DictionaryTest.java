@@ -1,3 +1,7 @@
+package ch.heigvd.wordoff;
+
+import ch.heigvd.wordoff.Constants;
+import ch.heigvd.wordoff.Dictionary;
 import org.junit.*;
 
 import static org.junit.Assert.*;

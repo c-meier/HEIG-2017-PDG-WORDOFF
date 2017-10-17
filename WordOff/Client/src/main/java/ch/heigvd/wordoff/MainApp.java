@@ -15,7 +15,6 @@ public class MainApp extends Application {
 
     private static Stage stage;
 
-
     @Override
     public void start(Stage stage) throws Exception {
         MainApp.stage = stage;
@@ -24,7 +23,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
 
-        //Dictionary dico = new Dictionary(Constants.FRENCH_DICTIONARY);
+        //ch.heigvd.wordoff.Dictionary dico = new ch.heigvd.wordoff.Dictionary(ch.heigvd.wordoff.Constants.FRENCH_DICTIONARY);
         stage.setTitle("WordOff");
         stage.setScene(scene);
         stage.getIcons().add(new Image("/images/icon.png"));

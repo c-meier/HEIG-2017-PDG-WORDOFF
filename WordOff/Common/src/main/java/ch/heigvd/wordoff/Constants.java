@@ -1,3 +1,5 @@
+package ch.heigvd.wordoff;
+
 /**
  * Project : WordOff
  * Date : 27.09.17

@@ -1,3 +1,5 @@
+package ch.heigvd.wordoff;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,7 +11,7 @@ import java.util.List;
  */
 class TST {
     /**
-     * @brief Structure d'un noeud du TST
+     * @brief Structure d'un noeud du ch.heigvd.wordoff.TST
      */
     class Node {
         Node left;      // noeud de gauche

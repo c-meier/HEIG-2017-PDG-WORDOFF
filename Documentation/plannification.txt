@@ -19,11 +19,15 @@ Préparation de l'UI pour les fonctionnalités de base
 Serveur TCP (gestion des connexions aux clients)
 Base de données
 Début de rédaction des requêtes SQL
+Création de la game du coté serveur-client
+Création du protocole (basique)
 
 5 :
 Finition et implémentation du protocole
 Création de compte
 Login
+Création de la game du coté serveur-client
+Création du protocole (basique)
 
 6 :
 Lancement d'une partie contre un utilisateur connu

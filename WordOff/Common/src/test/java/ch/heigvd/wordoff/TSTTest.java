@@ -1,3 +1,6 @@
+package ch.heigvd.wordoff;
+
+import ch.heigvd.wordoff.TST;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

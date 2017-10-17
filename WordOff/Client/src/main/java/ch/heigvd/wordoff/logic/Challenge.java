@@ -10,7 +10,6 @@ import ch.heigvd.wordoff.Dictionary;
 public class Challenge {
     private Side side;
     private ObservableList<Slot> slots = FXCollections.observableArrayList();
-    private ArrayList<Slot> swapSlots;
     private final int sizeChallenge = 7;
     Dictionary dictionary;
     // Identifiant des cases

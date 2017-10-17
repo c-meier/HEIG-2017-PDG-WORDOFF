@@ -12,7 +12,6 @@ import static org.junit.Assert.*;
 
 public class ChallengeTest {
     static ArrayList initSlot;
-    static Challenge ch;
 
     @BeforeClass
     public static void init() {
@@ -25,7 +24,6 @@ public class ChallengeTest {
         initSlot.add(4);
         initSlot.add(5);
 
-        ch = new Challenge(new Side(), initSlot, new Dictionary(Constants.ENGLISH_DICTIONARY));
     }
 
     @Test
@@ -81,6 +79,16 @@ public class ChallengeTest {
     }
     @Test
     public void testPlayTurn(){
+        Challenge ch = new Challenge(new Side(), initSlot, new Dictionary(Constants.ENGLISH_DICTIONARY));
+        ObservableList<Slot> chSlots = ch.getSlots();
+        chSlots.get(0).addTile(new Tile(0,'h',4));
+        chSlots.get(1).addTile(new Tile(1,'e',1)); // Case x2
+        chSlots.get(2).addTile(new Tile(2,'l',1));
+        chSlots.get(3).addTile(new Tile(3,'l',1));
+        chSlots.get(4).addTile(new Tile(4,'o',1));
 
+        assertTrue(ch.playTurn());
+        chSlots.get(5).addTile(new Tile(5,'w',10));
+        assertFalse(ch.playTurn());
     }
 }

@@ -1,17 +1,18 @@
 package ch.heigvd.wordoff.logic.Racks;
 
 import ch.heigvd.wordoff.logic.Tile;
-import javafx.collections.ObservableList;
+
+import java.util.ArrayList;
 
 public class SwapRack extends Rack {
 
-    private final int sizeRack = 2;
+    private static final int sizeRack = 2;
 
     /**
      * Constructeur
      */
     public SwapRack() {
-        super.setSize(sizeRack);
+        super(sizeRack);
     }
 
     /**
@@ -51,7 +52,7 @@ public class SwapRack extends Rack {
      * @return
      */
     @Override
-    public ObservableList<Tile> getRack() {
+    public ArrayList<Tile> getRack() {
         return super.getRack();
     }
 

@@ -1,18 +1,16 @@
 package ch.heigvd.wordoff.logic.Racks;
 
 import ch.heigvd.wordoff.logic.Tile;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
+import java.util.ArrayList;
 
 public abstract class Rack {
-    private ObservableList<Tile> tiles = FXCollections.observableArrayList();
+    private ArrayList<Tile> tiles;
     private int sizeRack;
 
-    public Rack() {
-    }
-
-    protected void setSize(int sizeRack) {
+    public Rack(int sizeRack) {
         this.sizeRack = sizeRack;
+        tiles = new ArrayList<>();
     }
 
     protected boolean isEmpty() {
@@ -50,7 +48,7 @@ public abstract class Rack {
     }
 
 
-    protected ObservableList<Tile> getRack() {
+    protected ArrayList<Tile> getRack() {
         return tiles;
     }
 

@@ -3,16 +3,17 @@ package ch.heigvd.wordoff.logic.Racks;
 import ch.heigvd.wordoff.logic.Tile;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+
 public class PlayerRack extends Rack {
 
-    private final int sizeRack = 7;
+    private static final int sizeRack = 7;
 
     /**
      * Constructeur
      */
     public PlayerRack() {
-        super();
-        super.setSize(sizeRack);
+        super(sizeRack);
     }
 
     /**
@@ -52,7 +53,7 @@ public class PlayerRack extends Rack {
      * @return
      */
     @Override
-    public ObservableList<Tile> getRack() {
+    public ArrayList<Tile> getRack() {
         return super.getRack();
     }
 

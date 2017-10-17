@@ -1,4 +1,3 @@
-package ch.heigvd.wordoff.logic;
 
 import ch.heigvd.wordoff.Constants;
 import ch.heigvd.wordoff.Dictionary;
@@ -6,6 +5,9 @@ import ch.heigvd.wordoff.logic.Cases.L2;
 import ch.heigvd.wordoff.logic.Cases.SevenTh;
 import ch.heigvd.wordoff.logic.Cases.Slot;
 import ch.heigvd.wordoff.logic.Cases.Swap;
+import ch.heigvd.wordoff.logic.Challenge;
+import ch.heigvd.wordoff.logic.Side;
+import ch.heigvd.wordoff.logic.Tile;
 import javafx.collections.ObservableList;
 import org.junit.*;
 

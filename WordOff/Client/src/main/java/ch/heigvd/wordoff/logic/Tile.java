@@ -19,7 +19,7 @@ public class Tile {
         return id;
     }
 
-    public int getScore(){
+    public int getScore() {
         return score;
     }
 }

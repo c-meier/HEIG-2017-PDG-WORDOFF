@@ -3,23 +3,37 @@ package ch.heigvd.wordoff.logic;
 public class Slot {
     private Tile tile;
 
-    public Slot(){
-
+    public Slot() {
+        this.tile = null;
     }
 
-    /**
-     * Slot de base aucun effet
-     * @return
-     */
-    public boolean apply(int score){
-        return true;
+    public boolean addTile(Tile tile) {
+        if (isEmpty()) {
+            this.tile = tile;
+            return true;
+        }
+        return false;
     }
 
-    public boolean addTile(){
-        return true;
+    public boolean isEmpty() {
+        if (null == tile) {
+            return true;
+        }
+        return false;
+    }
+
+    public Tile removeTile() {
+        Tile temp = tile;
+        tile = null;
+        return temp;
     }
 
     public Tile getTile(){
         return tile;
     }
+
+    public int getScore() {
+        return null == tile ? 0 : tile.getScore();
+    }
+
 }

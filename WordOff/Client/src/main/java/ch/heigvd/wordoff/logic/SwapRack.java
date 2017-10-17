@@ -65,7 +65,7 @@ public class SwapRack extends Rack {
         // Rack vide = x2 sur le score
         // Rack non vide = score - valeur de chaque tuile
         if (this.isEmpty()) {
-             score *= 2;
+            score *= 2;
         } else {
             for (Tile t : super.getRack()) {
                 score -= t.getScore();
@@ -77,10 +77,11 @@ public class SwapRack extends Rack {
 
     /**
      * Retourne la taille du rack
+     *
      * @return
      */
     @Override
-    public int getSizeRack(){
+    public int getSizeRack() {
         return super.getSizeRack();
     }
 }

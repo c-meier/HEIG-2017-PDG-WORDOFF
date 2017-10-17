@@ -1,6 +1,5 @@
 import ch.heigvd.wordoff.logic.PlayerRack;
 import ch.heigvd.wordoff.logic.Tile;
-import javafx.collections.ObservableList;
 import org.junit.*;
 
 import java.util.ArrayList;
@@ -8,14 +7,10 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 public class PlayerRackTest {
-    static PlayerRack spRackEmpty;
-    static PlayerRack spRack;
     static ArrayList<Tile> listeTile = new ArrayList();
 
     @BeforeClass
     public static void init(){
-        spRackEmpty = new PlayerRack();
-        spRack = new PlayerRack();
         listeTile.add(new Tile(0,'a',1));
         listeTile.add(new Tile(1,'b',1));
         listeTile.add(new Tile(2,'c',1));
@@ -28,58 +23,73 @@ public class PlayerRackTest {
 
     @Test
     public void testAddTile(){
+        PlayerRack pRack = new PlayerRack();
         // Vérifier si vide
-        assertTrue(spRack.isEmpty());
+        assertTrue(pRack.isEmpty());
 
         // Ajouter une tuile
-        assertTrue(spRack.addTile(listeTile.get(0)));
-        assertEquals(1,spRack.getRack().size());
-        assertEquals(listeTile.get(0), spRack.getRack().get(0));
+        assertTrue(pRack.addTile(listeTile.get(0)));
+        assertEquals(1,pRack.getRack().size());
+        assertEquals(listeTile.get(0), pRack.getRack().get(0));
 
         // Tentative d'ajouter la même Tuile
-        assertFalse(spRack.addTile(listeTile.get(0)));
+        assertFalse(pRack.addTile(listeTile.get(0)));
 
         // Ajout du 2ème et 7ème Tuile
        for(int i = 1; i < 7; i++){
-           assertTrue(spRack.addTile(listeTile.get(i)));
+           assertTrue(pRack.addTile(listeTile.get(i)));
        }
-       assertEquals(7,spRack.getRack().size());
+       assertEquals(7,pRack.getRack().size());
 
         // Ajout d'une 8ème tuile
-        assertFalse(spRack.addTile(listeTile.get(7)));
+        assertFalse(pRack.addTile(listeTile.get(7)));
     }
 
     @Test
     public void testIsEmpty(){
-        assertTrue(spRackEmpty.isEmpty());
-        assertFalse(spRack.isEmpty());
+        PlayerRack pRack = new PlayerRack();
+        assertTrue(pRack.isEmpty());
+        pRack.addTile(listeTile.get(0));
+        assertFalse(pRack.isEmpty());
     }
 
     @Test
     public void testGetSizeRack(){
-        assertEquals(7,spRackEmpty.getSizeRack());
-        assertEquals(7,spRack.getSizeRack());
+        PlayerRack pRack = new PlayerRack();
+        assertEquals(7,pRack.getSizeRack());
+        pRack.addTile(listeTile.get(0));
+        assertEquals(7,pRack.getSizeRack());
     }
 
     @Test
     public void testGetRack(){
+        PlayerRack pRack = new PlayerRack();
+
+        // Rack vide
+        assertEquals(0,pRack.getRack().size());
+
+        for(int i = 0; i < 7; i++){
+            pRack.addTile(listeTile.get(i));
+        }
+
+        // Rack non vide, vérification du contenu
         int i = 0;
-        for(Tile t : spRack.getRack()){
+        for(Tile t : pRack.getRack()){
             assertEquals(t,listeTile.get(i++));
         }
 
-        spRack.getTile(listeTile.get(2).getId());
-        listeTile.remove(2);
-
-        i = 0;
-        for(Tile t : spRack.getRack()){
-            assertEquals(t,listeTile.get(i++));
-        }
+        // Vérification limite du rack
+        assertFalse(pRack.addTile(listeTile.get(7)));
     }
 
     @Test
     public void testGetTile(){
-        Tile t = spRack.getTile(listeTile.get(0).getId());
-        assertEquals(listeTile.get(0),t);
+        PlayerRack pRack = new PlayerRack();
+        assertEquals(null,pRack.getTile(listeTile.get(0).getId()));
+
+        pRack.addTile(listeTile.get(3));
+
+        Tile t = pRack.getTile(listeTile.get(3).getId());
+        assertEquals(listeTile.get(3),t);
     }
 }

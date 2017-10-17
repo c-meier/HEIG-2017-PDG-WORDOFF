@@ -10,7 +10,7 @@ public abstract class Rack {
     public Rack() {
     }
 
-    protected void setSize(int sizeRack){
+    protected void setSize(int sizeRack) {
         this.sizeRack = sizeRack;
     }
 
@@ -20,12 +20,13 @@ public abstract class Rack {
 
     /**
      * Retirer une tuile du rack
+     *
      * @param idTile id de la tuile à retirer
      * @return
      */
     protected Tile getTile(int idTile) {
-        for(Tile t : tiles){
-            if(t.getId() == idTile){
+        for (Tile t : tiles) {
+            if (t.getId() == idTile) {
                 tiles.remove(t);
                 return t;
             }
@@ -36,10 +37,11 @@ public abstract class Rack {
 
     /**
      * Ajouter une tuile, confirmation.
+     *
      * @param tile tuile à ajouter
      */
     protected boolean addTile(Tile tile) {
-        if(tiles.size() < sizeRack && !tiles.contains(tile)){
+        if (tiles.size() < sizeRack && !tiles.contains(tile)) {
             tiles.add(tile);
             return true;
         }
@@ -51,7 +53,7 @@ public abstract class Rack {
         return tiles;
     }
 
-    protected int getSizeRack(){
+    protected int getSizeRack() {
         return sizeRack;
     }
 }

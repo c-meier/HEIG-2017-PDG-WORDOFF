@@ -1,5 +1,5 @@
-package ch.heigvd.wordoff.logic;
-
+package ch.heigvd.wordoff.logic.Cases;
+import ch.heigvd.wordoff.logic.Tile;
 public class Slot {
     private Tile tile;
 

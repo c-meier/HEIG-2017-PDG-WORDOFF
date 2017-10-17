@@ -1,5 +1,7 @@
 package ch.heigvd.wordoff.logic;
 
+import ch.heigvd.wordoff.logic.Racks.PlayerRack;
+import ch.heigvd.wordoff.logic.Racks.SwapRack;
 import javafx.beans.property.BooleanProperty;
 
 public class Side {

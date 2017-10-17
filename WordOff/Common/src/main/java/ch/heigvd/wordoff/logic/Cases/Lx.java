@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.logic;
+package ch.heigvd.wordoff.logic.Cases;
 
 public abstract class Lx extends Slot {
     private int bonus;

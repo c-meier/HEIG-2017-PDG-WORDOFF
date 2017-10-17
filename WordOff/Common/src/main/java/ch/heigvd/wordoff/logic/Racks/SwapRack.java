@@ -1,17 +1,16 @@
-package ch.heigvd.wordoff.logic;
+package ch.heigvd.wordoff.logic.Racks;
 
-import javafx.collections.FXCollections;
+import ch.heigvd.wordoff.logic.Tile;
 import javafx.collections.ObservableList;
 
-public class PlayerRack extends Rack {
+public class SwapRack extends Rack {
 
-    private final int sizeRack = 7;
+    private final int sizeRack = 2;
 
     /**
      * Constructeur
      */
-    public PlayerRack() {
-        super();
+    public SwapRack() {
         super.setSize(sizeRack);
     }
 
@@ -54,6 +53,26 @@ public class PlayerRack extends Rack {
     @Override
     public ObservableList<Tile> getRack() {
         return super.getRack();
+    }
+
+    /**
+     * Calcul le bonus/malus sur le score
+     *
+     * @param score score avant calcul
+     * @return le nouveau score
+     */
+    public int applyBonus(int score) {
+        // Rack vide = x2 sur le score
+        // Rack non vide = score - valeur de chaque tuile
+        if (this.isEmpty()) {
+            score *= 2;
+        } else {
+            for (Tile t : super.getRack()) {
+                score -= t.getScore();
+            }
+        }
+
+        return score;
     }
 
     /**

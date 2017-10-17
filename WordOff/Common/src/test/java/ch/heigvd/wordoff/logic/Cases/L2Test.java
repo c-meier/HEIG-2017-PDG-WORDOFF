@@ -1,5 +1,7 @@
-package ch.heigvd.wordoff.logic;
+package ch.heigvd.wordoff.logic.Cases;
 
+import ch.heigvd.wordoff.logic.Cases.L2;
+import ch.heigvd.wordoff.logic.Tile;
 import org.junit.*;
 import static org.junit.Assert.*;
 

@@ -1,5 +1,6 @@
 package ch.heigvd.wordoff.logic;
 
+import ch.heigvd.wordoff.logic.Cases.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

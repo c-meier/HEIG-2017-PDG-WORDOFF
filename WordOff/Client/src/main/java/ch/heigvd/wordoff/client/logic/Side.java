@@ -2,7 +2,10 @@ package ch.heigvd.wordoff.client.logic;
 
 import ch.heigvd.wordoff.common.Racks.PlayerRack;
 import ch.heigvd.wordoff.common.Racks.SwapRack;
+import ch.heigvd.wordoff.common.logic.Tile;
 import javafx.beans.property.BooleanProperty;
+
+import java.util.List;
 
 public class Side {
     private Player player;
@@ -11,4 +14,15 @@ public class Side {
     private PlayerRack playerRack;
     private Game game;
     private BooleanProperty playerTurn;
+
+    public void majRack(List<Tile> newTiles, List<Tile> swapTiles) {
+        for (int i = 0; i < newTiles.size(); i++) {
+            playerRack.addTile(newTiles.get(i));
+        }
+
+        for (int i = 0; i < swapTiles.size(); i++) {
+            swapRack.addTile(swapTiles.get(i));
+        }
+    }
+
 }

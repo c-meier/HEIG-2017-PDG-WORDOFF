@@ -84,9 +84,9 @@ public class Challenge {
     }
 
     /**
-     * Calcul le score du mot du challenge en fonctio des cases
+     * Calcul le score du mot du challenge en fonction des cases
      *
-     * @return score du mot saisie dans challenge
+     * @return score du mot saisi dans challenge
      */
     public int getScoreWord() {
         int score = 0;

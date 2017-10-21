@@ -1,18 +1,16 @@
 package ch.heigvd.wordoff.common.Racks;
 
+import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.logic.Tile;
 
 import java.util.ArrayList;
 
 public class SwapRack extends Rack {
-
-    private static final int maxSizeRack = 2;
-
     /**
      * Constructeur
      */
     public SwapRack() {
-        super(maxSizeRack);
+        super(Constants.SWAP_RACK_SIZE);
     }
 
     /**

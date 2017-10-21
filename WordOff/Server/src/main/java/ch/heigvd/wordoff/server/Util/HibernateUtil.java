@@ -1,4 +1,4 @@
-package heiggen.server.util;
+package ch.heigvd.wordoff.server.Util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;

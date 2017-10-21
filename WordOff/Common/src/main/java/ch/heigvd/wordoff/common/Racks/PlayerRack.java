@@ -1,18 +1,16 @@
 package ch.heigvd.wordoff.common.Racks;
 
+import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.logic.Tile;
 
 import java.util.ArrayList;
 
 public class PlayerRack extends Rack {
-
-    private static final int maxSizeRack = 7;
-
     /**
      * Constructeur
      */
     public PlayerRack() {
-        super(maxSizeRack);
+        super(Constants.PLAYER_RACK_SIZE);
     }
 
     /**

@@ -19,7 +19,7 @@
         <!--<property name="show_sql">true</property>-->
         <property name="hibernate.globally_quoted_identifiers">true</property>
 
-        <!--<mapping class="Challenge"/>-->
+        <!--<mapping class="ch.heigvd.wordoff.server.Challenge"/>-->
     </session-factory>
 
 </hibernate-configuration>

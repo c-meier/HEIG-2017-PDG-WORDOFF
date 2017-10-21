@@ -1,21 +1,21 @@
 package ch.heigvd.wordoff.server;
 
 import ch.heigvd.wordoff.common.Cases.SlotType;
-import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dictionary;
 import ch.heigvd.wordoff.common.Racks.PlayerRack;
 import ch.heigvd.wordoff.common.Racks.SwapRack;
 import ch.heigvd.wordoff.common.logic.Tile;
 import javafx.beans.property.BooleanProperty;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Project : WordOff
  * Date : 10.10.17
  */
 public class Side {
+    private final Dictionary DICTIONARY;
+    private ArrayList<SlotType> slots;
     private Player player;
     private Challenge challenge;
     private SwapRack swapRack;
@@ -25,34 +25,35 @@ public class Side {
     private int score;
 
     public Side(Player player, ArrayList<SlotType> slots, Dictionary dico) {
+        this.DICTIONARY = dico;
         swapRack = new SwapRack();
         playerRack = new PlayerRack();
         this.player = player;
-        challenge = new Challenge(slots, dico);
         score = 0;
+        updateChallenge(slots);
     }
 
     /**
-     * @brief check if the word exist
      * @return true if the word is valid, else false
+     * @brief check if the word exist
      */
     public boolean checkWord() {
         return challenge.checkWord();
     }
 
     /**
-     * @brief Calculate the score fro this side
+     * @brief Calculate the score for this side
      */
-    public void calculateScore() {
-        score += challenge.getScoreWord();
+    public int getScoreWord() {
+        return swapRack.applyBonus(challenge.getScoreWord());
     }
 
     /**
-     * @brief Update the side rack with
-     * @param newTiles The list of tiles to add to the player rack
+     * @param newTiles  The list of tiles to add to the player rack
      * @param swapTiles The list of tiles to add to the swap rack if this side
+     * @brief Update the side rack with
      */
-    public void updateRack(List<Tile> newTiles, List<Tile> swapTiles) {
+    public void fillRacks(List<Tile> newTiles, List<Tile> swapTiles) {
         for (int i = 0; i < newTiles.size(); i++) {
             playerRack.addTile(newTiles.get(i));
         }
@@ -62,12 +63,72 @@ public class Side {
         }
     }
 
-    public void updateChallenge(ArrayList<SlotType> slots, Dictionary dico) {
-        /* TO DISCUSS : Do we clear only the slots after accepting the word or do we create a new challenge ? */
-        // challenge = new Challenge(slots, dico);
+    public void updateChallenge(ArrayList<SlotType> slots) {
+        this.slots = slots;
+        challenge = new Challenge(slots, DICTIONARY);
     }
 
     public int getScore() {
         return score;
+    }
+
+    /**
+     * Calcule les scores des mots possibles et renvoie les mots dans l'ordre croissant du score
+     * qu'ils marqueraient sur ce Side. Prend en compte le SwapRack. La clé du la Map est le score.
+     * @return TreeMap<score (Integer), mot (String)>
+     */
+    public TreeMap<Integer, String> getWordsByScore() {
+        TreeMap<Integer, String> map = new TreeMap<>();
+
+        // construit la String des lettre disponibles
+        String letters = "";
+        for (Tile tile : playerRack.getRack()) {
+            letters += tile.getValue();
+        }
+        for (Tile tile : swapRack.getRack()) {
+            letters += tile.getValue();
+        }
+
+        // récupère les mots possibles
+        List<String> anagrams = DICTIONARY.getAnagrams(letters);
+
+        for (String str : anagrams) {
+            // challenge et racks temporaires
+            Challenge tempChall = new Challenge(slots, DICTIONARY);
+            PlayerRack tempPlayer = new PlayerRack();
+            playerRack.getRack().forEach(tempPlayer::addTile);
+            SwapRack tempSwap = new SwapRack();
+            swapRack.getRack().forEach(tempSwap::addTile);
+
+            // pour chaque lettre
+            for (int i = 0; i < str.length(); i++) {
+                boolean tileFound = false;
+                // cherche la tile dans le tempSwap en premier
+                for (Tile tile : tempSwap.getRack()) {
+                    if (tile.getValue() == str.charAt(i)) {
+                        // retire la tile, et l'ajoute au challenge
+                        tempChall.addTile(tempSwap.getTile(tile.getId()));
+                        tileFound = true;
+                        break;
+                    }
+                }
+
+                if (!tileFound) {
+                    // cherche la position du la Tile correspondante dans le playerRack
+                    for (Tile tile : tempPlayer.getRack()) {
+                        if (tile.getValue() == str.charAt(i)) {
+                            // ajoute la tile au challenge
+                            tempChall.addTile(tempPlayer.getTile(tile.getId()));
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // ajoute le mot et son score à la map, en tenant compte de l'état du swapRack temporaire
+            map.put(tempSwap.applyBonus(tempChall.getScoreWord()), str);
+        }
+
+        return map;
     }
 }

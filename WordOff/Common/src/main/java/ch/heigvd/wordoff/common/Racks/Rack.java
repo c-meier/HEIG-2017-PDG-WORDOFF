@@ -47,7 +47,6 @@ public abstract class Rack {
         return false;
     }
 
-
     protected ArrayList<Tile> getRack() {
         return tiles;
     }

@@ -1,5 +1,7 @@
 package ch.heigvd.wordoff.common;
 
+import jdk.nashorn.internal.ir.annotations.Immutable;
+
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -11,6 +13,7 @@ import java.util.stream.Stream;
  * Project : WordOff
  * Date : 27.09.17
  */
+@Immutable
 public class Dictionary {
     private TST tst;
 

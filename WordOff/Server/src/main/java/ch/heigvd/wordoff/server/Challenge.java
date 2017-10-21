@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ch.heigvd.wordoff.common.Dictionary;
 import ch.heigvd.wordoff.common.Cases.SlotType;
@@ -13,15 +14,10 @@ import ch.heigvd.wordoff.common.Constants;
 
 public class Challenge {
     private ObservableList<Slot> slots = FXCollections.observableArrayList();
-    Dictionary dictionary;
+    private Dictionary dictionary;
 
     public Challenge(ArrayList<SlotType> slots, Dictionary dictionary) {
-        initChallenge(slots);
-        this.dictionary = dictionary;
-    }
-
-    public void initChallenge(ArrayList<SlotType> slots) {
-        for (int i = 0; i < Constants.CHALLENGE_SIZE; i++)
+        for (int i = 0; i < Constants.CHALLENGE_SIZE; i++) {
             switch (slots.get(i)) {
                 case L2SLOT:
                     this.slots.add(new L2());
@@ -39,6 +35,9 @@ public class Challenge {
                     this.slots.add(new Slot());
                     break;
             }
+        }
+
+        this.dictionary = dictionary;
     }
 
     public ObservableList<Slot> getSlots() {
@@ -83,9 +82,9 @@ public class Challenge {
         return Constants.CHALLENGE_SIZE;
     }
 
-    public boolean addTile(Tile tile){
-        for(Slot s : slots){
-            if(s.isEmpty()){
+    public boolean addTile(Tile tile) {
+        for (Slot s : slots) {
+            if (s.isEmpty()) {
                 return s.addTile(tile);
             }
         }

@@ -22,8 +22,6 @@ public class MainApp extends Application {
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
-
-        //Dictionary dico = new Dictionary(Constants.FRENCH_DICTIONARY);
         stage.setTitle("WordOff");
         stage.setScene(scene);
         stage.getIcons().add(new Image("/images/icon.png"));

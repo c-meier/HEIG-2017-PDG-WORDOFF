@@ -23,6 +23,8 @@ public class Side {
     private BooleanProperty playerTurn;
     private BooleanProperty walsActive;
     private int score;
+    // How many time the player has pass
+    private int nbPass;
 
     public Side(Player player, ArrayList<SlotType> slots, Dictionary dico) {
         this.DICTIONARY = dico;
@@ -31,6 +33,7 @@ public class Side {
         this.player = player;
         score = 0;
         updateChallenge(slots);
+        nbPass = 0;
     }
 
     /**

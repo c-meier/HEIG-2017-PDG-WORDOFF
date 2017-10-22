@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.server;
+package ch.heigvd.wordoff.Model;
 
 /**
  * Project : WordOff

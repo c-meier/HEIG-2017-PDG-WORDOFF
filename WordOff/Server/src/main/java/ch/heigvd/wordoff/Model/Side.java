@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.server;
+package ch.heigvd.wordoff.Model;
 
 import ch.heigvd.wordoff.common.Cases.SlotType;
 import ch.heigvd.wordoff.common.Dictionary;

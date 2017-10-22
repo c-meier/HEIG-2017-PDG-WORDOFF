@@ -1,8 +1,4 @@
-package ch.heigvd.wordoff.server;
-
-import ch.heigvd.wordoff.common.Constants;
-
-import java.util.TreeMap;
+package ch.heigvd.wordoff.Model;
 
 /**
  * Created by Daniel on 21.10.2017.

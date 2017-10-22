@@ -4,6 +4,7 @@ import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.logic.Tile;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerRack extends Rack {
     /**
@@ -50,7 +51,7 @@ public class PlayerRack extends Rack {
      * @return
      */
     @Override
-    public ArrayList<Tile> getRack() {
+    public List<Tile> getRack() {
         return super.getRack();
     }
 

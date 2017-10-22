@@ -2,10 +2,14 @@ package ch.heigvd.wordoff.common.Racks;
 
 import ch.heigvd.wordoff.common.logic.Tile;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import java.util.ArrayList;
+import java.util.List;
 
+@Embeddable
 public abstract class Rack {
-    private ArrayList<Tile> tiles;
+    private List<Tile> tiles;
     private int maxSizeRack;
 
     public Rack(int maxSizeRack) {
@@ -47,7 +51,7 @@ public abstract class Rack {
         return false;
     }
 
-    protected ArrayList<Tile> getRack() {
+    protected List<Tile> getRack() {
         return tiles;
     }
 

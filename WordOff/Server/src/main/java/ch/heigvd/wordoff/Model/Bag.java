@@ -1,19 +1,10 @@
-package ch.heigvd.wordoff.server;
-
-import ch.heigvd.wordoff.common.logic.Tile;
-
-import javax.persistence.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+package ch.heigvd.wordoff.Model;
 
 /**
  * Project : WordOff
  * Date : 10.10.17
  */
 
-@Entity
-@Table(name = "Bag")
 public class Bag {
     /** LIER A LA BASE DE DONNES
         A, 1, 15

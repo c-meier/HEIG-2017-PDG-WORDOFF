@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.server;
+package ch.heigvd.wordoff.Model;
 
 import ch.heigvd.wordoff.common.Cases.*;
 import ch.heigvd.wordoff.common.logic.Tile;
@@ -6,7 +6,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ch.heigvd.wordoff.common.Dictionary;
 import ch.heigvd.wordoff.common.Cases.SlotType;

@@ -1,10 +1,18 @@
 package ch.heigvd.wordoff.Model;
 
+import ch.heigvd.wordoff.common.logic.Tile;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import java.util.Collection;
+
 /**
  * Project : WordOff
  * Date : 10.10.17
  */
-
+@Embeddable
 public class Bag {
     /** LIER A LA BASE DE DONNES
         A, 1, 15
@@ -30,7 +38,14 @@ public class Bag {
         Z, 8, 1
      */
 
-    private int id_game;
-    private int id_tile;
+    @OneToMany(targetEntity = Tile.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Collection<Tile> tiles;
 
+    public Collection<Tile> getTiles() {
+        return tiles;
+    }
+
+    public void setTiles(Collection<Tile> tiles) {
+        this.tiles = tiles;
+    }
 }

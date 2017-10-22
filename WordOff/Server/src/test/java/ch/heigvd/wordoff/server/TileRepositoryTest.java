@@ -32,4 +32,11 @@ public class TileRepositoryTest {
         }
     }
 
+    @Test
+    public void testFindByName() throws Exception {
+        TileSet set = repository.findByName("Français");
+
+        assertThat(set).isNotNull();
+    }
+
 }

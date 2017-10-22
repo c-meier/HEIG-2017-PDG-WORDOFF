@@ -2,6 +2,7 @@ package ch.heigvd.wordoff.Model;
 
 import ch.heigvd.wordoff.common.Constants;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Random;
 import java.util.TreeMap;
@@ -10,11 +11,27 @@ import java.util.TreeMap;
  * Project : WordOff
  * Date : 10.10.17
  */
+@Entity
 public class Game {
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Transient
     private List<Side> sideList;
+
+    @Embedded
     private Bag bag;
+
     private boolean withAi;
+
     private String lang;
+
+    protected Game() {}
+
+    public Game(String lang) {
+        this.lang = lang;
+    }
 
     public Game(Player player1, Player player2, boolean withAi, String lang) {
         if (withAi) {
@@ -71,5 +88,21 @@ public class Game {
             /* TO DO Message d'erreur */
             return "You're not an AI";
         }
+    }
+
+    public Bag getBag() {
+        return bag;
+    }
+
+    public void setBag(Bag bag) {
+        this.bag = bag;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 }

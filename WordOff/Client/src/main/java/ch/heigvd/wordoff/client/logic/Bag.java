@@ -1,6 +1,6 @@
 package ch.heigvd.wordoff.client.logic;
 
-import ch.heigvd.wordoff.common.logic.Tile;
+import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 
 import java.util.ArrayList;
 

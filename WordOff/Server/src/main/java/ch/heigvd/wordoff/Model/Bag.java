@@ -1,11 +1,8 @@
 package ch.heigvd.wordoff.Model;
 
-import ch.heigvd.wordoff.common.logic.Tile;
+import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Collection;
 
 /**
@@ -38,7 +35,13 @@ public class Bag {
         Z, 8, 1
      */
 
+    protected Bag() {}
+    public Bag(Collection<Tile> tiles) {
+        setTiles(tiles);
+    }
+
     @OneToMany(targetEntity = Tile.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "bag")
     private Collection<Tile> tiles;
 
     public Collection<Tile> getTiles() {

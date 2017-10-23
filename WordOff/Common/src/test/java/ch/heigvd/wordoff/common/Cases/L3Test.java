@@ -1,7 +1,7 @@
 package ch.heigvd.wordoff.common.Cases;
 
-import ch.heigvd.wordoff.common.Cases.L3;
-import ch.heigvd.wordoff.common.logic.Tile;
+import ch.heigvd.wordoff.common.Model.Slots.L3;
+import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 import org.junit.*;
 import static org.junit.Assert.*;
 

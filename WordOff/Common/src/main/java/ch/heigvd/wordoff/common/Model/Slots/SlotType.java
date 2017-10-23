@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.common.Cases;
+package ch.heigvd.wordoff.common.Model.Slots;
 
 /**
  * Created by Daniel on 19.10.2017.

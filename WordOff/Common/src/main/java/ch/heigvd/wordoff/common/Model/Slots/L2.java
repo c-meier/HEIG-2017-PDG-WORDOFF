@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.common.Cases;
+package ch.heigvd.wordoff.common.Model.Slots;
 
 public class L2 extends Lx {
 

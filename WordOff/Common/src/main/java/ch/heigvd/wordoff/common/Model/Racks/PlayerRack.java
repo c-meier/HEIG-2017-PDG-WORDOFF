@@ -1,17 +1,25 @@
-package ch.heigvd.wordoff.common.Racks;
+package ch.heigvd.wordoff.common.Model.Racks;
 
 import ch.heigvd.wordoff.common.Constants;
-import ch.heigvd.wordoff.common.logic.Tile;
+import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 
-import java.util.ArrayList;
+import javax.persistence.*;
 import java.util.List;
 
+@Embeddable
+@AssociationOverride(
+        name="tiles",
+        joinTable=@JoinTable(
+                name="PlayerRack"
+        )
+)
 public class PlayerRack extends Rack {
+
     /**
      * Constructeur
      */
     public PlayerRack() {
-        super(Constants.PLAYER_RACK_SIZE);
+        super();
     }
 
     /**
@@ -62,6 +70,6 @@ public class PlayerRack extends Rack {
      */
     @Override
     public int getMaxSizeRack() {
-        return super.getMaxSizeRack();
+        return Constants.PLAYER_RACK_SIZE;
     }
 }

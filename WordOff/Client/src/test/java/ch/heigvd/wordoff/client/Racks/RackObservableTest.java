@@ -1,6 +1,6 @@
 package ch.heigvd.wordoff.client.Racks;
 
-import ch.heigvd.wordoff.common.logic.Tile;
+import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 import org.junit.*;
 
 import static org.junit.Assert.*;

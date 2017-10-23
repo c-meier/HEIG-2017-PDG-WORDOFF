@@ -1,11 +1,11 @@
 package ch.heigvd.wordoff.client.logic;
 import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dictionary;
-import ch.heigvd.wordoff.common.Cases.L2;
-import ch.heigvd.wordoff.common.Cases.SevenTh;
-import ch.heigvd.wordoff.common.Cases.Slot;
-import ch.heigvd.wordoff.common.Cases.Swap;
-import ch.heigvd.wordoff.common.logic.Tile;
+import ch.heigvd.wordoff.common.Model.Slots.L2;
+import ch.heigvd.wordoff.common.Model.Slots.SevenTh;
+import ch.heigvd.wordoff.common.Model.Slots.Slot;
+import ch.heigvd.wordoff.common.Model.Slots.Swap;
+import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 import javafx.collections.ObservableList;
 import java.util.ArrayList;
 

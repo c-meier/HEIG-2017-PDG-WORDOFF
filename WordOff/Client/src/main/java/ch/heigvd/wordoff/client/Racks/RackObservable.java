@@ -1,7 +1,7 @@
 package ch.heigvd.wordoff.client.Racks;
 
-import ch.heigvd.wordoff.common.Racks.Rack;
-import ch.heigvd.wordoff.common.logic.Tile;
+import ch.heigvd.wordoff.common.Model.Racks.Rack;
+import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.common.logic;
+package ch.heigvd.wordoff.common.Model.Tiles;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -54,8 +54,8 @@ public class TileSet {
         sb.append(name);
         sb.append("\n");
 
-        if (tiles != null) {
-            for (Tile tile : tiles) {
+        if (getTiles() != null) {
+            for (Tile tile : getTiles()) {
                 sb.append("\t");
                 try{
                     sb.append("id: ");

@@ -1,7 +1,8 @@
 package ch.heigvd.wordoff.client.logic;
 
 import ch.heigvd.wordoff.common.Cases.*;
-import ch.heigvd.wordoff.common.logic.Tile;
+import ch.heigvd.wordoff.common.Model.Slots.*;
+import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

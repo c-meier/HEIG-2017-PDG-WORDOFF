@@ -1,9 +1,31 @@
-package ch.heigvd.wordoff.common.Cases;
-import ch.heigvd.wordoff.common.logic.Tile;
+package ch.heigvd.wordoff.common.Model.Slots;
+import ch.heigvd.wordoff.common.Model.Side;
+import ch.heigvd.wordoff.common.Model.Tiles.Tile;
+
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Slot {
+    @Embeddable
+    class SlotId implements Serializable {
+        Long sideId;
+        Short pos;
+    }
+
+    @EmbeddedId
+    SlotId id;
+
+    @MapsId("sideId")
+    @OneToOne
+    Side side;
+
+    @OneToOne
     private Tile tile;
 
     public Slot() {
+        this.id = new SlotId();
         this.tile = null;
     }
 

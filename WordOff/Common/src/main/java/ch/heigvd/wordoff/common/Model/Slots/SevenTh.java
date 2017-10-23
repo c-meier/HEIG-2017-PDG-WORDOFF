@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.common.Cases;
+package ch.heigvd.wordoff.common.Model.Slots;
 
 public class SevenTh extends Slot {
     private final int bonus = 10;

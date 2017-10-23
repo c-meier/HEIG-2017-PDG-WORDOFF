@@ -1,19 +1,19 @@
-package ch.heigvd.wordoff.common.Racks;
+package ch.heigvd.wordoff.common.Model.Racks;
 
-import ch.heigvd.wordoff.common.logic.Tile;
+import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@MappedSuperclass
 @Embeddable
 public abstract class Rack {
-    private List<Tile> tiles;
-    private int maxSizeRack;
 
-    public Rack(int maxSizeRack) {
-        this.maxSizeRack = maxSizeRack;
+    @OneToMany(targetEntity = Tile.class, cascade = CascadeType.ALL)
+    private List<Tile> tiles;
+
+    public Rack() {
         tiles = new ArrayList<>();
     }
 
@@ -44,7 +44,8 @@ public abstract class Rack {
      * @param tile tuile à ajouter
      */
     protected boolean addTile(Tile tile) {
-        if (tiles.size() < maxSizeRack && !tiles.contains(tile)) {
+        List<Tile> tiles = getRack();
+        if (tiles.size() < getMaxSizeRack() && !tiles.contains(tile)) {
             tiles.add(tile);
             return true;
         }
@@ -55,7 +56,9 @@ public abstract class Rack {
         return tiles;
     }
 
-    protected int getMaxSizeRack() {
-        return maxSizeRack;
+    public void setTiles(List<Tile> tiles) {
+        this.tiles = tiles;
     }
+
+    protected abstract int getMaxSizeRack();
 }

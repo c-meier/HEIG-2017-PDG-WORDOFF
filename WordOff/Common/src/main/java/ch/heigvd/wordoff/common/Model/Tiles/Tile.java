@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.common.logic;
+package ch.heigvd.wordoff.common.Model.Tiles;
 
 import javax.persistence.*;
 

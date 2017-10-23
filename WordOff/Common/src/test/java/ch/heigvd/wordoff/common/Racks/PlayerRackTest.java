@@ -1,7 +1,7 @@
 package ch.heigvd.wordoff.common.Racks;
 
-import ch.heigvd.wordoff.common.Racks.PlayerRack;
-import ch.heigvd.wordoff.common.logic.Tile;
+import ch.heigvd.wordoff.common.Model.Racks.PlayerRack;
+import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 import org.junit.*;
 
 import java.util.ArrayList;

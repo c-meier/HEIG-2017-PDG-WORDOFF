@@ -1,5 +1,7 @@
 package ch.heigvd.wordoff.common.Model.Tiles;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,7 +13,8 @@ public class Tile {
     @OneToOne(targetEntity = Letter.class, cascade = CascadeType.ALL)
     private Letter letter;
 
-    @OneToOne(targetEntity = TileSet.class)
+    @JsonIgnore
+    @ManyToOne(targetEntity = TileSet.class)
     private TileSet tileSet;
 
     protected Tile() {}
@@ -25,6 +28,7 @@ public class Tile {
         this.letter = new Letter(value, score);
     }
 
+    @JsonIgnore
     public char getValue() {
         return letter.getValue();
     }
@@ -33,6 +37,7 @@ public class Tile {
         return id;
     }
 
+    @JsonIgnore
     public int getScore() {
         return letter.getScore();
     }

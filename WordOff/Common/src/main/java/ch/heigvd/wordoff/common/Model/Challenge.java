@@ -7,6 +7,7 @@ import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 @Embeddable
@@ -17,26 +18,11 @@ public class Challenge {
 
 //    private Dictionary dictionary;
 //
+    protected Challenge() {
+        slots = new ArrayList<>();
+    }
     public Challenge(List<Slot> slots) {
-//        for (int i = 0; i < Constants.CHALLENGE_SIZE; i++) {
-//            switch (slots.get(i)) {
-//                case L2SLOT:
-//                    this.slots.add(new L2());
-//                    break;
-//                case L3SLOT:
-//                    this.slots.add(new L3());
-//                    break;
-//                case SWAP:
-//                    this.slots.add(new Swap());
-//                    break;
-//                case SEVENTH:
-//                    this.slots.add(new SevenTh());
-//                    break;
-//                default:
-//                    this.slots.add(new Slot());
-//                    break;
-//            }
-//        }
+        this.slots = slots;
     }
 //
 //    public ObservableList<Slot> getSlots() {

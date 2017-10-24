@@ -5,12 +5,14 @@ import ch.heigvd.wordoff.Model.Game;
 import ch.heigvd.wordoff.Repository.GameRepository;
 import ch.heigvd.wordoff.Repository.SideRepository;
 import ch.heigvd.wordoff.Repository.TileSetRepository;
+import ch.heigvd.wordoff.Util.ChallengeFactory;
 import ch.heigvd.wordoff.common.Model.Answer;
 import ch.heigvd.wordoff.common.Model.Challenge;
 import ch.heigvd.wordoff.common.Model.Player;
 import ch.heigvd.wordoff.common.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.common.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.common.Model.Side;
+import ch.heigvd.wordoff.common.Model.Slots.*;
 import ch.heigvd.wordoff.common.Model.Tiles.TileSet;
 import org.junit.*;
 import org.junit.runner.*;
@@ -21,6 +23,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -57,6 +60,9 @@ public class GameRepositoryTest {
 
     @Test
     public void testCanCreateAndSaveSide() throws Exception {
+        TileSet set = tilesRepository.findByName("Français");
+        Bag bag = new Bag(set.getTiles());
+
         Player player = new Player("testPlayer");
         Side side = new Side(player);
 
@@ -68,11 +74,25 @@ public class GameRepositoryTest {
 
         // Racks
         SwapRack swapRack = side.getSwapRack();
+        swapRack.addTile(bag.pop());
 
         PlayerRack playerRack = side.getPlayerRack();
+        playerRack.addTile(bag.pop());
+        playerRack.addTile(bag.pop());
 
         // Challenge
-        Challenge challenge = side.getChallenge();
+        Challenge challenge = new ChallengeFactory(side).addAll(Arrays.asList(
+                L2.class,
+                Slot.class,
+                Swap.class,
+                L3.class,
+                Slot.class,
+                Swap.class,
+                SevenTh.class
+        )).create();
+
+        challenge.addTile(bag.pop());
+        side.setChallenge(challenge);
 
         sideRepository.save(side);
 

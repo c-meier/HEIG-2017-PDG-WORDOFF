@@ -1,9 +1,13 @@
 package ch.heigvd.wordoff.common.Model;
 
+import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.common.Model.Racks.SwapRack;
+import ch.heigvd.wordoff.common.Model.Slots.Slot;
 
 import javax.persistence.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,13 +17,14 @@ import java.util.List;
  */
 @Entity
 public class Side {
+
     @Id
     @GeneratedValue
     private Long id;
 
 //    private final Dictionary DICTIONARY;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Player player;
 
     @Embedded
@@ -45,7 +50,6 @@ public class Side {
         this();
         this.player = player;
     }
-
 
 //    private BooleanProperty playerTurn;
 //    private BooleanProperty walsActive;
@@ -103,6 +107,9 @@ public class Side {
 //    }
 //
 
+    public Long getId() {
+        return id;
+    }
 
     public Player getPlayer() {
         return player;

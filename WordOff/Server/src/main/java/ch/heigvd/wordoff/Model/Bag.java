@@ -3,7 +3,8 @@ package ch.heigvd.wordoff.Model;
 import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Project : WordOff
@@ -36,19 +37,30 @@ public class Bag {
      */
 
     protected Bag() {}
-    public Bag(Collection<Tile> tiles) {
-        setTiles(tiles);
+    public Bag(List<Tile> tiles) {
+        setTiles(new LinkedList<>(tiles));
+        shuffle();
     }
 
     @OneToMany(targetEntity = Tile.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "bag")
-    private Collection<Tile> tiles;
+    private List<Tile> tiles;
 
-    public Collection<Tile> getTiles() {
+    private void shuffle() {
+        Collections.shuffle(getTiles());
+    }
+
+    public Tile pop() {
+        Tile tmp = getTiles().get(0);
+        getTiles().remove(0);
+        return tmp;
+    }
+
+    public List<Tile> getTiles() {
         return tiles;
     }
 
-    public void setTiles(Collection<Tile> tiles) {
+    public void setTiles(List<Tile> tiles) {
         this.tiles = tiles;
     }
 }

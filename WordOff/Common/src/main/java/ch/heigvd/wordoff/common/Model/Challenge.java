@@ -1,6 +1,8 @@
 package ch.heigvd.wordoff.common.Model;
 
-import ch.heigvd.wordoff.common.Model.Slots.Slot;
+import ch.heigvd.wordoff.common.Constants;
+import ch.heigvd.wordoff.common.Model.Slots.*;
+import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
@@ -15,7 +17,7 @@ public class Challenge {
 
 //    private Dictionary dictionary;
 //
-//    public Challenge(ArrayList<SlotType> slots, Dictionary dictionary) {
+    public Challenge(List<Slot> slots) {
 //        for (int i = 0; i < Constants.CHALLENGE_SIZE; i++) {
 //            switch (slots.get(i)) {
 //                case L2SLOT:
@@ -35,9 +37,7 @@ public class Challenge {
 //                    break;
 //            }
 //        }
-//
-//        this.dictionary = dictionary;
-//    }
+    }
 //
 //    public ObservableList<Slot> getSlots() {
 //        return slots;
@@ -54,13 +54,13 @@ public class Challenge {
 //        return dictionary.contains(word);
 //    }
 //
-//    public int getScoreWord() {
-//        int score = 0;
-//        for (Slot s : slots) {
-//            score += s.getScore();
-//        }
-//        return score;
-//    }
+    public int getScoreWord() {
+        int score = 0;
+        for (Slot s : getSlots()) {
+            score += s.getScore();
+        }
+        return score;
+    }
 //
 //    private void endTurn() {
 //        // Signal à side la fin du tour
@@ -81,14 +81,14 @@ public class Challenge {
 //        return Constants.CHALLENGE_SIZE;
 //    }
 //
-//    public boolean addTile(Tile tile) {
-//        for (Slot s : slots) {
-//            if (s.isEmpty()) {
-//                return s.addTile(tile);
-//            }
-//        }
-//        return false;
-//    }
+    public boolean addTile(Tile tile) {
+        for (Slot s : getSlots()) {
+            if (s.isEmpty()) {
+                return s.addTile(tile);
+            }
+        }
+        return false;
+    }
 //
 //    public boolean addTileToPos(Tile tile, int pos) {
 //        if (slots.get(pos).isEmpty()) {

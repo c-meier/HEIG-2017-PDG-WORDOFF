@@ -102,65 +102,7 @@ public class Side {
 //        return score;
 //    }
 //
-//    *
-//     * Calcule les scores des mots possibles et renvoie les mots dans l'ordre croissant du score
-//     * qu'ils marqueraient sur ce Side. Prend en compte le SwapRack. La clé du la Map est le score.
-//     * @return TreeMap<score (Integer), mot (String)>
-//
-//    public TreeMap<Integer, String> getWordsByScore() {
-//        TreeMap<Integer, String> map = new TreeMap<>();
-//
-//        // construit la String des lettre disponibles
-//        String letters = "";
-//        for (Tile tile : playerRack.getRack()) {
-//            letters += tile.getValue();
-//        }
-//        for (Tile tile : swapRack.getRack()) {
-//            letters += tile.getValue();
-//        }
-//
-//        // récupère les mots possibles
-//        List<String> anagrams = DICTIONARY.getAnagrams(letters);
-//
-//        for (String str : anagrams) {
-//            // challenge et racks temporaires
-//            Challenge tempChall = new Challenge(slots, DICTIONARY);
-//            PlayerRack tempPlayer = new PlayerRack();
-//            playerRack.getRack().forEach(tempPlayer::addTile);
-//            SwapRack tempSwap = new SwapRack();
-//            swapRack.getRack().forEach(tempSwap::addTile);
-//
-//            // pour chaque lettre
-//            for (int i = 0; i < str.length(); i++) {
-//                boolean tileFound = false;
-//                // cherche la tile dans le tempSwap en premier
-//                for (Tile tile : tempSwap.getRack()) {
-//                    if (tile.getValue() == str.charAt(i)) {
-//                        // retire la tile, et l'ajoute au challenge
-//                        tempChall.addTile(tempSwap.getTile(tile.getId()));
-//                        tileFound = true;
-//                        break;
-//                    }
-//                }
-//
-//                if (!tileFound) {
-//                    // cherche la position du la Tile correspondante dans le playerRack
-//                    for (Tile tile : tempPlayer.getRack()) {
-//                        if (tile.getValue() == str.charAt(i)) {
-//                            // ajoute la tile au challenge
-//                            tempChall.addTile(tempPlayer.getTile(tile.getId()));
-//                            break;
-//                        }
-//                    }
-//                }
-//            }
-//
-//            // ajoute le mot et son score à la map, en tenant compte de l'état du swapRack temporaire
-//            map.put(tempSwap.applyBonus(tempChall.getScoreWord()), str);
-//        }
-//
-//        return map;
-//    }
+
 
     public Player getPlayer() {
         return player;

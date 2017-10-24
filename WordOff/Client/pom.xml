@@ -16,7 +16,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mainClass>ch.heigvd.wordoff.MainApp</mainClass>
+        <mainClass>ch.heigvd.wordoff.client.MainApp</mainClass>
     </properties>
 
     <organization>

@@ -18,10 +18,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.layout.*;
 
 /**
- *
  * @author Gabriel Luthier
  */
 public class GameScreenController implements Initializable {
@@ -31,8 +31,8 @@ public class GameScreenController implements Initializable {
     private Label p1Name, p2Name;
     // emplacement image
 
-    private List<AnchorPane> p1SlotsCh, p1TilesPr, p1TilesSr;
-    private List<AnchorPane> p2SlotsCh, p2TilesPr, p2TilesSr;
+    private List<AnchorPane> p1SlotsCh, p1SlotsSr, p1SlotsPr, p1TilesPr, p1TilesSr;
+    private List<AnchorPane> p2SlotsCh, p2SlotsSr, p2SlotsPr, p2TilesPr, p2TilesSr;
     // Tiles
     // Contient 2 labels , 1er = score, 2eme = lettre
     @FXML
@@ -67,7 +67,7 @@ public class GameScreenController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(controller));
         MainApp.changeScene(controller, loader);
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -75,9 +75,10 @@ public class GameScreenController implements Initializable {
 
     /**
      * Recoit le side lié à la game
+     *
      * @param game
      */
-    public void setState(Game game){
+    public void setState(Game game) {
         Side sideP1 = game.getSideP1();
         Side sideP2 = game.getSideP2();
         p1Name.setText(sideP1.getPlayer().getName());
@@ -102,40 +103,58 @@ public class GameScreenController implements Initializable {
         p1TilesSr.add(p1TileSr1);
         p1TilesSr.add(p1TileSr2);
 
-        // refresh le background des slots
-        refreshSlots(sideP1);
-        refreshSlots(sideP2);
+        // refresh les slots du challenge (image de fond)
+        refreshSlots(sideP1, p1SlotsCh);
+        refreshSlots(sideP2, p2SlotsCh);
 
-        // refresh le contenu des tiles GUI
-        refreshTiles(sideP1);
-        refreshTiles(sideP2);
-
-        // place les tiles GUI
+        // refresh le contenus des Tiles GUI et on les attaches au slots
+        refreshTiles(sideP1.getPlayerRack().getRack(), p1SlotsPr, p1TilesPr);
+        refreshTiles(sideP1.getSwapRack().getRack(),p1SlotsSr, p1TilesSr);
+        refreshTiles(sideP2.getPlayerRack().getRack(),p2SlotsPr, p2TilesPr);
+        refreshTiles(sideP2.getSwapRack().getRack(), p2SlotsSr, p2TilesSr);
     }
 
     @FXML
-    private void refreshSlots(Side side){
+    private void refreshSlots(Side side, List<AnchorPane> slots) {
         // Placer les images du challenge selon les slots
         int i = 0;
-        for(ISlot slot : side.getChallenge().getSlots()){
-          p1SlotsCh.get(i++).setBackground(new Background(new BackgroundImage(slot.getImage(),
-                  BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,null)));
+        for (ISlot slot : side.getChallenge().getSlots()) {
+            slots.get(i++).setBackground(new Background(new BackgroundImage(slot.getImage(),
+                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, null)));
         }
     }
 
     @FXML
-    private void refreshTiles(Side side){
+    private void refreshTiles(List<Tile> rack, List<AnchorPane> slots, List<AnchorPane> tiles) {
         // Initialiser le contenu des objets Tiles de la GUI selon l'état des racks
         int i = 0;
-        for(Tile tile : side.getSwapRack().getRack()){
-        //     p1TilesSr.get(i).getChildren().get(0).setText(tile.getScore());
-        //    p1TilesSr.get(i++).getChildren().get(1).setText(tile.getValue());
-        }
-        i = 0;
-        for(Tile tile : side.getPlayerRack().getRack()) {
-            //    p1TilesPr.get(i).getChildren().get(0).setText(tile.getScore());
-            //   p1TilesPr.get(i++).getChildren().get(1).setText(tile.getValue());
+        for (Tile tile : rack) {
+            // Set les labels du composant tile 0 = score, 1 = value
+//            tiles.get(i).getChildren().get(0).setText(tile.getScore());
+//            tiles.get(i).getChildren().get(1).setText(tile.getValue());
+              addTileToSlot(slots.get(i), tiles.get(i));
         }
     }
 
+    // Ajoute la tile dans un slot
+    @FXML
+    private void addTileToSlot(AnchorPane slot, AnchorPane tile) {
+        slot.getChildren().add(tile);
+    }
+
+    // Récupère la tile d'un slot
+    @FXML
+    private Node getTile(AnchorPane slot) {
+        return slot.getChildren().get(0);
+    }
+
+    @FXML
+    private void moveTile(AnchorPane slotOrigin, AnchorPane slotDest){
+        if(slotDest.getChildren().isEmpty()) {
+            slotDest.getChildren().add(slotOrigin.getChildren().get(0));
+        }
+    }
+
+    
 }
+

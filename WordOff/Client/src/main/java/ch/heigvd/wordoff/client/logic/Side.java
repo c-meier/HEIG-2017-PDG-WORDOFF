@@ -15,6 +15,24 @@ public class Side {
     private Game game;
     private BooleanProperty playerTurn;
 
+
+
+    public Player getPlayer(){
+        return player;
+    }
+
+    public SwapRack getSwapRack() {
+        return swapRack;
+    }
+
+    public PlayerRack getPlayerRack() {
+        return playerRack;
+    }
+
+    public Challenge getChallenge() {
+        return challenge;
+    }
+
     public void majRack(List<Tile> newTiles, List<Tile> swapTiles) {
         for (int i = 0; i < newTiles.size(); i++) {
             playerRack.addTile(newTiles.get(i));

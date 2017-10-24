@@ -1,7 +1,6 @@
 package ch.heigvd.wordoff.client.logic;
 
-import ch.heigvd.wordoff.common.Cases.*;
-import ch.heigvd.wordoff.common.Model.Slots.*;
+import ch.heigvd.wordoff.client.Model.*;
 import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +11,7 @@ import ch.heigvd.wordoff.common.Dictionary;
 
 public class Challenge {
     private Side side;
-    private ObservableList<Slot> slots = FXCollections.observableArrayList();
+    private ObservableList<ISlot> slots = FXCollections.observableArrayList();
     private final int sizeChallenge = 7;
     Dictionary dictionary;
 
@@ -66,7 +65,7 @@ public class Challenge {
      * Retourne l'état du challenge
      * @return
      */
-    public ObservableList<Slot> getSlots() {
+    public ObservableList<ISlot> getSlots() {
         return slots;
     }
 
@@ -75,7 +74,7 @@ public class Challenge {
      */
     public boolean checkWord() {
         String word = "";
-        for (Slot s : slots) {
+        for (ISlot s : slots) {
             if (null != s.getTile()) {
                 char c = s.getTile().getValue();
                 word += c;
@@ -91,7 +90,7 @@ public class Challenge {
      */
     public int getScoreWord() {
         int score = 0;
-        for (Slot s : slots) {
+        for (ISlot s : slots) {
             score += s.getScore();
         }
         return score;
@@ -128,7 +127,7 @@ public class Challenge {
     }
 
     public boolean addTile(Tile tile){
-        for(Slot s : slots){
+        for(ISlot s : slots){
             if(s.isEmpty()){
                 return s.addTile(tile);
             }

@@ -38,7 +38,7 @@ public class Side {
         this.swapRack = new SwapRack();
         this.playerRack = new PlayerRack();
         this.answers = new ArrayList<>();
-        this.challenge = new Challenge();
+        //this.challenge = new Challenge();
     }
 
     public Side(Player player) {

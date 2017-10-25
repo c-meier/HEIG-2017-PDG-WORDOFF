@@ -6,6 +6,7 @@ import ch.heigvd.wordoff.common.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.common.Model.Side;
 import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -27,8 +28,8 @@ public class WordAnalyzer {
      * qu'ils marqueraient sur ce Side. Prend en compte le SwapRack. La clé du la Map est le score.
      * @return TreeMap<score (Integer), mot (String)>
      */
-    public TreeMap<Integer, String> getWordsByScore() {
-        TreeMap<Integer, String> map = new TreeMap<>();
+    public TreeMap<Integer, List<Tile>> getWordsByScore() {
+        TreeMap<Integer, List<Tile>> map = new TreeMap<>();
 
         // construit la String des lettre disponibles
         String letters = "";
@@ -43,6 +44,7 @@ public class WordAnalyzer {
         List<String> anagrams = DICTIONARY.getAnagrams(letters);
 
         for (String str : anagrams) {
+            List<Tile> tiles = new ArrayList<>();
             // challenge et racks temporaires
             Challenge tempChall = new Challenge(side.getChallenge().getSlots());
             PlayerRack tempPlayer = new PlayerRack();
@@ -58,6 +60,7 @@ public class WordAnalyzer {
                     if (tile.getValue() == str.charAt(i)) {
                         // retire la tile, et l'ajoute au challenge
                         tempChall.addTile(tempSwap.getTile(tile.getId()));
+                        tiles.add(tempSwap.getTile(tile.getId()));
                         tileFound = true;
                         break;
                     }
@@ -69,6 +72,7 @@ public class WordAnalyzer {
                         if (tile.getValue() == str.charAt(i)) {
                             // ajoute la tile au challenge
                             tempChall.addTile(tempPlayer.getTile(tile.getId()));
+                            tiles.add(tempPlayer.getTile(tile.getId()));
                             break;
                         }
                     }
@@ -76,7 +80,7 @@ public class WordAnalyzer {
             }
 
             // ajoute le mot et son score à la map, en tenant compte de l'état du swapRack temporaire
-            map.put(tempSwap.applyBonus(tempChall.getScoreWord()), str);
+            map.put(tempSwap.applyBonus(tempChall.getScoreWord()), tiles);
         }
 
         return map;

@@ -2,6 +2,7 @@ package ch.heigvd.wordoff.Controller;
 
 import ch.heigvd.wordoff.Model.Ai;
 import ch.heigvd.wordoff.Model.Game;
+import ch.heigvd.wordoff.Model.User;
 import ch.heigvd.wordoff.Repository.GameRepository;
 import ch.heigvd.wordoff.Util.DictionaryLoader;
 import ch.heigvd.wordoff.common.Constants;
@@ -92,7 +93,7 @@ public class GameController {
         Game game = gameRepository.findOne(gameId);
 
         if (game.getCurrPlayer() instanceof Ai) {
-            return makeAiPLay(dictionaryLoader, game, player);
+            return makeAiPLay(dictionaryLoader, game, (User) player);
         } else {
             /* TODO -> send message to player that it's not his turn */
 
@@ -101,7 +102,7 @@ public class GameController {
         }
     }
 
-    private Challenge makeAiPLay(DictionaryLoader dictionaryLoader, Game game, Player player) {
+    private Challenge makeAiPLay(DictionaryLoader dictionaryLoader, Game game, User player) {
         List<Tile> word = new ArrayList<>();
 
         WordAnalyzer wa = new WordAnalyzer(dictionaryLoader.getDico(game.getLang()), game.getSideResp());

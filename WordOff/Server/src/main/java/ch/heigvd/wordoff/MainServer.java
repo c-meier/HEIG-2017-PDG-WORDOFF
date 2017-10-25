@@ -14,7 +14,6 @@ import ch.heigvd.wordoff.common.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.common.Model.Side;
 import ch.heigvd.wordoff.common.Model.Slots.*;
 import ch.heigvd.wordoff.common.Model.Tiles.TileSet;
-import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -53,7 +52,7 @@ public class MainServer {
             TileSet set = tileSetRepository.findByName("Français");
             Bag bag = new Bag(set.getTiles());
 
-            Player player = new Player("testPlayer", 2);
+            Player player = new Player("testPlayer");
             Side side = new Side(player);
 
             // Answers

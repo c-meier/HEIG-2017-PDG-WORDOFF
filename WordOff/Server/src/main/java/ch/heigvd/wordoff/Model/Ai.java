@@ -11,7 +11,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
 public class Ai extends Player {
-
-    public Ai() {
-    }
+    /**
+     * Can not create AI, must recuperate from DB.
+     */
+    protected Ai () {}
 }

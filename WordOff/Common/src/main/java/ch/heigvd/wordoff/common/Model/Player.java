@@ -11,17 +11,14 @@ import javax.persistence.*;
 public class Player {
     @Id
     @GeneratedValue
-    Long id;
+    private Long id;
 
-    String name;
-
-    int level;
+    private String name;
 
     protected Player() {}
 
-    public Player(String name, int level) {
+    public Player(String name) {
         this.name = name;
-        this.level = level;
     }
 
     public String getName() {
@@ -32,11 +29,7 @@ public class Player {
         this.name = name;
     }
 
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
+    public Long getId() {
+        return id;
     }
 }

@@ -1,18 +1,14 @@
-package ch.heigvd.wordoff;
+package ch.heigvd.wordoff.Util;
 
 import ch.heigvd.wordoff.common.Dictionary;
+import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class DictionnaryLoader {
-    private static DictionnaryLoader dicoListInstance = new DictionnaryLoader();
-
-    public static DictionnaryLoader getInstance() {
-        return dicoListInstance;
-    }
-
+@Component
+public class DictionaryLoader {
     private Map<String, Dictionary> loadedDico = new TreeMap<>();
 
     public void loadDictionary(String lang) {

@@ -1,5 +1,6 @@
 package ch.heigvd.wordoff.Model;
 
+import ch.heigvd.wordoff.common.Model.Player;
 import ch.heigvd.wordoff.common.Model.Side;
 
 import javax.persistence.*;
@@ -26,74 +27,40 @@ public class Game {
 
     private Date startDate;
 
-    private boolean withAi;
-
     private String lang;
 
-    protected Game() {}
+    @ManyToOne
+    private Player currPlayer;
 
-    public Game(String lang) {
-        this.sideInit = new Side();
-        this.sideResp = new Side();
+    public Game(Player p1, Player p2, String lang) {
+        this.sideInit = new Side(p1);
+        this.sideResp = new Side(p2);
         this.lang = lang;
+        currPlayer = p1;
+        bag = new Bag();
     }
 
-//    public Game(Player player1, Player player2, boolean withAi, String lang) {
-//        if (withAi) {
-//            /* init la game avec une ai en tant que 2ème joueur */
-//        } else {
-//            /* init la game avec 2 player */
-//        }
-//    }
-//
-//    public void aiPlay() {
-//
-//    }
-//
-//    public String chooseWord(Player player) {
-//        // Donini is crying
-//        if (player instanceof Ai) {
-//            String word = "";
-//            TreeMap<Integer, String> wordsByScore = sideList.get(2).getWordsByScore();
-//
-//            int sizeWordsByScore = wordsByScore.size();
-//            Random random = new Random();
-//            int index;
-//            int lowerBound = sizeWordsByScore / 3;
-//            int middleUpperBound = (lowerBound * 2) + 1;
-//
-//            if (sizeWordsByScore != 0) {
-//                switch (((Ai) player).getLevel()) {
-//                    case Constants.EASY:
-//                        index = random.nextInt(lowerBound);
-//                        word = wordsByScore.values().toArray()[index].toString();
-//                        break;
-//                    case Constants.AVERAGE:
-//                        index = random.nextInt(middleUpperBound) + lowerBound;
-//                        word = wordsByScore.values().toArray()[index].toString();
-//                        break;
-//                    case Constants.HARD:
-//                        index = random.nextInt(sizeWordsByScore - 1) + middleUpperBound;
-//                        word = wordsByScore.values().toArray()[index].toString();
-//                        break;
-//                    case Constants.YOU_RE_SCREWED:
-//                        word = wordsByScore.lastEntry().getValue();
-//                        break;
-//                    default:
-//                        /* Message d'erreur */
-//                        break;
-//                }
-//            } else {
-//                /* TO DO MESSAGE A FAIRE */
-//                return "PASS";
-//            }
-//
-//            return word;
-//        } else {
-//            /* TO DO Message d'erreur */
-//            return "You're not an AI";
-//        }
-//    }
+    public Side getSideOfPlayer(Player player) {
+        if (sideInit.getPlayer().equals(player)) {
+            return sideInit;
+        } else if (sideResp.getPlayer().equals(player)) {
+            return sideResp;
+        } else {
+            /* TO DO -> EXCEPTION*/
+            return null;
+        }
+    }
+
+    public Player getOtherPlayer(Player player) {
+        if (player.equals(sideInit.getPlayer())) {
+            return sideResp.getPlayer();
+        } else if (player.equals(sideResp.getPlayer())) {
+            return sideInit.getPlayer();
+        } else {
+            /* TO DO -> EXCEPTION */
+            return null;
+        }
+    }
 
     public Bag getBag() {
         return bag;
@@ -110,4 +77,21 @@ public class Game {
     public void setLang(String lang) {
         this.lang = lang;
     }
+
+    public Side getSideInit() {
+        return sideInit;
+    }
+
+    public Side getSideResp() {
+        return sideResp;
+    }
+
+    public Player getCurrPlayer() {
+        return currPlayer;
+    }
+
+    public void setCurrPlayer(Player currPlayer) {
+        this.currPlayer = currPlayer;
+    }
+
 }

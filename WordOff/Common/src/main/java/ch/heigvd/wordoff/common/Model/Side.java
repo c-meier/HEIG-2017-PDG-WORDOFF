@@ -24,8 +24,6 @@ public class Side {
     @GeneratedValue
     private Long id;
 
-//    private final Dictionary DICTIONARY;
-
     @ManyToOne(cascade = CascadeType.ALL)
     private Player player;
 
@@ -41,6 +39,10 @@ public class Side {
     @OneToMany(mappedBy = "side", cascade = CascadeType.ALL)
     private List<Answer> answers;
 
+    private int score;
+
+    private short answerCounter;
+
     public Side() {
         this.swapRack = new SwapRack();
         this.playerRack = new PlayerRack();
@@ -50,6 +52,8 @@ public class Side {
             slots.add(new Slot());
         }
         this.challenge = new Challenge(slots);
+        score = 0;
+        answerCounter = 1;
     }
 
     public Side(Player player) {
@@ -112,6 +116,20 @@ public class Side {
 //        return score;
 //    }
 //
+    public void updateScore(int challengeScore) {
+        score += challengeScore;
+    }
+
+    public void addTilesToPlayerRack(List<Tile> newTiles) {
+        for (int i = 0; i < newTiles.size(); i++) {
+            playerRack.addTile(newTiles.get(i));
+        }
+    }
+
+    public void addAnswer(String word, int score) {
+        answers.add(new Answer(this, answerCounter, word, score));
+    }
+
     public void addTileToSwapRack(Tile t) {
         swapRack.addTile(t);
     }
@@ -158,5 +176,21 @@ public class Side {
 
     public void setAnswers(List<Answer> answers) {
         this.answers = answers;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public short getAnswerCounter() {
+        return answerCounter;
+    }
+
+    public void setAnswerCounter(short answerCounter) {
+        this.answerCounter = answerCounter;
     }
 }

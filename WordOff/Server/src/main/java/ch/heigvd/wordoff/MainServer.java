@@ -53,7 +53,7 @@ public class MainServer {
             TileSet set = tileSetRepository.findByName("Français");
             Bag bag = new Bag(set.getTiles());
 
-            Player player = new Player("testPlayer");
+            Player player = new Player("testPlayer", 2);
             Side side = new Side(player);
 
             // Answers

@@ -56,6 +56,14 @@ public class Bag {
         return tmp;
     }
 
+    public List<Tile> getXTile(int nbTiles) {
+        List<Tile> newTiles = new ArrayList<>();
+        for (int i = 0; i < nbTiles; i++) {
+            newTiles.add(pop());
+        }
+        return newTiles;
+    }
+
     public List<Tile> getTiles() {
         return tiles;
     }

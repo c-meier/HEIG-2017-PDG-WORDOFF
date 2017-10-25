@@ -1,9 +1,9 @@
-package ch.heigvd.wordoff.Controller;
+package ch.heigvd.wordoff.Rest.Endpoint;
 
-import ch.heigvd.wordoff.Controller.Exception.UserAlreadyExistException;
 import ch.heigvd.wordoff.Model.Credentials;
 import ch.heigvd.wordoff.Model.User;
 import ch.heigvd.wordoff.Repository.UserRepository;
+import ch.heigvd.wordoff.Rest.Exception.UserAlreadyExistException;
 import ch.heigvd.wordoff.Security.SecurityConst;
 import ch.heigvd.wordoff.common.Message.Login;
 import io.jsonwebtoken.Jwts;

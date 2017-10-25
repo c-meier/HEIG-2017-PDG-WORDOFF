@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.Controller;
+package ch.heigvd.wordoff.Rest.Endpoint;
 
 import ch.heigvd.wordoff.Model.Ai;
 import ch.heigvd.wordoff.Model.Game;
@@ -11,7 +11,6 @@ import ch.heigvd.wordoff.common.Model.Player;
 import ch.heigvd.wordoff.common.Model.Side;
 import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 import ch.heigvd.wordoff.common.WordAnalyzer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,14 +21,16 @@ import java.util.TreeMap;
 @RestController
 @RequestMapping(value = "/game/{gameId}", produces = "application/json")
 public class GameController {
-    @Autowired
     private GameRepository gameRepository;
-
-    @Autowired
     private DictionaryLoader dictionaryLoader;
 
+    public GameController(GameRepository gameRepository, DictionaryLoader dictionaryLoader) {
+        this.gameRepository = gameRepository;
+        this.dictionaryLoader = dictionaryLoader;
+    }
+
     /**
-     * @brief
+     *
      * @param player The player who send the request
      * @param gameId The gameId
      * @param challenge the challenge with the word choosed by the player

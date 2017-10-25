@@ -1,6 +1,6 @@
-package ch.heigvd.wordoff.Controller;
+package ch.heigvd.wordoff.Rest;
 
-import ch.heigvd.wordoff.Controller.Exception.UserAlreadyExistException;
+import ch.heigvd.wordoff.Rest.Exception.UserAlreadyExistException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

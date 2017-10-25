@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.Inteceptor;
+package ch.heigvd.wordoff.Rest.Inteceptor;
 
 import ch.heigvd.wordoff.Model.User;
 import ch.heigvd.wordoff.Repository.UserRepository;

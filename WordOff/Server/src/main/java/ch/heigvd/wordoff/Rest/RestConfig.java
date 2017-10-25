@@ -1,7 +1,7 @@
-package ch.heigvd.wordoff.SpringConfig;
+package ch.heigvd.wordoff.Rest;
 
-import ch.heigvd.wordoff.Inteceptor.AuthInterceptor;
 import ch.heigvd.wordoff.Repository.UserRepository;
+import ch.heigvd.wordoff.Rest.Inteceptor.AuthInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;

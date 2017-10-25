@@ -1,5 +1,6 @@
 package ch.heigvd.wordoff.server;
 
+import ch.heigvd.wordoff.Model.Ai;
 import ch.heigvd.wordoff.Model.Bag;
 import ch.heigvd.wordoff.Model.Game;
 import ch.heigvd.wordoff.Repository.GameRepository;
@@ -45,7 +46,7 @@ public class GameRepositoryTest {
 
     @Test
     public void testCanCreateAndSaveAGame() throws Exception {
-        Game game = new Game("Français");
+        Game game = new Game(new Ai(), "Français");
 
         // Bag
         TileSet frenchSet = tilesRepository.findByName(game.getLang());
@@ -62,8 +63,7 @@ public class GameRepositoryTest {
     public void testCanCreateAndSaveSide() throws Exception {
         TileSet set = tilesRepository.findByName("Français");
         Bag bag = new Bag(set.getTiles());
-
-        Player player = new Player("testPlayer");
+        Player player = new Player("testPlayer", 1);
         Side side = new Side(player);
 
         // Answers

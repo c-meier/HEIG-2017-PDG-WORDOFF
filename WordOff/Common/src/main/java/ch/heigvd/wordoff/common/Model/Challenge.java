@@ -16,8 +16,6 @@ public class Challenge {
     @OneToMany(mappedBy = "side", cascade = CascadeType.ALL)
     private List<Slot> slots;
 
-//    private Dictionary dictionary;
-//
     protected Challenge() {
         slots = new ArrayList<>();
     }
@@ -29,17 +27,18 @@ public class Challenge {
 //        return slots;
 //    }
 //
-//    public boolean checkWord() {
-//        String word = "";
-//        for (Slot s : slots) {
-//            if (s.getTile() != null) {
-//                char c = s.getTile().getValue();
-//                word += c;
-//            }
-//        }
-//        return dictionary.contains(word);
-//    }
-//
+
+    public String getWord() {
+        String word = "";
+        for (Slot s : slots) {
+            if (s.getTile() != null) {
+                char c = s.getTile().getValue();
+                word += c;
+            }
+        }
+        return word;
+    }
+
     public int getScoreWord() {
         int score = 0;
         for (Slot s : getSlots()) {
@@ -96,6 +95,16 @@ public class Challenge {
 //            slots.get(toPos).addTile(slots.get(fromPos).removeTile());
 //        }
 //    }
+
+    public List<Tile> getTilesToSwap() {
+        List<Tile> sTiles = new ArrayList<>();
+        for (Slot s : getSlots()) {
+            if (s.getClass() == Swap.class) {
+                sTiles.add(s.getTile());
+            }
+        }
+        return sTiles;
+    }
 
     public List<Slot> getSlots() {
         return slots;

@@ -4,11 +4,13 @@ import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.common.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.common.Model.Slots.Slot;
+import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 
 import javax.persistence.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -43,7 +45,11 @@ public class Side {
         this.swapRack = new SwapRack();
         this.playerRack = new PlayerRack();
         this.answers = new ArrayList<>();
-        //this.challenge = new Challenge();
+        List<Slot> slots = new ArrayList<>();
+        for (int i = 0; i < Constants.PLAYER_RACK_SIZE; i++) {
+            slots.add(new Slot());
+        }
+        this.challenge = new Challenge(slots);
     }
 
     public Side(Player player) {
@@ -106,6 +112,9 @@ public class Side {
 //        return score;
 //    }
 //
+    public void addTileToSwapRack(Tile t) {
+        swapRack.addTile(t);
+    }
 
     public Long getId() {
         return id;

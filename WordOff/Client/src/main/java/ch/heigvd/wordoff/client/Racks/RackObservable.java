@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.client.Racks;
+/*package ch.heigvd.wordoff.client.Racks;
 
 import ch.heigvd.wordoff.common.Model.Racks.Rack;
 import ch.heigvd.wordoff.common.Model.Tiles.Tile;
@@ -9,9 +9,10 @@ import java.util.ArrayList;
 
 public class RackObservable extends Rack {
     ObservableList<Tile> rack;
+    private int sizeRack;
 
     public RackObservable(int sizeRack){
-        super(sizeRack);
+        this.sizeRack = sizeRack;
         rack = FXCollections.observableArrayList();
     }
 
@@ -56,6 +57,6 @@ public class RackObservable extends Rack {
 
 
     public int getMaxSizeRack(){
-        return super.getMaxSizeRack();
+        return sizeRack;
     }
-}
+}*/

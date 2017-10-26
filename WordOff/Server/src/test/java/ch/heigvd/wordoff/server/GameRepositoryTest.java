@@ -2,18 +2,23 @@ package ch.heigvd.wordoff.server;
 
 import ch.heigvd.wordoff.Model.Bag;
 import ch.heigvd.wordoff.Model.Game;
+import ch.heigvd.wordoff.Model.User;
 import ch.heigvd.wordoff.Repository.GameRepository;
+import ch.heigvd.wordoff.Repository.PlayerRepository;
 import ch.heigvd.wordoff.Repository.SideRepository;
 import ch.heigvd.wordoff.Repository.TileSetRepository;
+import ch.heigvd.wordoff.Util.ChallengeFactory;
 import ch.heigvd.wordoff.common.Model.Answer;
 import ch.heigvd.wordoff.common.Model.Challenge;
 import ch.heigvd.wordoff.common.Model.Player;
 import ch.heigvd.wordoff.common.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.common.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.common.Model.Side;
+import ch.heigvd.wordoff.common.Model.Slots.*;
 import ch.heigvd.wordoff.common.Model.Tiles.TileSet;
-import org.junit.*;
-import org.junit.runner.*;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +26,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,9 +46,20 @@ public class GameRepositoryTest {
     @Autowired
     private TileSetRepository tilesRepository;
 
+    private Player one, two, ai;
+    @Autowired
+    private PlayerRepository playerRepository;
+
+    @Before
+    public void setUp() {
+        one = playerRepository.save(new User("one"));
+        two = playerRepository.save(new User("two"));
+        ai = playerRepository.findOne(1L);
+    }
+
     @Test
     public void testCanCreateAndSaveAGame() throws Exception {
-        Game game = new Game("Français");
+        Game game = new Game(one, two, "Français");
 
         // Bag
         TileSet frenchSet = tilesRepository.findByName(game.getLang());
@@ -57,6 +74,8 @@ public class GameRepositoryTest {
 
     @Test
     public void testCanCreateAndSaveSide() throws Exception {
+        TileSet set = tilesRepository.findByName("Français");
+        Bag bag = new Bag(set.getTiles());
         Player player = new Player("testPlayer");
         Side side = new Side(player);
 
@@ -68,11 +87,25 @@ public class GameRepositoryTest {
 
         // Racks
         SwapRack swapRack = side.getSwapRack();
+        swapRack.addTile(bag.pop());
 
         PlayerRack playerRack = side.getPlayerRack();
+        playerRack.addTile(bag.pop());
+        playerRack.addTile(bag.pop());
 
         // Challenge
-        Challenge challenge = side.getChallenge();
+        Challenge challenge = new ChallengeFactory(side).addAll(Arrays.asList(
+                L2.class,
+                Slot.class,
+                Swap.class,
+                L3.class,
+                Slot.class,
+                Swap.class,
+                SevenTh.class
+        )).create();
+
+        challenge.addTile(bag.pop());
+        side.setChallenge(challenge);
 
         sideRepository.save(side);
 

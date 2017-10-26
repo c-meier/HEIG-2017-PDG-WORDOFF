@@ -11,13 +11,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
 public class Ai extends Player {
-    private int level;
-
-    public Ai(int level) {
-        this.level = level;
-    }
-
-    public int getLevel() {
-        return level;
-    }
+    /**
+     * Can not create AI, must recuperate from DB.
+     */
+    protected Ai () {}
 }

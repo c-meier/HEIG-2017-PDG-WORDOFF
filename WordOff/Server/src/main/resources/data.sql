@@ -123,13 +123,7 @@ INSERT INTO tile (letter_id, tile_set_id) VALUES
 
 -- AI player has first id
 INSERT INTO player (id, name) VALUES
-  (1, 'AI_Easy'),
-  (2, 'AI_Normal'),
-  (3, 'AI_Hard'),
-  (4, 'AI_God');
+  (1, 'AI');
 
-INSERT INTO ai (id, level) VALUES
-  (1,1),
-  (2,2),
-  (3,3),
-  (4,4);
+INSERT INTO ai (id) VALUES
+  (1);

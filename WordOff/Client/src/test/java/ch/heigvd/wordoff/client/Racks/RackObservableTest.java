@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.client.Racks;
+/*package ch.heigvd.wordoff.client.Racks;
 
 import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 import org.junit.*;
@@ -88,4 +88,4 @@ public class RackObservableTest {
 
         assertArrayEquals(expected.toArray(), rackO.getRackObservable().toArray());
     }
-}
+}*/

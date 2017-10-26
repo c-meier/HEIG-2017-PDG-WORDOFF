@@ -1,6 +1,7 @@
 package ch.heigvd.wordoff.common.Model;
 
 import ch.heigvd.wordoff.common.Model.Slots.Slot;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,12 +10,14 @@ import java.util.Objects;
 @Entity
 public class Answer {
     @Embeddable
-    public class AnswerId implements Serializable {
+    public static class AnswerId implements Serializable {
         private Long sideId;
 
         private Short num;
 
-        public AnswerId(Short num) {
+        public AnswerId() {}
+        public AnswerId(Side side, Short num) {
+            this.sideId = side.getId();
             this.num = num;
         }
 
@@ -54,8 +57,9 @@ public class Answer {
     @EmbeddedId
     private AnswerId id;
 
+    @JsonIgnore
     @MapsId("sideId")
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Side side;
 
     private String word;
@@ -63,10 +67,11 @@ public class Answer {
     private int score;
 
     protected Answer() {
+        this.id = new AnswerId();
     }
 
     public Answer(Side side, Short num, String word, int score) {
-        this.id = new AnswerId(num);
+        this.id = new AnswerId(side, num);
         this.side = side;
         this.word = word;
         this.score = score;

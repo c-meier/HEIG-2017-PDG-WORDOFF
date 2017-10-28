@@ -79,6 +79,7 @@ public class GameScreenController implements Initializable {
      * @param game
      */
     public void setState(Game game) {
+        this.game = game;
         Side sideP1 = game.getSideP1();
         Side sideP2 = game.getSideP2();
         p1Name.setText(sideP1.getPlayer().getName());
@@ -145,16 +146,15 @@ public class GameScreenController implements Initializable {
     // Récupère la tile d'un slot
     @FXML
     private Node getTile(AnchorPane slot) {
-        return slot.getChildren().get(0);
+        return slot.getChildren().remove(0);
     }
 
     @FXML
     private void moveTile(AnchorPane slotOrigin, AnchorPane slotDest){
         if(slotDest.getChildren().isEmpty()) {
-            slotDest.getChildren().add(slotOrigin.getChildren().get(0));
+            slotDest.getChildren().add(slotOrigin.getChildren().remove(0));
         }
     }
 
-    
 }
 

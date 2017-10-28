@@ -131,6 +131,9 @@ public class GameScreenController implements Initializable {
         //  refreshTiles(sideP1.getSwapRack().getRack(), p1SlotsSr, p1TilesSr);
         refreshTiles(sideP2.getPlayerRack().getRack(), p2SlotsPr, p2TilesPr);
         //refreshTiles(sideP2.getSwapRack().getRack(), p2SlotsSr, p2TilesSr);
+
+        addTileToSlot(p1Ch1Fore,p1TilePr1);
+        addTileToSlot(p1Ch1Fore,p1TilePr2);
     }
 
     @FXML
@@ -158,21 +161,9 @@ public class GameScreenController implements Initializable {
     // Ajoute la tile dans un slot
     @FXML
     private void addTileToSlot(AnchorPane slot, AnchorPane tile) {
-        slot.getChildren().add(tile);
+        if(slot.getChildren().isEmpty())
+             slot.getChildren().add(tile);
     }
-
-    // Récupère la tile d'un slot
-    @FXML
-    private Node getTile(AnchorPane slot) {
-        return slot.getChildren().remove(0);
-    }
-
-    @FXML
-    private void moveTile(AnchorPane slotOrigin, AnchorPane slotDest) {
-        if (slotDest.getChildren().isEmpty()) {
-            slotDest.getChildren().add(slotOrigin.getChildren().remove(0));
-        }
-    }
-
+    
 }
 

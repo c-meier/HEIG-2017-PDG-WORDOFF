@@ -22,7 +22,7 @@ public class Side {
     public Side(){
         this.playerRack = new PlayerRack();
         this.swapRack = new SwapRack();
-        this.challenge = new Challenge(Arrays.asList(1,2,1,3,1,2,5));
+        this.challenge = new Challenge(Arrays.asList(1,2,1,3,4,2,5));
     }
 
     public Player getPlayer(){

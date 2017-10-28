@@ -2,6 +2,7 @@ package ch.heigvd.wordoff.common.Model;
 
 import ch.heigvd.wordoff.common.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.common.Model.Racks.SwapRack;
+import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,13 +14,12 @@ import java.util.List;
  */
 @Entity
 public class Side {
+
     @Id
     @GeneratedValue
     private Long id;
 
-//    private final Dictionary DICTIONARY;
-
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Player player;
 
     @Embedded
@@ -34,18 +34,22 @@ public class Side {
     @OneToMany(mappedBy = "side", cascade = CascadeType.ALL)
     private List<Answer> answers;
 
+    private int score;
+
+    private short answerCounter;
+
     public Side() {
         this.swapRack = new SwapRack();
         this.playerRack = new PlayerRack();
         this.answers = new ArrayList<>();
-        //this.challenge = new Challenge();
+        score = 0;
+        answerCounter = 1;
     }
 
     public Side(Player player) {
         this();
         this.player = player;
     }
-
 
 //    private BooleanProperty playerTurn;
 //    private BooleanProperty walsActive;
@@ -102,7 +106,27 @@ public class Side {
 //        return score;
 //    }
 //
+    public void updateScore(int challengeScore) {
+        score += challengeScore;
+    }
 
+    public void addTilesToPlayerRack(List<Tile> newTiles) {
+        for (Tile tile : newTiles) {
+            playerRack.addTile(tile);
+        }
+    }
+
+    public void addAnswer(String word, int score) {
+        answers.add(new Answer(this, answerCounter, word, score));
+    }
+
+    public void addTileToSwapRack(Tile t) {
+        swapRack.addTile(t);
+    }
+
+    public Long getId() {
+        return id;
+    }
 
     public Player getPlayer() {
         return player;
@@ -142,5 +166,21 @@ public class Side {
 
     public void setAnswers(List<Answer> answers) {
         this.answers = answers;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public short getAnswerCounter() {
+        return answerCounter;
+    }
+
+    public void setAnswerCounter(short answerCounter) {
+        this.answerCounter = answerCounter;
     }
 }

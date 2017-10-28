@@ -11,9 +11,9 @@ import javax.persistence.*;
 public class Player {
     @Id
     @GeneratedValue
-    Long id;
+    private Long id;
 
-    String name;
+    private String name;
 
     protected Player() {}
 
@@ -27,5 +27,9 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

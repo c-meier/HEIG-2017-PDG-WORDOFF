@@ -8,10 +8,11 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 
 public class RackObservable extends Rack {
-   ObservableList<Tile> rack;
+    ObservableList<Tile> rack;
+    private int sizeRack;
 
     public RackObservable(int sizeRack){
-        super(sizeRack);
+        this.sizeRack = sizeRack;
         rack = FXCollections.observableArrayList();
     }
 
@@ -56,6 +57,6 @@ public class RackObservable extends Rack {
 
 
     public int getMaxSizeRack(){
-        return super.getMaxSizeRack();
+        return sizeRack;
     }
 }*/

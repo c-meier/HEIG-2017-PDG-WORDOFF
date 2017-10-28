@@ -7,10 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @MappedSuperclass
-@Embeddable
 public abstract class Rack {
 
-    @OneToMany(targetEntity = Tile.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Tile.class)
     private List<Tile> tiles;
 
     public Rack() {

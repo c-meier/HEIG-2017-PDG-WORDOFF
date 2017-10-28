@@ -2,16 +2,15 @@ package ch.heigvd.wordoff.client.logic;
 
 import ch.heigvd.wordoff.client.Model.*;
 import ch.heigvd.wordoff.common.Model.Tiles.Tile;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ch.heigvd.wordoff.common.Dictionary;
 
 public class Challenge {
     private Side side;
-    private ObservableList<ISlot> slots = FXCollections.observableArrayList();
+    private List<ISlot> slots;
     private final int sizeChallenge = 7;
     Dictionary dictionary;
 
@@ -25,14 +24,15 @@ public class Challenge {
 
     /**
      * Constructeur
-     * @param side Side lié au challenge
      * @param slots Tableau contenant l'odre des slots
      * @param dictionary Dictionnaire associé
      */
-    public Challenge(Side side, ArrayList<Integer> slots, Dictionary dictionary) {
-        this.side = side;
+    public Challenge(List<Integer> slots, Dictionary dictionary) {
         initChallenge(slots);
         this.dictionary = dictionary;
+    }
+    public Challenge(List<Integer> slots) {
+        initChallenge(slots);
     }
 
     /**
@@ -40,7 +40,8 @@ public class Challenge {
      * 1 = basicSlot, 2 = Lx2, 3 = Lx3, 4 = swap slot et 5 7th slot.
      * @param slots ordre des cases
      */
-    public void initChallenge(ArrayList<Integer> slots) {
+    public void initChallenge(List<Integer> slots) {
+        this.slots = new ArrayList<>();
         for (int i = 0; i < sizeChallenge; i++)
             switch (slots.get(i)) {
                 case basicSlot:
@@ -65,7 +66,7 @@ public class Challenge {
      * Retourne l'état du challenge
      * @return
      */
-    public ObservableList<ISlot> getSlots() {
+    public List<ISlot> getSlots() {
         return slots;
     }
 

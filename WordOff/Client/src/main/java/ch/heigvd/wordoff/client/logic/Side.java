@@ -1,10 +1,13 @@
 package ch.heigvd.wordoff.client.logic;
 
+import ch.heigvd.wordoff.common.Constants;
+import ch.heigvd.wordoff.common.Dictionary;
 import ch.heigvd.wordoff.common.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.common.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 import javafx.beans.property.BooleanProperty;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Side {
@@ -16,6 +19,11 @@ public class Side {
     private BooleanProperty playerTurn;
 
 
+    public Side(){
+        this.playerRack = new PlayerRack();
+        this.swapRack = new SwapRack();
+        this.challenge = new Challenge(Arrays.asList(1,2,1,3,1,2,5));
+    }
 
     public Player getPlayer(){
         return player;

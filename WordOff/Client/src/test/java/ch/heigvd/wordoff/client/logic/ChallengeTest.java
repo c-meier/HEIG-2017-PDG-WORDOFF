@@ -13,7 +13,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class ChallengeTest {
-    static ArrayList initSlot;
+  /*  static ArrayList initSlot;
 
     @BeforeClass
     public static void init() {
@@ -92,5 +92,5 @@ public class ChallengeTest {
         assertTrue(ch.playTurn());
         chSlots.get(5).addTile(new Tile(5,'w',10));
         assertFalse(ch.playTurn());
-    }
+    }*/
 }

@@ -10,16 +10,19 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import ch.heigvd.wordoff.client.Model.ISlot;
+import ch.heigvd.wordoff.client.logic.Challenge;
 import ch.heigvd.wordoff.client.logic.Game;
 import ch.heigvd.wordoff.client.logic.Side;
-
 import ch.heigvd.wordoff.common.Model.Tiles.Tile;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
+
+import javax.swing.text.LabelView;
 
 /**
  * @author Gabriel Luthier
@@ -31,35 +34,34 @@ public class GameScreenController implements Initializable {
     private Label p1Name, p2Name;
     // emplacement image
 
-    private List<AnchorPane> p1SlotsCh, p1SlotsSr, p1SlotsPr, p1TilesPr, p1TilesSr;
-    private List<AnchorPane> p2SlotsCh, p2SlotsSr, p2SlotsPr, p2TilesPr, p2TilesSr;
-    // Tiles
-    // Contient 2 labels , 1er = score, 2eme = lettre
+    private List<AnchorPane> p1TilesPr = new ArrayList<>();
+    private List<AnchorPane> p1TilesSr = new ArrayList<>();
+    private List<AnchorPane> p1SlotsCh = new ArrayList<>();
+    private List<AnchorPane> p1SlotsSr = new ArrayList<>();
+    private List<AnchorPane> p1SlotsPr = new ArrayList<>();
+    private List<AnchorPane> p2SlotsCh = new ArrayList<>();
+    private List<AnchorPane> p2TilesPr = new ArrayList<>();
+    private List<AnchorPane> p2TilesSr = new ArrayList<>();
+    private List<AnchorPane> p2SlotsSr = new ArrayList<>();
+    private List<AnchorPane> p2SlotsPr = new ArrayList<>();
+
     @FXML
-    private AnchorPane p1TileSr1, p1TileSr2;
+    private AnchorPane p1Ch1Back, p1Ch2Back, p1Ch3Back, p1Ch4Back, p1Ch5Back, p1Ch6Back, p1Ch7Back;
     @FXML
-    private AnchorPane p2TileSr1, p2TileSr2;
+    private AnchorPane p1Ch1Fore, p1Ch2Fore, p1Ch3Fore, p1Ch4Fore, p1Ch5Fore, p1Ch6Fore, p1Ch7Fore;
+    //  @FXML
+//    private AnchorPane p1TileSr1, p1TileSr2;
     @FXML
     private AnchorPane p1TilePr1, p1TilePr2, p1TilePr3, p1TilePr4, p1TilePr5, p1TilePr6, p1TilePr7;
+
+    @FXML
+    AnchorPane p2Ch1Back, p2Ch2Back, p2Ch3Back, p2Ch4Back, p2Ch5Back, p2Ch6Back, p2Ch7Back;
+    @FXML
+    AnchorPane p2Ch1Fore, p2Ch2Fore, p2Ch3Fore, p2Ch4Fore, p2Ch5Fore, p2Ch6Fore, p2Ch7Fore;
+    //  @FXML
+//    private AnchorPane p2TileSr1, p2TileSr2;
     @FXML
     private AnchorPane p2TilePr1, p2TilePr2, p2TilePr3, p2TilePr4, p2TilePr5, p2TilePr6, p2TilePr7;
-
-    // Slots Sp = swap Rack, Ch = Challenge
-    // Un rack contient un AnchorPane où les Tiles vont pouvoir s'insérer
-    @FXML
-    private AnchorPane p1Sr1, p1Sr2;
-    @FXML
-    private AnchorPane p2Sr1, p2Sr2;
-    @FXML
-    private AnchorPane p1Ch1, p1Ch2, p1Ch3, p1Ch4, p1Ch5, p1Ch6, p1Ch7;
-    @FXML
-    private AnchorPane p2Ch1, p2Ch2, p2Ch3, p2Ch4, p2Ch5, p2Ch6, p2Ch7;
-
-    // Grid for rack p1 = ligne 3, p2 = ligne 1
-    @FXML
-    private GridLayout p1pr;
-    @FXML
-    private GridLayout p2pr;
 
     @FXML
     private void handleGotoMenu(ActionEvent event) {
@@ -70,7 +72,7 @@ public class GameScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        setState(new Game());
     }
 
     /**
@@ -82,16 +84,24 @@ public class GameScreenController implements Initializable {
         this.game = game;
         Side sideP1 = game.getSideP1();
         Side sideP2 = game.getSideP2();
-        p1Name.setText(sideP1.getPlayer().getName());
-        p2Name.setText(sideP2.getPlayer().getName());
 
-        p1SlotsCh.add(p1Ch1);
-        p1SlotsCh.add(p1Ch2);
-        p1SlotsCh.add(p1Ch3);
-        p1SlotsCh.add(p1Ch4);
-        p1SlotsCh.add(p1Ch5);
-        p1SlotsCh.add(p1Ch6);
-        p1SlotsCh.add(p1Ch7);
+   /*   p1Name.setText(sideP1.getPlayer().getName());
+        p2Name.setText(sideP2.getPlayer().getName());*/
+        p1SlotsCh.add(p1Ch1Back);
+        p1SlotsCh.add(p1Ch2Back);
+        p1SlotsCh.add(p1Ch3Back);
+        p1SlotsCh.add(p1Ch4Back);
+        p1SlotsCh.add(p1Ch5Back);
+        p1SlotsCh.add(p1Ch6Back);
+        p1SlotsCh.add(p1Ch7Back);
+
+        p2SlotsCh.add(p2Ch1Back);
+        p2SlotsCh.add(p2Ch2Back);
+        p2SlotsCh.add(p2Ch3Back);
+        p2SlotsCh.add(p2Ch4Back);
+        p2SlotsCh.add(p2Ch5Back);
+        p2SlotsCh.add(p2Ch6Back);
+        p2SlotsCh.add(p2Ch7Back);
 
         p1TilesPr.add(p1TilePr1);
         p1TilesPr.add(p1TilePr2);
@@ -101,8 +111,16 @@ public class GameScreenController implements Initializable {
         p1TilesPr.add(p1TilePr6);
         p1TilesPr.add(p1TilePr7);
 
-        p1TilesSr.add(p1TileSr1);
-        p1TilesSr.add(p1TileSr2);
+        p2TilesPr.add(p2TilePr1);
+        p2TilesPr.add(p2TilePr2);
+        p2TilesPr.add(p2TilePr3);
+        p2TilesPr.add(p2TilePr4);
+        p2TilesPr.add(p2TilePr5);
+        p2TilesPr.add(p2TilePr6);
+        p2TilesPr.add(p2TilePr7);
+
+        //  p1TilesSr.add(p1TileSr1);
+//        p1TilesSr.add(p1TileSr2);
 
         // refresh les slots du challenge (image de fond)
         refreshSlots(sideP1, p1SlotsCh);
@@ -110,9 +128,9 @@ public class GameScreenController implements Initializable {
 
         // refresh le contenus des Tiles GUI et on les attaches au slots
         refreshTiles(sideP1.getPlayerRack().getRack(), p1SlotsPr, p1TilesPr);
-        refreshTiles(sideP1.getSwapRack().getRack(),p1SlotsSr, p1TilesSr);
-        refreshTiles(sideP2.getPlayerRack().getRack(),p2SlotsPr, p2TilesPr);
-        refreshTiles(sideP2.getSwapRack().getRack(), p2SlotsSr, p2TilesSr);
+        //  refreshTiles(sideP1.getSwapRack().getRack(), p1SlotsSr, p1TilesSr);
+        refreshTiles(sideP2.getPlayerRack().getRack(), p2SlotsPr, p2TilesPr);
+        //refreshTiles(sideP2.getSwapRack().getRack(), p2SlotsSr, p2TilesSr);
     }
 
     @FXML
@@ -130,10 +148,10 @@ public class GameScreenController implements Initializable {
         // Initialiser le contenu des objets Tiles de la GUI selon l'état des racks
         int i = 0;
         for (Tile tile : rack) {
-            // Set les labels du composant tile 0 = score, 1 = value
-//            tiles.get(i).getChildren().get(0).setText(tile.getScore());
-//            tiles.get(i).getChildren().get(1).setText(tile.getValue());
-              addTileToSlot(slots.get(i), tiles.get(i));
+            javafx.scene.control.Label value = (javafx.scene.control.Label) tiles.get(i).getChildren().get(0);
+            javafx.scene.control.Label score = (javafx.scene.control.Label) tiles.get(i++).getChildren().get(1);
+            value.setText(String.valueOf(tile.getValue()).toUpperCase());
+            score.setText(String.valueOf(tile.getScore()));
         }
     }
 
@@ -150,8 +168,8 @@ public class GameScreenController implements Initializable {
     }
 
     @FXML
-    private void moveTile(AnchorPane slotOrigin, AnchorPane slotDest){
-        if(slotDest.getChildren().isEmpty()) {
+    private void moveTile(AnchorPane slotOrigin, AnchorPane slotDest) {
+        if (slotDest.getChildren().isEmpty()) {
             slotDest.getChildren().add(slotOrigin.getChildren().remove(0));
         }
     }

@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.client.controller.GameScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.client.controller.GameScreenController">
    <center>
       <SplitPane dividerPositions="0.6398559423769508" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
@@ -241,15 +241,15 @@
                                  </children>
                               </AnchorPane>
                               <ImageView fx:id="p1Avatar" fitHeight="58.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-                              <Label fx:id="p1Username" text="Label" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+                              <Label fx:id="p1Name" text="Label" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
                               <AnchorPane fx:id="p1Sr1Back" prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <AnchorPane fx:id="p1Sr1Front" layoutX="-79.0" layoutY="-47.0" prefHeight="153.0" prefWidth="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <AnchorPane fx:id="p1Sr1Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="153.0" prefWidth="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p1Sr2Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                                  <children>
-                                    <AnchorPane fx:id="p1Sr2Front" layoutX="-79.0" layoutY="-47.0" prefHeight="153.0" prefWidth="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <AnchorPane fx:id="p1Sr2Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="153.0" prefWidth="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -432,15 +432,15 @@
                                  </children>
                               </AnchorPane>
                               <ImageView fx:id="p2Avatar" fitHeight="58.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-                              <Label fx:id="p2Username" text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                              <Label fx:id="p2Name" text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
                               <AnchorPane fx:id="p2Sr1Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
                                  <children>
-                                    <AnchorPane fx:id="p2Sr1Front" layoutX="-79.0" layoutY="-47.0" prefHeight="153.0" prefWidth="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <AnchorPane fx:id="p2Sr1Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="153.0" prefWidth="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Sr2Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
                                  <children>
-                                    <AnchorPane fx:id="p2Sr2Front" layoutX="-79.0" layoutY="-47.0" prefHeight="153.0" prefWidth="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <AnchorPane fx:id="p2Sr2Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="153.0" prefWidth="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </children>

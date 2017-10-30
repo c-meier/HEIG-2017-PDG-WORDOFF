@@ -1,5 +1,8 @@
 package ch.heigvd.wordoff.client;
 
+import Net.Client;
+import ch.heigvd.wordoff.client.api.ApiClient;
+import ch.heigvd.wordoff.common.Constants;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +17,7 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
     private static Stage stage;
+    private static ApiClient apiClient;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -49,5 +53,12 @@ public class MainApp extends Application {
         } catch (IOException ex) {
             Logger.getLogger(MainApp.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public static ApiClient getApiClient() {
+        if (apiClient == null) {
+            apiClient = new ApiClient();
+        }
+        return apiClient;
     }
 }

@@ -164,6 +164,6 @@ public class GameScreenController implements Initializable {
         if(slot.getChildren().isEmpty())
              slot.getChildren().add(tile);
     }
-    
+
 }
 

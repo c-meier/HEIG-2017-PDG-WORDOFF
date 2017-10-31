@@ -213,37 +213,37 @@
                                     </StackPane>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch1Back" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch1Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch1Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch2Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch2Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch2Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch3Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch3Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch3Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch4Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch4Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch4Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch5Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch5Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch5Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch6Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch6Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="5" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch6Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch7Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch7Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="6" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch7Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
@@ -439,37 +439,37 @@
                                     </StackPane>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch1Back" prefHeight="200.0" prefWidth="200.0" styleClass="rackHide" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch1Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch1Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch2Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch2Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch2Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch3Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch3Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch3Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch4Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch4Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch4Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch5Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch5Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch5Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch6Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch6Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="5" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch6Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch7Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch7Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="6" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch7Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>

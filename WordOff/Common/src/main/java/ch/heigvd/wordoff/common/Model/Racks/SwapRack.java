@@ -91,4 +91,9 @@ public class SwapRack extends Rack {
     public int getMaxSizeRack() {
         return Constants.SWAP_RACK_SIZE;
     }
+
+    @Override
+    public Tile getTileByPos(int pos){
+        return super.getTileByPos(pos);
+    }
 }

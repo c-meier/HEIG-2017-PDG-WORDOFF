@@ -224,11 +224,9 @@ public class GameScreenController implements Initializable {
             // move to challenge from player rack
             addTileToSlot(firstSlotEmpty(p1SlotsCh), tileSelect);
             //  TODO Mettre à jour les racks
-           /* int position = p1SlotsPr.indexOf(slotParent);
-            Tile tile = game.getSideP1().getPlayerRack().getRack().get(position);
-            game.getSideP1().getPlayerRack().getTile(tile.getId());
-            game.getSideP1().getChallenge().addTile(tile);*/
-
+             int position = p1SlotsPr.indexOf(slotParent);
+             // Move tile in logic game
+             game.getSideP1().getChallenge().addTile(game.getSideP1().getPlayerRack().getTileByPos(position));
         } else if (p1SlotsSr.contains(slotParent)) {
             // Move to challenge from swap rack
             addTileToSlot(firstSlotEmpty(p1SlotsCh), tileSelect);

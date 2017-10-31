@@ -38,6 +38,18 @@ public abstract class Rack {
     }
 
     /**
+     * Get tile by position in rack
+     * @param pos
+     * @return
+     */
+    protected Tile getTileByPos(int pos){
+        if(pos < tiles.size()){
+            return tiles.remove(pos);
+        }
+
+        return null;
+    }
+    /**
      * Ajouter une tuile, confirmation.
      *
      * @param tile tuile à ajouter

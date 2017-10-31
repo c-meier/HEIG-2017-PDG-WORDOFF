@@ -223,23 +223,27 @@ public class GameScreenController implements Initializable {
         if (p1SlotsPr.contains(slotParent)) {
             // move to challenge from player rack
             addTileToSlot(firstSlotEmpty(p1SlotsCh), tileSelect);
-            //  TODO Mettre à jour les racks
+            // Move tile in logic game
              int position = p1SlotsPr.indexOf(slotParent);
-             // Move tile in logic game
              game.getSideP1().getChallenge().addTile(game.getSideP1().getPlayerRack().getTileByPos(position));
         } else if (p1SlotsSr.contains(slotParent)) {
             // Move to challenge from swap rack
             addTileToSlot(firstSlotEmpty(p1SlotsCh), tileSelect);
-            //  TODO Mettre à jour les racks
+            // Move tile in logic game
+            int position = p1SlotsSr.indexOf(slotParent);
+            game.getSideP1().getChallenge().addTile(game.getSideP1().getSwapRack().getTileByPos(position));
         } else {
             // Move to swapRack from challenge
             if (p1TilesSr.contains(tileSelect)) {
                 addTileToSlot(firstSlotEmpty(p1SlotsSr), tileSelect);
-                //  TODO Mettre à jour les racks
+                int position = p1SlotsCh.indexOf(slotParent);
+                game.getSideP1().getSwapRack().addTile(game.getSideP1().getChallenge().getTileByPos(position));
             } else {
                 // Move to player rack from challenge
                 //  TODO Mettre à jour les racks
                 addTileToSlot(firstSlotEmpty(p1SlotsPr), tileSelect);
+                int position = p1SlotsCh.indexOf(slotParent);
+                game.getSideP1().getSwapRack().addTile(game.getSideP1().getChallenge().getTileByPos(position));
             }
         }
 

@@ -7,16 +7,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Stack;
 
-import ch.heigvd.wordoff.client.Model.ISlot;
-import ch.heigvd.wordoff.client.Model.SevenTh;
 import ch.heigvd.wordoff.client.logic.Game;
 import ch.heigvd.wordoff.client.logic.Side;
-import ch.heigvd.wordoff.common.Model.Slots.L2;
-import ch.heigvd.wordoff.common.Model.Slots.L3;
-import ch.heigvd.wordoff.common.Model.Slots.Slot;
-import ch.heigvd.wordoff.common.Model.Slots.Swap;
+import ch.heigvd.wordoff.common.Model.Slots.*;
 import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 
 import javafx.event.ActionEvent;

@@ -3,15 +3,12 @@ package ch.heigvd.wordoff.client.controller;
 
 import ch.heigvd.wordoff.client.MainApp;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import ch.heigvd.wordoff.client.Model.ISlot;
-import ch.heigvd.wordoff.client.logic.Challenge;
 import ch.heigvd.wordoff.client.logic.Game;
 import ch.heigvd.wordoff.client.logic.Side;
 import ch.heigvd.wordoff.common.Model.Tiles.Tile;
@@ -25,8 +22,6 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.control.Label;
-
-import javax.swing.text.LabelView;
 
 /**
  * @author Gabriel Luthier
@@ -127,7 +122,7 @@ public class GameScreenController implements Initializable {
         setTiles(sideP1.getPlayerRack().getRack(), p1TilesPr, true);
         //  refreshTiles(sideP1.getSwapRack().getRack(), p1SlotsSr, p1TilesSr);
 
-        setTiles(sideP2.getPlayerRack().getRack(), p2TilesPr,false);
+        setTiles(sideP2.getPlayerRack().getRack(), p2TilesPr, false);
         //refreshTiles(sideP2.getSwapRack().getRack(), p2SlotsSr, p2TilesSr);
 
     }
@@ -181,6 +176,12 @@ public class GameScreenController implements Initializable {
                 });
             }
             i++;
+        }
+        // Hide tiles not used
+        if(rack.size() < tiles.size()){
+            for(int j = rack.size() ; j < tiles.size(); j++){
+                tiles.get(i).setVisible(false);
+            }
         }
     }
 

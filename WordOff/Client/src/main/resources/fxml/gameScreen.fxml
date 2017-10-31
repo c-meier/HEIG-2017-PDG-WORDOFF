@@ -14,9 +14,10 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.client.controller.GameScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.client.controller.GameScreenController">
    <center>
       <SplitPane dividerPositions="0.6398559423769508" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
@@ -81,7 +82,7 @@
                            <children>
                               <AnchorPane fx:id="p1Pr1Back" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <children>
-                                    <AnchorPane fx:id="p1Pr1Fore">
+                                    <StackPane fx:id="p1Pr1Fore" prefHeight="40.0" prefWidth="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane fx:id="p1TilePr1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ffeeba;">
                                              <children>
@@ -94,12 +95,12 @@
                                              </children>
                                           </AnchorPane>
                                        </children>
-                                    </AnchorPane>
+                                    </StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p1Pr2Back" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <children>
-                                    <AnchorPane fx:id="p1Pr2Fore">
+                                    <StackPane fx:id="p1Pr2Fore" prefHeight="75.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane fx:id="p1TilePr2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ffeeba;">
                                              <children>
@@ -112,12 +113,12 @@
                                              </children>
                                           </AnchorPane>
                                        </children>
-                                    </AnchorPane>
+                                    </StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p1Pr3Back" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <children>
-                                    <AnchorPane fx:id="p1Pr3Fore">
+                                    <StackPane fx:id="p1Pr3Fore" prefHeight="75.0" prefWidth="82.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane fx:id="p1TilePr3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ffeeba;">
                                              <children>
@@ -130,12 +131,12 @@
                                              </children>
                                           </AnchorPane>
                                        </children>
-                                    </AnchorPane>
+                                    </StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p1Pr4Back" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <children>
-                                    <AnchorPane fx:id="p1Pr4Fore">
+                                    <StackPane fx:id="p1Pr4Fore" prefHeight="75.0" prefWidth="82.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane fx:id="p1TilePr4" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ffeeba;">
                                              <children>
@@ -148,12 +149,12 @@
                                              </children>
                                           </AnchorPane>
                                        </children>
-                                    </AnchorPane>
+                                    </StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p1Pr5Back" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <children>
-                                    <AnchorPane fx:id="p1Pr5Fore">
+                                    <StackPane fx:id="p1Pr5Fore" prefHeight="75.0" prefWidth="82.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane fx:id="p1TilePr5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ffeeba;">
                                              <children>
@@ -166,12 +167,12 @@
                                              </children>
                                           </AnchorPane>
                                        </children>
-                                    </AnchorPane>
+                                    </StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p1Pr6Back" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <children>
-                                    <AnchorPane fx:id="p1Pr6Fore">
+                                    <StackPane fx:id="p1Pr6Fore" prefHeight="75.0" prefWidth="82.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane fx:id="p1TilePr6" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ffeeba;">
                                              <children>
@@ -184,12 +185,12 @@
                                              </children>
                                           </AnchorPane>
                                        </children>
-                                    </AnchorPane>
+                                    </StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p1Pr7Back" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <children>
-                                    <AnchorPane fx:id="p1Pr7Fore">
+                                    <StackPane fx:id="p1Pr7Fore" prefHeight="75.0" prefWidth="82.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane fx:id="p1TilePr7" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ffeeba;">
                                              <children>
@@ -202,54 +203,80 @@
                                              </children>
                                           </AnchorPane>
                                        </children>
-                                    </AnchorPane>
+                                    </StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p1Ch1Back" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                  <children>
-                                    <AnchorPane fx:id="p1Ch1Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="153.0" prefWidth="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p1Ch1Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p1Ch2Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <AnchorPane fx:id="p1Ch2Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="153.0" prefWidth="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p1Ch2Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p1Ch3Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <children>
-                                    <AnchorPane fx:id="p1Ch3Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="153.0" prefWidth="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p1Ch3Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p1Ch4Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <children>
-                                    <AnchorPane fx:id="p1Ch4Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="153.0" prefWidth="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p1Ch4Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p1Ch5Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <children>
-                                    <AnchorPane fx:id="p1Ch5Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="153.0" prefWidth="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p1Ch5Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p1Ch6Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                                  <children>
-                                    <AnchorPane fx:id="p1Ch6Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="153.0" prefWidth="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p1Ch6Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p1Ch7Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
                                  <children>
-                                    <AnchorPane fx:id="p1Ch7Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="153.0" prefWidth="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p1Ch7Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <ImageView fx:id="p1Avatar" fitHeight="58.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
                               <Label fx:id="p1Name" text="Label" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
                               <AnchorPane fx:id="p1Sr1Back" prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <AnchorPane fx:id="p1Sr1Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="153.0" prefWidth="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p1Sr1Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <AnchorPane fx:id="p1TileSr1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ffeeba;">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p1Sr2Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                                  <children>
-                                    <AnchorPane fx:id="p1Sr2Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="153.0" prefWidth="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p1Sr1Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <AnchorPane fx:id="p1TileSr1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ffeeba;">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </StackPane>
                                  </children>
                               </AnchorPane>
                            </children>
@@ -272,7 +299,7 @@
                            <children>
                               <AnchorPane fx:id="p2Pr1Back" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <children>
-                                    <AnchorPane fx:id="p2Pr1Fore" prefHeight="80.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <StackPane fx:id="p2Pr1Fore" prefHeight="80.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane fx:id="p2TilePr1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ffeeba;">
                                              <children>
@@ -285,12 +312,12 @@
                                              </children>
                                           </AnchorPane>
                                        </children>
-                                    </AnchorPane>
+                                    </StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Pr2Back" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <children>
-                                    <AnchorPane fx:id="p2Pr2Fore">
+                                    <StackPane fx:id="p2Pr2Fore" prefHeight="80.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane fx:id="p2TilePr2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ffeeba;">
                                              <children>
@@ -303,12 +330,12 @@
                                              </children>
                                           </AnchorPane>
                                        </children>
-                                    </AnchorPane>
+                                    </StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Pr3Back" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <children>
-                                    <AnchorPane fx:id="p2Pr3Fore">
+                                    <StackPane fx:id="p2Pr3Fore" prefHeight="80.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane fx:id="p2TilePr3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ffeeba;">
                                              <children>
@@ -321,12 +348,12 @@
                                              </children>
                                           </AnchorPane>
                                        </children>
-                                    </AnchorPane>
+                                    </StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Pr4Back" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <children>
-                                    <AnchorPane fx:id="p2Pr4Fore">
+                                    <StackPane fx:id="p2Pr4Fore" prefHeight="80.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane fx:id="p2TilePr4" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ffeeba;">
                                              <children>
@@ -339,12 +366,12 @@
                                              </children>
                                           </AnchorPane>
                                        </children>
-                                    </AnchorPane>
+                                    </StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Pr5Back" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <children>
-                                    <AnchorPane fx:id="p2Pr5Fore">
+                                    <StackPane fx:id="p2Pr5Fore" prefHeight="80.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane fx:id="p2TilePr5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ffeeba;">
                                              <children>
@@ -357,12 +384,12 @@
                                              </children>
                                           </AnchorPane>
                                        </children>
-                                    </AnchorPane>
+                                    </StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Pr6Back" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <children>
-                                    <AnchorPane fx:id="p2Pr6Fore">
+                                    <StackPane fx:id="p2Pr6Fore" prefHeight="80.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane fx:id="p2TilePr6" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ffeeba;">
                                              <children>
@@ -375,12 +402,12 @@
                                              </children>
                                           </AnchorPane>
                                        </children>
-                                    </AnchorPane>
+                                    </StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Pr7Back" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <children>
-                                    <AnchorPane fx:id="p2Pr7Fore">
+                                    <StackPane fx:id="p2Pr7Fore" prefHeight="80.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <AnchorPane fx:id="p2TilePr7" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ffeeba;">
                                              <children>
@@ -393,54 +420,80 @@
                                              </children>
                                           </AnchorPane>
                                        </children>
-                                    </AnchorPane>
+                                    </StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Ch1Back" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                  <children>
-                                    <AnchorPane fx:id="p2Ch1Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="80.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p2Ch1Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Ch2Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <AnchorPane fx:id="p2Ch2Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="80.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p2Ch2Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Ch3Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <children>
-                                    <AnchorPane fx:id="p2Ch3Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="80.0" prefWidth="82.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p2Ch3Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Ch4Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <children>
-                                    <AnchorPane fx:id="p2Ch4Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="80.0" prefWidth="82.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p2Ch4Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Ch5Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <children>
-                                    <AnchorPane fx:id="p2Ch5Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="80.0" prefWidth="82.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p2Ch5Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Ch6Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                                  <children>
-                                    <AnchorPane fx:id="p2Ch6Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="80.0" prefWidth="82.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p2Ch6Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Ch7Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
                                  <children>
-                                    <AnchorPane fx:id="p2Ch7Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="80.0" prefWidth="82.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p2Ch7Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <ImageView fx:id="p2Avatar" fitHeight="58.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                               <Label fx:id="p2Name" text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
                               <AnchorPane fx:id="p2Sr1Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
                                  <children>
-                                    <AnchorPane fx:id="p2Sr1Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="153.0" prefWidth="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p2Sr1Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <AnchorPane fx:id="p2TileSr1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ffeeba;">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Sr2Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
                                  <children>
-                                    <AnchorPane fx:id="p2Sr2Fore" layoutX="-79.0" layoutY="-47.0" prefHeight="153.0" prefWidth="121.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p2Sr2Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <AnchorPane fx:id="p2TileSr2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ffeeba;">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </StackPane>
                                  </children>
                               </AnchorPane>
                            </children>

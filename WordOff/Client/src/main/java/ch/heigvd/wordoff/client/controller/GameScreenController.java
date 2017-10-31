@@ -3,15 +3,12 @@ package ch.heigvd.wordoff.client.controller;
 
 import ch.heigvd.wordoff.client.MainApp;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import ch.heigvd.wordoff.client.Model.ISlot;
-import ch.heigvd.wordoff.client.logic.Challenge;
 import ch.heigvd.wordoff.client.logic.Game;
 import ch.heigvd.wordoff.client.logic.Side;
 import ch.heigvd.wordoff.common.Model.Tiles.Tile;
@@ -25,8 +22,6 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.control.Label;
-
-import javax.swing.text.LabelView;
 
 /**
  * @author Gabriel Luthier
@@ -127,7 +122,7 @@ public class GameScreenController implements Initializable {
         setTiles(sideP1.getPlayerRack().getRack(), p1TilesPr, true);
         //  refreshTiles(sideP1.getSwapRack().getRack(), p1SlotsSr, p1TilesSr);
 
-        setTiles(sideP2.getPlayerRack().getRack(), p2TilesPr,false);
+        setTiles(sideP2.getPlayerRack().getRack(), p2TilesPr, false);
         //refreshTiles(sideP2.getSwapRack().getRack(), p2SlotsSr, p2TilesSr);
 
     }
@@ -182,6 +177,12 @@ public class GameScreenController implements Initializable {
             }
             i++;
         }
+        // Hide tiles not used
+        if(rack.size() < tiles.size()){
+            for(int j = rack.size() ; j < tiles.size(); j++){
+                tiles.get(i).setVisible(false);
+            }
+        }
     }
 
     /**
@@ -222,25 +223,27 @@ public class GameScreenController implements Initializable {
         if (p1SlotsPr.contains(slotParent)) {
             // move to challenge from player rack
             addTileToSlot(firstSlotEmpty(p1SlotsCh), tileSelect);
-            //  TODO Mettre à jour les racks
-           /* int position = p1SlotsPr.indexOf(slotParent);
-            Tile tile = game.getSideP1().getPlayerRack().getRack().get(position);
-            game.getSideP1().getPlayerRack().getTile(tile.getId());
-            game.getSideP1().getChallenge().addTile(tile);*/
-
+            // Move tile in logic game
+             int position = p1SlotsPr.indexOf(slotParent);
+             game.getSideP1().getChallenge().addTile(game.getSideP1().getPlayerRack().getTileByPos(position));
         } else if (p1SlotsSr.contains(slotParent)) {
             // Move to challenge from swap rack
             addTileToSlot(firstSlotEmpty(p1SlotsCh), tileSelect);
-            //  TODO Mettre à jour les racks
+            // Move tile in logic game
+            int position = p1SlotsSr.indexOf(slotParent);
+            game.getSideP1().getChallenge().addTile(game.getSideP1().getSwapRack().getTileByPos(position));
         } else {
             // Move to swapRack from challenge
             if (p1TilesSr.contains(tileSelect)) {
                 addTileToSlot(firstSlotEmpty(p1SlotsSr), tileSelect);
-                //  TODO Mettre à jour les racks
+                int position = p1SlotsCh.indexOf(slotParent);
+                game.getSideP1().getSwapRack().addTile(game.getSideP1().getChallenge().getTileByPos(position));
             } else {
                 // Move to player rack from challenge
                 //  TODO Mettre à jour les racks
                 addTileToSlot(firstSlotEmpty(p1SlotsPr), tileSelect);
+                int position = p1SlotsCh.indexOf(slotParent);
+                game.getSideP1().getSwapRack().addTile(game.getSideP1().getChallenge().getTileByPos(position));
             }
         }
 

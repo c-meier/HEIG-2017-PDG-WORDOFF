@@ -113,4 +113,18 @@ public class Challenge {
     public void setSlots(List<Slot> slots) {
         this.slots = slots;
     }
+
+    /**
+     * Get tile by position in rack
+     * @param pos
+     * @return
+     */
+    protected Tile getTileByPos(int pos){
+        if(pos < slots.size()){
+            if(!slots.get(pos).isEmpty())
+            return slots.get(pos).removeTile();
+        }
+
+        return null;
+    }
 }

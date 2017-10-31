@@ -10,8 +10,13 @@ import java.util.ResourceBundle;
 import java.util.Stack;
 
 import ch.heigvd.wordoff.client.Model.ISlot;
+import ch.heigvd.wordoff.client.Model.SevenTh;
 import ch.heigvd.wordoff.client.logic.Game;
 import ch.heigvd.wordoff.client.logic.Side;
+import ch.heigvd.wordoff.common.Model.Slots.L2;
+import ch.heigvd.wordoff.common.Model.Slots.L3;
+import ch.heigvd.wordoff.common.Model.Slots.Slot;
+import ch.heigvd.wordoff.common.Model.Slots.Swap;
 import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 
 import javafx.event.ActionEvent;
@@ -19,6 +24,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -138,9 +144,24 @@ public class GameScreenController implements Initializable {
     private void setBackgroundChallenge(Side side, AnchorPane... slots) {
         // Placer les images du challenge selon les slots
         int i = 0;
-        for (ISlot slot : side.getChallenge().getSlots()) {
-            slots[i++].setBackground(new Background(new BackgroundImage(slot.getImage(),
+        Image image = null;
+        for(Slot slot : side.getChallenge().getSlots()){
+            // Get image source
+            if(slot.getClass() == SevenTh.class){
+                image = new Image("/images/plus10Slot.png");
+            }else if(slot.getClass() == L2.class){
+                image = new Image("/images/2LSlot.png");
+            }else if(slot.getClass() == L3.class){
+                image = new Image("/images/3LSlot.png");
+            }else if(slot.getClass() == Swap.class){
+                image = new Image("/images/swapSlot.png");
+            }else{
+                image = new Image("/images/slot.png");
+            }
+
+            slots[i++].setBackground(new Background(new BackgroundImage(image,
                     BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, null)));
+
         }
     }
 

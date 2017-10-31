@@ -1,6 +1,6 @@
 package ch.heigvd.wordoff.client.logic;
 
-import ch.heigvd.wordoff.client.Model.*;
+import ch.heigvd.wordoff.common.Model.Slots.*;
 import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import ch.heigvd.wordoff.common.Dictionary;
 
 public class Challenge {
     private Side side;
-    private List<ISlot> slots;
+    private List<Slot> slots;
     private final int sizeChallenge = 7;
     Dictionary dictionary;
 
@@ -66,7 +66,7 @@ public class Challenge {
      * Retourne l'état du challenge
      * @return
      */
-    public List<ISlot> getSlots() {
+    public List<Slot> getSlots() {
         return slots;
     }
 
@@ -75,7 +75,7 @@ public class Challenge {
      */
     public boolean checkWord() {
         String word = "";
-        for (ISlot s : slots) {
+        for (Slot s : slots) {
             if (null != s.getTile()) {
                 char c = s.getTile().getValue();
                 word += c;
@@ -91,7 +91,7 @@ public class Challenge {
      */
     public int getScoreWord() {
         int score = 0;
-        for (ISlot s : slots) {
+        for (Slot s : slots) {
             score += s.getScore();
         }
         return score;
@@ -128,7 +128,7 @@ public class Challenge {
     }
 
     public boolean addTile(Tile tile){
-        for(ISlot s : slots){
+        for(Slot s : slots){
             if(s.isEmpty()){
                 return s.addTile(tile);
             }

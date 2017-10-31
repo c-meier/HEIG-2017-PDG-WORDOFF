@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Stack;
 
 import ch.heigvd.wordoff.client.Model.ISlot;
 import ch.heigvd.wordoff.client.logic.Game;
@@ -36,48 +37,48 @@ public class GameScreenController implements Initializable {
     // Listes Player 1
     private List<AnchorPane> p1TilesPr = new ArrayList<>();
     private List<AnchorPane> p1TilesSr = new ArrayList<>();
-    private List<AnchorPane> p1SlotsCh = new ArrayList<>();
-    private List<AnchorPane> p1SlotsSr = new ArrayList<>();
-    private List<AnchorPane> p1SlotsPr = new ArrayList<>();
+    private List<StackPane> p1SlotsCh = new ArrayList<>();
+    private List<StackPane> p1SlotsSr = new ArrayList<>();
+    private List<StackPane> p1SlotsPr = new ArrayList<>();
 
     // Listes Player 2
-    private List<AnchorPane> p2SlotsCh = new ArrayList<>();
     private List<AnchorPane> p2TilesPr = new ArrayList<>();
     private List<AnchorPane> p2TilesSr = new ArrayList<>();
-    private List<AnchorPane> p2SlotsSr = new ArrayList<>();
-    private List<AnchorPane> p2SlotsPr = new ArrayList<>();
+    private List<StackPane> p2SlotsCh = new ArrayList<>();
+    private List<StackPane> p2SlotsSr = new ArrayList<>();
+    private List<StackPane> p2SlotsPr = new ArrayList<>();
 
     // PLAYER 1
     // Challenge background and foreground
     @FXML
     private AnchorPane p1Ch1Back, p1Ch2Back, p1Ch3Back, p1Ch4Back, p1Ch5Back, p1Ch6Back, p1Ch7Back;
     @FXML
-    private AnchorPane p1Ch1Fore, p1Ch2Fore, p1Ch3Fore, p1Ch4Fore, p1Ch5Fore, p1Ch6Fore, p1Ch7Fore;
+    private StackPane p1Ch1Fore, p1Ch2Fore, p1Ch3Fore, p1Ch4Fore, p1Ch5Fore, p1Ch6Fore, p1Ch7Fore;
     // Player Rack
     @FXML
-    private AnchorPane p1Pr1Fore, p1Pr2Fore, p1Pr3Fore, p1Pr4Fore, p1Pr5Fore, p1Pr6Fore, p1Pr7Fore;
+    private StackPane p1Pr1Fore, p1Pr2Fore, p1Pr3Fore, p1Pr4Fore, p1Pr5Fore, p1Pr6Fore, p1Pr7Fore;
     // Swap Rack
     @FXML
-    private AnchorPane p1Sr1Fore, p1Sr2Fore;
+    private StackPane p1Sr1Fore, p1Sr2Fore;
     // Tiles
     @FXML
     private AnchorPane p1TilePr1, p1TilePr2, p1TilePr3, p1TilePr4, p1TilePr5, p1TilePr6, p1TilePr7;
-    //  @FXML
-    //   private AnchorPane p1TileSr1, p1TileSr2;
+     @FXML
+    private AnchorPane p1TileSr1, p1TileSr2;
 
     // PLAYER 2
     // Challenge background and foreground
     @FXML
-    AnchorPane p2Ch1Back, p2Ch2Back, p2Ch3Back, p2Ch4Back, p2Ch5Back, p2Ch6Back, p2Ch7Back;
+    private AnchorPane p2Ch1Back, p2Ch2Back, p2Ch3Back, p2Ch4Back, p2Ch5Back, p2Ch6Back, p2Ch7Back;
     @FXML
-    AnchorPane p2Ch1Fore, p2Ch2Fore, p2Ch3Fore, p2Ch4Fore, p2Ch5Fore, p2Ch6Fore, p2Ch7Fore;
+    private StackPane p2Ch1Fore, p2Ch2Fore, p2Ch3Fore, p2Ch4Fore, p2Ch5Fore, p2Ch6Fore, p2Ch7Fore;
     // Player rack
     @FXML
-    AnchorPane p2Pr1Fore, p2Pr2Fore, p2Pr3Fore, p2Pr4Fore, p2Pr5Fore, p2Pr6Fore, p2Pr7Fore;
+    private StackPane p2Pr1Fore, p2Pr2Fore, p2Pr3Fore, p2Pr4Fore, p2Pr5Fore, p2Pr6Fore, p2Pr7Fore;
     // Swap rack
-    AnchorPane p2Sr1Fore, p2Sr2Fore;
-    //  @FXML
-//    private AnchorPane p2TileSr1, p2TileSr2;
+    private StackPane p2Sr1Fore, p2Sr2Fore;
+    @FXML
+    private AnchorPane p2TileSr1, p2TileSr2;
     @FXML
     private AnchorPane p2TilePr1, p2TilePr2, p2TilePr3, p2TilePr4, p2TilePr5, p2TilePr6, p2TilePr7;
 
@@ -120,10 +121,10 @@ public class GameScreenController implements Initializable {
 
         // refresh le contenus des Tiles GUI et on les attaches au slots
         setTiles(sideP1.getPlayerRack().getRack(), p1TilesPr, true);
-        //  refreshTiles(sideP1.getSwapRack().getRack(), p1SlotsSr, p1TilesSr);
+        setTiles(sideP1.getSwapRack().getRack(), p1TilesSr,true);
 
         setTiles(sideP2.getPlayerRack().getRack(), p2TilesPr, false);
-        //refreshTiles(sideP2.getSwapRack().getRack(), p2SlotsSr, p2TilesSr);
+        setTiles(sideP2.getSwapRack().getRack(), p2TilesSr,false);
 
     }
 
@@ -191,7 +192,7 @@ public class GameScreenController implements Initializable {
      * @param slot destination slot
      * @param tile tile to add
      */
-    private void addTileToSlot(AnchorPane slot, AnchorPane tile) {
+    private void addTileToSlot(StackPane slot, AnchorPane tile) {
         if (slot != null && slot.getChildren().isEmpty()) {
             slot.getChildren().add(tile);
         }
@@ -203,8 +204,8 @@ public class GameScreenController implements Initializable {
      * @param slots rack or challenge
      * @return first slot available
      */
-    private AnchorPane firstSlotEmpty(List<AnchorPane> slots) {
-        for (AnchorPane p : slots) {
+    private StackPane firstSlotEmpty(List<StackPane> slots) {
+        for (StackPane p : slots) {
             if (p.getChildren().isEmpty()) {
                 return p;
             }
@@ -218,20 +219,27 @@ public class GameScreenController implements Initializable {
 
     private void moveOnClick(MouseEvent event) {
         AnchorPane tileSelect = (AnchorPane) event.getSource();
-        AnchorPane slotParent = (AnchorPane) tileSelect.getParent();
+        StackPane slotParent = (StackPane) tileSelect.getParent();
+        StackPane destination = null;
 
         if (p1SlotsPr.contains(slotParent)) {
             // move to challenge from player rack
-            addTileToSlot(firstSlotEmpty(p1SlotsCh), tileSelect);
-            // Move tile in logic game
-             int position = p1SlotsPr.indexOf(slotParent);
-             game.getSideP1().getChallenge().addTile(game.getSideP1().getPlayerRack().getTileByPos(position));
+            destination = firstSlotEmpty(p1SlotsCh);
+            if(null != destination){
+                addTileToSlot(destination, tileSelect);
+                // Move tile in logic game
+                int position = p1SlotsPr.indexOf(slotParent);
+                game.getSideP1().getChallenge().addTile(game.getSideP1().getPlayerRack().getTileByPos(position));
+            }
         } else if (p1SlotsSr.contains(slotParent)) {
             // Move to challenge from swap rack
-            addTileToSlot(firstSlotEmpty(p1SlotsCh), tileSelect);
-            // Move tile in logic game
-            int position = p1SlotsSr.indexOf(slotParent);
-            game.getSideP1().getChallenge().addTile(game.getSideP1().getSwapRack().getTileByPos(position));
+            destination = firstSlotEmpty(p1SlotsCh);
+            if(null != destination) {
+                addTileToSlot(destination, tileSelect);
+                // Move tile in logic game
+                int position = p1SlotsSr.indexOf(slotParent);
+                game.getSideP1().getChallenge().addTile(game.getSideP1().getSwapRack().getTileByPos(position));
+            }
         } else {
             // Move to swapRack from challenge
             if (p1TilesSr.contains(tileSelect)) {
@@ -256,27 +264,27 @@ public class GameScreenController implements Initializable {
     private void initList() {
         // initialization player 1
         // Challenge
-        addConentList(p1SlotsCh, p1Ch1Fore, p1Ch2Fore, p1Ch3Fore, p1Ch4Fore, p1Ch5Fore, p1Ch6Fore, p1Ch7Fore);
+        addConentListStackPane(p1SlotsCh, p1Ch1Fore, p1Ch2Fore, p1Ch3Fore, p1Ch4Fore, p1Ch5Fore, p1Ch6Fore, p1Ch7Fore);
         // Player rack
-        addConentList(p1SlotsPr, p1Pr1Fore, p1Pr2Fore, p1Pr3Fore, p1Pr4Fore, p1Pr5Fore, p1Pr6Fore, p1Pr7Fore);
+        addConentListStackPane(p1SlotsPr, p1Pr1Fore, p1Pr2Fore, p1Pr3Fore, p1Pr4Fore, p1Pr5Fore, p1Pr6Fore, p1Pr7Fore);
         // Tiles player rack
-        addConentList(p1TilesPr, p1TilePr1, p1TilePr2, p1TilePr3, p1TilePr4, p1TilePr5, p1TilePr6, p1TilePr7);
+        addConentListAnchorePane(p1TilesPr, p1TilePr1, p1TilePr2, p1TilePr3, p1TilePr4, p1TilePr5, p1TilePr6, p1TilePr7);
         // Swap rack
-        addConentList(p1SlotsSr, p1Sr1Fore, p1Sr2Fore);
+        addConentListStackPane(p1SlotsSr, p1Sr1Fore, p1Sr2Fore);
         // TODO Tile swap rack
-        // addConentList(p1TilesSr, p1TilesSr1, p1TilesSr2);
+         addConentListAnchorePane(p1TilesSr, p1TileSr1, p1TileSr2);
 
         // initialization player 2
         // Challenge
-        addConentList(p2SlotsCh, p2Ch1Fore, p2Ch2Fore, p2Ch3Fore, p2Ch4Fore, p2Ch5Fore, p2Ch6Fore, p2Ch7Fore);
+        addConentListStackPane(p2SlotsCh, p2Ch1Fore, p2Ch2Fore, p2Ch3Fore, p2Ch4Fore, p2Ch5Fore, p2Ch6Fore, p2Ch7Fore);
         // Player rack
-        addConentList(p2SlotsPr, p2Pr1Fore, p2Pr2Fore, p2Pr3Fore, p2Pr4Fore, p2Pr5Fore, p2Pr6Fore, p2Pr7Fore);
+        addConentListStackPane(p2SlotsPr, p2Pr1Fore, p2Pr2Fore, p2Pr3Fore, p2Pr4Fore, p2Pr5Fore, p2Pr6Fore, p2Pr7Fore);
         // Tiles player rack
-        addConentList(p2TilesPr, p2TilePr1, p2TilePr2, p2TilePr3, p2TilePr4, p2TilePr5, p2TilePr6, p2TilePr7);
+        addConentListAnchorePane(p2TilesPr, p2TilePr1, p2TilePr2, p2TilePr3, p2TilePr4, p2TilePr5, p2TilePr6, p2TilePr7);
         // Swap rack
-        addConentList(p2SlotsSr, p2Sr1Fore, p2Sr2Fore);
+        addConentListStackPane(p2SlotsSr, p2Sr1Fore, p2Sr2Fore);
         // TODO Tile swap rack
-        // addConentList(p2TilesSr, p2TilesSr1, p2TilesSr2);
+        addConentListAnchorePane(p2TilesSr, p2TileSr1, p2TileSr2);
 
     }
 
@@ -286,8 +294,14 @@ public class GameScreenController implements Initializable {
      * @param list    list to initialize
      * @param content content of list
      */
-    private void addConentList(List<AnchorPane> list, AnchorPane... content) {
+    private void addConentListAnchorePane(List<AnchorPane> list, AnchorPane... content) {
         for (AnchorPane p : content) {
+            list.add(p);
+        }
+    }
+
+    private void addConentListStackPane(List<StackPane> list, StackPane... content) {
+        for (StackPane p : content) {
             list.add(p);
         }
     }

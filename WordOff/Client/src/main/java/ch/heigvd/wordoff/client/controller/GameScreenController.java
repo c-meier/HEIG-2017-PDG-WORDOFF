@@ -237,13 +237,13 @@ public class GameScreenController implements Initializable {
             if (p1TilesSr.contains(tileSelect)) {
                 addTileToSlot(firstSlotEmpty(p1SlotsSr), tileSelect);
                 int position = p1SlotsCh.indexOf(slotParent);
-                game.getSideP1().getSwapRack().addTile(game.getSideP1().getChallenge().getTileByPos(position));
+          //      game.getSideP1().getSwapRack().addTile(game.getSideP1().getChallenge().getTileByPos(position));
             } else {
                 // Move to player rack from challenge
                 //  TODO Mettre à jour les racks
                 addTileToSlot(firstSlotEmpty(p1SlotsPr), tileSelect);
                 int position = p1SlotsCh.indexOf(slotParent);
-                game.getSideP1().getSwapRack().addTile(game.getSideP1().getChallenge().getTileByPos(position));
+            //    game.getSideP1().getSwapRack().addTile(game.getSideP1().getChallenge().getTileByPos(position));
             }
         }
 

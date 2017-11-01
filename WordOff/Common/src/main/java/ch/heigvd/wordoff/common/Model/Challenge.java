@@ -1,11 +1,13 @@
 package ch.heigvd.wordoff.common.Model;
 
 import ch.heigvd.wordoff.common.Constants;
+import ch.heigvd.wordoff.common.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.common.Model.Slots.*;
 import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +15,18 @@ import java.util.List;
 @Embeddable
 public class Challenge {
 
+    @Embedded
+    private SwapRack swapRack;
+
     @OneToMany(mappedBy = "side", cascade = CascadeType.ALL)
     private List<Slot> slots;
 
     protected Challenge() {
+        this.swapRack = new SwapRack();
         slots = new ArrayList<>();
     }
     public Challenge(List<Slot> slots) {
+        this.swapRack = new SwapRack();
         this.slots = slots;
     }
 //
@@ -27,6 +34,14 @@ public class Challenge {
 //        return slots;
 //    }
 //
+
+    public SwapRack getSwapRack() {
+        return swapRack;
+    }
+
+    public void setSwapRack(SwapRack swapRack) {
+        this.swapRack = swapRack;
+    }
 
     public String getWord() {
         String word = "";
@@ -44,7 +59,7 @@ public class Challenge {
         for (Slot s : getSlots()) {
             score += s.getScore();
         }
-        return score;
+        return swapRack.applyBonus(score);
     }
 //
 //    private void endTurn() {

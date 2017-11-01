@@ -89,8 +89,9 @@ public class GameController {
      * @param gameId
      * @return The challenge of the adversary
      */
-    @RequestMapping(value = "/getAdversary", method = RequestMethod.GET)
-    public Challenge getAdversary(@RequestAttribute("player") Player player, @PathVariable("gameId") Long gameId) {
+    @RequestMapping(value = "/getGame", method = RequestMethod.GET)
+    public Game getGame(@RequestAttribute("player") Player player, @PathVariable("gameId") Long gameId) {
+        // TODO : cette méthode renvoiera la version DTO de Game qui ne contient pas le rack de l'adversaire
         Game game = gameRepository.findOne(gameId);
 
         if (game.getCurrPlayer() instanceof Ai) {
@@ -99,11 +100,11 @@ public class GameController {
             /* TODO -> send message to player that it's not his turn */
 
             // The other player hasn't played yet, so we send back the previous challenge of the other player
-            return game.getSideOfPlayer(game.getOtherPlayer(player)).getChallenge();
+            return game;
         }
     }
 
-    private Challenge makeAiPLay(DictionaryLoader dictionaryLoader, Game game, User player) {
+    private Game makeAiPLay(DictionaryLoader dictionaryLoader, Game game, User player) {
         List<Tile> word = new ArrayList<>();
 
         WordAnalyzer wa = new WordAnalyzer(dictionaryLoader.getDico(game.getLang()), game.getSideResp());
@@ -147,6 +148,8 @@ public class GameController {
             word = new ArrayList<>(wordsByScore.values()).get(index);
         }
 
+        // TODO : déplacer les tiles (word) du rack au challenge
+
         // get a list of the tile taken from the bag of the game
         List<Tile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE -
                 game.getSideOfPlayer(player).getPlayerRack().getRack().size());
@@ -156,7 +159,7 @@ public class GameController {
 
         /* TODO -> send swap tiles to other player */
 
-        return game.getSideOfPlayer(player).getChallenge();
+        return game;
     }
 
     private void updateSide(Side side, Challenge challenge, List<Tile> newTiles) {

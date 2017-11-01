@@ -36,7 +36,7 @@ public class WordAnalyzer {
         for (Tile tile : side.getPlayerRack().getRack()) {
             letters += tile.getValue();
         }
-        for (Tile tile : side.getSwapRack().getRack()) {
+        for (Tile tile : side.getChallenge().getSwapRack().getRack()) {
             letters += tile.getValue();
         }
 
@@ -50,7 +50,7 @@ public class WordAnalyzer {
             PlayerRack tempPlayer = new PlayerRack();
             side.getPlayerRack().getRack().forEach(tempPlayer::addTile);
             SwapRack tempSwap = new SwapRack();
-            side.getSwapRack().getRack().forEach(tempSwap::addTile);
+            side.getChallenge().getSwapRack().getRack().forEach(tempSwap::addTile);
 
             // pour chaque lettre
             for (int i = 0; i < str.length(); i++) {
@@ -80,7 +80,7 @@ public class WordAnalyzer {
             }
 
             // ajoute le mot et son score à la map, en tenant compte de l'état du swapRack temporaire
-            map.put(tempSwap.applyBonus(tempChall.getScoreWord()), tiles);
+            map.put(tempChall.getScoreWord(), tiles);
         }
 
         return map;

@@ -26,9 +26,6 @@ public class Side {
     private Challenge challenge;
 
     @Embedded
-    private SwapRack swapRack;
-
-    @Embedded
     private PlayerRack playerRack;
 
     @OneToMany(mappedBy = "side", cascade = CascadeType.ALL)
@@ -39,7 +36,6 @@ public class Side {
     private short answerCounter;
 
     public Side() {
-        this.swapRack = new SwapRack();
         this.playerRack = new PlayerRack();
         this.answers = new ArrayList<>();
         score = 0;
@@ -120,10 +116,6 @@ public class Side {
         answers.add(new Answer(this, answerCounter, word, score));
     }
 
-    public void addTileToSwapRack(Tile t) {
-        swapRack.addTile(t);
-    }
-
     public Long getId() {
         return id;
     }
@@ -142,14 +134,6 @@ public class Side {
 
     public void setChallenge(Challenge challenge) {
         this.challenge = challenge;
-    }
-
-    public SwapRack getSwapRack() {
-        return swapRack;
-    }
-
-    public void setSwapRack(SwapRack swapRack) {
-        this.swapRack = swapRack;
     }
 
     public PlayerRack getPlayerRack() {

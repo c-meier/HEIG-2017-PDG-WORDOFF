@@ -22,3 +22,12 @@
 	-fx-background-image: url("../images/tile-texture.png");
 	-fx-effect: dropshadow(three-pass-box, purple, 10, 0, 0, 0);     
 }
+
+.slot{
+	
+}
+
+.challenge{
+	/*-fx-background-image: url("../images/slot.png");*/
+	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);     
+}

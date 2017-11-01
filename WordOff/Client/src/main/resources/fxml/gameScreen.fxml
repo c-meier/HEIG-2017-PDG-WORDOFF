@@ -50,13 +50,13 @@
                         </SplitPane>
                         <AnchorPane GridPane.rowIndex="3">
                            <children>
-                              <ToolBar prefHeight="57.0" prefWidth="530.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <ToolBar AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <items>
-                                    <Button fx:id="shuffleButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Mélanger" />
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Jeter" />
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Jouer" />
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Aperçu" />
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Indice" />
+                                    <Button fx:id="shuffleButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#shuffleClear" styleClass="buttonPower" text="Mélanger" />
+                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#discard" text="Jeter" />
+                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#play" text="Jouer" />
+                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#peek" text="Aperçu" />
+                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#hint" text="Indice" />
                                 </items>
                               </ToolBar>
                            </children>
@@ -92,6 +92,7 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -110,6 +111,7 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -128,6 +130,7 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -146,6 +149,7 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -164,6 +168,7 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -182,6 +187,7 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -200,43 +206,44 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
                                              </children>
                                           </AnchorPane>
                                        </children>
                                     </StackPane>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch1Back" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch1Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch1Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch2Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch2Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch2Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch3Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch3Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch3Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch4Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch4Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch4Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch5Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch5Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch5Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch6Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch6Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="5" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch6Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch7Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch7Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="6" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch7Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
@@ -255,6 +262,7 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -273,6 +281,7 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -309,6 +318,7 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -327,6 +337,7 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -345,6 +356,7 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -363,6 +375,7 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -381,6 +394,7 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -399,6 +413,7 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -417,43 +432,44 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
                                              </children>
                                           </AnchorPane>
                                        </children>
                                     </StackPane>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch1Back" prefHeight="200.0" prefWidth="200.0" styleClass="rackHide" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch1Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch1Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch2Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch2Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch2Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch3Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch3Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch3Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch4Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch4Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch4Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch5Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch5Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch5Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch6Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch6Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="5" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch6Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch7Back" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch7Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="6" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch7Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
@@ -472,6 +488,7 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -490,6 +507,7 @@
                                                       <Font size="10.0" />
                                                    </font>
                                                 </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
                                              </children>
                                           </AnchorPane>
                                        </children>

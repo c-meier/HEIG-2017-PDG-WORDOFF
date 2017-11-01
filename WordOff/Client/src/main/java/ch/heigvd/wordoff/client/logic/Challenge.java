@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.client.logic;
+/*package ch.heigvd.wordoff.client.logic;
 
 import ch.heigvd.wordoff.common.Model.Slots.*;
 import ch.heigvd.wordoff.common.Model.Tiles.Tile;
@@ -21,12 +21,6 @@ public class Challenge {
     private final int swapSlot = 4;
     private final int sevenThSlot = 5;
 
-
-    /**
-     * Constructeur
-     * @param slots Tableau contenant l'odre des slots
-     * @param dictionary Dictionnaire associé
-     */
     public Challenge(List<Integer> slots, Dictionary dictionary) {
         initChallenge(slots);
         this.dictionary = dictionary;
@@ -35,11 +29,7 @@ public class Challenge {
         initChallenge(slots);
     }
 
-    /**
-     * Intitialise les cases du challenge selon l'ordre fournit par slots
-     * 1 = basicSlot, 2 = Lx2, 3 = Lx3, 4 = swap slot et 5 7th slot.
-     * @param slots ordre des cases
-     */
+
     public void initChallenge(List<Integer> slots) {
         this.slots = new ArrayList<>();
         for (int i = 0; i < sizeChallenge; i++)
@@ -62,17 +52,10 @@ public class Challenge {
             }
     }
 
-    /**
-     * Retourne l'état du challenge
-     * @return
-     */
     public List<Slot> getSlots() {
         return slots;
     }
 
-    /**
-     * Vérifie si le mot existe auprès du dictionnaire
-     */
     public boolean checkWord() {
         String word = "";
         for (Slot s : slots) {
@@ -84,11 +67,7 @@ public class Challenge {
         return dictionary.contains(word);
     }
 
-    /**
-     * Calcul le score du mot du challenge en fonction des cases
-     *
-     * @return score du mot saisi dans challenge
-     */
+
     public int getScoreWord() {
         int score = 0;
         for (Slot s : slots) {
@@ -97,18 +76,12 @@ public class Challenge {
         return score;
     }
 
-    /**
-     * Fin de tour, envois des données.
-     */
     private void endTurn() {
         // Signal à side la fin du utour
         // Soit Side vient prendre les infos, soit on lui envoit
     }
 
-    /**
-     * Demande de jouer le tour. Le tour est joué seulement si le mot saisie est correcte.
-     * @return
-     */
+
     public boolean playTurn() {
         // Jouer le tour
         if (checkWord() == true) {
@@ -119,10 +92,7 @@ public class Challenge {
         }
     }
 
-    /**
-     * Taille d'un challenge
-     * @return
-     */
+
     public int getSizeChallenge() {
         return sizeChallenge;
     }
@@ -157,3 +127,4 @@ public class Challenge {
         }
     }
 }
+*/

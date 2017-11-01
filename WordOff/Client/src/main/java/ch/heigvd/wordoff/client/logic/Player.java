@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.client.logic;
+/*package ch.heigvd.wordoff.client.logic;
 
 public class Player {
     private String name;
@@ -9,3 +9,4 @@ public class Player {
         return name;
     }
 }
+*/

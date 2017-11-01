@@ -4,8 +4,14 @@ import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dictionary;
 import ch.heigvd.wordoff.common.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.common.Model.Racks.SwapRack;
+import ch.heigvd.wordoff.common.Model.Slots.L2;
+import ch.heigvd.wordoff.common.Model.Slots.SevenTh;
+import ch.heigvd.wordoff.common.Model.Slots.Slot;
+import ch.heigvd.wordoff.common.Model.Slots.Swap;
 import ch.heigvd.wordoff.common.Model.Tiles.Tile;
 import javafx.beans.property.BooleanProperty;
+import ch.heigvd.wordoff.common.Model.Challenge;
+import ch.heigvd.wordoff.common.Model.Player;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +28,15 @@ public class Side {
     public Side(){
         this.playerRack = new PlayerRack();
         this.swapRack = new SwapRack();
-        this.challenge = new Challenge(Arrays.asList(1,2,1,3,4,2,5));
+        this.challenge = new Challenge(Arrays.asList(
+                new Slot(),
+                new Swap(),
+                new Slot(),
+                new L2(),
+                new Swap(),
+                new Slot(),
+                new SevenTh()
+        ));
     }
 
     public Player getPlayer(){

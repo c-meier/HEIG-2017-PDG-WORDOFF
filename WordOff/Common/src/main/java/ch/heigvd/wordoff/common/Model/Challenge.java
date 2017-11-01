@@ -128,4 +128,15 @@ public class Challenge {
     public void setSlots(List<Slot> slots) {
         this.slots = slots;
     }
+
+    public Tile getTileById(int id){
+        for(Slot s : slots){
+            if(!s.isEmpty()){
+                if(s.getTile().getId() == id){
+                    return s.removeTile();
+                }
+            }
+        }
+        return null;
+    }
 }

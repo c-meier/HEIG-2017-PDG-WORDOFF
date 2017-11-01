@@ -5,6 +5,7 @@ import ch.heigvd.wordoff.client.MainApp;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -18,6 +19,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
@@ -32,21 +34,24 @@ public class GameScreenController implements Initializable {
     private Game game;
     @FXML
     private Label p1Name, p2Name;
-    // emplacement image
+    @FXML
+    private Button shuffleButton;
 
+    private int numberTilesOnChallengeRack = 0;
     // Listes Player 1
     private List<AnchorPane> p1TilesPr = new ArrayList<>();
     private List<AnchorPane> p1TilesSr = new ArrayList<>();
     private List<StackPane> p1SlotsCh = new ArrayList<>();
     private List<StackPane> p1SlotsSr = new ArrayList<>();
     private List<StackPane> p1SlotsPr = new ArrayList<>();
-
     // Listes Player 2
     private List<AnchorPane> p2TilesPr = new ArrayList<>();
     private List<AnchorPane> p2TilesSr = new ArrayList<>();
     private List<StackPane> p2SlotsCh = new ArrayList<>();
     private List<StackPane> p2SlotsSr = new ArrayList<>();
     private List<StackPane> p2SlotsPr = new ArrayList<>();
+
+
 
     // PLAYER 1
     // Challenge background and foreground
@@ -95,12 +100,60 @@ public class GameScreenController implements Initializable {
     }
 
 
+    @FXML
+    private void shuffleClear(){
+        if(shuffleButton.getText().compareTo("Melanger") == 0){
+            shuffle();
+        }else{
+            clear();
+        }
+    }
+
+    private void shuffle(){
+        List<Tile> tiles = game.getSideP1().getPlayerRack().getRack();
+        Collections.shuffle(tiles);
+        setTiles(tiles, p1TilesPr, false);
+    }
+
+    private void clear(){
+        for(StackPane slotParent : p1SlotsCh){
+            if(!slotParent.getChildren().isEmpty()){
+                AnchorPane tile = (AnchorPane) slotParent.getChildren().get(0);
+                move(tile, slotParent);
+            }
+        }
+        shuffleButton.setText("Melanger");
+        numberTilesOnChallengeRack = 0;
+    }
+
+
+    @FXML
+    private void discard(){
+        // TODO
+    }
+
+    @FXML
+    private void peek(){
+        // TODO
+    }
+
+    @FXML
+    private void hint(){
+        // TODO
+    }
+
+    @FXML
+    private void play(){
+        // TODO
+    }
+
+
     /**
      * Recoit le side lié à la game
      *
      * @param game
      */
-    public void setState(Game game) {
+    private void setState(Game game) {
         this.game = game;
         Side sideP1 = game.getSideP1();
         Side sideP2 = game.getSideP2();
@@ -172,8 +225,10 @@ public class GameScreenController implements Initializable {
             // Maj tile GUI
             Label value = (Label) tiles.get(i).getChildren().get(0);
             Label score = (Label) tiles.get(i).getChildren().get(1);
+            Label id = (Label) tiles.get(i).getChildren().get(2);
             value.setText(String.valueOf(tile.getValue()).toUpperCase());
             score.setText(String.valueOf(tile.getScore()));
+            id.setText(String.valueOf(tile.getId()));
 
             if (withListener) {
                 // Add listener mouseClicket
@@ -239,6 +294,22 @@ public class GameScreenController implements Initializable {
     private void moveOnClick(MouseEvent event) {
         AnchorPane tileSelect = (AnchorPane) event.getSource();
         StackPane slotParent = (StackPane) tileSelect.getParent();
+        // Apply move
+        move(tileSelect,slotParent);
+        if(numberTilesOnChallengeRack == 0){
+            shuffleButton.setText("Melanger");
+        }else{
+            shuffleButton.setText("Effacer");
+        }
+    }
+
+    /**
+     *
+     * @param tileSelect
+     * @param slotParent
+     */
+    private void move(AnchorPane tileSelect, StackPane slotParent){
+        int idTile = Integer.valueOf(((Label)tileSelect.getChildren().get(2)).getText());
         StackPane destination = null;
 
         if (p1SlotsPr.contains(slotParent)) {
@@ -246,35 +317,50 @@ public class GameScreenController implements Initializable {
             destination = firstSlotEmpty(p1SlotsCh);
             if (null != destination) {
                 addTileToSlot(destination, tileSelect);
+                numberTilesOnChallengeRack++;
+
                 // Move tile in logic game
-                int position = p1SlotsPr.indexOf(slotParent);
-                game.getSideP1().getChallenge().addTile(game.getSideP1().getPlayerRack().getTileByPos(position));
+                Tile tile = game.getSideP1().getPlayerRack().getTile(idTile);
+                game.getSideP1().getChallenge().addTile(tile);
             }
         } else if (p1SlotsSr.contains(slotParent)) {
             // Move to challenge from swap rack
             destination = firstSlotEmpty(p1SlotsCh);
             if (null != destination) {
                 addTileToSlot(destination, tileSelect);
+                numberTilesOnChallengeRack++;
+
                 // Move tile in logic game
-                int position = p1SlotsSr.indexOf(slotParent);
-                game.getSideP1().getChallenge().addTile(game.getSideP1().getSwapRack().getTileByPos(position));
+                Tile tile = game.getSideP1().getSwapRack().getTile(idTile);
+                game.getSideP1().getChallenge().addTile(tile);
             }
         } else {
             // Move to swapRack from challenge
             if (p1TilesSr.contains(tileSelect)) {
-                addTileToSlot(firstSlotEmpty(p1SlotsSr), tileSelect);
-                int position = p1SlotsCh.indexOf(slotParent);
-                //      game.getSideP1().getSwapRack().addTile(game.getSideP1().getChallenge().getTileByPos(position));
+                // Maj GUI
+                destination = firstSlotEmpty(p1SlotsSr);
+                addTileToSlot(destination, tileSelect);
+                numberTilesOnChallengeRack--;
+
+                // Maj Logic
+                Tile tile = game.getSideP1().getChallenge().getTileById(idTile);
+                game.getSideP1().getSwapRack().addTile(tile);
             } else {
                 // Move to player rack from challenge
-                //  TODO Mettre à jour les racks
-                addTileToSlot(firstSlotEmpty(p1SlotsPr), tileSelect);
-                int position = p1SlotsCh.indexOf(slotParent);
-                //    game.getSideP1().getSwapRack().addTile(game.getSideP1().getChallenge().getTileByPos(position));
+
+                // Maj GUI
+                destination = firstSlotEmpty(p1SlotsPr);
+                addTileToSlot(destination, tileSelect);
+                numberTilesOnChallengeRack--;
+
+                // Maj logic
+                Tile tile = game.getSideP1().getChallenge().getTileById(idTile);
+                game.getSideP1().getPlayerRack().addTile(tile);
             }
         }
 
     }
+
 
 
     /**

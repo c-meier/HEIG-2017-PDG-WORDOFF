@@ -1,61 +1,60 @@
 package ch.heigvd.wordoff.client.logic;
 
-import ch.heigvd.wordoff.common.Constants;
-import ch.heigvd.wordoff.common.Dictionary;
-import ch.heigvd.wordoff.common.Model.Racks.PlayerRack;
-import ch.heigvd.wordoff.common.Model.Racks.SwapRack;
-import ch.heigvd.wordoff.common.Model.Slots.L2;
-import ch.heigvd.wordoff.common.Model.Slots.SevenTh;
-import ch.heigvd.wordoff.common.Model.Slots.Slot;
-import ch.heigvd.wordoff.common.Model.Slots.Swap;
-import ch.heigvd.wordoff.common.Model.Tiles.Tile;
+import ch.heigvd.wordoff.common.IModel.ISlot;
+import ch.heigvd.wordoff.common.Model.ChallengeDto;
+import ch.heigvd.wordoff.common.Model.PlayerDto;
+import ch.heigvd.wordoff.common.Model.Racks.PlayerRackDto;
+import ch.heigvd.wordoff.common.Model.Racks.SwapRackDto;
+import ch.heigvd.wordoff.common.Model.Slots.L2SlotDto;
+import ch.heigvd.wordoff.common.Model.Slots.LastSlotDto;
+import ch.heigvd.wordoff.common.Model.Slots.SlotDto;
+import ch.heigvd.wordoff.common.Model.Slots.SwapSlotDto;
+import ch.heigvd.wordoff.common.Model.Tiles.TileDto;
 import javafx.beans.property.BooleanProperty;
-import ch.heigvd.wordoff.common.Model.Challenge;
-import ch.heigvd.wordoff.common.Model.Player;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class Side {
-    private Player player;
-    private Challenge challenge;
-    private SwapRack swapRack;
-    private PlayerRack playerRack;
+    private PlayerDto player;
+    private ChallengeDto challenge;
+    private SwapRackDto swapRack;
+    private PlayerRackDto playerRack;
     private Game game;
     private BooleanProperty playerTurn;
 
 
     public Side(){
-        this.playerRack = new PlayerRack();
-        this.swapRack = new SwapRack();
-        this.challenge = new Challenge(Arrays.asList(
-                new Slot(),
-                new Swap(),
-                new Slot(),
-                new L2(),
-                new Swap(),
-                new Slot(),
-                new SevenTh()
+        this.playerRack = new PlayerRackDto();
+        this.swapRack = new SwapRackDto();
+        this.challenge = new ChallengeDto(Arrays.asList(
+                (ISlot) new SlotDto(),
+                (ISlot) new SwapSlotDto(),
+                (ISlot) new SlotDto(),
+                (ISlot) new L2SlotDto(),
+                (ISlot) new SwapSlotDto(),
+                (ISlot) new SlotDto(),
+                (ISlot) new LastSlotDto()
         ));
     }
 
-    public Player getPlayer(){
+    public PlayerDto getPlayer(){
         return player;
     }
 
-    public SwapRack getSwapRack() {
+    public SwapRackDto getSwapRack() {
         return swapRack;
     }
 
-    public PlayerRack getPlayerRack() {
+    public PlayerRackDto getPlayerRack() {
         return playerRack;
     }
 
-    public Challenge getChallenge() {
+    public ChallengeDto getChallenge() {
         return challenge;
     }
 
-    public void majRack(List<Tile> newTiles, List<Tile> swapTiles) {
+    public void majRack(List<TileDto> newTiles, List<TileDto> swapTiles) {
         for (int i = 0; i < newTiles.size(); i++) {
             playerRack.addTile(newTiles.get(i));
         }

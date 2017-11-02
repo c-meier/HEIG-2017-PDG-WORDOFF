@@ -1,6 +1,6 @@
 package ch.heigvd.wordoff.client.logic;
 
-import ch.heigvd.wordoff.common.Model.Tiles.Tile;
+import ch.heigvd.wordoff.common.Model.Tiles.TileDto;
 
 import java.util.ArrayList;
 
@@ -11,8 +11,8 @@ public class Bag {
         this.numberTiles = numberTiles;
     }
 
-    public ArrayList<Tile> getTiles(int number){
-        ArrayList<Tile> tiles = new ArrayList<>();
+    public ArrayList<TileDto> getTiles(int number){
+        ArrayList<TileDto> tiles = new ArrayList<>();
         if(number > numberTiles) {
             number = numberTiles;
         }

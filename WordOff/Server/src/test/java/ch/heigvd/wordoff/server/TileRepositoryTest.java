@@ -1,7 +1,7 @@
 package ch.heigvd.wordoff.server;
 
-import ch.heigvd.wordoff.common.Model.Tiles.TileSet;
-import ch.heigvd.wordoff.Repository.TileSetRepository;
+import ch.heigvd.wordoff.server.Model.Tiles.TileSet;
+import ch.heigvd.wordoff.server.Repository.TileSetRepository;
 import org.junit.*;
 import org.junit.runner.*;
 import org.slf4j.Logger;

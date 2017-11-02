@@ -1,7 +1,8 @@
 package ch.heigvd.wordoff.common.Racks;
 
-import ch.heigvd.wordoff.common.Model.Racks.PlayerRack;
-import ch.heigvd.wordoff.common.Model.Tiles.Tile;
+import ch.heigvd.wordoff.common.IModel.ITile;
+import ch.heigvd.wordoff.common.Model.Racks.PlayerRackDto;
+import ch.heigvd.wordoff.common.Model.Tiles.TileDto;
 import org.junit.*;
 
 import java.util.ArrayList;
@@ -9,23 +10,23 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 public class PlayerRackTest {
-    static ArrayList<Tile> listeTile = new ArrayList();
+    static ArrayList<TileDto> listeTile = new ArrayList();
 
     @BeforeClass
     public static void init() {
-        listeTile.add(new Tile(0, 'a', 1));
-        listeTile.add(new Tile(1, 'b', 1));
-        listeTile.add(new Tile(2, 'c', 1));
-        listeTile.add(new Tile(3, 'd', 2));
-        listeTile.add(new Tile(4, 'e', 1));
-        listeTile.add(new Tile(5, 'f', 4));
-        listeTile.add(new Tile(6, 'g', 3));
-        listeTile.add(new Tile(7, 'h', 4));
+        listeTile.add(new TileDto(0, 'a', 1));
+        listeTile.add(new TileDto(1, 'b', 1));
+        listeTile.add(new TileDto(2, 'c', 1));
+        listeTile.add(new TileDto(3, 'd', 2));
+        listeTile.add(new TileDto(4, 'e', 1));
+        listeTile.add(new TileDto(5, 'f', 4));
+        listeTile.add(new TileDto(6, 'g', 3));
+        listeTile.add(new TileDto(7, 'h', 4));
     }
 
     @Test
     public void testAddTile() {
-        PlayerRack pRack = new PlayerRack();
+        PlayerRackDto pRack = new PlayerRackDto();
         // Vérifier si vide
         assertTrue(pRack.isEmpty());
 
@@ -49,7 +50,7 @@ public class PlayerRackTest {
 
     @Test
     public void testIsEmpty() {
-        PlayerRack pRack = new PlayerRack();
+        PlayerRackDto pRack = new PlayerRackDto();
         assertTrue(pRack.isEmpty());
         pRack.addTile(listeTile.get(0));
         assertFalse(pRack.isEmpty());
@@ -57,7 +58,7 @@ public class PlayerRackTest {
 
     @Test
     public void testGetSizeRack() {
-        PlayerRack pRack = new PlayerRack();
+        PlayerRackDto pRack = new PlayerRackDto();
         assertEquals(7, pRack.getMaxSizeRack());
         pRack.addTile(listeTile.get(0));
         assertEquals(7, pRack.getMaxSizeRack());
@@ -65,7 +66,7 @@ public class PlayerRackTest {
 
     @Test
     public void testGetRack() {
-        PlayerRack pRack = new PlayerRack();
+        PlayerRackDto pRack = new PlayerRackDto();
 
         // Rack vide
         assertEquals(0, pRack.getRack().size());
@@ -76,7 +77,7 @@ public class PlayerRackTest {
 
         // Rack non vide, vérification du contenu
         int i = 0;
-        for (Tile t : pRack.getRack()) {
+        for (ITile t : pRack.getRack()) {
             assertEquals(t, listeTile.get(i++));
         }
 
@@ -86,12 +87,12 @@ public class PlayerRackTest {
 
     @Test
     public void testGetTile() {
-        PlayerRack pRack = new PlayerRack();
+        PlayerRackDto pRack = new PlayerRackDto();
         assertEquals(null, pRack.getTile(listeTile.get(0).getId()));
 
         pRack.addTile(listeTile.get(3));
 
-        Tile t = pRack.getTile(listeTile.get(3).getId());
+        ITile t = pRack.getTile(listeTile.get(3).getId());
         assertEquals(listeTile.get(3), t);
     }
 }

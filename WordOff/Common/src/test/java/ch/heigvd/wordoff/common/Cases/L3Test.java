@@ -1,21 +1,21 @@
 package ch.heigvd.wordoff.common.Cases;
 
-import ch.heigvd.wordoff.common.Model.Slots.L3;
-import ch.heigvd.wordoff.common.Model.Tiles.Tile;
+import ch.heigvd.wordoff.common.Model.Slots.L3SlotDto;
+import ch.heigvd.wordoff.common.Model.Tiles.TileDto;
 import org.junit.*;
 import static org.junit.Assert.*;
 
 public class L3Test {
-    static Tile tile;
+    static TileDto tile;
 
     @BeforeClass
     public static void init(){
-        tile = new Tile(3,'d',4);
+        tile = new TileDto(3,'d',4);
     }
 
     @Test
     public void testGetScore(){
-        L3 l3 = new L3();
+        L3SlotDto l3 = new L3SlotDto();
         // Cas vide score = 0
         assertEquals(0,l3.getScore());
 

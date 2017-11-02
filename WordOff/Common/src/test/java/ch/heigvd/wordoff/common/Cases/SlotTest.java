@@ -1,20 +1,20 @@
 package ch.heigvd.wordoff.common.Cases;
-import ch.heigvd.wordoff.common.Model.Slots.Slot;
-import ch.heigvd.wordoff.common.Model.Tiles.Tile;
+import ch.heigvd.wordoff.common.Model.Slots.SlotDto;
+import ch.heigvd.wordoff.common.Model.Tiles.TileDto;
 import org.junit.*;
 import static org.junit.Assert.*;
 
 public class SlotTest {
-    static Tile tile;
+    static TileDto tile;
 
     @BeforeClass
     public static void init(){
-        tile = new Tile(0,'a',1);
+        tile = new TileDto(0,'a',1);
     }
 
     @Test
     public void testAddTile(){
-        Slot slot = new Slot();
+        SlotDto slot = new SlotDto();
         assertTrue(slot.isEmpty());
         slot.addTile(tile);
         assertFalse(slot.isEmpty());
@@ -22,7 +22,7 @@ public class SlotTest {
 
     @Test
     public void testIsEmpty(){
-        Slot slot = new Slot();
+        SlotDto slot = new SlotDto();
         assertTrue(slot.isEmpty());
         slot.addTile(tile);
         assertFalse(slot.isEmpty());
@@ -30,7 +30,7 @@ public class SlotTest {
 
     @Test
     public void testRemoveTile(){
-        Slot slot = new Slot();
+        SlotDto slot = new SlotDto();
         slot.addTile(tile);
         assertFalse(slot.isEmpty());
 
@@ -40,7 +40,7 @@ public class SlotTest {
 
     @Test
     public void testGetScore(){
-        Slot slot = new Slot();
+        SlotDto slot = new SlotDto();
         // Score retourner 0, slot vide
         assertEquals(0,slot.getScore());
 

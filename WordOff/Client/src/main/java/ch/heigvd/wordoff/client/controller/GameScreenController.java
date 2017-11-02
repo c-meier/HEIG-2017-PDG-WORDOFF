@@ -11,8 +11,10 @@ import java.util.ResourceBundle;
 
 import ch.heigvd.wordoff.client.logic.Game;
 import ch.heigvd.wordoff.client.logic.Side;
+import ch.heigvd.wordoff.common.IModel.ISlot;
+import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.common.Model.Slots.*;
-import ch.heigvd.wordoff.common.Model.Tiles.Tile;
+import ch.heigvd.wordoff.common.Model.Tiles.TileDto;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -54,7 +56,7 @@ public class GameScreenController implements Initializable {
 
 
     // PLAYER 1
-    // Challenge background and foreground
+    // ChallengeDto background and foreground
     @FXML
     private AnchorPane p1Ch1Back, p1Ch2Back, p1Ch3Back, p1Ch4Back, p1Ch5Back, p1Ch6Back, p1Ch7Back;
     @FXML
@@ -62,7 +64,7 @@ public class GameScreenController implements Initializable {
     // Player Rack
     @FXML
     private StackPane p1Pr1Fore, p1Pr2Fore, p1Pr3Fore, p1Pr4Fore, p1Pr5Fore, p1Pr6Fore, p1Pr7Fore;
-    // Swap Rack
+    // SwapSlotDto Rack
     @FXML
     private StackPane p1Sr1Fore, p1Sr2Fore;
     // Tiles
@@ -80,7 +82,7 @@ public class GameScreenController implements Initializable {
     // Player rack
     @FXML
     private StackPane p2Pr1Fore, p2Pr2Fore, p2Pr3Fore, p2Pr4Fore, p2Pr5Fore, p2Pr6Fore, p2Pr7Fore;
-    // Swap rack
+    // SwapSlotDto rack
     private StackPane p2Sr1Fore, p2Sr2Fore;
     @FXML
     private AnchorPane p2TileSr1, p2TileSr2;
@@ -110,7 +112,7 @@ public class GameScreenController implements Initializable {
     }
 
     private void shuffle(){
-        List<Tile> tiles = game.getSideP1().getPlayerRack().getRack();
+        List<ITile> tiles = game.getSideP1().getPlayerRack().getRack();
         Collections.shuffle(tiles);
         setTiles(tiles, p1TilesPr, false);
     }
@@ -190,15 +192,15 @@ public class GameScreenController implements Initializable {
         // Placer les images du challenge selon les slots
         int i = 0;
         Image image = null;
-        for (Slot slot : side.getChallenge().getSlots()) {
+        for (ISlot slot : side.getChallenge().getSlots()) {
             // Get image source
-            if (slot.getClass() == SevenTh.class) {
+            if (slot.getClass() == LastSlotDto.class) {
                 image = new Image("/images/plus10Slot.png");
-            } else if (slot.getClass() == L2.class) {
+            } else if (slot.getClass() == L2SlotDto.class) {
                 image = new Image("/images/2LSlot.png");
-            } else if (slot.getClass() == L3.class) {
+            } else if (slot.getClass() == L3SlotDto.class) {
                 image = new Image("/images/3LSlot.png");
-            } else if (slot.getClass() == Swap.class) {
+            } else if (slot.getClass() == SwapSlotDto.class) {
                 image = new Image("/images/swapSlot.png");
             } else {
                 image = new Image("/images/slot.png");
@@ -219,9 +221,9 @@ public class GameScreenController implements Initializable {
      * @param rack  Game rack
      * @param tiles GUI tiles
      */
-    private void setTiles(List<Tile> rack, List<AnchorPane> tiles, boolean withListener) {
+    private void setTiles(List<ITile> rack, List<AnchorPane> tiles, boolean withListener) {
         int i = 0;
-        for (Tile tile : rack) {
+        for (ITile tile : rack) {
             // Maj tile GUI
             Label value = (Label) tiles.get(i).getChildren().get(0);
             Label score = (Label) tiles.get(i).getChildren().get(1);
@@ -320,7 +322,7 @@ public class GameScreenController implements Initializable {
                 numberTilesOnChallengeRack++;
 
                 // Move tile in logic game
-                Tile tile = game.getSideP1().getPlayerRack().getTile(idTile);
+                ITile tile = game.getSideP1().getPlayerRack().getTile(idTile);
                 game.getSideP1().getChallenge().addTile(tile);
             }
         } else if (p1SlotsSr.contains(slotParent)) {
@@ -331,7 +333,7 @@ public class GameScreenController implements Initializable {
                 numberTilesOnChallengeRack++;
 
                 // Move tile in logic game
-                Tile tile = game.getSideP1().getSwapRack().getTile(idTile);
+                ITile tile = game.getSideP1().getSwapRack().getTile(idTile);
                 game.getSideP1().getChallenge().addTile(tile);
             }
         } else {
@@ -343,7 +345,7 @@ public class GameScreenController implements Initializable {
                 numberTilesOnChallengeRack--;
 
                 // Maj Logic
-                Tile tile = game.getSideP1().getChallenge().getTileById(idTile);
+                ITile tile = game.getSideP1().getChallenge().getTileById(idTile);
                 game.getSideP1().getSwapRack().addTile(tile);
             } else {
                 // Move to player rack from challenge
@@ -354,7 +356,7 @@ public class GameScreenController implements Initializable {
                 numberTilesOnChallengeRack--;
 
                 // Maj logic
-                Tile tile = game.getSideP1().getChallenge().getTileById(idTile);
+                ITile tile = game.getSideP1().getChallenge().getTileById(idTile);
                 game.getSideP1().getPlayerRack().addTile(tile);
             }
         }
@@ -374,7 +376,7 @@ public class GameScreenController implements Initializable {
         addConentListStackPane(p1SlotsPr, p1Pr1Fore, p1Pr2Fore, p1Pr3Fore, p1Pr4Fore, p1Pr5Fore, p1Pr6Fore, p1Pr7Fore);
         // Tiles player rack
         addConentListAnchorePane(p1TilesPr, true, p1TilePr1, p1TilePr2, p1TilePr3, p1TilePr4, p1TilePr5, p1TilePr6, p1TilePr7);
-        // Swap rack
+        // SwapSlotDto rack
         addConentListStackPane(p1SlotsSr, p1Sr1Fore, p1Sr2Fore);
         // Tiles swap rack
         addConentListAnchorePane(p1TilesSr, true, p1TileSr1, p1TileSr2);
@@ -386,7 +388,7 @@ public class GameScreenController implements Initializable {
         addConentListStackPane(p2SlotsPr, p2Pr1Fore, p2Pr2Fore, p2Pr3Fore, p2Pr4Fore, p2Pr5Fore, p2Pr6Fore, p2Pr7Fore);
         // Tiles player rack
         addConentListAnchorePane(p2TilesPr, false, p2TilePr1, p2TilePr2, p2TilePr3, p2TilePr4, p2TilePr5, p2TilePr6, p2TilePr7);
-        // Swap rack
+        // SwapSlotDto rack
         addConentListStackPane(p2SlotsSr, p2Sr1Fore, p2Sr2Fore);
         // Tiles swap rack
         addConentListAnchorePane(p2TilesSr, false, p2TileSr1, p2TileSr2);

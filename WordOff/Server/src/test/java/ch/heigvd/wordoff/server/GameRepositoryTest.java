@@ -1,21 +1,21 @@
 package ch.heigvd.wordoff.server;
 
-import ch.heigvd.wordoff.Model.Bag;
-import ch.heigvd.wordoff.Model.Game;
-import ch.heigvd.wordoff.Model.User;
-import ch.heigvd.wordoff.Repository.GameRepository;
-import ch.heigvd.wordoff.Repository.PlayerRepository;
-import ch.heigvd.wordoff.Repository.SideRepository;
-import ch.heigvd.wordoff.Repository.TileSetRepository;
-import ch.heigvd.wordoff.Util.ChallengeFactory;
-import ch.heigvd.wordoff.common.Model.Answer;
-import ch.heigvd.wordoff.common.Model.Challenge;
-import ch.heigvd.wordoff.common.Model.Player;
-import ch.heigvd.wordoff.common.Model.Racks.PlayerRack;
-import ch.heigvd.wordoff.common.Model.Racks.SwapRack;
-import ch.heigvd.wordoff.common.Model.Side;
-import ch.heigvd.wordoff.common.Model.Slots.*;
-import ch.heigvd.wordoff.common.Model.Tiles.TileSet;
+import ch.heigvd.wordoff.server.Model.Bag;
+import ch.heigvd.wordoff.server.Model.Game;
+import ch.heigvd.wordoff.server.Model.User;
+import ch.heigvd.wordoff.server.Repository.GameRepository;
+import ch.heigvd.wordoff.server.Repository.PlayerRepository;
+import ch.heigvd.wordoff.server.Repository.SideRepository;
+import ch.heigvd.wordoff.server.Repository.TileSetRepository;
+import ch.heigvd.wordoff.server.Util.ChallengeFactory;
+import ch.heigvd.wordoff.server.Model.Answer;
+import ch.heigvd.wordoff.server.Model.Challenge;
+import ch.heigvd.wordoff.server.Model.Player;
+import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
+import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
+import ch.heigvd.wordoff.server.Model.Side;
+import ch.heigvd.wordoff.server.Model.Slots.*;
+import ch.heigvd.wordoff.server.Model.Tiles.TileSet;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,7 +46,10 @@ public class GameRepositoryTest {
     @Autowired
     private TileSetRepository tilesRepository;
 
-    private Player one, two, ai;
+    private Player one;
+    private Player two;
+    private Player ai;
+
     @Autowired
     private PlayerRepository playerRepository;
 
@@ -85,27 +88,27 @@ public class GameRepositoryTest {
         answers.add(new Answer(side, (short)2,"World", 32));
         answers.add(new Answer(side, (short)3,"Bye", 14));
 
+        // Challenge
+        Challenge challenge = new ChallengeFactory(side).addAll(Arrays.asList(
+                L2Slot.class,
+                Slot.class,
+                SwapSlot.class,
+                L3Slot.class,
+                Slot.class,
+                SwapSlot.class,
+                LastSlot.class
+        )).create();
+
+        challenge.addTile(bag.pop());
+        side.setChallenge(challenge);
+
         // Racks
-        SwapRack swapRack = side.getSwapRack();
+        SwapRack swapRack = side.getChallenge().getSwapRack();
         swapRack.addTile(bag.pop());
 
         PlayerRack playerRack = side.getPlayerRack();
         playerRack.addTile(bag.pop());
         playerRack.addTile(bag.pop());
-
-        // Challenge
-        Challenge challenge = new ChallengeFactory(side).addAll(Arrays.asList(
-                L2.class,
-                Slot.class,
-                Swap.class,
-                L3.class,
-                Slot.class,
-                Swap.class,
-                SevenTh.class
-        )).create();
-
-        challenge.addTile(bag.pop());
-        side.setChallenge(challenge);
 
         sideRepository.save(side);
 

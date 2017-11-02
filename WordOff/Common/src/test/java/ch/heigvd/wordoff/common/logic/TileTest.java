@@ -1,17 +1,17 @@
 package ch.heigvd.wordoff.common.logic;
 
-import ch.heigvd.wordoff.common.Model.Tiles.Tile;
+import ch.heigvd.wordoff.common.Model.Tiles.TileDto;
 import org.junit.*;
 import static org.junit.Assert.*;
 
 public class TileTest {
-    static Tile tile1;
-    static Tile tile2;
+    static TileDto tile1;
+    static TileDto tile2;
 
     @BeforeClass
     public static void init(){
-        tile1 = new Tile(0,'c',1);
-        tile2 = new Tile(5,'z',10);
+        tile1 = new TileDto(0,'c',1);
+        tile2 = new TileDto(5,'z',10);
     }
 
     @Test

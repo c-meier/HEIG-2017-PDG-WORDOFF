@@ -56,7 +56,7 @@
 
 .slot_7letter{
 	-fx-background-image: url("../images/slot_7letter.png");
-	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);    
+	-fx-effect: innershadow(three-pass-box, gray, 10, 0, 0, 0);    
 	-fx-background-position: center,center;
 	-fx-background-size: 40,40;
 	-fx-background-repeat:no-repeat;
@@ -65,7 +65,7 @@
 .backgroundGame{
 	-fx-background-color: #ffeeba;
 	-fx-background-image: url("../images/wood_texture.png");
-	-fx-effect: dropshadow(three-pass-box, gray, 10, 0, 0, 0);  
+	-fx-effect: dropshadow(three-pass-box, purple, 10, 0, 0, 0);  
 }
 
 .backgroundGame_bottom{
@@ -75,6 +75,7 @@
 	-fx-alignment:center;
 }
 
-.bodyBackground {
+.background_grid{
+	-fx-background-color: #79df8f;
 }
 

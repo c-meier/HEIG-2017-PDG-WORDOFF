@@ -9,6 +9,7 @@ import ch.heigvd.wordoff.common.Model.Slots.*;
 import ch.heigvd.wordoff.common.Model.Tiles.TileDto;
 import ch.heigvd.wordoff.common.Model.SideDto;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class Game {
     private SideDto sideP1;
@@ -20,14 +21,14 @@ public class Game {
         this.sideP2 = new SideDto();
         PlayerRackDto pRack = new PlayerRackDto();
         SwapRackDto pSp = new SwapRackDto();
-        pRack.setTiles(Arrays.asList(
+        pRack.setTiles(new LinkedList<ITile>(Arrays.asList(
                 (ITile) new TileDto(0, 'a', 1),
                 (ITile) new TileDto(1, 'b', 3),
                 (ITile) new TileDto(2, 'c', 3),
                 (ITile) new TileDto(3, 'd', 2),
                 (ITile) new TileDto(4, 'e', 2),
                 (ITile) new TileDto(5, 'f', 4),
-                (ITile) new TileDto(6, 'g', 2)
+                (ITile) new TileDto(6, 'g', 2))
         ));
         ChallengeDto pChallenge = new ChallengeDto(Arrays.asList(
                 (ISlot) new SlotDto(),
@@ -39,9 +40,9 @@ public class Game {
                 (ISlot) new LastSlotDto()
         ));
 
-        pSp.setTiles( Arrays.asList(
+        pSp.setTiles( new LinkedList<ITile>(Arrays.asList(
                 (ITile) new TileDto(7, 'h', 4),
-                (ITile)new TileDto(8, 'i', 1)));
+                (ITile)new TileDto(8, 'i', 1))));
         pChallenge.setSwapRack(pSp);
 
         this.sideP1.setPlayerRack(pRack);
@@ -49,18 +50,18 @@ public class Game {
         // Tile int id, char value, int score
 
         PlayerRackDto p2Rack = new PlayerRackDto();
-        p2Rack.setTiles(Arrays.asList(
+        p2Rack.setTiles(new LinkedList<ITile>(Arrays.asList(
                 (ITile) new TileDto(10, 'j', 8),
                 (ITile) new TileDto(11, 'k', 10),
                 (ITile) new TileDto(12, 'l', 1),
                 (ITile) new TileDto(13, 'm', 2),
                 (ITile) new TileDto(14, 'n', 1),
                 (ITile) new TileDto(15, 'o', 1),
-                (ITile) new TileDto(16, 'p', 3)));
+                (ITile) new TileDto(16, 'p', 3))));
         SwapRackDto p2sp = new SwapRackDto();
-        p2sp.setTiles(Arrays.asList(
+        p2sp.setTiles(new LinkedList<ITile>(Arrays.asList(
                 (ITile) new TileDto(17, 'q', 8),
-                (ITile) new TileDto(18, 'r', 1)));
+                (ITile) new TileDto(18, 'r', 1))));
         ChallengeDto p2Challenge = new ChallengeDto(Arrays.asList(
                 (ISlot) new SlotDto(),
                 (ISlot) new SwapSlotDto(),

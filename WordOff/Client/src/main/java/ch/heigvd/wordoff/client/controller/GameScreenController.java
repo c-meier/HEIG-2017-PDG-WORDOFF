@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import ch.heigvd.wordoff.client.logic.Game;
+import ch.heigvd.wordoff.common.Model.ChallengeDto;
+import ch.heigvd.wordoff.common.Model.Racks.PlayerRackDto;
 import ch.heigvd.wordoff.common.Model.SideDto;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;

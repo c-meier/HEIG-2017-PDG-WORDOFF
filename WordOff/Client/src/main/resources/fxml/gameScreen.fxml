@@ -31,7 +31,6 @@
                       <RowConstraints maxHeight="239.0" minHeight="10.0" prefHeight="237.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="176.0" minHeight="0.0" prefHeight="53.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="280.0" minHeight="10.0" prefHeight="223.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="176.0" minHeight="3.0" prefHeight="40.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <SplitPane dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0" GridPane.rowIndex="1">
@@ -48,20 +47,7 @@
                               </AnchorPane>
                           </items>
                         </SplitPane>
-                        <AnchorPane GridPane.rowIndex="3">
-                           <children>
-                              <ToolBar styleClass="backgroundGame_bottom" stylesheets="@../styles/Styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                <items>
-                                    <Button fx:id="shuffleButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#shuffleClear" styleClass="buttonPower" text="Mélanger" />
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#discard" text="Jeter" />
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#play" text="Jouer" />
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#peek" text="Aperçu" />
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#hint" text="Indice" />
-                                </items>
-                              </ToolBar>
-                           </children>
-                        </AnchorPane>
-                        <GridPane GridPane.rowIndex="2">
+                        <GridPane styleClass="background_grid" stylesheets="@../styles/Styles.css" GridPane.rowIndex="2">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -290,7 +276,7 @@
                               </AnchorPane>
                            </children>
                         </GridPane>
-                        <GridPane>
+                        <GridPane styleClass="background_grid" stylesheets="@../styles/Styles.css">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -539,4 +525,19 @@
         </menus>
       </MenuBar>
    </top>
+   <bottom>
+      <AnchorPane BorderPane.alignment="CENTER">
+         <children>
+            <ToolBar styleClass="backgroundGame_bottom" stylesheets="@../styles/Styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <items>
+                  <Button fx:id="shuffleButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#shuffleClear" styleClass="buttonPower" text="Mélanger" />
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#discard" text="Jeter" />
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#play" text="Jouer" />
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#peek" text="Aperçu" />
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#hint" text="Indice" />
+              </items>
+            </ToolBar>
+         </children>
+      </AnchorPane>
+   </bottom>
 </BorderPane>

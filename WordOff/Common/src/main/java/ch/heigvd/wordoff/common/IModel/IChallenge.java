@@ -1,7 +1,5 @@
 package ch.heigvd.wordoff.common.IModel;
 
-import ch.heigvd.wordoff.common.Model.Slots.SlotDto;
-
 import java.util.List;
 
 public interface IChallenge {
@@ -43,7 +41,7 @@ public interface IChallenge {
         if (rack.isEmpty()) {
             score *= 2;
         } else {
-            for (ITile t : rack.getRack()) {
+            for (ITile t : rack.getTiles()) {
                 score -= t.getScore();
             }
         }

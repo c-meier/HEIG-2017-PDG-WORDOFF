@@ -7,9 +7,6 @@ import javax.persistence.Entity;
 public class LastSlotDto extends SlotDto {
     private final int bonus = 10;
 
-    public LastSlotDto(){
-    }
-
     public LastSlotDto(SideDto side, Short pos) {
         super(side, pos);
     }
@@ -17,5 +14,4 @@ public class LastSlotDto extends SlotDto {
     public int getScore() {
         return isEmpty() ? 0 : super.getScore() + bonus;
     }
-
 }

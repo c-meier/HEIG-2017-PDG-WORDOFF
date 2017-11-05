@@ -12,11 +12,11 @@ public abstract class RackDto implements IRack {
 
     private List<ITile> tiles;
 
-    public RackDto() {
-        tiles = new ArrayList<>();
+    public RackDto(List<ITile> tiles) {
+        this.tiles = tiles;
     }
 
-    public List<ITile> getRack() {
+    public List<ITile> getTiles() {
         return tiles;
     }
 

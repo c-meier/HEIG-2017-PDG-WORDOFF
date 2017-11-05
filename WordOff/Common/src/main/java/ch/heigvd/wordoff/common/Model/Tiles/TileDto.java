@@ -10,18 +10,12 @@ public class TileDto implements ITile {
 
     private LetterDto letter;
 
-    @JsonIgnore
-    private TileSetDto tileSet;
+//    @JsonIgnore
+//    private TileSetDto tileSet;
 
-    protected TileDto() {}
-
-    public TileDto(int id, char value, int score) {
+    public TileDto(int id, LetterDto letter) {
         this.id = id;
-        this.letter = new LetterDto(value, score);
-    }
-
-    public TileDto(char value, int score) {
-        this.letter = new LetterDto(value, score);
+        this.letter = letter;
     }
 
     @JsonIgnore
@@ -38,9 +32,9 @@ public class TileDto implements ITile {
         return letter.getScore();
     }
 
-    public void setTileSet(TileSetDto tileSet) {
-        this.tileSet = tileSet;
-    }
+//    public void setTileSet(TileSetDto tileSet) {
+//        this.tileSet = tileSet;
+//    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -54,7 +48,7 @@ public class TileDto implements ITile {
         this.letter = letter;
     }
 
-    public TileSetDto getTileSet() {
-        return tileSet;
-    }
+//    public TileSetDto getTileSet() {
+//        return tileSet;
+//    }
 }

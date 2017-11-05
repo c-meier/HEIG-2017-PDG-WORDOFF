@@ -6,8 +6,6 @@ import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.common.Model.ChallengeDto;
 import ch.heigvd.wordoff.common.Model.Racks.PlayerRackDto;
 import ch.heigvd.wordoff.common.Model.Racks.SwapRackDto;
-import ch.heigvd.wordoff.common.Model.SideDto;
-import ch.heigvd.wordoff.common.Model.Tiles.TileDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +36,10 @@ public class WordAnalyzer {
 
         // construit la String des lettres disponibles
         StringBuilder lettersBuilder = new StringBuilder();
-        for (ITile tile : playerRack.getRack()) {
+        for (ITile tile : playerRack.getTiles()) {
             lettersBuilder.append(tile.getValue());
         }
-        for (ITile tile : challenge.getSwapRack().getRack()) {
+        for (ITile tile : challenge.getSwapRack().getTiles()) {
             lettersBuilder.append(tile.getValue());
         }
         String letters = lettersBuilder.toString();
@@ -52,17 +50,17 @@ public class WordAnalyzer {
         for (String str : anagrams) {
             List<ITile> tiles = new ArrayList<>();
             // challenge et racks temporaires
-            ChallengeDto tempChall = new ChallengeDto(challenge.getSlots());
-            IRack tempPlayer = new PlayerRackDto();
-            playerRack.getRack().forEach(tempPlayer::addTile);
-            SwapRackDto tempSwap = new SwapRackDto();
-            challenge.getSwapRack().getRack().forEach(tempSwap::addTile);
+            ChallengeDto tempChall = new ChallengeDto(challenge.getSlots(), challenge.getSwapRack());
+            IRack tempPlayer = new PlayerRackDto(new ArrayList<>());
+            playerRack.getTiles().forEach(tempPlayer::addTile);
+            SwapRackDto tempSwap = new SwapRackDto(new ArrayList<>());
+            challenge.getSwapRack().getTiles().forEach(tempSwap::addTile);
 
             // pour chaque lettre
             for (int i = 0; i < str.length(); i++) {
                 boolean tileFound = false;
                 // cherche la tile dans le tempSwap en premier
-                for (ITile tile : tempSwap.getRack()) {
+                for (ITile tile : tempSwap.getTiles()) {
                     if (tile.getValue() == str.charAt(i)) {
                         // retire la tile, et l'ajoute au challenge
                         tempChall.addTile(tempSwap.getTile(tile.getId()));
@@ -74,7 +72,7 @@ public class WordAnalyzer {
 
                 if (!tileFound) {
                     // cherche la position du la Tile correspondante dans le playerRack
-                    for (ITile tile : tempPlayer.getRack()) {
+                    for (ITile tile : tempPlayer.getTiles()) {
                         if (tile.getValue() == str.charAt(i)) {
                             // ajoute la tile au challenge
                             tempChall.addTile(tempPlayer.getTile(tile.getId()));

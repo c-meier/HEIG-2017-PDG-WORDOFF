@@ -2,6 +2,7 @@ package ch.heigvd.wordoff.common.Racks;
 
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.common.Model.Racks.PlayerRackDto;
+import ch.heigvd.wordoff.common.Model.Tiles.LetterDto;
 import ch.heigvd.wordoff.common.Model.Tiles.TileDto;
 import org.junit.*;
 
@@ -14,26 +15,26 @@ public class PlayerRackTest {
 
     @BeforeClass
     public static void init() {
-        listeTile.add(new TileDto(0, 'a', 1));
-        listeTile.add(new TileDto(1, 'b', 1));
-        listeTile.add(new TileDto(2, 'c', 1));
-        listeTile.add(new TileDto(3, 'd', 2));
-        listeTile.add(new TileDto(4, 'e', 1));
-        listeTile.add(new TileDto(5, 'f', 4));
-        listeTile.add(new TileDto(6, 'g', 3));
-        listeTile.add(new TileDto(7, 'h', 4));
+        listeTile.add(new TileDto(0, new LetterDto('a', 1)));
+        listeTile.add(new TileDto(1, new LetterDto('b', 1)));
+        listeTile.add(new TileDto(2, new LetterDto('c', 1)));
+        listeTile.add(new TileDto(3, new LetterDto('d', 2)));
+        listeTile.add(new TileDto(4, new LetterDto('e', 1)));
+        listeTile.add(new TileDto(5, new LetterDto('f', 4)));
+        listeTile.add(new TileDto(6, new LetterDto('g', 3)));
+        listeTile.add(new TileDto(7, new LetterDto('h', 4)));
     }
 
     @Test
     public void testAddTile() {
-        PlayerRackDto pRack = new PlayerRackDto();
+        PlayerRackDto pRack = new PlayerRackDto(new ArrayList<>());
         // Vérifier si vide
         assertTrue(pRack.isEmpty());
 
         // Ajouter une tuile
         assertTrue(pRack.addTile(listeTile.get(0)));
-        assertEquals(1, pRack.getRack().size());
-        assertEquals(listeTile.get(0), pRack.getRack().get(0));
+        assertEquals(1, pRack.getTiles().size());
+        assertEquals(listeTile.get(0), pRack.getTiles().get(0));
 
         // Tentative d'ajouter la même Tuile
         assertFalse(pRack.addTile(listeTile.get(0)));
@@ -42,7 +43,7 @@ public class PlayerRackTest {
         for (int i = 1; i < 7; i++) {
             assertTrue(pRack.addTile(listeTile.get(i)));
         }
-        assertEquals(7, pRack.getRack().size());
+        assertEquals(7, pRack.getTiles().size());
 
         // Ajout d'une 8ème tuile
         assertFalse(pRack.addTile(listeTile.get(7)));
@@ -50,7 +51,7 @@ public class PlayerRackTest {
 
     @Test
     public void testIsEmpty() {
-        PlayerRackDto pRack = new PlayerRackDto();
+        PlayerRackDto pRack = new PlayerRackDto(new ArrayList<>());
         assertTrue(pRack.isEmpty());
         pRack.addTile(listeTile.get(0));
         assertFalse(pRack.isEmpty());
@@ -58,7 +59,7 @@ public class PlayerRackTest {
 
     @Test
     public void testGetSizeRack() {
-        PlayerRackDto pRack = new PlayerRackDto();
+        PlayerRackDto pRack = new PlayerRackDto(new ArrayList<>());
         assertEquals(7, pRack.getMaxSizeRack());
         pRack.addTile(listeTile.get(0));
         assertEquals(7, pRack.getMaxSizeRack());
@@ -66,10 +67,10 @@ public class PlayerRackTest {
 
     @Test
     public void testGetRack() {
-        PlayerRackDto pRack = new PlayerRackDto();
+        PlayerRackDto pRack = new PlayerRackDto(new ArrayList<>());
 
         // Rack vide
-        assertEquals(0, pRack.getRack().size());
+        assertEquals(0, pRack.getTiles().size());
 
         for (int i = 0; i < 7; i++) {
             pRack.addTile(listeTile.get(i));
@@ -77,7 +78,7 @@ public class PlayerRackTest {
 
         // Rack non vide, vérification du contenu
         int i = 0;
-        for (ITile t : pRack.getRack()) {
+        for (ITile t : pRack.getTiles()) {
             assertEquals(t, listeTile.get(i++));
         }
 
@@ -87,7 +88,7 @@ public class PlayerRackTest {
 
     @Test
     public void testGetTile() {
-        PlayerRackDto pRack = new PlayerRackDto();
+        PlayerRackDto pRack = new PlayerRackDto(new ArrayList<>());
         assertEquals(null, pRack.getTile(listeTile.get(0).getId()));
 
         pRack.addTile(listeTile.get(3));

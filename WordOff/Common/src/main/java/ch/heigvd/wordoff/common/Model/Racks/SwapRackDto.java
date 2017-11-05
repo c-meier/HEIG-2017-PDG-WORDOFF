@@ -8,6 +8,9 @@ import javax.persistence.*;
 import java.util.List;
 
 public class SwapRackDto extends RackDto {
+    public SwapRackDto(List<ITile> tiles) {
+        super(tiles);
+    }
 
     /**
      * Retourne la taille du rack

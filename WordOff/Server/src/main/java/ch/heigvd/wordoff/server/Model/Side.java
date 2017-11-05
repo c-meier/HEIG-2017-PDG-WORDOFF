@@ -1,5 +1,6 @@
 package ch.heigvd.wordoff.server.Model;
 
+import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.server.Model.Answer;
 import ch.heigvd.wordoff.server.Model.Challenge;
 import ch.heigvd.wordoff.server.Model.Player;
@@ -168,5 +169,11 @@ public class Side {
 
     public void setAnswerCounter(short answerCounter) {
         this.answerCounter = answerCounter;
+    }
+
+    public void setChallenge(List<ITile> tiles) {
+        for (ITile t : tiles) {
+            challenge.addTile(t);
+        }
     }
 }

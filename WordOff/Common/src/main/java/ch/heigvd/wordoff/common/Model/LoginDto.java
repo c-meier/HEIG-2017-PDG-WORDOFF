@@ -3,11 +3,11 @@ package ch.heigvd.wordoff.common.Model;
 public class LoginDto {
     private String login;
 
-    private char[] password;
+    private String password;
 
     protected LoginDto() {}
 
-    public LoginDto(String login, char[] password) {
+    public LoginDto(String login, String password) {
         this.login = login;
         this.password = password;
     }
@@ -20,11 +20,11 @@ public class LoginDto {
         this.login = login;
     }
 
-    public char[] getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(char[] password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 }

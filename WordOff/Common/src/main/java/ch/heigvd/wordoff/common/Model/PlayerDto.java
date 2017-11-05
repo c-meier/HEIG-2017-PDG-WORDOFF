@@ -1,6 +1,5 @@
 package ch.heigvd.wordoff.common.Model;
 
-import javax.persistence.*;
 
 /**
  * Project : WordOff
@@ -11,9 +10,8 @@ public class PlayerDto {
 
     private String name;
 
-    protected PlayerDto() {}
-
-    public PlayerDto(String name) {
+    public PlayerDto(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
 

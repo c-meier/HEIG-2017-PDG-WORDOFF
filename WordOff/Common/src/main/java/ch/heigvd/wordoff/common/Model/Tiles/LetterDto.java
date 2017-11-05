@@ -1,9 +1,5 @@
 package ch.heigvd.wordoff.common.Model.Tiles;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
 public class LetterDto {
     public Integer getId() {
         return id;
@@ -25,8 +21,6 @@ public class LetterDto {
 
     private char value;
     private int score;
-
-    protected LetterDto() {}
 
     public LetterDto(char value, int score) {
         this.value = value;

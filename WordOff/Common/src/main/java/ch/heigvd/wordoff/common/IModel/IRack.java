@@ -3,7 +3,7 @@ package ch.heigvd.wordoff.common.IModel;
 import java.util.List;
 
 public interface IRack {
-    List<ITile> getRack();
+    List<ITile> getTiles();
 
     int getMaxSizeRack();
 
@@ -14,7 +14,7 @@ public interface IRack {
      * @return
      */
     default ITile getTile(int idTile) {
-        List<ITile> tiles = getRack();
+        List<ITile> tiles = getTiles();
 
         for (ITile t : tiles) {
             if (t.getId() == idTile) {
@@ -32,7 +32,7 @@ public interface IRack {
      * @return
      */
     default ITile getTileByPos(int pos){
-        List<ITile> tiles = getRack();
+        List<ITile> tiles = getTiles();
 
         if(pos < tiles.size()){
             return tiles.remove(pos);
@@ -47,7 +47,7 @@ public interface IRack {
      * @param tile tuile à ajouter
      */
     default boolean addTile(ITile tile) {
-        List<ITile> tiles = getRack();
+        List<ITile> tiles = getTiles();
         if (tiles.size() < getMaxSizeRack() && !tiles.contains(tile)) {
             tiles.add(tile);
             return true;
@@ -57,6 +57,6 @@ public interface IRack {
 
 
     default boolean isEmpty() {
-        return getRack().isEmpty();
+        return getTiles().isEmpty();
     }
 }

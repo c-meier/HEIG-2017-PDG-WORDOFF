@@ -114,7 +114,7 @@ public class GameScreenController implements Initializable {
     }
 
     private void shuffle(){
-        List<ITile> tiles = game.getSideP1().getPlayerRack().getRack();
+        List<ITile> tiles = game.getSideP1().getPlayerRack().getTiles();
         Collections.shuffle(tiles);
         setTiles(tiles, p1TilesPr, false);
     }
@@ -177,11 +177,11 @@ public class GameScreenController implements Initializable {
         setBackgroundChallenge(sideP2, p2Ch1Back, p2Ch2Back, p2Ch3Back, p2Ch4Back, p2Ch5Back, p2Ch6Back, p2Ch7Back);
 
         // refresh le contenus des Tiles GUI et on les attaches au slots
-        setTiles(sideP1.getPlayerRack().getRack(), p1TilesPr, true);
-        setTiles(sideP1.getChallenge().getSwapRack().getRack(), p1TilesSr, true);
+        setTiles(sideP1.getPlayerRack().getTiles(), p1TilesPr, true);
+        setTiles(sideP1.getChallenge().getSwapRack().getTiles(), p1TilesSr, true);
 
-        setTiles(sideP2.getPlayerRack().getRack(), p2TilesPr, false);
-        setTiles(sideP2.getChallenge().getSwapRack().getRack(), p2TilesSr, false);
+        setTiles(sideP2.getPlayerRack().getTiles(), p2TilesPr, false);
+        setTiles(sideP2.getChallenge().getSwapRack().getTiles(), p2TilesSr, false);
     }
 
     /**

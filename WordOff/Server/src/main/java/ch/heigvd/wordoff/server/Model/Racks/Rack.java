@@ -19,7 +19,7 @@ public abstract class Rack implements IRack {
         tiles = new ArrayList<>();
     }
 
-    public List<ITile> getRack() {
+    public List<ITile> getTiles() {
         return tiles;
     }
 

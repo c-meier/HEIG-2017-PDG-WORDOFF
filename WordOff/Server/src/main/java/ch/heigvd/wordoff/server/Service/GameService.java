@@ -12,6 +12,7 @@ import ch.heigvd.wordoff.server.Util.ChallengeFactory;
 import ch.heigvd.wordoff.server.Util.DictionaryLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.TreeMap;
 /**
  * Created by Daniel on 04.11.2017.
  */
+@Service
 public class GameService {
     private DictionaryLoader dictionaryLoader;
 
@@ -46,7 +48,7 @@ public class GameService {
             } else {
                 // get a list of the tile taken from the bag of the game
                 List<Tile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE -
-                        game.getSideOfPlayer(player).getPlayerRack().getRack().size());
+                        game.getSideOfPlayer(player).getPlayerRack().getTiles().size());
 
                 // Update the player side
                 updatePlayerSide(game.getSideOfPlayer(player), challenge, newTiles);
@@ -120,7 +122,7 @@ public class GameService {
 
         // get a list of the tile taken from the bag of the game
         List<Tile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE -
-                game.getSideOfPlayer(player).getPlayerRack().getRack().size());
+                game.getSideOfPlayer(player).getPlayerRack().getTiles().size());
 
         // Update the side of the Ai
         updatePlayerSide(game.getSideResp(), game.getSideResp().getChallenge(), newTiles);

@@ -68,10 +68,6 @@ public class SlotDto implements ISlot{
 
     private ITile tile;
 
-    public SlotDto() {
-        this.id = new SlotId();
-        this.tile = null;
-    }
     public SlotDto(SideDto side, Short pos) {
         this.side = side;
         this.id = new SlotId(side, pos);

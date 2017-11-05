@@ -10,8 +10,6 @@ public class TileSetDto {
 
     private List<TileDto> tiles;
 
-    protected TileSetDto() {}
-
     public TileSetDto(String name) {
         this.name = name;
     }

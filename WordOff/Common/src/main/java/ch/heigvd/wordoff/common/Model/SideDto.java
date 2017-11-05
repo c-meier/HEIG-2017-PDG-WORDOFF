@@ -27,73 +27,17 @@ public class SideDto {
 
     private short answerCounter;
 
-    public SideDto() {
-        this.playerRack = new PlayerRackDto();
-        this.answers = new ArrayList<>();
-        score = 0;
-        answerCounter = 1;
-    }
-
-    public SideDto(PlayerDto player) {
-        this();
+    public SideDto(Long id, PlayerDto player, ChallengeDto challenge, PlayerRackDto playerRack,
+                   List<AnswerDto> answers, int score, short answerCounter) {
+        this.id = id;
+        this.playerRack = playerRack;
+        this.answers = answers;
+        this.score = score;
+        this.answerCounter = answerCounter;
         this.player = player;
+        this.challenge = challenge;
     }
 
-//    private BooleanProperty playerTurn;
-//    private BooleanProperty walsActive;
-//    private int score;
-//    // How many time the player has pass
-//    private int nbPass;
-//
-//    public SideDto(PlayerDto player, ArrayList<SlotType> slots, Dictionary dico) {
-//        this.DICTIONARY = dico;
-//        swapRack = new SwapRackDto();
-//        playerRack = new PlayerRackDto();
-//        this.player = player;
-//        score = 0;
-//        updateChallenge(slots);
-//        nbPass = 0;
-//    }
-//
-//    *
-//     * @return true if the word is valid, else false
-//     * @brief check if the word exist
-//
-//    public boolean checkWord() {
-//        return challenge.checkWord();
-//    }
-//
-//    *
-//     * @brief Calculate the score for this side
-//
-//    public int getScoreWord() {
-//        return swapRack.applyBonus(challenge.getScoreWord());
-//    }
-//
-//    *
-//     * @param newTiles  The list of tiles to add to the player rack
-//     * @param swapTiles The list of tiles to add to the swap rack if this side
-//     * @brief Update the side rack with
-//
-//    public void fillRacks(List<TileDto> newTiles, List<TileDto> swapTiles) {
-//        for (int i = 0; i < newTiles.size(); i++) {
-//            playerRack.addTile(newTiles.get(i));
-//        }
-//
-//        for (int i = 0; i < swapTiles.size(); i++) {
-//            swapRack.addTile(swapTiles.get(i));
-//        }
-//    }
-//
-//    public void updateChallenge(ArrayList<SlotType> slots) {
-//        this.slots = slots;
-//        challenge = new ChallengeDto(slots, DICTIONARY);
-//    }
-//
-//    public int getScore() {
-//        return score;
-//    }
-//
     public void updateScore(int challengeScore) {
         score += challengeScore;
     }

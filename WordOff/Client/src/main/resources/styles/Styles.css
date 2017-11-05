@@ -1,5 +1,6 @@
+
 .button {
-    -fx-font-weight: bold;
+	
 }
 
 .rack{
@@ -19,15 +20,61 @@
 	-fx-color: #444;
 	-fx-display: inline-block;
 	-fx-background-color:  #ffeeba;
-	-fx-background-image: url("../images/tile-texture.png");
+	-fx-background-image: url("../images/wood_texture.png");
 	-fx-effect: dropshadow(three-pass-box, purple, 10, 0, 0, 0);     
 }
 
 .slot{
-	
+	-fx-background-image: url("../images/slot.png");
+	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);    
+	-fx-background-position: center,center;
+	-fx-background-size: 40,40;
+	-fx-background-repeat:no-repeat;
 }
 
-.challenge{
-	/*-fx-background-image: url("../images/slot.png");*/
-	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);     
+.slot_2L{
+	-fx-background-image: url("../images/slot_2L.png");
+	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);    
+	-fx-background-position: center,center;
+	-fx-background-size: 40,40;
+	-fx-background-repeat:no-repeat;
 }
+.slot_3L{
+	-fx-background-image: url("../images/slot_3L.png");
+	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);    
+	-fx-background-position: center,center;
+	-fx-background-size: 40,40;
+	-fx-background-repeat:no-repeat;
+}
+.slot_W{
+	-fx-background-image: url("../images/slot_W.png");
+	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);    
+	-fx-background-position: center,center;
+	-fx-background-size: 40,40;
+	-fx-background-repeat:no-repeat;
+}
+
+.slot_7letter{
+	-fx-background-image: url("../images/slot_7letter.png");
+	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);    
+	-fx-background-position: center,center;
+	-fx-background-size: 40,40;
+	-fx-background-repeat:no-repeat;
+}
+
+.backgroundGame{
+	-fx-background-color: #ffeeba;
+	-fx-background-image: url("../images/wood_texture.png");
+	-fx-effect: dropshadow(three-pass-box, gray, 10, 0, 0, 0);  
+}
+
+.backgroundGame_bottom{
+	-fx-background-color: #ffeeba;
+	-fx-background-image: url("../images/wood_texture.png");
+	-fx-effect: dropshadow(three-pass-box, purple, 10, 0, 0, 0); 
+	-fx-alignment:center;
+}
+
+.bodyBackground {
+}
+

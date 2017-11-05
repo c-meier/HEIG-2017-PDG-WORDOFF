@@ -36,21 +36,21 @@
                      <children>
                         <SplitPane dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0" GridPane.rowIndex="1">
                           <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="backgroundGame" stylesheets="@../styles/Styles.css">
                                  <children>
                                     <ImageView id="languageFlag" fx:id="flag" fitHeight="42.0" fitWidth="56.0" layoutX="77.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <Label fx:id="tilesRemaining" alignment="CENTER" layoutX="127.0" layoutY="37.0" prefHeight="73.0" prefWidth="368.0" text="X tuiles restantes" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <Label fx:id="tilesRemaining" alignment="CENTER" layoutX="127.0" layoutY="37.0" prefHeight="73.0" prefWidth="368.0" styleClass="backgroundGame" stylesheets="@../styles/Styles.css" text="X tuiles restantes" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                           </items>
                         </SplitPane>
                         <AnchorPane GridPane.rowIndex="3">
                            <children>
-                              <ToolBar AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <ToolBar styleClass="backgroundGame_bottom" stylesheets="@../styles/Styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <items>
                                     <Button fx:id="shuffleButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#shuffleClear" styleClass="buttonPower" text="Mélanger" />
                                     <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#discard" text="Jeter" />
@@ -213,37 +213,37 @@
                                     </StackPane>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch1Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch1Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch1Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch2Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch2Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch2Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch3Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch3Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch3Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch4Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch4Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch4Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch5Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch5Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch5Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch6Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch6Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="5" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch6Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch7Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch7Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="6" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch7Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
@@ -439,37 +439,37 @@
                                     </StackPane>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch1Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch1Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch1Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch2Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch2Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch2Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch3Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch3Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch3Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch4Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch4Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch4Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch5Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch5Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch5Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch6Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch6Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="5" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch6Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch7Back" prefHeight="200.0" prefWidth="200.0" styleClass="challenge" stylesheets="@../styles/Styles.css" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch7Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="6" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch7Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
@@ -520,7 +520,7 @@
                   </GridPane>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="bodyBackground" stylesheets="@../styles/Styles.css">
                <children>
                   <ListView layoutX="49.0" layoutY="153.0" prefHeight="560.0" prefWidth="297.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
@@ -529,7 +529,7 @@
       </SplitPane>
    </center>
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar styleClass="backgroundGame" stylesheets="@../styles/Styles.css" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false">
                <graphic>

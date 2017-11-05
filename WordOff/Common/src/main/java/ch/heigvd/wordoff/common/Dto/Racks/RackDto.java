@@ -1,11 +1,8 @@
-package ch.heigvd.wordoff.common.Model.Racks;
+package ch.heigvd.wordoff.common.Dto.Racks;
 
 import ch.heigvd.wordoff.common.IModel.IRack;
 import ch.heigvd.wordoff.common.IModel.ITile;
-import ch.heigvd.wordoff.common.Model.Tiles.TileDto;
 
-import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class RackDto implements IRack {

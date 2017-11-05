@@ -25,13 +25,7 @@ public class ChallengeFactory {
             Constructor<? extends Slot> ctor = slotClass.getConstructor(Side.class, Short.class);
             Slot slot = ctor.newInstance(side, (short)(slots.size() + 1));
             slots.add(slot);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
         }
 

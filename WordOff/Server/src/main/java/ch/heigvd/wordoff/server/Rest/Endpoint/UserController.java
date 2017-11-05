@@ -5,7 +5,7 @@ import ch.heigvd.wordoff.server.Model.User;
 import ch.heigvd.wordoff.server.Repository.UserRepository;
 import ch.heigvd.wordoff.server.Rest.Exception.UserAlreadyExistException;
 import ch.heigvd.wordoff.server.Security.SecurityConst;
-import ch.heigvd.wordoff.common.Model.LoginDto;
+import ch.heigvd.wordoff.common.Dto.LoginDto;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.web.bind.annotation.RequestBody;

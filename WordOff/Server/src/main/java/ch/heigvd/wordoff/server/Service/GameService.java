@@ -2,12 +2,15 @@ package ch.heigvd.wordoff.server.Service;
 
 import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.IModel.ITile;
-import ch.heigvd.wordoff.common.Model.ChallengeDto;
-import ch.heigvd.wordoff.common.Model.SideDto;
+import ch.heigvd.wordoff.common.Dto.ChallengeDto;
+import ch.heigvd.wordoff.common.Dto.SideDto;
 import ch.heigvd.wordoff.common.WordAnalyzer;
 import ch.heigvd.wordoff.server.Model.*;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.server.Model.Tiles.Tile;
+import ch.heigvd.wordoff.server.Rest.Exception.InvalidAiLevel;
+import ch.heigvd.wordoff.server.Rest.Exception.InvalidWordException;
+import ch.heigvd.wordoff.server.Rest.Exception.WrongPlayer;
 import ch.heigvd.wordoff.server.Util.ChallengeFactory;
 import ch.heigvd.wordoff.server.Util.DictionaryLoader;
 import org.springframework.http.HttpStatus;
@@ -20,7 +23,7 @@ import java.util.Random;
 import java.util.TreeMap;
 
 /**
- * Created by Daniel on 04.11.2017.
+ * Service used to s
  */
 @Service
 public class GameService {
@@ -30,9 +33,7 @@ public class GameService {
         dictionaryLoader = new DictionaryLoader();
     }
 
-    public ResponseEntity<Game> play(Game game, Player player, ChallengeDto challengeDto) {
-        Challenge challenge = null; // TODO -> replace with converter
-
+    public Game play(Game game, Player player, Challenge challenge) {
         // Load the dico
         dictionaryLoader.loadDictionary(game.getLang());
 
@@ -44,7 +45,7 @@ public class GameService {
 
             // If the word doesn't exists
             if (!dictionaryLoader.getDico(game.getLang()).contains(wordChallenge)) {
-                return new ResponseEntity<Game>(game, HttpStatus.NOT_FOUND);
+                throw new InvalidWordException("The word is not in the dictionary !");
             } else {
                 // get a list of the tile taken from the bag of the game
                 List<Tile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE -
@@ -66,15 +67,13 @@ public class GameService {
                 side = game.getSideOfPlayer(player);
             }
         } else {
-            return new ResponseEntity<Game>(game, HttpStatus.UNAUTHORIZED);
+            throw new WrongPlayer("Not player turn to play !");
         }
 
-        SideDto sideDto = null; // TODO -> replace with converter
-
-        return new ResponseEntity<Game>(game, HttpStatus.OK);
+        return game;
     }
 
-    public ResponseEntity<Game> makeAiPLay(Game game, User player) {
+    public Game makeAiPLay(Game game, User player) {
         List<ITile> word = new ArrayList<>();
 
         WordAnalyzer wa = new WordAnalyzer(dictionaryLoader.getDico(game.getLang()), game.getSideResp().getChallenge(), game.getSideResp().getPlayerRack());
@@ -110,7 +109,7 @@ public class GameService {
                     index = sizeWordsByScore - 1;
                     break;
                 default:
-                    return new ResponseEntity<Game>(game, HttpStatus.I_AM_A_TEAPOT);
+                    throw new InvalidAiLevel("This ai level is not handled !");
             }
 
             // Get the List of tile chosen by the Ai
@@ -138,7 +137,7 @@ public class GameService {
 
         /* TODO -> set side as sideDTO */
 
-        return new ResponseEntity<Game>(game, HttpStatus.OK);
+        return game;
     }
 
     /**

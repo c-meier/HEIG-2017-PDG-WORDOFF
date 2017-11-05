@@ -1,9 +1,8 @@
 package ch.heigvd.wordoff.common.Racks;
 
 import ch.heigvd.wordoff.common.IModel.ITile;
-import ch.heigvd.wordoff.common.Model.Racks.PlayerRackDto;
-import ch.heigvd.wordoff.common.Model.Tiles.LetterDto;
-import ch.heigvd.wordoff.common.Model.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.Racks.PlayerRackDto;
+import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
 import org.junit.*;
 
 import java.util.ArrayList;
@@ -15,14 +14,14 @@ public class PlayerRackTest {
 
     @BeforeClass
     public static void init() {
-        listeTile.add(new TileDto(0, new LetterDto('a', 1)));
-        listeTile.add(new TileDto(1, new LetterDto('b', 1)));
-        listeTile.add(new TileDto(2, new LetterDto('c', 1)));
-        listeTile.add(new TileDto(3, new LetterDto('d', 2)));
-        listeTile.add(new TileDto(4, new LetterDto('e', 1)));
-        listeTile.add(new TileDto(5, new LetterDto('f', 4)));
-        listeTile.add(new TileDto(6, new LetterDto('g', 3)));
-        listeTile.add(new TileDto(7, new LetterDto('h', 4)));
+        listeTile.add(new TileDto(0, 'a', 1));
+        listeTile.add(new TileDto(1, 'b', 1));
+        listeTile.add(new TileDto(2, 'c', 1));
+        listeTile.add(new TileDto(3, 'd', 2));
+        listeTile.add(new TileDto(4, 'e', 1));
+        listeTile.add(new TileDto(5, 'f', 4));
+        listeTile.add(new TileDto(6, 'g', 3));
+        listeTile.add(new TileDto(7, 'h', 4));
     }
 
     @Test

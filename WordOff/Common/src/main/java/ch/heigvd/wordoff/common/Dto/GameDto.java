@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.common.Model;
+package ch.heigvd.wordoff.common.Dto;
 
 import java.util.Date;
 
@@ -17,9 +17,11 @@ public class GameDto {
 
     private String lang;
 
-    private PlayerDto currPlayer;
+    private PlayerSummaryDto currPlayer;
 
-    public GameDto(Long id, SideDto side1, SideDto side2, PlayerDto currPlayer, String lang, Date startDate) {
+    /* TODO -> create GameSummaryDto */
+
+    public GameDto(Long id, SideDto side1, SideDto side2, PlayerSummaryDto currPlayer, String lang, Date startDate) {
         this.id = id;
         this.side1 = side1;
         this.side2 = side2;
@@ -44,11 +46,11 @@ public class GameDto {
         return side2;
     }
 
-    public PlayerDto getCurrPlayer() {
+    public PlayerSummaryDto getCurrPlayer() {
         return currPlayer;
     }
 
-    public void setCurrPlayer(PlayerDto currPlayer) {
+    public void setCurrPlayer(PlayerSummaryDto currPlayer) {
         this.currPlayer = currPlayer;
     }
 

@@ -1,8 +1,6 @@
-package ch.heigvd.wordoff.common.Model.Slots;
+package ch.heigvd.wordoff.common.Dto.Slots;
 
-import ch.heigvd.wordoff.common.Model.SideDto;
-
-import javax.persistence.Entity;
+import ch.heigvd.wordoff.common.Dto.SideDto;
 
 public class SwapSlotDto extends SlotDto {
     public SwapSlotDto(SideDto side, Short pos) {

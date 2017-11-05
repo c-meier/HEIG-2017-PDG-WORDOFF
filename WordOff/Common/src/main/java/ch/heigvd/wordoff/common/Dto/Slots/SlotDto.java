@@ -1,13 +1,11 @@
-package ch.heigvd.wordoff.common.Model.Slots;
+package ch.heigvd.wordoff.common.Dto.Slots;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
-import ch.heigvd.wordoff.common.Model.AnswerDto;
-import ch.heigvd.wordoff.common.Model.SideDto;
-import ch.heigvd.wordoff.common.Model.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.AnswerDto;
+import ch.heigvd.wordoff.common.Dto.SideDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -22,7 +20,6 @@ public class SlotDto implements ISlot{
         Long sideId;
         Short pos;
 
-        public SlotId() {}
         public SlotId(SideDto side, Short pos) {
             this.sideId = side.getId();
             this.pos = pos;
@@ -67,6 +64,11 @@ public class SlotDto implements ISlot{
     SideDto side;
 
     private ITile tile;
+
+//    public SlotDto() {
+//        this.id = new SlotId();
+//        this.tile = null;
+//    }
 
     public SlotDto(SideDto side, Short pos) {
         this.side = side;

@@ -1,9 +1,8 @@
-package ch.heigvd.wordoff.common.Model;
+package ch.heigvd.wordoff.common.Dto;
 
-import ch.heigvd.wordoff.common.Model.Racks.PlayerRackDto;
-import ch.heigvd.wordoff.common.Model.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.Racks.PlayerRackDto;
+import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,7 @@ public class SideDto {
 
     private Long id;
 
-    private PlayerDto player;
+    private PlayerSummaryDto player;
 
     private ChallengeDto challenge;
 
@@ -27,7 +26,7 @@ public class SideDto {
 
     private short answerCounter;
 
-    public SideDto(Long id, PlayerDto player, ChallengeDto challenge, PlayerRackDto playerRack,
+    public SideDto(Long id, PlayerSummaryDto player, ChallengeDto challenge, PlayerRackDto playerRack,
                    List<AnswerDto> answers, int score, short answerCounter) {
         this.id = id;
         this.playerRack = playerRack;
@@ -56,11 +55,11 @@ public class SideDto {
         return id;
     }
 
-    public PlayerDto getPlayer() {
+    public PlayerSummaryDto getPlayer() {
         return player;
     }
 
-    public void setPlayer(PlayerDto player) {
+    public void setPlayer(PlayerSummaryDto player) {
         this.player = player;
     }
 

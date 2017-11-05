@@ -3,9 +3,9 @@ package ch.heigvd.wordoff.common;
 import ch.heigvd.wordoff.common.IModel.IChallenge;
 import ch.heigvd.wordoff.common.IModel.IRack;
 import ch.heigvd.wordoff.common.IModel.ITile;
-import ch.heigvd.wordoff.common.Model.ChallengeDto;
-import ch.heigvd.wordoff.common.Model.Racks.PlayerRackDto;
-import ch.heigvd.wordoff.common.Model.Racks.SwapRackDto;
+import ch.heigvd.wordoff.common.Dto.ChallengeDto;
+import ch.heigvd.wordoff.common.Dto.Racks.PlayerRackDto;
+import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
 
 import java.util.ArrayList;
 import java.util.List;

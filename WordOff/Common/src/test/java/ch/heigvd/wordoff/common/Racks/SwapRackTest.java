@@ -1,9 +1,8 @@
 package ch.heigvd.wordoff.common.Racks;
 
 import ch.heigvd.wordoff.common.IModel.ITile;
-import ch.heigvd.wordoff.common.Model.Racks.SwapRackDto;
-import ch.heigvd.wordoff.common.Model.Tiles.LetterDto;
-import ch.heigvd.wordoff.common.Model.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
+import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
 import org.junit.*;
 
 import java.util.ArrayList;
@@ -16,8 +15,8 @@ public class SwapRackTest {
 
     @BeforeClass
     public static void init() {
-        tile = new TileDto(0, new LetterDto('c', 1));
-        tile2 = new TileDto(1, new LetterDto('a', 1));
+        tile = new TileDto(0, 'c', 1);
+        tile2 = new TileDto(1, 'a', 1);
     }
 
     @Test
@@ -39,7 +38,7 @@ public class SwapRackTest {
         assertEquals(2, spRack.getTiles().size());
 
         // Ajout d'une 3ème tuile
-        assertFalse(spRack.addTile(new TileDto(3, new LetterDto('c', 2))));
+        assertFalse(spRack.addTile(new TileDto(3, 'c', 2)));
     }
 
     @Test
@@ -74,7 +73,7 @@ public class SwapRackTest {
         assertEquals(tile2, spRack.getTiles().get(1));
 
         // Vérification limite du rack
-        assertFalse(spRack.addTile(new TileDto(4, new LetterDto( 'd', 3))));
+        assertFalse(spRack.addTile(new TileDto(4,  'd', 3)));
     }
 
     @Test

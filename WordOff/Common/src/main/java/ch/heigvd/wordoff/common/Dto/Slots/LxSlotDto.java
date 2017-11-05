@@ -1,9 +1,13 @@
-package ch.heigvd.wordoff.common.Model.Slots;
+package ch.heigvd.wordoff.common.Dto.Slots;
 
-import ch.heigvd.wordoff.common.Model.SideDto;
+import ch.heigvd.wordoff.common.Dto.SideDto;
 
 public abstract class LxSlotDto extends SlotDto {
     private int bonus;
+
+//    public LxSlotDto(int bonus) {
+//        this.bonus = bonus;
+//    }
 
     public LxSlotDto(SideDto side, Short pos, int bonus) {
         super(side, pos);

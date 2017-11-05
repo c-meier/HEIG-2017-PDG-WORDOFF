@@ -1,13 +1,13 @@
 package ch.heigvd.wordoff.client.logic;
 
+import ch.heigvd.wordoff.common.Dto.ChallengeDto;
+import ch.heigvd.wordoff.common.Dto.Racks.PlayerRackDto;
+import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
+import ch.heigvd.wordoff.common.Dto.SideDto;
+import ch.heigvd.wordoff.common.Dto.Slots.*;
+import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
-import ch.heigvd.wordoff.common.Model.ChallengeDto;
-import ch.heigvd.wordoff.common.Model.Racks.PlayerRackDto;
-import ch.heigvd.wordoff.common.Model.Racks.SwapRackDto;
-import ch.heigvd.wordoff.common.Model.Slots.*;
-import ch.heigvd.wordoff.common.Model.Tiles.TileDto;
-import ch.heigvd.wordoff.common.Model.SideDto;
 import java.util.Arrays;
 import java.util.LinkedList;
 

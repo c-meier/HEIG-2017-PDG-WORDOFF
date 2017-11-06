@@ -1,10 +1,8 @@
-package ch.heigvd.wordoff.common.Model;
+package ch.heigvd.wordoff.common.Dto;
 
-import ch.heigvd.wordoff.common.Model.Racks.PlayerRackDto;
-import ch.heigvd.wordoff.common.Model.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.Racks.PlayerRackDto;
+import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
 
-import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.common.Model;
+package ch.heigvd.wordoff.common.Dto;
 
 import java.util.Date;
 
@@ -18,6 +18,8 @@ public class GameDto {
     private String lang;
 
     private PlayerDto currPlayer;
+
+    /* TODO -> create GameSummaryDto */
 
     public GameDto(Long id, SideDto side1, SideDto side2, PlayerDto currPlayer, String lang, Date startDate) {
         this.id = id;

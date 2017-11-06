@@ -3,11 +3,9 @@ package ch.heigvd.wordoff.server.Model;
 import ch.heigvd.wordoff.common.IModel.IChallenge;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
-import ch.heigvd.wordoff.common.Model.Slots.SwapSlotDto;
+import ch.heigvd.wordoff.common.Dto.Slots.SwapSlotDto;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.server.Model.Slots.Slot;
-import ch.heigvd.wordoff.server.Model.Slots.SwapSlot;
-import ch.heigvd.wordoff.server.Model.Tiles.Tile;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;

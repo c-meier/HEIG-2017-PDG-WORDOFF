@@ -1,18 +1,10 @@
-package ch.heigvd.wordoff.common.Model;
+package ch.heigvd.wordoff.common.Dto;
 
 import ch.heigvd.wordoff.common.IModel.IChallenge;
 import ch.heigvd.wordoff.common.IModel.IRack;
 import ch.heigvd.wordoff.common.IModel.ISlot;
-import ch.heigvd.wordoff.common.IModel.ITile;
-import ch.heigvd.wordoff.common.Model.Racks.SwapRackDto;
-import ch.heigvd.wordoff.common.Model.Slots.*;
-import ch.heigvd.wordoff.common.Model.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
-import javax.persistence.OneToMany;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChallengeDto implements IChallenge {

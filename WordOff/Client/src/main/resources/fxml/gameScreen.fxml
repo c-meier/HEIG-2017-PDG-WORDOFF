@@ -43,12 +43,12 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                            <AnchorPane styleClass="backgroundGame_Center" stylesheets="@../styles/Styles.css">
+                            <AnchorPane styleClass="backgroundGame_withoutShadow" stylesheets="@../styles/Styles.css">
                                  <children>
                                     <ImageView id="languageFlag" fx:id="flag" fitHeight="42.0" fitWidth="56.0" layoutX="77.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </AnchorPane>
-                            <AnchorPane minHeight="-Infinity" styleClass="backgroundGame_Center" stylesheets="@../styles/Styles.css" GridPane.columnIndex="1">
+                            <AnchorPane minHeight="-Infinity" styleClass="backgroundGame_withoutShadow" stylesheets="@../styles/Styles.css" GridPane.columnIndex="1">
                                  <children>
                                     <Label fx:id="tilesRemaining" alignment="CENTER" layoutX="24.0" layoutY="37.0" text="X tuiles restantes" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>

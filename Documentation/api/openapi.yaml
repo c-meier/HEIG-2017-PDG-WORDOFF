@@ -5,7 +5,7 @@ info:
     contact:
         name: Christopher Meier
         email: christopher.meier@heig-vd.ch
-    version: 0.1.0
+    version: 0.1.1
 paths:
     /games:
         get:
@@ -30,6 +30,11 @@ paths:
             tags:
                 - game
             description: Create a new game. Will be deleted when modes (tournament, normal) are functionnal.
+            parameters:
+                - name: lang
+                  in: query
+                  description: The language of the new game.
+                  required: true
             requestBody:
                 description: A list of player id (2 in this instance) participating in the new game. The first player of the list is the initiator of the game.
                 content:

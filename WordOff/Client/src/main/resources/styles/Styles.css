@@ -5,54 +5,54 @@
 	-fx-font-size:20px;
 	-fx-color: #444;
 	-fx-display: inline-block;
-	-fx-background-color:  #ffeeba;
+	-fx-background-color: #ffeeba;
 	-fx-background-image: url("../images/wood_texture.png");
-	-fx-effect: dropshadow(three-pass-box, purple, 10, 0, 0, 0);     
+	-fx-effect: dropshadow(gaussian, purple, 10, 0, 0, 0);     
 }
 
 .slot{
 	-fx-background-image: url("../images/slot.png");
 	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);    
 	-fx-background-position: center,center;
-	-fx-background-size: 40,40;
-	-fx-background-repeat:no-repeat;
+	-fx-background-size: 40px,40px;
+	-fx-background-repeat:stretch;
 }
+
 
 .slot_2L{
 	-fx-background-image: url("../images/slot_2L.png");
 	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);    
 	-fx-background-position: center,center;
-	-fx-background-size: 40,40;
-	-fx-background-repeat:no-repeat;
+	-fx-background-size:  40px,40px;
+	-fx-background-repeat:stretch;
 }
 .slot_3L{
 	-fx-background-image: url("../images/slot_3L.png");
 	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);    
 	-fx-background-position: center,center;
-	-fx-background-size: 40,40;
-	-fx-background-repeat:no-repeat;
+	-fx-background-size:  40px,40px;
+	-fx-background-repeat:stretch;
 }
 .slot_W{
+	-fx-background-size:  40pp, 40px;
 	-fx-background-image: url("../images/slot_W.png");
 	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);    
 	-fx-background-position: center,center;
-	-fx-background-size: 40,40;
-	-fx-background-repeat:no-repeat;
+	-fx-background-repeat: stretch;
 }
 
 .slot_7letter{
 	-fx-background-image: url("../images/slot_7letter.png");
-
 	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);    
-	-fx-background-position: center,center;
-	-fx-background-size: 40,40;
-	-fx-background-repeat:no-repeat;
+	-fx-background-position: center, center;
+	-fx-background-size: 40px,40px;
+	-fx-background-repeat: stretch;
 }
 
 .backgroundGame{
 	-fx-background-color: #ffd3a3;
 	-fx-background-image: url("../images/wood_texture.png");
-	-fx-effect: dropshadow(three-pass-box, purple, 10, 0, 0, 0);  
+	-fx-effect: dropshadow(gaussian, purple, 10, 0, 0, 0);
 }
 
 .backgroundGame_withoutShadow{
@@ -64,7 +64,7 @@
 .backgroundGame_bottom{
 	-fx-background-color: #ffd3a3;
 	-fx-background-image: url("../images/wood_texture.png");
-	-fx-effect: dropshadow(three-pass-box, purple, 10, 0, 0, 0); 
+	-fx-effect: dropshadow(gaussian, purple, 10, 0, 0, 0);
 	-fx-alignment:center;
 }
 
@@ -95,5 +95,20 @@
 .button_wood:pressed {
     -fx-padding:  4 8 8 4;
     -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+
+.titleMainMenu{
+	-fx-background-color:#ae814e;
+	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);    
+}
+
+.login{
+	-fx-background-color:#ae814e;
+	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);	
+}
+.login_bottom{
+	-fx-background-color: #ffd3a3;
+	-fx-background-image: url("../images/wood_texture.png");
+	-fx-alignment:center;
 }
 

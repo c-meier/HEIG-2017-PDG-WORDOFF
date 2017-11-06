@@ -14,11 +14,11 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.client.controller.FriendsController">
    <top>
-      <MenuBar prefHeight="25.0" prefWidth="835.0" styleClass="backgroundGame" stylesheets="@../styles/Styles.css" BorderPane.alignment="CENTER">
+      <MenuBar prefHeight="25.0" prefWidth="835.0" stylesheets="@../styles/Style_menuButton.css" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false">
                <graphic>
-                  <Button mnemonicParsing="false" onAction="#handleGotoMenu" styleClass="button_wood" stylesheets="@../styles/Styles.css" text="Retour" />
+                  <Button mnemonicParsing="false" onAction="#handleGotoMenu" text="Retour" />
                </graphic>
           </Menu>
         </menus>

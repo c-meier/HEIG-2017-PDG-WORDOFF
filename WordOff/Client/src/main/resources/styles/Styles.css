@@ -34,7 +34,7 @@
     -fx-font-weight: bold;
     -fx-font-size: 1.1em;
 }
-.button_wood:hover {
+.button_wood:hover, .button:showing {
 	 -fx-background-color: 
         linear-gradient(from 0% 93% to 0% 100%, #c7a880 0%, #ae814e 100%),
         #c8a380,
@@ -45,6 +45,7 @@
     -fx-padding:  4 8 8 4;
     -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
 }
+
 
 .titleMainMenu{
 	-fx-background-color:#ae814e;

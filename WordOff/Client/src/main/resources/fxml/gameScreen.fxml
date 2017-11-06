@@ -562,11 +562,11 @@
       </SplitPane>
    </center>
    <top>
-      <MenuBar styleClass="backgroundGame" stylesheets="@../styles/Styles.css" BorderPane.alignment="CENTER">
+      <MenuBar stylesheets="@../styles/Style_menuButton.css" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false">
                <graphic>
-                  <Button mnemonicParsing="false" onAction="#handleGotoMenu" styleClass="button_wood" text="Retour">
+                  <Button mnemonicParsing="false" onAction="#handleGotoMenu" text="Retour">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>

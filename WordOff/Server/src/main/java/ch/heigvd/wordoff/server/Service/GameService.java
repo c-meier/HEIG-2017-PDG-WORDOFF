@@ -8,6 +8,8 @@ import ch.heigvd.wordoff.common.WordAnalyzer;
 import ch.heigvd.wordoff.server.Model.*;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.server.Model.Tiles.Tile;
+import ch.heigvd.wordoff.server.Model.Tiles.TileSet;
+import ch.heigvd.wordoff.server.Repository.TileSetRepository;
 import ch.heigvd.wordoff.server.Rest.Exception.InvalidAiLevel;
 import ch.heigvd.wordoff.server.Rest.Exception.InvalidWordException;
 import ch.heigvd.wordoff.server.Rest.Exception.WrongPlayer;
@@ -136,6 +138,18 @@ public class GameService {
         game.setCurrPlayer(game.getOtherPlayer(player));
 
         /* TODO -> set side as sideDTO */
+
+        return game;
+    }
+
+
+    private TileSetRepository tileSetRepository;
+
+    public Game initGame(Player p1, Player p2, String lang) {
+        TileSet tileSet = tileSetRepository.findByName(lang);
+        Game game = new Game(p1, p2, tileSet);
+
+        /* TODO -> init game */
 
         return game;
     }

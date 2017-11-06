@@ -110,5 +110,6 @@
 	-fx-background-color: #ffd3a3;
 	-fx-background-image: url("../images/wood_texture.png");
 	-fx-alignment:center;
+	-fx-background-size: stretch;
 }
 

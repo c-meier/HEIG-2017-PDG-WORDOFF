@@ -50,7 +50,10 @@
                               </AnchorPane>
                             <AnchorPane minHeight="-Infinity" styleClass="backgroundGame_withoutShadow" stylesheets="@../styles/Styles.css" GridPane.columnIndex="1">
                                  <children>
-                                    <Label fx:id="tilesRemaining" alignment="CENTER" layoutX="24.0" layoutY="37.0" text="X tuiles restantes" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <Label fx:id="tilesRemaining" alignment="CENTER" layoutX="24.0" layoutY="37.0" text="X tuiles restantes" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font></Label>
                                  </children>
                               </AnchorPane>
                            </children>
@@ -267,7 +270,10 @@
                                  </children>
                               </AnchorPane>
                               <ImageView fx:id="p1Avatar" fitHeight="58.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-                              <Label fx:id="p1Name" text="Label" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+                              <Label fx:id="p1Name" text="Name " GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
                               <AnchorPane fx:id="p1Sr1Back" prefHeight="200.0" prefWidth="200.0" styleClass="rack" stylesheets="@../styles/Styles.css">
                                  <children>
                                     <StackPane fx:id="p1Sr1Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -499,7 +505,10 @@
                                  </children>
                               </AnchorPane>
                               <ImageView fx:id="p2Avatar" fitHeight="58.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-                              <Label fx:id="p2Name" text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                              <Label fx:id="p2Name" text="Name" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
                               <AnchorPane fx:id="p2Sr1Back" prefHeight="200.0" prefWidth="200.0" styleClass="rackHide" stylesheets="@../styles/Styles.css" GridPane.columnIndex="5" GridPane.rowIndex="2">
                                  <children>
                                     <StackPane fx:id="p2Sr1Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

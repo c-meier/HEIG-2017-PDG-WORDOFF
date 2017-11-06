@@ -4,8 +4,6 @@
 	-fx-effect: dropshadow(gaussian, purple, 10, 0, 0, 0);     
 }
 .tile_value{
-	-fx-font-family: -fx-my-font;
-	-fx-text-transform: uppercase;
 	-fx-font-weight: 900;
 	-fx-font-size:20px;
 	-fx-color: #444;
@@ -13,5 +11,6 @@
 }
 
 .tile_score{
-	
+	-fx-font-size: 12px;
+	-fx-color: #444;
 }

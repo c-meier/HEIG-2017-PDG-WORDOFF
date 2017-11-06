@@ -78,10 +78,10 @@
                                  <children>
                                     <StackPane fx:id="p1Pr1Fore" prefHeight="40.0" prefWidth="40.0" stylesheets="@../styles/Styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <AnchorPane fx:id="p1TilePr1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Styles.css">
+                                          <AnchorPane fx:id="p1TilePr1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
-                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
@@ -100,10 +100,10 @@
                                  <children>
                                     <StackPane fx:id="p1Pr2Fore" prefHeight="75.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <AnchorPane fx:id="p1TilePr2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Styles.css">
+                                          <AnchorPane fx:id="p1TilePr2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
-                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
@@ -122,10 +122,10 @@
                                  <children>
                                     <StackPane fx:id="p1Pr3Fore" prefHeight="75.0" prefWidth="82.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <AnchorPane fx:id="p1TilePr3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Styles.css">
+                                          <AnchorPane fx:id="p1TilePr3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
-                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" text="1" textAlignment="RIGHT">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
@@ -147,10 +147,10 @@
                                  <children>
                                     <StackPane fx:id="p1Pr4Fore" prefHeight="75.0" prefWidth="82.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <AnchorPane fx:id="p1TilePr4" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Styles.css">
+                                          <AnchorPane fx:id="p1TilePr4" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
-                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
@@ -169,10 +169,10 @@
                                  <children>
                                     <StackPane fx:id="p1Pr5Fore" prefHeight="75.0" prefWidth="82.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <AnchorPane fx:id="p1TilePr5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Styles.css">
+                                          <AnchorPane fx:id="p1TilePr5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
-                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
@@ -191,10 +191,10 @@
                                  <children>
                                     <StackPane fx:id="p1Pr6Fore" prefHeight="75.0" prefWidth="82.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <AnchorPane fx:id="p1TilePr6" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Styles.css">
+                                          <AnchorPane fx:id="p1TilePr6" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
-                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
@@ -213,10 +213,10 @@
                                  <children>
                                     <StackPane fx:id="p1Pr7Fore" prefHeight="75.0" prefWidth="82.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <AnchorPane fx:id="p1TilePr7" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Styles.css">
+                                          <AnchorPane fx:id="p1TilePr7" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
-                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
@@ -231,37 +231,37 @@
                                     </StackPane>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch1Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch1Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Style_slot.css" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch1Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch2Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot_2L" stylesheets="@../styles/Styles.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch2Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot_2L" stylesheets="@../styles/Style_slot.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch2Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch3Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot_3L" stylesheets="@../styles/Styles.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch3Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot_3L" stylesheets="@../styles/Style_slot.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch3Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch4Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot_W" stylesheets="@../styles/Styles.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch4Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot_W" stylesheets="@../styles/Style_slot.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch4Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch5Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch5Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Style_slot.css" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch5Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch6Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch6Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Style_slot.css" GridPane.columnIndex="5" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch6Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p1Ch7Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot_7letter" stylesheets="@../styles/Styles.css" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p1Ch7Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot_7letter" stylesheets="@../styles/Style_slot.css" GridPane.columnIndex="6" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p1Ch7Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
@@ -272,10 +272,10 @@
                                  <children>
                                     <StackPane fx:id="p1Sr1Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <AnchorPane fx:id="p1TileSr1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Styles.css">
+                                          <AnchorPane fx:id="p1TileSr1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
-                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
@@ -294,10 +294,10 @@
                                  <children>
                                     <StackPane fx:id="p1Sr2Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <AnchorPane fx:id="p1TileSr2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Styles.css">
+                                          <AnchorPane fx:id="p1TileSr2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
-                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
@@ -334,10 +334,10 @@
                                  <children>
                                     <StackPane fx:id="p2Pr1Fore" prefHeight="80.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <AnchorPane fx:id="p2TilePr1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Styles.css">
+                                          <AnchorPane fx:id="p2TilePr1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
-                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
@@ -353,10 +353,10 @@
                                  <children>
                                     <StackPane fx:id="p2Pr2Fore" prefHeight="80.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <AnchorPane fx:id="p2TilePr2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Styles.css">
+                                          <AnchorPane fx:id="p2TilePr2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
-                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
@@ -372,10 +372,10 @@
                                  <children>
                                     <StackPane fx:id="p2Pr3Fore" prefHeight="80.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <AnchorPane fx:id="p2TilePr3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Styles.css">
+                                          <AnchorPane fx:id="p2TilePr3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
-                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
@@ -391,10 +391,10 @@
                                  <children>
                                     <StackPane fx:id="p2Pr4Fore" prefHeight="80.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <AnchorPane fx:id="p2TilePr4" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Styles.css">
+                                          <AnchorPane fx:id="p2TilePr4" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
-                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
@@ -410,10 +410,10 @@
                                  <children>
                                     <StackPane fx:id="p2Pr5Fore" prefHeight="80.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <AnchorPane fx:id="p2TilePr5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Styles.css">
+                                          <AnchorPane fx:id="p2TilePr5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
-                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
@@ -429,10 +429,10 @@
                                  <children>
                                     <StackPane fx:id="p2Pr6Fore" prefHeight="80.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <AnchorPane fx:id="p2TilePr6" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Styles.css">
+                                          <AnchorPane fx:id="p2TilePr6" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
-                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
@@ -448,10 +448,10 @@
                                  <children>
                                     <StackPane fx:id="p2Pr7Fore" prefHeight="80.0" prefWidth="81.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <AnchorPane fx:id="p2TilePr7" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Styles.css">
+                                          <AnchorPane fx:id="p2TilePr7" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
-                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
@@ -463,37 +463,37 @@
                                     </StackPane>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch1Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch1Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Style_slot.css" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch1Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch2Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch2Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Style_slot.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch2Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch3Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch3Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Style_slot.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch3Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch4Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch4Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Style_slot.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch4Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch5Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch5Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Style_slot.css" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch5Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch6Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch6Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Style_slot.css" GridPane.columnIndex="5" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch6Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="p2Ch7Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Styles.css" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="p2Ch7Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Style_slot.css" GridPane.columnIndex="6" GridPane.rowIndex="1">
                                  <children>
                                     <StackPane fx:id="p2Ch7Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
@@ -504,10 +504,10 @@
                                  <children>
                                     <StackPane fx:id="p2Sr1Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <AnchorPane fx:id="p2TileSr1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Styles.css">
+                                          <AnchorPane fx:id="p2TileSr1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
-                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
@@ -523,10 +523,10 @@
                                  <children>
                                     <StackPane fx:id="p2Sr2Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <AnchorPane fx:id="p2TileSr2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Styles.css">
+                                          <AnchorPane fx:id="p2TileSr2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" text="A" />
-                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" text="1" textAlignment="RIGHT">
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
                                                    <font>
                                                       <Font size="10.0" />
                                                    </font>
@@ -557,7 +557,7 @@
         <menus>
           <Menu mnemonicParsing="false">
                <graphic>
-                  <Button mnemonicParsing="false" onAction="#handleGotoMenu" styleClass="button_wood" stylesheets="@../styles/Styles.css" text="Retour">
+                  <Button mnemonicParsing="false" onAction="#handleGotoMenu" styleClass="button_wood" text="Retour">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>

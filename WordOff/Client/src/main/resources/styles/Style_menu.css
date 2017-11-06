@@ -1,0 +1,80 @@
+
+
+/* VARIABLE DEFINITIONS: Only these 4 variables have to be adjusted, the rest is copy-paste */
+* {
+	-fx-color-darkBrown: #df9c5d;
+	-fx-color-lightBrown: #c7a880;
+	-fx-color-brown:#ae814e;
+	-fx-color-beige: #c8813e;
+    -fx-my-menu-color: -fx-color-brown;                
+    -fx-my-menu-color-highlighted: -fx-color-lightBrown ;      
+    -fx-my-menu-font-color: #FFFFFF;            
+    -fx-my-menu-font-color-highlighted: #FFFFFF; 
+	-fx-my-top-button : -fx-color-darkBrown;
+	-fx-my-border-button : -fx-color-beige ;
+	-fx-my-top-button-highlighted : #c8a380;
+	-fx-my-border-button-highlighted : #deb186 ;
+}
+
+.context-menu {
+    -fx-background-color: -fx-my-menu-color;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; 
+    -fx-opacity: 0.9;
+}
+
+/* MENU BAR + Top-level MENU BUTTONS */
+/*** The menu bar itself ***/    
+.menu-bar{
+	-fx-background-color: #ffd3a3;
+	-fx-background-image: url("../images/wood_texture.png");
+}
+
+/*** Top-level menu itself (not selected / hovered) ***/
+.menu-bar > .container > .menu-button {
+   -fx-padding: 2 8 8 2;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, -fx-color-lightBrown 0%, -fx-color-darkBrown 100%),
+        -fx-my-border-button,
+        -fx-my-top-button,
+        radial-gradient(center 50% 50%, radius 100%, -fx-my-top-button, -fx-my-border-button);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 9pt;
+}
+
+
+/*** Top-level menu itself (selected / hovered) ***/
+.menu-bar > .container > .menu-button:hover,
+.menu-bar > .container > .menu-button:focused,
+.menu-bar > .container > .menu-button:showing {
+    -fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, -fx-color-lightBrown 0%, -fx-color-brown 100%),
+        -fx-my-border-button-highlighted,
+        -fx-my-top-button-highlighted,
+        radial-gradient(center 50% 50%, radius 100%, -fx-my-border-button-highlighted, -fx-my-top-button-highlighted);
+}
+/*** Top-level menu's label (not selected / hovered) ***/
+.menu-bar > .container > .menu-button > .label {
+    -fx-text-fill: -fx-my-menu-font-color-highlighted;
+}
+
+/*** The item's label (not hovered / focused) ***/   
+.menu-item .label {
+    -fx-text-fill: -fx-my-menu-font-color;
+}  
+
+/*** The item itself (hovered / focused) ***/    
+.menu-item:focused, .menu-item:hovered {
+    -fx-background-color: -fx-my-menu-color-highlighted; 
+	-fx-font-weight: bold;
+    -fx-font-size: 9pt;
+}
+
+/*** The item's label (hovered / focused) ***/  
+.menu-item:focused .label, .menu-item:hovered .label {
+    -fx-text-fill: -fx-my-menu-font-color-highlighted;
+}

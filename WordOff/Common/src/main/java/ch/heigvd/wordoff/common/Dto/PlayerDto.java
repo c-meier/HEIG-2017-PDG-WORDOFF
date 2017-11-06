@@ -1,11 +1,21 @@
 package ch.heigvd.wordoff.common.Dto;
 
+/**
+ * Created by Daniel on 05.11.2017.
+ */
 
 /**
- * Project : WordOff
- * Date : 10.10.17
+ * Player summary with minimum of information
+ * Use endpoint to get the complete player dto information.
  */
-public class PlayerDto {
+public class PlayerDto implements ISummaryDto {
+    private String endpoint;
+
+    @Override
+    public String getEndpoint() {
+        return endpoint;
+    }
+
     private Long id;
 
     private String name;

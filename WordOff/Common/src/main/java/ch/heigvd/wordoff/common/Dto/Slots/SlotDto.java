@@ -16,63 +16,15 @@ import java.util.Objects;
 )
 public class SlotDto implements ISlot{
 
-    public static class SlotId implements Serializable {
-        Long sideId;
-        Short pos;
+    Long sideId;
 
-        public SlotId(SideDto side, Short pos) {
-            this.sideId = side.getId();
-            this.pos = pos;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (o == this) return true;
-            if (!(o instanceof AnswerDto)) {
-                return false;
-            }
-            SlotDto.SlotId slotId = (SlotDto.SlotId) o;
-            return Objects.equals(sideId, slotId.sideId) &&
-                    Objects.equals(pos, slotId.pos);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(sideId, pos);
-        }
-
-        public Long getSideId() {
-            return sideId;
-        }
-
-        public void setSideId(Long sideId) {
-            this.sideId = sideId;
-        }
-
-        public Short getPos() {
-            return pos;
-        }
-
-        public void setPos(Short pos) {
-            this.pos = pos;
-        }
-    }
-
-    SlotId id;
-
-    @JsonIgnore
-    SideDto side;
+    Short pos;
 
     private ITile tile;
 
-//    public SlotDto() {
-//        this.id = new SlotId();
-//        this.tile = null;
-//    }
-
-    public SlotDto(SideDto side, Short pos) {
-        this.side = side;
-        this.id = new SlotId(side, pos);
+    public SlotDto(Long sideId, Short pos) {
+        this.sideId = sideId;
+        this.pos = pos;
         this.tile = null;
     }
 
@@ -89,8 +41,19 @@ public class SlotDto implements ISlot{
         return null == tile ? 0 : tile.getScore();
     }
 
-    public SlotId getId() {
-        return id;
+    public Long getSideId() {
+        return sideId;
     }
 
+    public void setSideId(Long sideId) {
+        this.sideId = sideId;
+    }
+
+    public Short getPos() {
+        return pos;
+    }
+
+    public void setPos(Short pos) {
+        this.pos = pos;
+    }
 }

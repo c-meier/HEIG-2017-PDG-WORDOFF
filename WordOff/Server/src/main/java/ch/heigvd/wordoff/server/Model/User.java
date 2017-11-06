@@ -1,7 +1,5 @@
 package ch.heigvd.wordoff.server.Model;
 
-import ch.heigvd.wordoff.server.Model.Player;
-
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;

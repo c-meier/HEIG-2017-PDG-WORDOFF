@@ -17,11 +17,11 @@ public class GameDto {
 
     private String lang;
 
-    private PlayerSummaryDto currPlayer;
+    private PlayerDto currPlayer;
 
     /* TODO -> create GameSummaryDto */
 
-    public GameDto(Long id, SideDto side1, SideDto side2, PlayerSummaryDto currPlayer, String lang, Date startDate) {
+    public GameDto(Long id, SideDto side1, SideDto side2, PlayerDto currPlayer, String lang, Date startDate) {
         this.id = id;
         this.side1 = side1;
         this.side2 = side2;
@@ -46,11 +46,11 @@ public class GameDto {
         return side2;
     }
 
-    public PlayerSummaryDto getCurrPlayer() {
+    public PlayerDto getCurrPlayer() {
         return currPlayer;
     }
 
-    public void setCurrPlayer(PlayerSummaryDto currPlayer) {
+    public void setCurrPlayer(PlayerDto currPlayer) {
         this.currPlayer = currPlayer;
     }
 

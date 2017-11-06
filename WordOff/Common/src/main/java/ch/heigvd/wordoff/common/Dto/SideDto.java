@@ -3,7 +3,6 @@ package ch.heigvd.wordoff.common.Dto;
 import ch.heigvd.wordoff.common.Dto.Racks.PlayerRackDto;
 import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +13,7 @@ public class SideDto {
 
     private Long id;
 
-    private PlayerSummaryDto player;
+    private PlayerDto player;
 
     private ChallengeDto challenge;
 
@@ -26,7 +25,7 @@ public class SideDto {
 
     private short answerCounter;
 
-    public SideDto(Long id, PlayerSummaryDto player, ChallengeDto challenge, PlayerRackDto playerRack,
+    public SideDto(Long id, PlayerDto player, ChallengeDto challenge, PlayerRackDto playerRack,
                    List<AnswerDto> answers, int score, short answerCounter) {
         this.id = id;
         this.playerRack = playerRack;
@@ -55,11 +54,11 @@ public class SideDto {
         return id;
     }
 
-    public PlayerSummaryDto getPlayer() {
+    public PlayerDto getPlayer() {
         return player;
     }
 
-    public void setPlayer(PlayerSummaryDto player) {
+    public void setPlayer(PlayerDto player) {
         this.player = player;
     }
 

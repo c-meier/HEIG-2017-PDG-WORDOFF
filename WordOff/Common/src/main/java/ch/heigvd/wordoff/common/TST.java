@@ -245,6 +245,17 @@ class TST {
             // on descend avec une lettre en moins
             str = str.replaceFirst("" + r.data, "");
             fillAnagrams(str, key, r.middle, list);
+        } else if (str.contains("#")) {
+            key = key + r.data; // on ajoute la lettre au mot en formation
+
+            // si le mot en formation existe, on ajoute sa clé à la liste
+            if (r.isEnd) {
+                list.add(key);
+            }
+
+            // on descend avec une lettre en moins
+            str = str.replaceFirst("#", "");
+            fillAnagrams(str, key, r.middle, list);
         }
     }
 }

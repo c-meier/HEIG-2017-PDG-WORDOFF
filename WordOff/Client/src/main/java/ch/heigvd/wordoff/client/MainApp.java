@@ -27,7 +27,10 @@ public class MainApp extends Application {
         stage.setTitle("WordOff");
         stage.setScene(scene);
         stage.getIcons().add(new Image("/images/icon.png"));
+        stage.sizeToScene();
         stage.show();
+        stage.setMinHeight(stage.getHeight());
+        stage.setMinWidth(stage.getWidth());
     }
 
     /**

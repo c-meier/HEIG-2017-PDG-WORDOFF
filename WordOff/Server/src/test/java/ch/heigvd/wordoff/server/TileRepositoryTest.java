@@ -1,7 +1,7 @@
 package ch.heigvd.wordoff.server;
 
-import ch.heigvd.wordoff.server.Model.Tiles.TileSet;
-import ch.heigvd.wordoff.server.Repository.TileSetRepository;
+import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
+import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import org.junit.*;
 import org.junit.runner.*;
 import org.slf4j.Logger;
@@ -20,23 +20,23 @@ public class TileRepositoryTest {
     private static Logger log = LoggerFactory.getLogger(TileRepositoryTest.class);
 
     @Autowired
-    private TileSetRepository repository;
+    private LangSetRepository repository;
 
     @Test
     public void testAutoPopulate() throws Exception {
-        Iterable<TileSet> allTileSet = repository.findAll();
+        Iterable<LangSet> allTileSet = repository.findAll();
 
         assertThat(allTileSet).isNotEmpty();
 
-        for(TileSet set : allTileSet) {
-            log.info("TileSet " + set.getName() + " has " + set.getTiles().size() + " tiles.");
+        for(LangSet set : allTileSet) {
+            log.info("LangSet " + set.getName() + " has " + set.getTiles().size() + " tiles.");
             assertThat(set.getTiles()).isNotEmpty();
         }
     }
 
     @Test
     public void testFindByName() throws Exception {
-        TileSet set = repository.findByName("Français");
+        LangSet set = repository.findByName("Français");
 
         assertThat(set).isNotNull();
     }

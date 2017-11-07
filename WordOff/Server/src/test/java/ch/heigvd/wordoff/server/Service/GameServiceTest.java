@@ -3,12 +3,12 @@ package ch.heigvd.wordoff.server.Service;
 import ch.heigvd.wordoff.server.Model.Bag;
 import ch.heigvd.wordoff.server.Model.Game;
 import ch.heigvd.wordoff.server.Model.Player;
-import ch.heigvd.wordoff.server.Model.Tiles.TileSet;
+import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 import ch.heigvd.wordoff.server.Model.User;
 import ch.heigvd.wordoff.server.Repository.GameRepository;
 import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
-import ch.heigvd.wordoff.server.Repository.TileSetRepository;
+import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +34,7 @@ public class GameServiceTest {
     private SideRepository sideRepository;
 
     @Autowired
-    private TileSetRepository tilesRepository;
+    private LangSetRepository langSetRepository;
 
     @Autowired
     private PlayerRepository playerRepository;
@@ -62,9 +62,9 @@ public class GameServiceTest {
 
     @Test
     public void initGame() throws Exception {
-        TileSet set = tilesRepository.findByName("Français");
+        LangSet set = langSetRepository.findByName("Français");
         Game game = new Game(p1, p2, set);
-        assertThat(game.getBag().getTiles().size()).isEqualTo(103);
+        assertThat(game.getBag().getTiles().size()).isEqualTo(105);
     }
 
 }

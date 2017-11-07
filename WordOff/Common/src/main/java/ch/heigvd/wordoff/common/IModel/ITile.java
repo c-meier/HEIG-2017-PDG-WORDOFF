@@ -4,4 +4,8 @@ public interface ITile {
     char getValue();
     int getId();
     int getScore();
+
+    default boolean isJocker() {
+        return getScore() == 0;
+    }
 }

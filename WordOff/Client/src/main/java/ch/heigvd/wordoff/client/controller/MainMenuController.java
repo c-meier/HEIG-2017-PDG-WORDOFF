@@ -38,13 +38,13 @@ public class MainMenuController implements Initializable {
     }
     
     @FXML
-    private void handleGotoInvitationsRecieved(ActionEvent event) {
-        changeScene("/fxml/invitationsRecieved.fxml");
+    private void handleGotoInvitations(ActionEvent event) {
+        changeScene("/fxml/invitations.fxml");
     }
     
     @FXML
-    private void handleGotoInvitationsSent(ActionEvent event) {
-        changeScene("/fxml/invitationsSent.fxml");
+    private void handleGotoAlert(ActionEvent event) {
+        changeScene("/fxml/alertes.fxml");
     }
     
     private void changeScene(String sceneController) {

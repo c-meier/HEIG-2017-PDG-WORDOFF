@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class TileSet {
+public class LangSet {
     @Id
     @GeneratedValue
     private Integer id;
@@ -12,14 +12,14 @@ public class TileSet {
     private String name;
 
     /**
-     * When getting a TileSet from DB we want always want all the composing tiles (FetchType.EAGER)
+     * When getting a LangSet from DB we want always want all the composing tiles (FetchType.EAGER)
      */
-    @OneToMany(targetEntity = Tile.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "tileSet")
+    @OneToMany(targetEntity = Tile.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER ,mappedBy = "langSet")
     private List<Tile> tiles;
 
-    protected TileSet() {}
+    protected LangSet() {}
 
-    public TileSet(String name) {
+    public LangSet(String name) {
         this.name = name;
     }
 

@@ -2,7 +2,7 @@ package ch.heigvd.wordoff.server.Model;
 
 import ch.heigvd.wordoff.server.Model.Player;
 import ch.heigvd.wordoff.server.Model.Side;
-import ch.heigvd.wordoff.server.Model.Tiles.TileSet;
+import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -33,7 +33,7 @@ public class Game {
     @ManyToOne
     private Player currPlayer;
 
-    public Game(Player p1, Player p2, TileSet tileSet) {
+    public Game(Player p1, Player p2, LangSet tileSet) {
         this.sideInit = new Side(p1);
         this.sideResp = new Side(p2);
         this.lang = tileSet.getName();

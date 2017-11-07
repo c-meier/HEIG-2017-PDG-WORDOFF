@@ -44,10 +44,10 @@
             </MenuBar>
             <MenuBar nodeOrientation="RIGHT_TO_LEFT" stylesheets="@../styles/Style_menu.css" GridPane.columnIndex="2">
               <menus>
-                <Menu mnemonicParsing="false" text="Notifications (1)">
+                <Menu mnemonicParsing="false" text="Notifications">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#handleGotoInvitationsRecieved" text="Invitations reçues" />
-                        <MenuItem mnemonicParsing="false" onAction="#handleGotoInvitationsSent" text="Invitations envoyées (1)" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleGotoInvitations" text="Invitations" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleGotoAlert" text="Alertes" />
                      </items>
                   </Menu>
               </menus>

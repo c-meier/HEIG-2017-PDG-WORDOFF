@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Text?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.client.controller.MessagesController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.client.controller.MessagesController">
    <center>
       <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="mainFxmlClass">
           <stylesheets>
@@ -21,7 +20,7 @@
       </AnchorPane>
    </center>
    <top>
-      <MenuBar prefHeight="33.0" prefWidth="898.0" BorderPane.alignment="CENTER">
+      <MenuBar prefHeight="33.0" prefWidth="898.0" stylesheets="@../styles/Style_menuButton.css" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false">
                <graphic>

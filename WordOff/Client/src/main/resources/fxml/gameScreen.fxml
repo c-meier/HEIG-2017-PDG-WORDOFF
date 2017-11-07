@@ -595,7 +595,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#peek" styleClass="button_wood" stylesheets="@../styles/Styles.css" text="Aperçu">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#peek" styleClass="button_wood" stylesheets="@../styles/Styles.css" text="Aperçu">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

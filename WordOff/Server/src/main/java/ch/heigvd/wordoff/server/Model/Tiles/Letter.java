@@ -3,6 +3,7 @@ package ch.heigvd.wordoff.server.Model.Tiles;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Letter {
@@ -28,6 +29,9 @@ public class Letter {
 
     private char value;
     private int score;
+
+    @ManyToOne(targetEntity = LangSet.class)
+    private LangSet langSet;
 
     protected Letter() {}
 

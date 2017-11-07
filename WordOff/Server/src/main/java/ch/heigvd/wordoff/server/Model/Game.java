@@ -1,7 +1,5 @@
 package ch.heigvd.wordoff.server.Model;
 
-import ch.heigvd.wordoff.server.Model.Player;
-import ch.heigvd.wordoff.server.Model.Side;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 
 import javax.persistence.*;
@@ -95,6 +93,7 @@ public class Game {
         this.currPlayer = currPlayer;
     }
 
-
-
+    public Long getId() {
+        return id;
+    }
 }

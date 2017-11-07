@@ -1,14 +1,16 @@
 package ch.heigvd.wordoff.server.Service;
 
-import ch.heigvd.wordoff.server.Model.Bag;
 import ch.heigvd.wordoff.server.Model.Game;
 import ch.heigvd.wordoff.server.Model.Player;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
+import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
+import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.server.Model.User;
 import ch.heigvd.wordoff.server.Repository.GameRepository;
 import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
 import ch.heigvd.wordoff.server.Repository.LangSetRepository;
+import ch.heigvd.wordoff.server.Util.ChallengeFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -64,7 +66,28 @@ public class GameServiceTest {
     public void initGame() throws Exception {
         LangSet set = langSetRepository.findByName("Français");
         Game game = new Game(p1, p2, set);
+
+        /* TODO -> set swaprack */
         assertThat(game.getBag().getTiles().size()).isEqualTo(105);
+
+        // Set players Racks
+        PlayerRack p1R = game.getSideInit().getPlayerRack();
+        PlayerRack p2R = game.getSideResp().getPlayerRack();
+        p1R.setTiles(game.getBag().getSevenTiles());
+        p2R.setTiles(game.getBag().getSevenTiles());
+        game.getSideInit().setChallenge(new ChallengeFactory(game.getSideInit()).createRandomSlotPos().create());
+        game.getSideResp().setChallenge(new ChallengeFactory(game.getSideResp()).createRandomSlotPos().create());
+
+        SwapRack s1 = game.getSideInit().getChallenge().getSwapRack();
+        SwapRack s2 = game.getSideResp().getChallenge().getSwapRack();
+        s1.addTile(game.getBag().pop());
+        s1.addTile(game.getBag().pop());
+        s2.addTile(game.getBag().pop());
+        s2.addTile(game.getBag().pop());
+
+        game.getSideInit().getChallenge().setSwapRack(s1);
+        game.getSideResp().getChallenge().setSwapRack(s2);
+
     }
 
 }

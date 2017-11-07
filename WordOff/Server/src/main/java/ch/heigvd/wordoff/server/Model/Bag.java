@@ -1,5 +1,6 @@
 package ch.heigvd.wordoff.server.Model;
 
+import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.server.Model.Tiles.Tile;
 
 import javax.persistence.*;
@@ -38,6 +39,15 @@ public class Bag {
         for (int i = 0; i < nbTiles; i++) {
             newTiles.add(pop());
         }
+        return newTiles;
+    }
+
+    public List<ITile> getSevenTiles() {
+        List<ITile> newTiles = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            newTiles.add(getTiles().get(i));
+        }
+        shuffle();
         return newTiles;
     }
 

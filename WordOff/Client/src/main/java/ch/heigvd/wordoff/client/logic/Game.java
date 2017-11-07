@@ -42,9 +42,7 @@ public class Game {
                     (ITile) new TileDto(4, 'e', 2),
                     (ITile) new TileDto(5, 'f', 4),
                     (ITile) new TileDto(6, 'g', 2)))),
-                new ArrayList<AnswerDto>(),
-                0,
-                new Integer(1).shortValue()
+                0
         );
 
 
@@ -69,9 +67,7 @@ public class Game {
                     (ITile) new TileDto(14, 'n', 1),
                     (ITile) new TileDto(15, 'o', 1),
                     (ITile) new TileDto(16, 'p', 3)))),
-                new ArrayList<AnswerDto>(),
-                0,
-                new Integer(1).shortValue()
+                0
         );
     }
 

@@ -9,25 +9,25 @@ import java.util.Date;
 public class GameDto {
     private Long id;
 
-    private SideDto side1;
+    private SideDto mySide;
 
-    private SideDto side2;
+    private OtherSideDto otherSide;
 
     private Date startDate;
 
     private String lang;
 
-    private PlayerDto currPlayer;
+    private boolean myTurn;
 
     /* TODO -> create GameSummaryDto */
 
-    public GameDto(Long id, SideDto side1, SideDto side2, PlayerDto currPlayer, String lang, Date startDate) {
+    public GameDto(Long id, SideDto mySide, OtherSideDto otherSide, boolean myTurn, String lang, Date startDate) {
         this.id = id;
-        this.side1 = side1;
-        this.side2 = side2;
+        this.mySide = mySide;
+        this.otherSide = otherSide;
         this.lang = lang;
         this.startDate = startDate;
-        this.currPlayer = currPlayer;
+        this.myTurn = myTurn;
     }
 
     public String getLang() {
@@ -38,20 +38,20 @@ public class GameDto {
         this.lang = lang;
     }
 
-    public SideDto getSide1() {
-        return side1;
+    public SideDto getMySide() {
+        return mySide;
     }
 
-    public SideDto getSide2() {
-        return side2;
+    public OtherSideDto getOtherSide() {
+        return otherSide;
     }
 
-    public PlayerDto getCurrPlayer() {
-        return currPlayer;
+    public boolean isMyTurn() {
+        return myTurn;
     }
 
-    public void setCurrPlayer(PlayerDto currPlayer) {
-        this.currPlayer = currPlayer;
+    public void setMyTurn(boolean myTurn) {
+        this.myTurn = myTurn;
     }
 
     public Date getStartDate() {

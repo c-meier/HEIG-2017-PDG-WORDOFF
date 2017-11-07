@@ -8,14 +8,7 @@ package ch.heigvd.wordoff.common.Dto;
  * Player summary with minimum of information
  * Use endpoint to get the complete player dto information.
  */
-public class PlayerDto implements ISummaryDto {
-    private String endpoint;
-
-    @Override
-    public String getEndpoint() {
-        return endpoint;
-    }
-
+public class PlayerDto {
     private Long id;
 
     private String name;

@@ -26,13 +26,12 @@ public class DictionaryTest {
         assertTrue(dicoEng.contains("dad"));
         assertTrue(dicoEng.contains("mummy"));
 
-        assertTrue(dicoFr.contains("informatique"));
-        assertTrue(dicoFr.contains("sasseoir"));
+        assertTrue(dicoFr.contains("cheni"));
     }
 
     @Test
     public void generateAnagrams() {
-        System.out.println(dicoFr.getAnagrams("wefiwgehbii").toString());
+        System.out.println(dicoFr.getAnagrams("pap#").toString());
         assertTrue(true);
     }
 }

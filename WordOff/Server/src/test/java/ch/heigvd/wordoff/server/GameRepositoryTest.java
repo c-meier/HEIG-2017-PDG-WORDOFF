@@ -2,11 +2,13 @@ package ch.heigvd.wordoff.server;
 
 import ch.heigvd.wordoff.server.Model.Bag;
 import ch.heigvd.wordoff.server.Model.Game;
+import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
+import ch.heigvd.wordoff.server.Model.Tiles.Tile;
 import ch.heigvd.wordoff.server.Model.User;
 import ch.heigvd.wordoff.server.Repository.GameRepository;
 import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
-import ch.heigvd.wordoff.server.Repository.TileSetRepository;
+import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Util.ChallengeFactory;
 import ch.heigvd.wordoff.server.Model.Answer;
 import ch.heigvd.wordoff.server.Model.Challenge;
@@ -15,7 +17,6 @@ import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.server.Model.Side;
 import ch.heigvd.wordoff.server.Model.Slots.*;
-import ch.heigvd.wordoff.server.Model.Tiles.TileSet;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.within;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -44,7 +46,7 @@ public class GameRepositoryTest {
     private SideRepository sideRepository;
 
     @Autowired
-    private TileSetRepository tilesRepository;
+    private LangSetRepository tilesRepository;
 
     private Player one;
     private Player two;
@@ -65,7 +67,7 @@ public class GameRepositoryTest {
         Game game = new Game(one, two, "Français");
 
         // Bag
-        TileSet frenchSet = tilesRepository.findByName(game.getLang());
+        LangSet frenchSet = tilesRepository.findByName(game.getLang());
         Bag bag = new Bag(frenchSet.getTiles());
         game.setBag(bag);
 
@@ -77,8 +79,9 @@ public class GameRepositoryTest {
 
     @Test
     public void testCanCreateAndSaveSide() throws Exception {
-        TileSet set = tilesRepository.findByName("Français");
-        Bag bag = new Bag(set.getTiles());
+        LangSet set = tilesRepository.findByName("Français");
+        List<Tile> tiles = set.getTiles();
+        Bag bag = new Bag(tiles);
         Player player = new Player("testPlayer");
         Side side = new Side(player);
 

@@ -13,8 +13,8 @@ public class Tile implements ITile {
     @OneToOne(targetEntity = Letter.class, cascade = CascadeType.ALL)
     private Letter letter;
 
-    @ManyToOne(targetEntity = TileSet.class)
-    private TileSet tileSet;
+    @ManyToOne(targetEntity = LangSet.class)
+    private LangSet langSet;
 
     protected Tile() {}
 
@@ -39,8 +39,8 @@ public class Tile implements ITile {
         return letter.getScore();
     }
 
-    public void setTileSet(TileSet tileSet) {
-        this.tileSet = tileSet;
+    public void setLangSet(LangSet langSet) {
+        this.langSet = langSet;
     }
 
     public void setId(Integer id) {
@@ -55,7 +55,7 @@ public class Tile implements ITile {
         this.letter = letter;
     }
 
-    public TileSet getTileSet() {
-        return tileSet;
+    public LangSet getLangSet() {
+        return langSet;
     }
 }

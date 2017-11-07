@@ -2,8 +2,9 @@ package ch.heigvd.wordoff.server;
 
 import ch.heigvd.wordoff.server.Model.Bag;
 import ch.heigvd.wordoff.server.Model.Game;
+import ch.heigvd.wordoff.server.Model.Tiles.Tile;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
-import ch.heigvd.wordoff.server.Repository.TileSetRepository;
+import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Util.ChallengeFactory;
 import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.server.Model.Answer;
@@ -13,7 +14,7 @@ import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.server.Model.Side;
 import ch.heigvd.wordoff.server.Model.Slots.*;
-import ch.heigvd.wordoff.server.Model.Tiles.TileSet;
+import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -47,10 +48,11 @@ public class MainServer {
     }
 
     @Bean
-    public CommandLineRunner demo(SideRepository repository, TileSetRepository tileSetRepository) {
+    public CommandLineRunner demo(SideRepository repository, LangSetRepository langSetRepository) {
         return (args) -> {
-            TileSet set = tileSetRepository.findByName("Français");
-            Bag bag = new Bag(set.getTiles());
+            LangSet set = langSetRepository.findByName("Français");
+            List<Tile> tiles = set.getTiles();
+            Bag bag = new Bag(tiles);
 
             Player player = new Player("testPlayer");
             Side side = new Side(player);

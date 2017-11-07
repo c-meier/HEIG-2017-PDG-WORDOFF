@@ -23,7 +23,8 @@
 
 /*** Top-level menu itself (not selected / hovered) ***/
 .menu-bar .button {
-   -fx-padding: 2 8 8 2;
+	-fx-text-fill: #ffff;
+    -fx-padding: 2 8 8 2;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;
     -fx-background-color: 
@@ -39,7 +40,6 @@
 
 /*** Top-level menu itself (selected / hovered) ***/
 .menu-bar .button:hover,
-.menu-bar .button:focused,
 .menu-bar .button:showing,
 .menu-bar .button:hovered {
     -fx-background-color: 
@@ -51,7 +51,6 @@
 
 .menu-bar .menu:hover,
 .menu-bar .menu:focused,
-.menu-bar .menu:hovered,
 .menu-bar .menu:showing {
 	-fx-background-color:null;
 }

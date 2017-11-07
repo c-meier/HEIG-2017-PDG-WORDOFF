@@ -6,6 +6,7 @@
 }
 
 .button{
+	-fx-text-fill: #ffff;
 	-fx-padding: 4 8 8 4;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;

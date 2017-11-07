@@ -5,8 +5,31 @@ info:
     contact:
         name: Christopher Meier
         email: christopher.meier@heig-vd.ch
-    version: 0.1.1
+    version: 0.1.2
 paths:
+    /letter/{lang}:
+        get:
+            tags:
+                - letter
+            description: Return the list of the letters associated with the given language.
+            responses:
+                '200':
+                    description: The list of letters. As characters.
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                '400':
+                    $ref: '#/components/responses/MalformedRequest'
+        parameters:
+            - name: lang
+              in: path
+              description: The language associated with the letters.
+              required: true
+              schema:
+                  type: string
     /games:
         get:
             tags:
@@ -58,7 +81,7 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/GameSummaryDto'
                 '400':
-                    $ref: '#/components/responses/MalformedContent'
+                    $ref: '#/components/responses/MalformedRequest'
                 '422':
                     $ref: '#/components/responses/InvalidContent'
     /games/{gameId}:
@@ -75,6 +98,8 @@ paths:
                                 $ref: '#/components/schemas/GameDto'
                 '401':
                     $ref: '#/components/responses/Unauthorized'
+                '422':
+                    $ref: '#/components/responses/InvalidContent'
             security:
                 - jwt:
                     - read:game
@@ -99,7 +124,7 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/GameDto'
                 '400':
-                    $ref: '#/components/responses/MalformedContent'
+                    $ref: '#/components/responses/MalformedRequest'
                 '422':
                     $ref: '#/components/responses/InvalidContent'
                 '401':
@@ -335,10 +360,10 @@ components:
                     operationId: getUserToken
                 sign-up:
                     operationId: createUser
-        MalformedContent:
-            description: The requestBody was malformed.
+        MalformedRequest:
+            description: The request was malformed.
         InvalidContent:
-            description: The content of the requestBody produced, when processed, an exception.
+            description: The content of the request produced, when processed, an exception.
             content:
                 application/json:
                     schema:

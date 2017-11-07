@@ -19,6 +19,6 @@ public class Constants {
     public static final String YOU_RE_SCREWED = "YOU_RE_SCREWED";
     
     public static final String SERVER_ADDRESS = "localhost";
-    public static final int SERVER_PORT = 1234;
+    public static final int SERVER_PORT = 8080;
     
 }

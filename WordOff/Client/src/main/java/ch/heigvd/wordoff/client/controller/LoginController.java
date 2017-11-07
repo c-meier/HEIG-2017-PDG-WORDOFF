@@ -6,8 +6,11 @@
 package ch.heigvd.wordoff.client.controller;
 
 import ch.heigvd.wordoff.client.MainApp;
+import ch.heigvd.wordoff.common.Model.Challenge;
+import ch.heigvd.wordoff.common.Model.Slots.Slot;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,6 +30,8 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+        MainApp.getApiClient().play(Long.MAX_VALUE, new Challenge(new ArrayList<Slot>()));
     }
     
     @FXML

@@ -1,8 +1,6 @@
 package ch.heigvd.wordoff.client;
 
-import Net.Client;
 import ch.heigvd.wordoff.client.api.ApiClient;
-import ch.heigvd.wordoff.common.Constants;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

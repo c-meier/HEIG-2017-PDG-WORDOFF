@@ -20,7 +20,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // Find user associated with authentification
-
+/*
         boolean trusted = false;
 
         String token = request.getHeader(SecurityConst.AUTH_HEADER);
@@ -28,7 +28,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             // parse the token.
             String login = Jwts.parser()
                     .setSigningKey(SecurityConst.TOKEN_SECRET.getBytes())
-                    .parseClaimsJws(token.replace(SecurityConst.TOKEN_PREFIX, ""))
+                    .parseClaimsJws(token)
+                    //.parseClaimsJws(token.replace(SecurityConst.TOKEN_PREFIX, ""))
                     .getBody()
                     .getSubject();
 
@@ -45,5 +46,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             response.sendError(401);
         }
         return trusted;
+*/
+    return true; // DEBUG: REMOVE
     }
 }

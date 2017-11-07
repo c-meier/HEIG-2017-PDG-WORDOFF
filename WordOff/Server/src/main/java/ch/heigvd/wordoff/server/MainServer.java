@@ -40,16 +40,16 @@ public class MainServer {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(MainServer.class, args);
     }
-
+    
     @PostConstruct
     private void init(){
         log.info("creating an executable jar/war with spring boot without parent pom");
     }
-
+    
     @Bean
     public CommandLineRunner demo(SideRepository repository, TileSetRepository tileSetRepository) {
         return (args) -> {
-            TileSet set = tileSetRepository.findByName("Français");
+            /*TileSet set = tileSetRepository.findByName("Français");
             Bag bag = new Bag(set.getTiles());
 
             Player player = new Player("testPlayer");
@@ -85,7 +85,7 @@ public class MainServer {
 
 
 
-            repository.save(side);
+            repository.save(side);*/
         };
     }
 }

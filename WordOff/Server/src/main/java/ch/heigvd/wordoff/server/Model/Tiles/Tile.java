@@ -39,6 +39,11 @@ public class Tile implements ITile {
         return letter.getScore();
     }
 
+    @Override
+    public void setValue(char c) {
+        this.letter.setValue(c);
+    }
+
     public void setLangSet(LangSet langSet) {
         this.langSet = langSet;
     }

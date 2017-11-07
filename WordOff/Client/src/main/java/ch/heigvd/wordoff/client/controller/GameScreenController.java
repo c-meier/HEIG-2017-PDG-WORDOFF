@@ -130,21 +130,31 @@ public class GameScreenController implements Initializable {
     @FXML
     private void discard(){
         // TODO
+        System.out.println("Click discard");
     }
 
     @FXML
     private void peek(){
-        // TODO
+        // TODO test confirmation du hint côté serveur
+      //  if(   ){
+            setTiles(game.getSideP2().getPlayerRack().getTiles(), p2TilesPr, false);
+            setVisible(p2TilesPr,true);
+     //   }
     }
 
     @FXML
     private void hint(){
         // TODO
+        System.out.println("Click hint");
     }
 
     @FXML
     private void play(){
-        // TODO
+        // TODO si le mot est validé
+        System.out.println("Click play");
+
+        // TODO cacher les tiles adversaire
+        setVisible(p2TilesPr,false);
     }
 
 
@@ -176,7 +186,7 @@ public class GameScreenController implements Initializable {
         setTiles(sideP1.getPlayerRack().getTiles(), p1TilesPr, true);
         setTiles(sideP1.getChallenge().getSwapRack().getTiles(), p1TilesSr, true);
 
-        setTiles(sideP2.getPlayerRack().getTiles(), p2TilesPr, false);
+      //  setTiles(sideP2.getPlayerRack().getTiles(), p2TilesPr, false);
         setTiles(sideP2.getChallenge().getSwapRack().getTiles(), p2TilesSr, false);
     }
 
@@ -389,7 +399,7 @@ public class GameScreenController implements Initializable {
         // SwapSlotDto rack
         addConentListStackPane(p2SlotsSr, p2Sr1Fore, p2Sr2Fore);
         // Tiles swap rack
-        addConentListAnchorePane(p2TilesSr, false, p2TileSr1, p2TileSr2);
+        addConentListAnchorePane(p2TilesSr, true, p2TileSr1, p2TileSr2);
 
     }
 
@@ -402,6 +412,12 @@ public class GameScreenController implements Initializable {
     private void addConentListAnchorePane(List<AnchorPane> list, boolean isVisible, AnchorPane... content) {
         for (AnchorPane p : content) {
             list.add(p);
+            p.setVisible(isVisible);
+        }
+    }
+
+    private void setVisible(List<AnchorPane> tiles, boolean isVisible){
+        for (AnchorPane p : tiles) {
             p.setVisible(isVisible);
         }
     }

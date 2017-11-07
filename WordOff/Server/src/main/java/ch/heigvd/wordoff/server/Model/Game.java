@@ -2,6 +2,7 @@ package ch.heigvd.wordoff.server.Model;
 
 import ch.heigvd.wordoff.server.Model.Player;
 import ch.heigvd.wordoff.server.Model.Side;
+import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -32,12 +33,12 @@ public class Game {
     @ManyToOne
     private Player currPlayer;
 
-    public Game(Player p1, Player p2, String lang) {
+    public Game(Player p1, Player p2, LangSet tileSet) {
         this.sideInit = new Side(p1);
         this.sideResp = new Side(p2);
-        this.lang = lang;
+        this.lang = tileSet.getName();
         currPlayer = p1;
-        bag = new Bag();
+        bag = new Bag(tileSet.getTiles());
     }
 
     public Side getSideOfPlayer(Player player) {
@@ -46,7 +47,7 @@ public class Game {
         } else if (sideResp.getPlayer().equals(player)) {
             return sideResp;
         } else {
-            /* TO DO -> EXCEPTION*/
+            /* TODO -> EXCEPTION*/
             return null;
         }
     }
@@ -57,7 +58,7 @@ public class Game {
         } else if (player.equals(sideResp.getPlayer())) {
             return sideInit.getPlayer();
         } else {
-            /* TO DO -> EXCEPTION */
+            /* TODO -> EXCEPTION */
             return null;
         }
     }
@@ -93,5 +94,7 @@ public class Game {
     public void setCurrPlayer(Player currPlayer) {
         this.currPlayer = currPlayer;
     }
+
+
 
 }

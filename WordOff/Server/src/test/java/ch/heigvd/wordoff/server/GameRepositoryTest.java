@@ -64,12 +64,8 @@ public class GameRepositoryTest {
 
     @Test
     public void testCanCreateAndSaveAGame() throws Exception {
-        Game game = new Game(one, two, "Français");
-
-        // Bag
-        LangSet frenchSet = tilesRepository.findByName(game.getLang());
-        Bag bag = new Bag(frenchSet.getTiles());
-        game.setBag(bag);
+        LangSet set = tilesRepository.findByName("Français");
+        Game game = new Game(one, two, set);
 
         repository.save(game);
 

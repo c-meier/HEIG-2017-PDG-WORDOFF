@@ -2,19 +2,17 @@ package ch.heigvd.wordoff.server.Service;
 
 import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.IModel.ITile;
-import ch.heigvd.wordoff.common.Dto.ChallengeDto;
-import ch.heigvd.wordoff.common.Dto.SideDto;
 import ch.heigvd.wordoff.common.WordAnalyzer;
 import ch.heigvd.wordoff.server.Model.*;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
+import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 import ch.heigvd.wordoff.server.Model.Tiles.Tile;
+import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Rest.Exception.InvalidAiLevel;
 import ch.heigvd.wordoff.server.Rest.Exception.InvalidWordException;
 import ch.heigvd.wordoff.server.Rest.Exception.WrongPlayer;
 import ch.heigvd.wordoff.server.Util.ChallengeFactory;
 import ch.heigvd.wordoff.server.Util.DictionaryLoader;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -136,6 +134,18 @@ public class GameService {
         game.setCurrPlayer(game.getOtherPlayer(player));
 
         /* TODO -> set side as sideDTO */
+
+        return game;
+    }
+
+
+    private LangSetRepository langSetRepository;
+
+    public Game initGame(Player p1, Player p2, String lang) {
+        LangSet langSet = langSetRepository.findByName(lang);
+        Game game = new Game(p1, p2, langSet);
+
+        /* TODO -> init game */
 
         return game;
     }

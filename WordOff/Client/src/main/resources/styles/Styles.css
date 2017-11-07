@@ -22,6 +22,7 @@
 }
 
 .button_wood{
+	-fx-text-fill: #ffff;
 	-fx-padding: 4 8 8 4;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;
@@ -34,7 +35,7 @@
     -fx-font-weight: bold;
     -fx-font-size: 1.1em;
 }
-.button_wood:hover {
+.button_wood:hover, .button:showing {
 	 -fx-background-color: 
         linear-gradient(from 0% 93% to 0% 100%, #c7a880 0%, #ae814e 100%),
         #c8a380,
@@ -46,17 +47,32 @@
     -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
 }
 
+
 .titleMainMenu{
 	-fx-background-color:#ae814e;
 	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);
 	-fx-font-family: 'Open Sans';
 	-fx-text-fill: white;
+	-fx-alignment:center,center;
+	-fx-font-size:14pt;
+	-fx-font-weight:bold;
+}
+
+.title_Menu{
+	-fx-background-color:#ae814e;
+	-fx-effect: dropshadow(gaussian, black, 10, 0, 0, 0);
+	-fx-font-family: 'Open Sans';
+	-fx-text-fill: white;
+	-fx-alignment:center,center;
+	-fx-font-size:14pt;
+	-fx-font-weight:bold;
 }
 
 .login{
 	-fx-background-color:#ae814e;
 	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);
 }
+
 .login_bottom{
 	-fx-background-color: #ffd3a3;
 	-fx-background-image: url("../images/wood_texture.png");

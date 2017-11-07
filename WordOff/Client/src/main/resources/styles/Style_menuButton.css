@@ -1,0 +1,56 @@
+/* VARIABLE DEFINITIONS: Only these 4 variables have to be adjusted, the rest is copy-paste */
+* {
+	-fx-color-darkBrown: #df9c5d;
+	-fx-color-lightBrown: #c7a880;
+	-fx-color-brown:#ae814e;
+	-fx-color-beige: #c8813e;
+    -fx-my-menu-color: -fx-color-brown;                
+    -fx-my-menu-color-highlighted: -fx-color-lightBrown ;      
+    -fx-my-menu-font-color: #FFFFFF;            
+    -fx-my-menu-font-color-highlighted: #FFFFFF; 
+	-fx-my-top-button : -fx-color-darkBrown;
+	-fx-my-border-button : -fx-color-beige ;
+	-fx-my-top-button-highlighted : #c8a380;
+	-fx-my-border-button-highlighted : #deb186 ;
+}
+
+/* MENU BAR + Top-level MENU BUTTONS */
+/*** The menu bar itself ***/    
+.menu-bar{
+	-fx-background-color: #ffd3a3;
+	-fx-background-image: url("../images/wood_texture.png");
+}
+
+/*** Top-level menu itself (not selected / hovered) ***/
+.menu-bar .button {
+	-fx-text-fill: #ffff;
+    -fx-padding: 2 8 8 2;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, -fx-color-lightBrown 0%, -fx-color-darkBrown 100%),
+        -fx-my-border-button,
+        -fx-my-top-button,
+        radial-gradient(center 50% 50%, radius 100%, -fx-my-top-button, -fx-my-border-button);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 9pt;
+}
+
+
+/*** Top-level menu itself (selected / hovered) ***/
+.menu-bar .button:hover,
+.menu-bar .button:showing,
+.menu-bar .button:hovered {
+    -fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, -fx-color-lightBrown 0%, -fx-color-brown 100%),
+        -fx-my-border-button-highlighted,
+        -fx-my-top-button-highlighted,
+        radial-gradient(center 50% 50%, radius 100%, -fx-my-border-button-highlighted, -fx-my-top-button-highlighted);
+}
+
+.menu-bar .menu:hover,
+.menu-bar .menu:focused,
+.menu-bar .menu:showing {
+	-fx-background-color:null;
+}

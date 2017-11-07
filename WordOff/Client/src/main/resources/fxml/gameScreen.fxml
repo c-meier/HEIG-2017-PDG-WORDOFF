@@ -562,11 +562,11 @@
       </SplitPane>
    </center>
    <top>
-      <MenuBar styleClass="backgroundGame" stylesheets="@../styles/Styles.css" BorderPane.alignment="CENTER">
+      <MenuBar stylesheets="@../styles/Style_menuButton.css" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false">
                <graphic>
-                  <Button mnemonicParsing="false" onAction="#handleGotoMenu" styleClass="button_wood" text="Retour">
+                  <Button mnemonicParsing="false" onAction="#handleGotoMenu" text="Retour">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
@@ -578,29 +578,29 @@
    <bottom>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
-            <ToolBar styleClass="backgroundGame_bottom" stylesheets="@../styles/Styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ToolBar stylesheets="@../styles/Style_toolBarBottom.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <items>
-                  <Button fx:id="shuffleButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#shuffleClear" styleClass="button_wood" stylesheets="@../styles/Styles.css" text="Mélanger">
+                  <Button fx:id="shuffleButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#shuffleClear" text="Mélanger">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#discard" styleClass="button_wood" stylesheets="@../styles/Styles.css" text="Jeter">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#discard" text="Jeter">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#play" styleClass="button_wood" stylesheets="@../styles/Styles.css" text="Jouer">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#play" text="Jouer">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#peek" styleClass="button_wood" stylesheets="@../styles/Styles.css" text="Aperçu">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#peek" text="Aperçu">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#hint" styleClass="button_wood" stylesheets="@../styles/Styles.css" text="Indice">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#hint" text="Indice">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

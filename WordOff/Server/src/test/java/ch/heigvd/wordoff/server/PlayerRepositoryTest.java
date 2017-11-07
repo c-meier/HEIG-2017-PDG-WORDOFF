@@ -1,9 +1,9 @@
 package ch.heigvd.wordoff.server;
 
-import ch.heigvd.wordoff.Model.Ai;
-import ch.heigvd.wordoff.Model.User;
-import ch.heigvd.wordoff.Repository.PlayerRepository;
-import ch.heigvd.wordoff.common.Model.Player;
+import ch.heigvd.wordoff.server.Model.Ai;
+import ch.heigvd.wordoff.server.Model.User;
+import ch.heigvd.wordoff.server.Repository.PlayerRepository;
+import ch.heigvd.wordoff.server.Model.Player;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

@@ -1,3 +1,81 @@
-.button {
-    -fx-font-weight: bold;
+.backgroundGame{
+	-fx-background-color: #ffd3a3;
+	-fx-background-image: url("../images/wood_texture.png");
+	-fx-effect: dropshadow(gaussian, purple, 10, 0, 0, 0);
 }
+
+.backgroundGame_withoutShadow{
+	-fx-background-color: #ffd3a3;
+	-fx-background-image: url("../images/wood_texture.png");
+}
+
+
+.backgroundGame_bottom{
+	-fx-background-color: #ffd3a3;
+	-fx-background-image: url("../images/wood_texture.png");
+	-fx-effect: dropshadow(gaussian, purple, 10, 0, 0, 0);
+	-fx-alignment:center;
+}
+
+.background_grid{
+	-fx-background-color: #79df8f;
+}
+
+.button_wood{
+	-fx-padding: 4 8 8 4;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #c7a880 0%, #ae814e 100%),
+        #c8813e,
+        #df9c5d,
+        radial-gradient(center 50% 50%, radius 100%, #df9c5d, #c8813e);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+}
+.button_wood:hover, .button:showing {
+	 -fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #c7a880 0%, #ae814e 100%),
+        #c8a380,
+        #deb186,
+        radial-gradient(center 50% 50%, radius 100%, #deb186, #c8a380);
+}
+.button_wood:pressed {
+    -fx-padding:  4 8 8 4;
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+
+
+.titleMainMenu{
+	-fx-background-color:#ae814e;
+	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);
+	-fx-font-family: 'Open Sans';
+	-fx-text-fill: white;
+	-fx-alignment:center,center;
+	-fx-font-size:14pt;
+	-fx-font-weight:bold;
+}
+
+.title_Menu{
+	-fx-background-color:#ae814e;
+	-fx-effect: dropshadow(gaussian, black, 10, 0, 0, 0);
+	-fx-font-family: 'Open Sans';
+	-fx-text-fill: white;
+	-fx-alignment:center,center;
+	-fx-font-size:14pt;
+	-fx-font-weight:bold;
+}
+
+.login{
+	-fx-background-color:#ae814e;
+	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);
+}
+
+.login_bottom{
+	-fx-background-color: #ffd3a3;
+	-fx-background-image: url("../images/wood_texture.png");
+	-fx-alignment:center;
+	-fx-background-size: stretch;
+}
+

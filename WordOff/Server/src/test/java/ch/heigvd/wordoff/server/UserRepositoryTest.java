@@ -1,8 +1,8 @@
 package ch.heigvd.wordoff.server;
 
-import ch.heigvd.wordoff.Model.Credentials;
-import ch.heigvd.wordoff.Model.User;
-import ch.heigvd.wordoff.Repository.UserRepository;
+import ch.heigvd.wordoff.server.Model.Credentials;
+import ch.heigvd.wordoff.server.Model.User;
+import ch.heigvd.wordoff.server.Repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

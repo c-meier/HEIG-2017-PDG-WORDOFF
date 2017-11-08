@@ -1,6 +1,7 @@
 package ch.heigvd.wordoff.server.Service;
 
 import ch.heigvd.wordoff.common.Constants;
+import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.common.WordAnalyzer;
 import ch.heigvd.wordoff.server.Model.*;
@@ -93,8 +94,14 @@ public class GameService {
             List<Tile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE -
                     game.getSideOfPlayer(player).getPlayerRack().getTiles().size());
 
+            // reset jokers' values
+            for(ISlot slot : game.getSideOfPlayer(player).getChallenge().getSlots()) {
+                if(slot.getTile().isJoker()) {
+                    slot.getTile().setValue('#');
+                }
+            }
+
             // Send swap tiles to other player
-            /* TODO -> reset joker */
             game.getSideOfPlayer(game.getOtherPlayer(player)).getChallenge().setSwapRack(game.getSideOfPlayer(player).getChallenge().getSwapRack());
 
             // Update the player side
@@ -164,12 +171,20 @@ public class GameService {
         // Move word to challenge
         game.getSideResp().setChallenge(word);
 
+        // TODO retire les bonne Tiles du Rack et SwapRack
+
         // get a list of the tile taken from the bag of the game
         List<Tile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE -
                 game.getSideOfPlayer(player).getPlayerRack().getTiles().size());
 
+        // reset jokers' values
+        for(ISlot slot : game.getSideOfPlayer(player).getChallenge().getSlots()) {
+            if(slot.getTile().isJoker()) {
+                slot.getTile().setValue('#');
+            }
+        }
+
         // Send swap tiles to other player
-        /* TODO -> reset joker */
         game.getSideOfPlayer(game.getOtherPlayer(player)).getChallenge().setSwapRack(game.getSideOfPlayer(player).getChallenge().getSwapRack());
 
         // Update the side of the Ai

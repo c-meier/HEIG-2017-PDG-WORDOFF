@@ -2,17 +2,6 @@ package ch.heigvd.wordoff.server.Model.Racks;
 
 import ch.heigvd.wordoff.common.Constants;
 
-import javax.persistence.AssociationOverride;
-import javax.persistence.Embeddable;
-import javax.persistence.JoinTable;
-
-@Embeddable
-@AssociationOverride(
-        name="tiles",
-        joinTable=@JoinTable(
-                name="PlayerRack"
-        )
-)
 public class PlayerRack extends Rack {
 
     /**

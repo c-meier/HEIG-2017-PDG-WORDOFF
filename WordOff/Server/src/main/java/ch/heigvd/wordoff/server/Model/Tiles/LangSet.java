@@ -14,8 +14,13 @@ public class LangSet {
     /**
      * When getting a LangSet from DB we want always want all the composing tiles (FetchType.EAGER)
      */
-    @OneToMany(targetEntity = Tile.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER ,mappedBy = "langSet")
+    @OneToMany(targetEntity = Tile.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER )
+    @JoinColumn(name = "lang_set_id")
     private List<Tile> tiles;
+
+    @OneToMany(targetEntity = Letter.class, cascade = CascadeType.ALL )
+    @JoinColumn(name = "lang_set_id")
+    private List<Letter> letters;
 
     protected LangSet() {}
 

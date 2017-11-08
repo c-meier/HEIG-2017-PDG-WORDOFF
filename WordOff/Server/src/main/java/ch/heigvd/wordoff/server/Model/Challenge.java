@@ -19,9 +19,15 @@ public class Challenge implements IChallenge, Serializable {
         this.swapRack = new SwapRack();
         slots = new ArrayList<>();
     }
+
     public Challenge(List<ISlot> slots) {
         this.swapRack = new SwapRack();
         this.slots = slots;
+    }
+
+    public Challenge(Challenge challenge) {
+        this.swapRack = new SwapRack(challenge.getSwapRack());
+        this.slots = new ArrayList<>(challenge.getSlots());
     }
 
     public SwapRack getSwapRack() {

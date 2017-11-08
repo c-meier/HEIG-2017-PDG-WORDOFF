@@ -11,4 +11,8 @@ public class SwapSlot extends Slot {
     public SwapSlot(Side side, Short pos) {
         super(side, pos);
     }
+
+    public SwapSlot(SwapSlot swapSlot) {
+        super(swapSlot);
+    }
 }

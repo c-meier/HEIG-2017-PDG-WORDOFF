@@ -113,23 +113,32 @@ public class GameServiceTest {
         GameService gameService = new GameService();
 
         Side sideInit = new Side(p1);
-        sideInit.setChallenge(new ChallengeFactory(gameWithAi.getSideInit()).createRandomSlotPos().create());
-        sideInit.getChallenge().addTile((ITile) new TileDto(2, 'a', 1));
-        sideInit.getChallenge().addTile((ITile) new TileDto(10, 'i', 1));
+
+        Challenge challenge = new ChallengeFactory(gameWithAi.getSideInit()).createRandomSlotPos().create();
+        sideInit.setChallenge(challenge);
 
         sideInit.setPlayerRack(new PlayerRack());
         sideInit.getPlayerRack().setTiles(new LinkedList<ITile>(Arrays.asList(
-                (ITile) new TileDto(2, 'a', 1),
-                (ITile) new TileDto(3, 'b', 3),
-                (ITile) new TileDto(4, 'c', 3),
-                (ITile) new TileDto(5, 'd', 2),
-                (ITile) new TileDto(6, 'e', 2),
-                (ITile) new TileDto(7, 'f', 4),
-                (ITile) new TileDto(10, 'i', 1))));
+                (ITile) new Tile(5, 'a', 1),
+                (ITile) new Tile(3, 'b', 3),
+                (ITile) new Tile(4, 'c', 3),
+                (ITile) new Tile(5, 'd', 2),
+                (ITile) new Tile(6, 'e', 2),
+                (ITile) new Tile(7, 'f', 4),
+                (ITile) new Tile(44, 'i', 1))));
+        sideInit.getChallenge().setSwapRack(new SwapRack());
+        sideInit.getChallenge().getSwapRack().setTiles(new LinkedList<ITile>(Arrays.asList(
+                (ITile) new Tile(4, 'a', 1),
+                (ITile) new Tile(45, 'i', 1))));
 
+        gameWithAi.setSideInit(sideInit);
 
-        Challenge challenge = new ChallengeFactory(gameWithAi.getSideInit()).createRandomSlotPos().create();
-        gameService.play(gameWithAi, p1, challenge);
+        /* TODO -> le problème est là */
+        Challenge challengeClone = new Challenge(challenge);
+        challengeClone.addTile((ITile) new Tile(4, 'a', 1));
+        challengeClone.addTile((ITile) new Tile(44, 'i', 1));
+
+        gameService.play(gameWithAi, p1, challengeClone);
 
         assertThat('a').isEqualTo('a');
     }

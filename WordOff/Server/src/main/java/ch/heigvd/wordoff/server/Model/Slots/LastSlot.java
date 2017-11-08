@@ -12,6 +12,10 @@ public class LastSlot extends Slot {
         super(side, pos);
     }
 
+    public LastSlot(LastSlot lastSlot) {
+        super(lastSlot);
+    }
+
     public int getScore() {
         return isEmpty() ? 0 : super.getScore() + bonus;
     }

@@ -7,22 +7,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity
-public class Letter implements Serializable{
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setValue(char value) {
-        this.value = value;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
+public class Letter implements Serializable {
 
     @Id
     @GeneratedValue
@@ -39,6 +24,20 @@ public class Letter implements Serializable{
     public Letter(char value, int score) {
         this.value = value;
         this.score = score;
+    }
+
+    public Letter(Letter letter) {
+        this.id = letter.getId();
+        this.value = letter.getValue();
+        this.score = letter.getScore();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setValue(char value) {
+        this.value = value;
     }
 
     public char getValue() {

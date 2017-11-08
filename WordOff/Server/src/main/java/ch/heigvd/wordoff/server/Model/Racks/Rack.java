@@ -14,6 +14,10 @@ public abstract class Rack implements IRack, Serializable {
         tiles = new ArrayList<>();
     }
 
+    public Rack(Rack rack) {
+        this.tiles = new ArrayList<>(rack.getTiles());
+    }
+
     public List<ITile> getTiles() {
         return tiles;
     }

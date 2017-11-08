@@ -8,6 +8,11 @@ public class SwapRack extends Rack {
      *
      * @return
      */
+    public SwapRack() {}
+    public SwapRack(SwapRack swapRack) {
+        super(swapRack);
+    }
+
     @Override
     public int getMaxSizeRack() {
         return Constants.SWAP_RACK_SIZE;

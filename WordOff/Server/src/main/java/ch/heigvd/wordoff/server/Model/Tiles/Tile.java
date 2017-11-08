@@ -24,6 +24,12 @@ public class Tile implements ITile, Serializable {
         this.letter = new Letter(value, score);
     }
 
+    public Tile(Tile tile) {
+        this.id = tile.getId();
+        this.letter = new Letter(tile.letter);
+        this.langSetId = tile.getLangSetId();
+    }
+
     public Tile(char value, int score) {
         this.letter = new Letter(value, score);
     }
@@ -55,5 +61,9 @@ public class Tile implements ITile, Serializable {
 
     public void setLetter(Letter letter) {
         this.letter = letter;
+    }
+
+    public Integer getLangSetId() {
+        return langSetId;
     }
 }

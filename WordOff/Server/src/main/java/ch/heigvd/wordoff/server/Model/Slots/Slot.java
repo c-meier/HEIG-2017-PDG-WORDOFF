@@ -15,8 +15,14 @@ public class Slot implements ISlot, Serializable {
         this.pos = 1;
         this.tile = null;
     }
+
     public Slot(Side side, Short pos) {
         this.pos = pos;
+        this.tile = null;
+    }
+
+    public Slot(Slot slot) {
+        this.pos = slot.getPos();
         this.tile = null;
     }
 
@@ -33,4 +39,7 @@ public class Slot implements ISlot, Serializable {
         return null == tile ? 0 : tile.getScore();
     }
 
+    public Short getPos() {
+        return pos;
+    }
 }

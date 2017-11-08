@@ -27,4 +27,8 @@ public class LoginDto {
     public void setPassword(char[] password) {
         this.password = password;
     }
+
+    public boolean isWellformed() {
+        return login != null && !login.isEmpty() && password != null && password.length > 0;
+    }
 }

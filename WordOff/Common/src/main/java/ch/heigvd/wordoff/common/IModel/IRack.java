@@ -1,10 +1,13 @@
 package ch.heigvd.wordoff.common.IModel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 public interface IRack {
     List<ITile> getTiles();
 
+    @JsonIgnore
     int getMaxSizeRack();
 
     /**
@@ -55,7 +58,7 @@ public interface IRack {
         return false;
     }
 
-
+    @JsonIgnore
     default boolean isEmpty() {
         return getTiles().isEmpty();
     }

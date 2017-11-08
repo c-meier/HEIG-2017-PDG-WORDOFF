@@ -93,6 +93,7 @@ public class Game {
         this.currPlayer = currPlayer;
     }
 
-
-
+    public Long getId() {
+        return id;
+    }
 }

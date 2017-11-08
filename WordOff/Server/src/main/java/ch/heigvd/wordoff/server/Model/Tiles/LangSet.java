@@ -55,4 +55,22 @@ public class LangSet {
     public List<Letter> getLetters() {
         return letters;
     }
+
+    public Tile getTileByValue(char value) {
+        return getTileByValue(value, 0);
+    }
+
+    public Tile getTileByValue(char value, int occurence) {
+        int match = 0;
+        for(Tile t : getTiles()) {
+            if(t.getValue() == value) {
+                if(match == occurence) {
+                    return t;
+                } else {
+                    match++;
+                }
+            }
+        }
+        return null;
+    }
 }

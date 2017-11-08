@@ -57,8 +57,8 @@ public class Side {
         }
     }
 
-    public void addAnswer(String word, int score) {
-        answers.add(new Answer(this, answerCounter, word, score));
+    public void addAnswer(Challenge challenge) {
+        answers.add(new Answer(this, answerCounter, challenge));
     }
 
     public Long getId() {

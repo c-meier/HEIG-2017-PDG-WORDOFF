@@ -19,7 +19,10 @@ import ch.heigvd.wordoff.server.Util.ChallengeFactory;
 import ch.heigvd.wordoff.server.Util.DictionaryLoader;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.TreeMap;
 
 /**
  * Service used to s
@@ -221,7 +224,7 @@ public class GameService {
         side.updateScore(challenge.getScore());
 
         // Create the answer for the history
-        side.addAnswer(challenge.getWord(), side.getScore());
+        side.addAnswer(challenge);
 
         // add the new tiles to the player Rack
         side.addTilesToPlayerRack(newTiles);

@@ -4,6 +4,7 @@ import ch.heigvd.wordoff.common.IModel.IChallenge;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
+import ch.heigvd.wordoff.server.Model.Slots.SwapSlot;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class Challenge implements IChallenge, Serializable {
     public List<ITile> getTilesToSwap() {
         List<ITile> sTiles = new ArrayList<>();
         for (ISlot s : getSlots()) {
-            if (s.getClass() == SwapSlotDto.class) {
+            if (s.getClass() == SwapSlot.class) {
                 sTiles.add(s.getTile());
             }
         }

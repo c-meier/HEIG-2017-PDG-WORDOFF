@@ -51,4 +51,8 @@ public class LangSet {
     public void setTiles(List<Tile> tiles) {
         this.tiles = tiles;
     }
+
+    public List<Letter> getLetters() {
+        return letters;
+    }
 }

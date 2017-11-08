@@ -1,8 +1,9 @@
 package ch.heigvd.wordoff.server.Rest.Endpoint;
 
 import ch.heigvd.wordoff.common.Protocol;
+import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 import ch.heigvd.wordoff.server.Model.Tiles.Letter;
-import ch.heigvd.wordoff.server.Repository.LetterRepository;
+import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Rest.Exception.ErrorCodeException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -19,21 +20,21 @@ import java.util.List;
 @RequestMapping(value = "/letters", produces = "application/json")
 public class LetterController {
 
-    private LetterRepository letterRepository;
+    private LangSetRepository langSetRepository;
 
-    public LetterController(LetterRepository letterRepository) {
-        this.letterRepository = letterRepository;
+    public LetterController(LangSetRepository langSetRepository) {
+        this.langSetRepository = langSetRepository;
     }
 
     @RequestMapping(value = "/{lang}", method = RequestMethod.GET)
     public HttpEntity<List<Character>> getLetters(@PathVariable("lang") String lang) {
-        List<Letter> letters = letterRepository.findAllByLangSetName(lang);
-        if(letters == null || letters.isEmpty()) {
+        LangSet langSet = langSetRepository.findByName(lang);
+        if(langSet == null) {
             throw new ErrorCodeException(Protocol.LANG_NOT_EXISTS, "The language " + lang + " does not exist!");
         }
         List<Character> lettersDto = new ArrayList<>();
 
-        for(Letter l : letters) {
+        for(Letter l : langSet.getLetters()) {
             lettersDto.add(l.getValue());
         }
 

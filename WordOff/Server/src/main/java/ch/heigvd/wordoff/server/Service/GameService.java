@@ -64,28 +64,29 @@ public class GameService {
             int size1 = challenge.getWord().length();
             int size2 = game.getSideOfPlayer(player).getChallenge().getWord().length();
             while (challenge.getWord().length() != game.getSideOfPlayer(player).getChallenge().getWord().length()) {
+                ITile currTile = challenge.getSlots().get(i).getTile();
                 if (i < tempSwapRack.size()) {
-                    if (!tempSwapRack.contains(challenge.getSlots().get(i).getTile())) {
+                    if (!tempSwapRack.contains(currTile)) {
                         tileIsNotInSwapRacks = true;
                     } else {
-                        game.getSideOfPlayer(player).getChallenge().addTile(game.getSideOfPlayer(player).getChallenge().getSlots().get(i).getTile());
-                        game.getSideOfPlayer(player).getChallenge().getSwapRack().getTiles().remove(game.getSideOfPlayer(player).getChallenge().getSwapRack().getTileByPos(i));
+                        game.getSideOfPlayer(player).getChallenge().addTile(game.getSideOfPlayer(player).getChallenge().getSwapRack().getTile(currTile.getId()));
+                        game.getSideOfPlayer(player).getChallenge().getSwapRack().getTiles().remove(game.getSideOfPlayer(player).getChallenge().getSwapRack().getTile(currTile.getId()));
                         tileIsNotInSwapRacks = false;
                     }
                 }
 
                 if (i < tempRackPlayer.size()) {
-                    if (!tempRackPlayer.contains(challenge.getSlots().get(i).getTile())) {
+                    if (!tempRackPlayer.contains(currTile)) {
                         tileIsNotInPlayerRacks = true;
                     } else {
-                        game.getSideOfPlayer(player).getChallenge().addTile(game.getSideOfPlayer(player).getPlayerRack().getTiles().get(i));
-                        game.getSideOfPlayer(player).getPlayerRack().getTiles().remove(game.getSideOfPlayer(player).getPlayerRack().getTileByPos(i));
+                        game.getSideOfPlayer(player).getChallenge().addTile(game.getSideOfPlayer(player).getPlayerRack().getTile(currTile.getId()));
+                        game.getSideOfPlayer(player).getPlayerRack().getTiles().remove(game.getSideOfPlayer(player).getPlayerRack().getTile(currTile.getId()));
                         tileIsNotInPlayerRacks = false;
                     }
+                }
 
-                    if (tileIsNotInPlayerRacks && tileIsNotInSwapRacks) {
-                        throw new TileIsNotInRack("The tile is not in one of the player racks, are you trying to cheat ?");
-                    }
+                if (tileIsNotInPlayerRacks && tileIsNotInSwapRacks) {
+                    throw new TileIsNotInRack("The tile is not in one of the player racks, are you trying to cheat ?");
                 }
                 i++;
             }

@@ -118,10 +118,10 @@ public class GameServiceTest {
         sideInit.getPlayerRack().setTiles(new LinkedList<ITile>(Arrays.asList(
                 (ITile) new Tile(5, 'a', 1),
                 (ITile) new Tile(3, 'b', 3),
-                (ITile) new Tile(4, 'c', 3),
-                (ITile) new Tile(5, 'd', 2),
-                (ITile) new Tile(6, 'e', 2),
-                (ITile) new Tile(7, 'f', 4),
+                (ITile) new Tile(14, 'c', 3),
+                (ITile) new Tile(17, 'd', 2),
+                (ITile) new Tile(20, 'e', 2),
+                (ITile) new Tile(22, 'f', 4),
                 (ITile) new Tile(44, 'i', 1))));
         sideInit.getChallenge().setSwapRack(new SwapRack());
         sideInit.getChallenge().getSwapRack().setTiles(new LinkedList<ITile>(Arrays.asList(
@@ -130,7 +130,6 @@ public class GameServiceTest {
 
         gameWithAi.setSideInit(sideInit);
 
-        /* TODO -> le problème est là */
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(challenge);
         Challenge challengeClone = mapper.readValue(json, Challenge.class);

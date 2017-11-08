@@ -41,4 +41,5 @@ public class Letter implements Serializable {
     public int getScore() {
         return score;
     }
+
 }

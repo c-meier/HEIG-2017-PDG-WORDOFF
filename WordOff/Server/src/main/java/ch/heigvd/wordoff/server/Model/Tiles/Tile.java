@@ -63,4 +63,19 @@ public class Tile implements ITile, Serializable {
     public Integer getLangSetId() {
         return langSetId;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Tile)) return false;
+
+        Tile tile = (Tile) o;
+
+        return id.equals(tile.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

@@ -1,5 +1,7 @@
 package ch.heigvd.wordoff.common.IModel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 public interface IChallenge {
@@ -15,6 +17,7 @@ public interface IChallenge {
         return false;
     }
 
+    @JsonIgnore
     default String getWord() {
         StringBuilder word = new StringBuilder();
 
@@ -28,6 +31,7 @@ public interface IChallenge {
         return word.toString();
     }
 
+    @JsonIgnore
     default int getScore() {
         int score = 0;
         for (ISlot s : getSlots()) {

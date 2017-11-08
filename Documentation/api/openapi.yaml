@@ -171,7 +171,8 @@ paths:
                     headers:
                         Authorization:
                             description: The token allowing acces to the resources.
-
+                '400':
+                    $ref: '#/components/responses/MalformedRequest'
                 '401':
                     $ref: '#/components/responses/Unauthorized'
 

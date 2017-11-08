@@ -5,9 +5,9 @@ info:
     contact:
         name: Christopher Meier
         email: christopher.meier@heig-vd.ch
-    version: 0.1.2
+    version: 0.1.3
 paths:
-    /letter/{lang}:
+    /letters/{lang}:
         get:
             tags:
                 - letter
@@ -149,6 +149,8 @@ paths:
             responses:
                 '200':
                     description: The new user has been correctly created.
+                '400':
+                    $ref: '#/components/responses/MalformedRequest'
                 '422':
                     $ref: '#/components/responses/InvalidContent'
     /users/sign-in:

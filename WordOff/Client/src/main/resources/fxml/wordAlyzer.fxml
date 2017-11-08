@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+
+
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="222.0" stylesheets="@../styles/Style_wordAlyzer.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Circle fx:id="circle1" fill="DODGERBLUE" layoutX="43.0" layoutY="19.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="circle2" fill="DODGERBLUE" layoutX="73.0" layoutY="19.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="circle3" fill="DODGERBLUE" layoutX="103.0" layoutY="19.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="circle4" fill="DODGERBLUE" layoutX="133.0" layoutY="19.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="circle5" fill="DODGERBLUE" layoutX="164.0" layoutY="19.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label fx:id="score" layoutX="4.0" prefHeight="36.0" prefWidth="28.0" text="10" />
+      <CheckBox fx:id="check" allowIndeterminate="true" disable="true" layoutX="189.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="36.0" selected="true" />
+   </children>
+</AnchorPane>

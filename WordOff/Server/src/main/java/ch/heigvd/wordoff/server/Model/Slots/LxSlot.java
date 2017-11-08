@@ -14,11 +14,6 @@ public abstract class LxSlot extends Slot {
         this.bonus = bonus;
     }
 
-    public LxSlot(LxSlot lxSlot) {
-        super(lxSlot);
-        this.bonus = lxSlot.getBonus();
-    }
-
     @Override
     public int getScore() {
         return super.getScore() * bonus;

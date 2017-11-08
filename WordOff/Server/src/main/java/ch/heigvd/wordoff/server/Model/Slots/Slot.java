@@ -3,12 +3,22 @@ package ch.heigvd.wordoff.server.Model.Slots;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.server.Model.Side;
+import ch.heigvd.wordoff.server.Model.Tiles.Tile;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.io.Serializable;
 
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.MINIMAL_CLASS,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "dtype"
+)
 public class Slot implements ISlot, Serializable {
+
     Short pos;
 
+    @JsonDeserialize(as = Tile.class)
     private ITile tile;
 
     public Slot() {
@@ -18,11 +28,6 @@ public class Slot implements ISlot, Serializable {
 
     public Slot(Side side, Short pos) {
         this.pos = pos;
-        this.tile = null;
-    }
-
-    public Slot(Slot slot) {
-        this.pos = slot.getPos();
         this.tile = null;
     }
 

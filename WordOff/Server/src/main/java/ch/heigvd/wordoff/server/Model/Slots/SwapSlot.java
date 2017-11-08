@@ -4,15 +4,12 @@ import ch.heigvd.wordoff.server.Model.Side;
 
 public class SwapSlot extends Slot {
 
+
     public SwapSlot() {
 
     }
 
     public SwapSlot(Side side, Short pos) {
         super(side, pos);
-    }
-
-    public SwapSlot(SwapSlot swapSlot) {
-        super(swapSlot);
     }
 }

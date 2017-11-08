@@ -11,10 +11,6 @@ public class PlayerRack extends Rack {
      */
     public PlayerRack() {}
 
-    public PlayerRack(PlayerRack playerRack) {
-        super(playerRack);
-    }
-
     @Override
     public int getMaxSizeRack() {
         return Constants.PLAYER_RACK_SIZE;

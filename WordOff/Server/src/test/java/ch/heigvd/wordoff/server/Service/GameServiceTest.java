@@ -1,19 +1,17 @@
 package ch.heigvd.wordoff.server.Service;
 
-import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
-import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.server.Model.*;
-import ch.heigvd.wordoff.server.Model.Slots.Slot;
-import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
+import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 import ch.heigvd.wordoff.server.Model.Tiles.Tile;
 import ch.heigvd.wordoff.server.Repository.GameRepository;
+import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
-import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Util.ChallengeFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +20,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -134,7 +131,10 @@ public class GameServiceTest {
         gameWithAi.setSideInit(sideInit);
 
         /* TODO -> le problème est là */
-        Challenge challengeClone = new Challenge(challenge);
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(challenge);
+        Challenge challengeClone = mapper.readValue(json, Challenge.class);
+
         challengeClone.addTile((ITile) new Tile(4, 'a', 1));
         challengeClone.addTile((ITile) new Tile(44, 'i', 1));
 

@@ -26,12 +26,6 @@ public class Letter implements Serializable {
         this.score = score;
     }
 
-    public Letter(Letter letter) {
-        this.id = letter.getId();
-        this.value = letter.getValue();
-        this.score = letter.getScore();
-    }
-
     public Integer getId() {
         return id;
     }

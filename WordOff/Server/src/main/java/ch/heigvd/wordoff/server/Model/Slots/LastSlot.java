@@ -3,6 +3,7 @@ package ch.heigvd.wordoff.server.Model.Slots;
 import ch.heigvd.wordoff.server.Model.Side;
 
 public class LastSlot extends Slot {
+
     private final int bonus = 10;
 
     public LastSlot(){
@@ -10,10 +11,6 @@ public class LastSlot extends Slot {
 
     public LastSlot(Side side, Short pos) {
         super(side, pos);
-    }
-
-    public LastSlot(LastSlot lastSlot) {
-        super(lastSlot);
     }
 
     public int getScore() {

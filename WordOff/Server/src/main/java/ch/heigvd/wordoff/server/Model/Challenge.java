@@ -3,24 +3,16 @@ package ch.heigvd.wordoff.server.Model;
 import ch.heigvd.wordoff.common.IModel.IChallenge;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
-import ch.heigvd.wordoff.common.Dto.Slots.SwapSlotDto;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
-import ch.heigvd.wordoff.server.Model.Slots.Slot;
+import ch.heigvd.wordoff.server.Model.Slots.SwapSlot;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
-import javax.persistence.OneToMany;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Embeddable
-public class Challenge implements IChallenge {
-
-    @Embedded
+public class Challenge implements IChallenge, Serializable {
     private SwapRack swapRack;
 
-    @OneToMany(targetEntity = Slot.class, mappedBy = "side", cascade = CascadeType.ALL)
     private List<ISlot> slots;
 
     protected Challenge() {
@@ -39,11 +31,11 @@ public class Challenge implements IChallenge {
     public void setSwapRack(SwapRack swapRack) {
         this.swapRack = swapRack;
     }
-    
+
     public List<ITile> getTilesToSwap() {
         List<ITile> sTiles = new ArrayList<>();
         for (ISlot s : getSlots()) {
-            if (s.getClass() == SwapSlotDto.class) {
+            if (s.getClass() == SwapSlot.class) {
                 sTiles.add(s.getTile());
             }
         }

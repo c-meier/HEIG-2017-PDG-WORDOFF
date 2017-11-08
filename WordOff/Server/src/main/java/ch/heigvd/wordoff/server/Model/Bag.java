@@ -3,15 +3,17 @@ package ch.heigvd.wordoff.server.Model;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.server.Model.Tiles.Tile;
 
-import javax.persistence.*;
-import java.util.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Project : WordOff
  * Date : 10.10.17
  */
-@Embeddable
-public class Bag {
+public class Bag implements Serializable {
 
     protected Bag() {}
 
@@ -20,8 +22,6 @@ public class Bag {
         shuffle();
     }
 
-    @OneToMany(targetEntity = Tile.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "bag")
     private List<Tile> tiles;
 
     private void shuffle() {

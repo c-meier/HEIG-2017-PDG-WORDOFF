@@ -24,10 +24,10 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints minHeight="15.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="20.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <MenuBar prefHeight="27.0" prefWidth="243.0" stylesheets="@../styles/Style_menu.css">
+            <MenuBar stylesheets="@../styles/Style_menu.css">
               <menus>
                 <Menu mnemonicParsing="false" text="Username">
                      <items>

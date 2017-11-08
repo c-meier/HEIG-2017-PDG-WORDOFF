@@ -1,6 +1,7 @@
 package ch.heigvd.wordoff.client.controller;
 
 
+import ch.heigvd.wordoff.client.Dialog;
 import ch.heigvd.wordoff.client.MainApp;
 
 import java.net.URL;
@@ -36,6 +37,8 @@ public class GameScreenController implements Initializable {
     private Label p1Name, p2Name;
     @FXML
     private Button shuffleButton;
+    @FXML
+    private Button discardButton;
 
     private int numberTilesOnChallengeRack = 0;
     // Listes Player 1
@@ -126,11 +129,24 @@ public class GameScreenController implements Initializable {
         numberTilesOnChallengeRack = 0;
     }
 
-
     @FXML
+    private void discardOrPasse(){
+        if(discardButton.getText().equals("Jeter")){
+            discard();
+        }
+        else{
+            // appel passer
+        }
+    }
+
     private void discard(){
-        // TODO
+        // TODO ouvrir l'alert choix
         System.out.println("Click discard");
+    }
+
+    private void passed(){
+        // TODO passer le tour
+        System.out.println("Click passed");
     }
 
     @FXML
@@ -150,11 +166,19 @@ public class GameScreenController implements Initializable {
 
     @FXML
     private void play(){
-        // TODO si le mot est validé
+        // TODO envoyer le mot
+        // TODO vérifie si il y a un message d'erreur du serveur
         System.out.println("Click play");
-
-        // TODO cacher les tiles adversaire
-        setVisible(p2TilesPr,false);
+        boolean error = true;
+        String errorString = "Error 404 - .......";
+        if(error == false){
+            // TODO set les side du game
+            setVisible(p2TilesPr,false);
+            setStateGame();
+        }else{
+            // TODO afficher un message d'erreur
+            Dialog.getInstance().signalError(errorString);
+        }
     }
 
 
@@ -165,9 +189,6 @@ public class GameScreenController implements Initializable {
      */
     private void setState(Game game) {
         this.game = game;
-        SideDto sideP1 = game.getSideP1();
-        SideDto sideP2 = game.getSideP2();
-
         p1Name.setText("Player One");
         p2Name.setText("Player Two");
         /*
@@ -177,17 +198,19 @@ public class GameScreenController implements Initializable {
 
         // Initialization lists
         initList();
+        // Maj de l'état du jeu
+        setStateGame();
+    }
 
-        // Initialization of challenge background
-        setBackgroundChallenge(sideP1, p1Ch1Back, p1Ch2Back, p1Ch3Back, p1Ch4Back, p1Ch5Back, p1Ch6Back, p1Ch7Back);
-        setBackgroundChallenge(sideP2, p2Ch1Back, p2Ch2Back, p2Ch3Back, p2Ch4Back, p2Ch5Back, p2Ch6Back, p2Ch7Back);
-
-        // refresh le contenus des Tiles GUI et on les attaches au slots
-        setTiles(sideP1.getPlayerRack().getTiles(), p1TilesPr, true);
-        setTiles(sideP1.getChallenge().getSwapRack().getTiles(), p1TilesSr, true);
-
-      //  setTiles(sideP2.getPlayerRack().getTiles(), p2TilesPr, false);
-        setTiles(sideP2.getChallenge().getSwapRack().getTiles(), p2TilesSr, false);
+    private void setStateGame(){
+        // Set les challenge slots
+        setBackgroundChallenge(game.getSideP1(), p1Ch1Back, p1Ch2Back, p1Ch3Back, p1Ch4Back, p1Ch5Back, p1Ch6Back, p1Ch7Back);
+        setBackgroundChallenge(game.getSideP2(), p2Ch1Back, p2Ch2Back, p2Ch3Back, p2Ch4Back, p2Ch5Back, p2Ch6Back, p2Ch7Back);
+        // Set les swaps racks
+        setTiles(game.getSideP1().getChallenge().getSwapRack().getTiles(), p1TilesSr, true);
+        setTiles(game.getSideP2().getChallenge().getSwapRack().getTiles(), p2TilesSr, false);
+        // Set le playerRack
+        setTiles(game.getSideP1().getPlayerRack().getTiles(), p1TilesPr, true);
     }
 
     /**
@@ -311,6 +334,7 @@ public class GameScreenController implements Initializable {
         }else{
             shuffleButton.setText("Effacer");
         }
+        // TODO editer l'tat du wordAlyzer
     }
 
     /**

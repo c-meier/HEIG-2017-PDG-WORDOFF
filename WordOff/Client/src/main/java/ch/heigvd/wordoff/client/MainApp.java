@@ -1,6 +1,5 @@
 package ch.heigvd.wordoff.client;
 
-import ch.heigvd.wordoff.client.api.ApiClient;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,7 +14,6 @@ import java.util.logging.Logger;
 public class MainApp extends Application {
 
     private static Stage stage;
-    private static ApiClient apiClient;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -54,12 +52,5 @@ public class MainApp extends Application {
         } catch (IOException ex) {
             Logger.getLogger(MainApp.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    public static ApiClient getApiClient() {
-        if (apiClient == null) {
-            apiClient = new ApiClient();
-        }
-        return apiClient;
     }
 }

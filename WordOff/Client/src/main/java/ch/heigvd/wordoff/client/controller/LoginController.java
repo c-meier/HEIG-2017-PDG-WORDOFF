@@ -6,6 +6,7 @@
 package ch.heigvd.wordoff.client.controller;
 
 import ch.heigvd.wordoff.client.MainApp;
+import ch.heigvd.wordoff.client.api.UserApi;
 import ch.heigvd.wordoff.common.Dto.LoginDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,10 +32,7 @@ public class LoginController implements Initializable {
 
         LoginDto loginDto = new LoginDto("one", "pass".toCharArray());
 
-        String token = MainApp.getApiClient().signIn(loginDto);
-        /*MainApp.getApiClient().play(token, Long.MAX_VALUE,
-                new ChallengeDto(new ArrayList<ISlot>(),
-                        new PlayerRackDto(new ArrayList<ITile>())));*/
+        String token = UserApi.signIn(loginDto);
     }
     
     @FXML

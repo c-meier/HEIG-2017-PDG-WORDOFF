@@ -1,6 +1,5 @@
 package ch.heigvd.wordoff.client.logic;
 
-import ch.heigvd.wordoff.common.Dto.AnswerDto;
 import ch.heigvd.wordoff.common.Dto.ChallengeDto;
 import ch.heigvd.wordoff.common.Dto.PlayerDto;
 import ch.heigvd.wordoff.common.Dto.Racks.PlayerRackDto;
@@ -11,7 +10,6 @@ import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 

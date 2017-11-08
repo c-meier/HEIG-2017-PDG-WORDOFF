@@ -1,6 +1,6 @@
 INSERT INTO lang_set (name) VALUES
-  ('Français'),
-  ('English');
+  ('fr'),
+  ('en');
 
 -- Jocker
 INSERT INTO letter (value, score) VALUES

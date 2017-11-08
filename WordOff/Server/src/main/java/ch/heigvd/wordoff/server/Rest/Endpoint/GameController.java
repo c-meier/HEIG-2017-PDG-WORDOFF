@@ -1,10 +1,12 @@
 package ch.heigvd.wordoff.server.Rest.Endpoint;
 
+import ch.heigvd.wordoff.common.Dto.ChallengeDto;
 import ch.heigvd.wordoff.common.Dto.GameDto;
 import ch.heigvd.wordoff.server.Model.*;
 import ch.heigvd.wordoff.server.Repository.GameRepository;
 import ch.heigvd.wordoff.server.Service.GameService;
-import ch.heigvd.wordoff.common.Dto.ChallengeDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 public class GameController {
     private GameRepository gameRepository;
     private GameService gameService;
+
+    private static Logger log = LoggerFactory.getLogger(GameController.class);
 
     public GameController(GameRepository gameRepository, GameService gameService) {
         this.gameRepository = gameRepository;
@@ -30,14 +34,14 @@ public class GameController {
     @RequestMapping(value = "/challenge", method = RequestMethod.POST)
     public ResponseEntity<GameDto> play(@RequestAttribute("player") Player player, @PathVariable("gameId") Long gameId, @RequestBody ChallengeDto challengeDto) {
         Game game = gameRepository.findOne(gameId);
-
+        log.info("challenge call"); // DEBUG
         Challenge challenge = null; // TODO -> replace with converter
 
         game = gameService.play(game, player, challenge);
 
         GameDto gameDto = null; // TODO -> replace with converter
 
-        return new ResponseEntity<GameDto>(gameDto, HttpStatus.OK);
+        return new ResponseEntity<>(gameDto, HttpStatus.OK);
     }
 
     /**
@@ -56,6 +60,6 @@ public class GameController {
 
         GameDto gameDto = null; // TODO -> replace with converter
 
-        return new ResponseEntity<GameDto>(gameDto, HttpStatus.OK);
+        return new ResponseEntity<>(gameDto, HttpStatus.OK);
     }
 }

@@ -1,20 +1,15 @@
 package ch.heigvd.wordoff.server;
 
-import ch.heigvd.wordoff.server.Model.Bag;
-import ch.heigvd.wordoff.server.Model.Game;
-import ch.heigvd.wordoff.server.Model.Tiles.Tile;
-import ch.heigvd.wordoff.server.Repository.SideRepository;
-import ch.heigvd.wordoff.server.Repository.LangSetRepository;
-import ch.heigvd.wordoff.server.Util.ChallengeFactory;
 import ch.heigvd.wordoff.common.Constants;
-import ch.heigvd.wordoff.server.Model.Answer;
-import ch.heigvd.wordoff.server.Model.Challenge;
-import ch.heigvd.wordoff.server.Model.Player;
+import ch.heigvd.wordoff.server.Model.*;
 import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
-import ch.heigvd.wordoff.server.Model.Side;
 import ch.heigvd.wordoff.server.Model.Slots.*;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
+import ch.heigvd.wordoff.server.Model.Tiles.Tile;
+import ch.heigvd.wordoff.server.Repository.LangSetRepository;
+import ch.heigvd.wordoff.server.Repository.SideRepository;
+import ch.heigvd.wordoff.server.Util.ChallengeFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -46,7 +41,7 @@ public class MainServer {
     private void init(){
         log.info("creating an executable jar/war with spring boot without parent pom");
     }
-    
+
     @Bean
     public CommandLineRunner demo(SideRepository repository, LangSetRepository langSetRepository) {
         return (args) -> {

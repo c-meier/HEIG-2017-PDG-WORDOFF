@@ -6,16 +6,14 @@
 package ch.heigvd.wordoff.client.controller;
 
 import ch.heigvd.wordoff.client.MainApp;
-import ch.heigvd.wordoff.common.Model.Challenge;
-import ch.heigvd.wordoff.common.Model.Slots.Slot;
-
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import ch.heigvd.wordoff.common.Dto.LoginDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
@@ -30,8 +28,13 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
-        MainApp.getApiClient().play(Long.MAX_VALUE, new Challenge(new ArrayList<Slot>()));
+
+        LoginDto loginDto = new LoginDto("one", "pass".toCharArray());
+
+        String token = MainApp.getApiClient().signIn(loginDto);
+        /*MainApp.getApiClient().play(token, Long.MAX_VALUE,
+                new ChallengeDto(new ArrayList<ISlot>(),
+                        new PlayerRackDto(new ArrayList<ITile>())));*/
     }
     
     @FXML

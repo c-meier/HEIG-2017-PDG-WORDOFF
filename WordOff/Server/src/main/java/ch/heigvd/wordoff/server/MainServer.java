@@ -50,7 +50,7 @@ public class MainServer {
     @Bean
     public CommandLineRunner demo(SideRepository repository, LangSetRepository langSetRepository) {
         return (args) -> {
-            LangSet set = langSetRepository.findByName("Français");
+            LangSet set = langSetRepository.findByName("fr");
             List<Tile> tiles = set.getTiles();
             Bag bag = new Bag(tiles);
 

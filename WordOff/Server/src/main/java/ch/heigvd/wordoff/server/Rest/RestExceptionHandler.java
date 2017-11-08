@@ -1,7 +1,9 @@
 package ch.heigvd.wordoff.server.Rest;
 
+import ch.heigvd.wordoff.common.Dto.ErrorDto;
+import ch.heigvd.wordoff.server.Rest.Exception.ErrorCodeException;
 import ch.heigvd.wordoff.server.Rest.Exception.InvalidWordException;
-import ch.heigvd.wordoff.server.Rest.Exception.UserAlreadyExistException;
+import ch.heigvd.wordoff.server.Rest.Exception.UnauthorizedException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +15,17 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = { UserAlreadyExistException.class })
-    protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "This should be application specific";
-        return handleExceptionInternal(ex, bodyOfResponse,
-                new HttpHeaders(), HttpStatus.CONFLICT, request);
+    @ExceptionHandler(value = { UnauthorizedException.class })
+    protected ResponseEntity<Object> handleUnauthorized(RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(ex, null,
+                new HttpHeaders(), HttpStatus.UNAUTHORIZED, request);
+    }
+
+    @ExceptionHandler(value = { ErrorCodeException.class })
+    protected ResponseEntity<Object> handleUnprocessableErrorCode(ErrorCodeException ex, WebRequest request) {
+        ErrorDto err = new ErrorDto(ex.getCode(), ex.getMessage());
+        return handleExceptionInternal(ex, err,
+                new HttpHeaders(), HttpStatus.UNPROCESSABLE_ENTITY, request);
     }
 
     @ExceptionHandler(value = { InvalidWordException.class })

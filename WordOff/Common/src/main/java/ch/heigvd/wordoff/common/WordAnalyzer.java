@@ -66,7 +66,7 @@ public class WordAnalyzer {
                         tempChall.addTile(tempSwap.getTile(tile.getId()));
                         tiles.add(tempSwap.getTile(tile.getId()));
                         tileFound = true;
-                        if(tile.isJocker()) {
+                        if(tile.isJoker()) {
                             tile.setValue(str.charAt(++i));
                         }
                         break;
@@ -80,7 +80,7 @@ public class WordAnalyzer {
                             // ajoute la tile au challenge
                             tempChall.addTile(tempPlayer.getTile(tile.getId()));
                             tiles.add(tempPlayer.getTile(tile.getId()));
-                            if(tile.isJocker()) {
+                            if(tile.isJoker()) {
                                 tile.setValue(str.charAt(++i));
                             }
                             break;

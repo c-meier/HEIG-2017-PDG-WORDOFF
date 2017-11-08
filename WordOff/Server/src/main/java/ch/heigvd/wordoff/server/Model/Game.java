@@ -21,7 +21,7 @@ public class Game {
     @OneToOne(cascade = CascadeType.ALL)
     private Side sideResp;
 
-    @Embedded
+    @Lob
     private Bag bag;
 
     private Date startDate;

@@ -219,6 +219,8 @@ class TST {
 
     /**
      * Remplit la liste list avec des anagrammes de str et de toutes ses sous-chaines de caractères
+     * Le caractère "#" est un joker
+     *
      * @param str
      * @param key
      * @param r
@@ -235,27 +237,27 @@ class TST {
 
         // si la lettre du noeud est dans le mot, on la retire et on descend
         if (str.contains("" + r.data)) {
-            key = key + r.data; // on ajoute la lettre au mot en formation
 
             // si le mot en formation existe, on ajoute sa clé à la liste
             if (r.isEnd) {
-                list.add(key);
+                list.add(key + r.data);
             }
 
             // on descend avec une lettre en moins
-            str = str.replaceFirst("" + r.data, "");
-            fillAnagrams(str, key, r.middle, list);
-        } else if (str.contains("#")) {
-            key = key + r.data; // on ajoute la lettre au mot en formation
+            String newstr = str.replaceFirst("" + r.data, "");
+            fillAnagrams(newstr, key + r.data, r.middle, list);
+        }
+
+        if (str.contains("#")) {
 
             // si le mot en formation existe, on ajoute sa clé à la liste
             if (r.isEnd) {
-                list.add(key);
+                list.add(key + "#" + r.data);
             }
 
             // on descend avec une lettre en moins
-            str = str.replaceFirst("#", "");
-            fillAnagrams(str, key, r.middle, list);
+            String newstr = str.replaceFirst("#", "");
+            fillAnagrams(newstr, key + "#" + r.data, r.middle, list);
         }
     }
 }

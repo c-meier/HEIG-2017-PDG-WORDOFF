@@ -1,9 +1,6 @@
 package ch.heigvd.wordoff.server.Model;
 
 import ch.heigvd.wordoff.common.IModel.ITile;
-import ch.heigvd.wordoff.server.Model.Answer;
-import ch.heigvd.wordoff.server.Model.Challenge;
-import ch.heigvd.wordoff.server.Model.Player;
 import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.server.Model.Tiles.Tile;
 
@@ -25,10 +22,10 @@ public class Side {
     @ManyToOne(cascade = CascadeType.ALL)
     private Player player;
 
-    @Embedded
+    @Lob
     private Challenge challenge;
 
-    @Embedded
+    @Lob
     private PlayerRack playerRack;
 
     @OneToMany(mappedBy = "side", cascade = CascadeType.ALL)

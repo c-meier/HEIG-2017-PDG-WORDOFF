@@ -3,9 +3,10 @@ package ch.heigvd.wordoff.server.Model.Tiles;
 import ch.heigvd.wordoff.common.IModel.ITile;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Tile implements ITile {
+public class Tile implements ITile, Serializable {
     @Id
     @GeneratedValue
     private Integer id;
@@ -13,8 +14,8 @@ public class Tile implements ITile {
     @OneToOne(targetEntity = Letter.class, cascade = CascadeType.ALL)
     private Letter letter;
 
-    @ManyToOne(targetEntity = LangSet.class)
-    private LangSet langSet;
+    @Column(name = "lang_set_id")
+    private Integer langSetId;
 
     protected Tile() {}
 
@@ -39,8 +40,9 @@ public class Tile implements ITile {
         return letter.getScore();
     }
 
-    public void setLangSet(LangSet langSet) {
-        this.langSet = langSet;
+    @Override
+    public void setValue(char c) {
+        this.letter.setValue(c);
     }
 
     public void setId(Integer id) {
@@ -53,9 +55,5 @@ public class Tile implements ITile {
 
     public void setLetter(Letter letter) {
         this.letter = letter;
-    }
-
-    public LangSet getLangSet() {
-        return langSet;
     }
 }

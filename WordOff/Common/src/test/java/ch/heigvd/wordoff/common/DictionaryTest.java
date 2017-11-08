@@ -31,7 +31,7 @@ public class DictionaryTest {
 
     @Test
     public void generateAnagrams() {
-        System.out.println(dicoFr.getAnagrams("am#").toString());
+        System.out.println(dicoFr.getAnagrams("pap#").toString());
         assertTrue(true);
     }
 }

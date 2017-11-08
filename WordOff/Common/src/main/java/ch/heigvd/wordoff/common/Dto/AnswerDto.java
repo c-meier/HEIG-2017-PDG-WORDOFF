@@ -1,13 +1,14 @@
 package ch.heigvd.wordoff.common.Dto;
 
 public class AnswerDto {
-    private String word;
-
-    private int score;
 
     private Long sideId;
 
     private Short num;
+
+    private String word;
+
+    private int score;
 
     public AnswerDto() {
     }

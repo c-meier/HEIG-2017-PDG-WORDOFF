@@ -1,15 +1,17 @@
 package ch.heigvd.wordoff.common.IModel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public interface ISlot {
     ITile getTile();
     void setTile(ITile tile);
+
+    @JsonIgnore
     int getScore();
 
+    @JsonIgnore
     default boolean isEmpty() {
-        if (null == getTile()) {
-            return true;
-        }
-        return false;
+        return getTile() == null;
     }
 
     default boolean addTile(ITile tile) {

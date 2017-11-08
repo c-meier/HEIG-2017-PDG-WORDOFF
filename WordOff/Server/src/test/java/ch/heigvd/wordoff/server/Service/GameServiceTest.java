@@ -1,14 +1,17 @@
 package ch.heigvd.wordoff.server.Service;
 
-import ch.heigvd.wordoff.server.Model.Bag;
 import ch.heigvd.wordoff.server.Model.Game;
 import ch.heigvd.wordoff.server.Model.Player;
+import ch.heigvd.wordoff.server.Model.Side;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
+import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
+import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.server.Model.User;
 import ch.heigvd.wordoff.server.Repository.GameRepository;
 import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
 import ch.heigvd.wordoff.server.Repository.LangSetRepository;
+import ch.heigvd.wordoff.server.Util.ChallengeFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,10 +29,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @ActiveProfiles("test")
 public class GameServiceTest {
-
-    @Autowired
-    private GameRepository repository;
-
     @Autowired
     private SideRepository sideRepository;
 
@@ -38,6 +37,9 @@ public class GameServiceTest {
 
     @Autowired
     private PlayerRepository playerRepository;
+
+    @Autowired
+    private GameRepository gameRepository;
 
     private Player p1;
     private Player p2;
@@ -63,8 +65,44 @@ public class GameServiceTest {
     @Test
     public void initGame() throws Exception {
         LangSet set = langSetRepository.findByName("Français");
-        Game game = new Game(p1, p2, set);
+        Game game = new Game(p1, ai, set);
+
+        /* TODO -> save swaprack */
         assertThat(game.getBag().getTiles().size()).isEqualTo(105);
+
+        Side side1 = game.getSideInit();
+        Side side2 = game.getSideResp();
+
+        // Set players Racks
+        PlayerRack p1R = side1.getPlayerRack();
+        PlayerRack p2R = side2.getPlayerRack();
+        p1R.setTiles(game.getBag().getSevenTiles());
+        p2R.setTiles(game.getBag().getSevenTiles());
+        side1.setChallenge(new ChallengeFactory(side1).createRandomSlotPos().create());
+        side2.setChallenge(new ChallengeFactory(side2).createRandomSlotPos().create());
+
+        SwapRack s1 = side1.getChallenge().getSwapRack();
+        SwapRack s2 = side2.getChallenge().getSwapRack();
+        s1.addTile(game.getBag().pop());
+        s1.addTile(game.getBag().pop());
+        s2.addTile(game.getBag().pop());
+        s2.addTile(game.getBag().pop());
+
+        side1.getChallenge().setSwapRack(s1);
+        side2.getChallenge().setSwapRack(s2);
+
+        sideRepository.save(side1);
+        sideRepository.save(side2);
+        gameRepository.save(game);
+
+        Side savedSide = sideRepository.findOne(1L);
+        assertThat(savedSide).isNotNull();
+        Game game1 = gameRepository.findOne(game.getId());
+        Side sideInit = sideRepository.findOne(game.getSideInit().getId());
+        Side sideResp = sideRepository.findOne(game.getSideResp().getId());
+        assertThat(game1).isNotNull();
+        assertThat(sideInit).isNotNull();
+        assertThat(sideResp).isNotNull();
     }
 
 }

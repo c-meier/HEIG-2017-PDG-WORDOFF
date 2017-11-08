@@ -24,4 +24,9 @@ public class TileDto implements ITile {
     public int getScore() {
         return scoreLetter;
     }
+
+    @Override
+    public void setValue(char c) {
+        valueLetter = c;
+    }
 }

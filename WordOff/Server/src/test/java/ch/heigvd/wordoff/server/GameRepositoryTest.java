@@ -1,22 +1,16 @@
 package ch.heigvd.wordoff.server;
 
-import ch.heigvd.wordoff.server.Model.Bag;
-import ch.heigvd.wordoff.server.Model.Game;
-import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
-import ch.heigvd.wordoff.server.Model.Tiles.Tile;
-import ch.heigvd.wordoff.server.Model.User;
-import ch.heigvd.wordoff.server.Repository.GameRepository;
-import ch.heigvd.wordoff.server.Repository.PlayerRepository;
-import ch.heigvd.wordoff.server.Repository.SideRepository;
-import ch.heigvd.wordoff.server.Repository.LangSetRepository;
-import ch.heigvd.wordoff.server.Util.ChallengeFactory;
-import ch.heigvd.wordoff.server.Model.Answer;
-import ch.heigvd.wordoff.server.Model.Challenge;
-import ch.heigvd.wordoff.server.Model.Player;
+import ch.heigvd.wordoff.server.Model.*;
 import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
-import ch.heigvd.wordoff.server.Model.Side;
 import ch.heigvd.wordoff.server.Model.Slots.*;
+import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
+import ch.heigvd.wordoff.server.Model.Tiles.Tile;
+import ch.heigvd.wordoff.server.Repository.GameRepository;
+import ch.heigvd.wordoff.server.Repository.LangSetRepository;
+import ch.heigvd.wordoff.server.Repository.PlayerRepository;
+import ch.heigvd.wordoff.server.Repository.SideRepository;
+import ch.heigvd.wordoff.server.Util.ChallengeFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +25,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.within;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -57,8 +50,8 @@ public class GameRepositoryTest {
 
     @Before
     public void setUp() {
-        one = playerRepository.save(new User("one"));
-        two = playerRepository.save(new User("two"));
+        one = playerRepository.save(new User("testOne"));
+        two = playerRepository.save(new User("testTwo"));
         ai = playerRepository.findOne(1L);
     }
 
@@ -67,9 +60,7 @@ public class GameRepositoryTest {
         LangSet set = tilesRepository.findByName("Français");
         Game game = new Game(one, two, set);
 
-        repository.save(game);
-
-        Game savedGame = repository.findOne(1L);
+        Game savedGame = repository.save(game);
         assertThat(savedGame).isNotNull();
     }
 

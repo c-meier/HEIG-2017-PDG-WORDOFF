@@ -36,7 +36,7 @@ public class TileRepositoryTest {
 
     @Test
     public void testFindByName() throws Exception {
-        LangSet set = repository.findByName("Français");
+        LangSet set = repository.findByName("fr");
 
         assertThat(set).isNotNull();
     }

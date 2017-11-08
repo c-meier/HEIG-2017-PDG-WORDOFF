@@ -58,7 +58,7 @@ public class GameRepositoryTest {
 
     @Test
     public void testCanCreateAndSaveAGame() throws Exception {
-        LangSet set = tilesRepository.findByName("Français");
+        LangSet set = tilesRepository.findByName("fr");
         Game game = new Game(one, two, set);
 
         Game savedGame = repository.save(game);
@@ -67,7 +67,7 @@ public class GameRepositoryTest {
 
     @Test
     public void testCanCreateAndSaveSide() throws Exception {
-        LangSet set = tilesRepository.findByName("Français");
+        LangSet set = tilesRepository.findByName("fr");
         List<Tile> tiles = set.getTiles();
         Bag bag = new Bag(tiles);
         Player player = new Player("testPlayer");

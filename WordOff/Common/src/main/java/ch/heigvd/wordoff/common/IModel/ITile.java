@@ -9,7 +9,7 @@ public interface ITile {
     void setValue(char c);
 
     @JsonIgnore
-    default boolean isJocker() {
+    default boolean isJoker() {
         return getScore() == 0;
     }
 

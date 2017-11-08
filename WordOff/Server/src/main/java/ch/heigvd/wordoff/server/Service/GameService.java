@@ -1,6 +1,7 @@
 package ch.heigvd.wordoff.server.Service;
 
 import ch.heigvd.wordoff.common.Constants;
+import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.common.WordAnalyzer;
 import ch.heigvd.wordoff.server.Model.*;
@@ -14,6 +15,7 @@ import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
 import ch.heigvd.wordoff.server.Rest.Exception.InvalidAiLevel;
 import ch.heigvd.wordoff.server.Rest.Exception.InvalidWordException;
+import ch.heigvd.wordoff.server.Rest.Exception.TileIsNotInRack;
 import ch.heigvd.wordoff.server.Rest.Exception.WrongPlayer;
 import ch.heigvd.wordoff.server.Util.ChallengeFactory;
 import ch.heigvd.wordoff.server.Util.DictionaryLoader;
@@ -52,18 +54,57 @@ public class GameService {
             // If the word doesn't exists
             if (!dictionaryLoader.getDico(game.getLang()).contains(wordChallenge)) {
                 throw new InvalidWordException("The word is not in the dictionary !");
-                /* TODO -> check if the word can be create with the player rack tiles */
             }
 
-            /* TODO -> check if the challenge is possible with tiles that the player have */
+            // check if the challenge is possible with tiles that the player have
+            int i = 0;
+            boolean tileIsNotInSwapRacks = false;
+            boolean tileIsNotInPlayerRacks = false;
+            List<ITile> tempRackPlayer = new ArrayList<>();
+            List<ITile> tempSwapRack = new ArrayList<>();
+            tempSwapRack.addAll(game.getSideOfPlayer(player).getChallenge().getSwapRack().getTiles());
+            tempRackPlayer.addAll(game.getSideOfPlayer(player).getPlayerRack().getTiles());
+            int size1 = challenge.getWord().length();
+            int size2 = game.getSideOfPlayer(player).getChallenge().getWord().length();
+            while (challenge.getWord().length() != game.getSideOfPlayer(player).getChallenge().getWord().length()) {
+                if (i < tempSwapRack.size()) {
+                    if (!tempSwapRack.contains(challenge.getSlots().get(i).getTile())) {
+                        tileIsNotInSwapRacks = true;
+                    } else {
+                        game.getSideOfPlayer(player).getChallenge().addTile(game.getSideOfPlayer(player).getChallenge().getSlots().get(i).getTile());
+                        game.getSideOfPlayer(player).getChallenge().getSwapRack().getTiles().remove(game.getSideOfPlayer(player).getChallenge().getSwapRack().getTileByPos(i));
+                        tileIsNotInSwapRacks = false;
+                    }
+                }
 
+                if (i < tempRackPlayer.size()) {
+                    if (!tempRackPlayer.contains(challenge.getSlots().get(i).getTile())) {
+                        tileIsNotInPlayerRacks = true;
+                    } else {
+                        game.getSideOfPlayer(player).getChallenge().addTile(game.getSideOfPlayer(player).getPlayerRack().getTiles().get(i));
+                        game.getSideOfPlayer(player).getPlayerRack().getTiles().remove(game.getSideOfPlayer(player).getPlayerRack().getTileByPos(i));
+                        tileIsNotInPlayerRacks = false;
+                    }
+
+                    if (tileIsNotInPlayerRacks && tileIsNotInSwapRacks) {
+                        throw new TileIsNotInRack("The tile is not in one of the player racks, are you trying to cheat ?");
+                    }
+                }
+                i++;
+            }
 
             // get a list of the tile taken from the bag of the game
             List<Tile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE -
                     game.getSideOfPlayer(player).getPlayerRack().getTiles().size());
 
+            // reset jokers' values
+            for(ISlot slot : game.getSideOfPlayer(player).getChallenge().getSlots()) {
+                if(slot.getTile().isJoker()) {
+                    slot.getTile().setValue('#');
+                }
+            }
+
             // Send swap tiles to other player
-            /* TODO -> reset joker */
             game.getSideOfPlayer(game.getOtherPlayer(player)).getChallenge().setSwapRack(game.getSideOfPlayer(player).getChallenge().getSwapRack());
 
             // Update the player side
@@ -82,14 +123,9 @@ public class GameService {
             throw new WrongPlayer("Not player turn to play !");
         }
 
-        /* TODO -> Save the game state */
         gameRepository.save(game);
 
         return game;
-    }
-
-    private boolean testChallenge(PlayerRack playerRack, Challenge challenge, Challenge challengeOfPlayer) {
-        return false;
     }
 
     public Game makeAiPLay(Game game, User player) {
@@ -104,7 +140,7 @@ public class GameService {
         int sizeWordsByScore = wordsByScore.size();
 
         if (sizeWordsByScore == 0) {
-            /* The AI can't create a word, it pass */
+            /* TODO -> The AI can't create a word, it pass */
         } else if (sizeWordsByScore == 1) {
             // The AI play the only best possible word
             word = new ArrayList<>(wordsByScore.firstEntry().getValue());
@@ -138,12 +174,20 @@ public class GameService {
         // Move word to challenge
         game.getSideResp().setChallenge(word);
 
+        // TODO retire les bonne Tiles du Rack et SwapRack
+
         // get a list of the tile taken from the bag of the game
         List<Tile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE -
                 game.getSideOfPlayer(player).getPlayerRack().getTiles().size());
 
+        // reset jokers' values
+        for(ISlot slot : game.getSideOfPlayer(player).getChallenge().getSlots()) {
+            if(slot.getTile().isJoker()) {
+                slot.getTile().setValue('#');
+            }
+        }
+
         // Send swap tiles to other player
-        /* TODO -> reset joker */
         game.getSideOfPlayer(game.getOtherPlayer(player)).getChallenge().setSwapRack(game.getSideOfPlayer(player).getChallenge().getSwapRack());
 
         // Update the side of the Ai
@@ -155,7 +199,6 @@ public class GameService {
         // switch player
         game.setCurrPlayer(game.getOtherPlayer(player));
 
-        /* TODO -> Save the game state */
         gameRepository.save(game);
         return game;
     }
@@ -198,12 +241,14 @@ public class GameService {
         s1.addTile(game.getBag().pop());
         s2.addTile(game.getBag().pop());
         s2.addTile(game.getBag().pop());
-
         sideInit.getChallenge().setSwapRack(s1);
         sideResp.getChallenge().setSwapRack(s2);
 
+        // save the sides
         sideRepository.save(sideInit);
         sideRepository.save(sideResp);
+
+        // save the game
         gameRepository.save(game);
 
         return game;

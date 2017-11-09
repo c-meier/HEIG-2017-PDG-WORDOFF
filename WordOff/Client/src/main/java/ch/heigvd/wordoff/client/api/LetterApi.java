@@ -10,7 +10,6 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.xml.ws.http.HTTPException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static ch.heigvd.wordoff.common.Constants.SERVER_URI;
@@ -19,7 +18,7 @@ public class LetterApi {
 
     private final static RestTemplate restTemplate = new RestTemplate();
 
-    public static List<LangSetDto> retrieveLetters(String lang) {
+    public static LangSetDto retrieveLetters(String lang) {
         final String uri = SERVER_URI + "/letters/{lang}";
 
         Map<String, String> params = new HashMap<>();
@@ -36,7 +35,7 @@ public class LetterApi {
 
         switch (responseEntity.getStatusCode()) {
             case OK: // 200
-                return (List<LangSetDto>)responseEntity.getBody();
+                return (LangSetDto)responseEntity.getBody();
             case BAD_REQUEST: // 400
                 throw new BadRequestException();
             default:

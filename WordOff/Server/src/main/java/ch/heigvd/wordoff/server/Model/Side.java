@@ -58,7 +58,7 @@ public class Side {
     }
 
     public void addAnswer(Challenge challenge) {
-        answers.add(new Answer(this, answerCounter, challenge));
+        answers.add(new Answer(this, answerCounter++, challenge));
     }
 
     public Long getId() {

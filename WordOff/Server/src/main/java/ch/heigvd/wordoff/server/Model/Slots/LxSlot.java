@@ -18,4 +18,8 @@ public abstract class LxSlot extends Slot {
     public int getScore() {
         return super.getScore() * bonus;
     }
+
+    public int getBonus() {
+        return bonus;
+    }
 }

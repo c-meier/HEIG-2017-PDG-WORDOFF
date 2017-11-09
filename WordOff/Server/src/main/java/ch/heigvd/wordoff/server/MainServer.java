@@ -4,6 +4,7 @@ import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.server.Model.Game;
 import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
+import ch.heigvd.wordoff.server.Service.GameService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

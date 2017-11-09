@@ -127,7 +127,7 @@
                                           </AnchorPane>
                                           <AnchorPane GridPane.rowIndex="1">
                                              <children>
-                                                <ListView layoutX="120.0" layoutY="-53.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <ListView fx:id="gamesPlayerWait" layoutX="120.0" layoutY="-53.0" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
                                           <AnchorPane GridPane.rowIndex="2">
@@ -137,7 +137,7 @@
                                           </AnchorPane>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.rowIndex="3">
                                              <children>
-                                                <ListView layoutX="120.0" layoutY="-53.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <ListView fx:id="gamesPlayerFinish" layoutX="120.0" layoutY="-53.0" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -187,7 +187,7 @@
                               </AnchorPane>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.rowIndex="1">
                                  <children>
-                                    <ListView layoutX="120.0" layoutY="-53.0" prefHeight="212.0" prefWidth="336.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <ListView fx:id="gamesTurnamentComp" layoutX="120.0" layoutY="-53.0" prefHeight="212.0" prefWidth="336.0" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -208,7 +208,7 @@
                               </AnchorPane>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.rowIndex="1">
                                  <children>
-                                    <ListView layoutX="120.0" layoutY="-53.0" prefHeight="127.0" prefWidth="410.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <ListView fx:id="gamesTurnamentFriend" layoutX="120.0" layoutY="-53.0" prefHeight="127.0" prefWidth="410.0" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </children>

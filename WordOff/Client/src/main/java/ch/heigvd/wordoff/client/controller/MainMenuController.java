@@ -36,6 +36,15 @@ public class MainMenuController implements Initializable {
 
     @FXML
     ListView<String> gamesPlayer = new ListView<>();
+    @FXML
+    ListView<String> gamesPlayerWait = new ListView<>();
+    @FXML
+    ListView<String> gamesPlayerFinish = new ListView<>();
+    @FXML
+    ListView<String> gamesTurnamentComp = new ListView<>();
+    @FXML
+    ListView<String> gamesTurnamentFriend = new ListView<>();
+
 
     private void handleGotoGame() {
         FXMLLoader loader = getLoader("/fxml/gameScreen.fxml");

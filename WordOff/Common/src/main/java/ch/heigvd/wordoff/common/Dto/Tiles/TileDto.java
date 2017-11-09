@@ -32,6 +32,11 @@ public class TileDto implements ITile, IDto {
         value = c;
     }
 
+    @Override
+    public ITile duplicate() {
+        return new TileDto(id, value, score);
+    }
+
     public int getScore() {
         return score;
     }

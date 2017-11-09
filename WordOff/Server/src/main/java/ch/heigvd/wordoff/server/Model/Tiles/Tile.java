@@ -48,6 +48,11 @@ public class Tile implements ITile, Serializable {
         this.letter.setValue(c);
     }
 
+    @Override
+    public ITile duplicate() {
+        return new Tile(id, getValue(), getScore());
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }

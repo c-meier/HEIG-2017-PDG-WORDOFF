@@ -1,23 +1,17 @@
 package ch.heigvd.wordoff.common;
 
-import ch.heigvd.wordoff.common.Dto.Slots.SlotDto;
-import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.ChallengeDto;
+import ch.heigvd.wordoff.common.Dto.Racks.PlayerRackDto;
+import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
 import ch.heigvd.wordoff.common.IModel.IChallenge;
 import ch.heigvd.wordoff.common.IModel.IRack;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
-import ch.heigvd.wordoff.common.Dto.ChallengeDto;
-import ch.heigvd.wordoff.common.Dto.Racks.PlayerRackDto;
-import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.util.Pair;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.TreeMap;
 
 /**
  * Project : WordOff
@@ -59,7 +53,7 @@ public class WordAnalyzer {
 
         for (String str : anagrams) {
             // challenge et racks temporaires
-            IChallenge tempChall = new ChallengeDto(new ArrayList<ISlot>(challenge.getSlots()),
+            IChallenge tempChall = new ChallengeDto(new ArrayList<>(challenge.getSlots()),
                     new SwapRackDto(new ArrayList<>(challenge.getSwapRack().getTiles())));
             tempChall.getSlots().forEach(ISlot::removeTile);
             IRack tempPlayerRack = new PlayerRackDto(new ArrayList<>());
@@ -70,11 +64,16 @@ public class WordAnalyzer {
             // pour chaque lettre
             for (int i = 0; i < str.length(); i++) {
                 boolean tileFound = false;
+                // TODO: refactor to remove code duplication
                 // cherche la tile dans le tempSwap en premier
                 for (ITile tile : tempSwap.getTiles()) {
                     if ((tile.isJoker() && str.charAt(i) == '#') || (tile.getValue() == str.charAt(i) && !tile.isJoker())) {
                         tileFound = true;
-                        tempChall.addTile(new TileDto(tile.getId(), tile.isJoker() ? str.charAt(++i) : tile.getValue(), tile.getScore()));
+                        ITile dup = tile.duplicate();
+                        if(tile.isJoker()) {
+                            dup.setValue(str.charAt(++i));
+                        }
+                        tempChall.addTile(dup);
                         tempSwap.removeTile(tile.getId());
                         break;
                     }
@@ -84,7 +83,11 @@ public class WordAnalyzer {
                     // cherche la position du la Tile correspondante dans le playerRack
                     for (ITile tile : tempPlayerRack.getTiles()) {
                         if ((tile.isJoker() && str.charAt(i) == '#') || (tile.getValue() == str.charAt(i) && !tile.isJoker())) {
-                            tempChall.addTile(new TileDto(tile.getId(), tile.isJoker() ? str.charAt(++i) : tile.getValue(), tile.getScore()));
+                            ITile dup = tile.duplicate();
+                            if(tile.isJoker()) {
+                                dup.setValue(str.charAt(++i));
+                            }
+                            tempChall.addTile(dup);
                             tempPlayerRack.removeTile(tile.getId());
                             break;
                         }

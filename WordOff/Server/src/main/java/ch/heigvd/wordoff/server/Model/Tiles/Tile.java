@@ -1,11 +1,13 @@
 package ch.heigvd.wordoff.server.Model.Tiles;
 
 import ch.heigvd.wordoff.common.IModel.ITile;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Tile implements ITile {
+public class Tile implements ITile, Serializable {
     @Id
     @GeneratedValue
     private Integer id;
@@ -13,8 +15,8 @@ public class Tile implements ITile {
     @OneToOne(targetEntity = Letter.class, cascade = CascadeType.ALL)
     private Letter letter;
 
-    @ManyToOne(targetEntity = LangSet.class)
-    private LangSet langSet;
+    @Column(name = "lang_set_id")
+    private Integer langSetId;
 
     protected Tile() {}
 
@@ -27,6 +29,7 @@ public class Tile implements ITile {
         this.letter = new Letter(value, score);
     }
 
+    @JsonIgnore
     public char getValue() {
         return letter.getValue();
     }
@@ -35,12 +38,14 @@ public class Tile implements ITile {
         return id;
     }
 
+    @JsonIgnore
     public int getScore() {
         return letter.getScore();
     }
 
-    public void setLangSet(LangSet langSet) {
-        this.langSet = langSet;
+    @Override
+    public void setValue(char c) {
+        this.letter.setValue(c);
     }
 
     public void setId(Integer id) {
@@ -55,7 +60,22 @@ public class Tile implements ITile {
         this.letter = letter;
     }
 
-    public LangSet getLangSet() {
-        return langSet;
+    public Integer getLangSetId() {
+        return langSetId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Tile)) return false;
+
+        Tile tile = (Tile) o;
+
+        return id.equals(tile.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

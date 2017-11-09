@@ -1,7 +1,5 @@
 package ch.heigvd.wordoff.server.Model;
 
-import ch.heigvd.wordoff.server.Model.Player;
-import ch.heigvd.wordoff.server.Model.Side;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 
 import javax.persistence.*;
@@ -23,7 +21,7 @@ public class Game {
     @OneToOne(cascade = CascadeType.ALL)
     private Side sideResp;
 
-    @Embedded
+    @Lob
     private Bag bag;
 
     private Date startDate;
@@ -63,6 +61,10 @@ public class Game {
         }
     }
 
+    public void setSideInit(Side sideInit) {
+        this.sideInit = sideInit;
+    }
+
     public Bag getBag() {
         return bag;
     }
@@ -95,6 +97,7 @@ public class Game {
         this.currPlayer = currPlayer;
     }
 
-
-
+    public Long getId() {
+        return id;
+    }
 }

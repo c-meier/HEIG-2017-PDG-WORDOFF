@@ -1,0 +1,378 @@
+openapi: 3.0.0
+info:
+    title: WordOff
+    description: PDG project
+    contact:
+        name: Christopher Meier
+        email: christopher.meier@heig-vd.ch
+    version: 0.1.3
+paths:
+    /letters/{lang}:
+        get:
+            tags:
+                - letter
+            description: Return the list of the letters associated with the given language.
+            responses:
+                '200':
+                    description: The list of letters. As characters.
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                '400':
+                    $ref: '#/components/responses/MalformedRequest'
+        parameters:
+            - name: lang
+              in: path
+              description: The language associated with the letters.
+              required: true
+              schema:
+                  type: string
+    /games:
+        get:
+            tags:
+                - game
+            description: Return the list of your games.
+            responses:
+                '200':
+                    description: The list of your games.
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/GameSummaryDto'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+            security:
+                - jwt:
+                    - read:games
+        post:
+            tags:
+                - game
+            description: Create a new game. Will be deleted when modes (tournament, normal) are functionnal.
+            parameters:
+                - name: lang
+                  in: query
+                  description: The language of the new game.
+                  required: true
+            requestBody:
+                description: A list of player id (2 in this instance) participating in the new game. The first player of the list is the initiator of the game.
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            minItems: 2
+                            maxItems: 2
+                            items:
+                               type: integer
+                               minimum: 1
+                        examples:
+                            withAi:
+                                summary: The first created user against an AI
+                                value: [2, 1]
+            responses:
+                '201':
+                    description: The game has been created. Return a summary of the created game.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GameSummaryDto'
+                '400':
+                    $ref: '#/components/responses/MalformedRequest'
+                '422':
+                    $ref: '#/components/responses/InvalidContent'
+    /games/{gameId}:
+        get:
+            tags:
+                - game
+            description: Return the current state of the game.
+            responses:
+                '200':
+                    description: The current state of the game.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GameDto'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '422':
+                    $ref: '#/components/responses/InvalidContent'
+            security:
+                - jwt:
+                    - read:game
+        parameters:
+            - $ref: '#/components/parameters/gameIdParam'
+    /games/{gameId}/challenge:
+        post:
+            tags:
+                - game
+            description: Post the chosen word for the current challenge.
+            requestBody:
+                description: The finished state of the challenge.
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ChallengeDto'
+            responses:
+                '200':
+                    description: The chosen word has been accepted and saved. The new game is returned.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GameDto'
+                '400':
+                    $ref: '#/components/responses/MalformedRequest'
+                '422':
+                    $ref: '#/components/responses/InvalidContent'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+            security:
+                - jwt:
+                    - write:challenge
+        parameters:
+            - $ref: '#/components/parameters/gameIdParam'
+    /users:
+        post:
+            tags:
+                - user
+            description: Create a new user.
+            operationId: createUser
+            requestBody:
+                description: The login informations.
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/LoginDto'
+            responses:
+                '200':
+                    description: The new user has been correctly created.
+                '400':
+                    $ref: '#/components/responses/MalformedRequest'
+                '422':
+                    $ref: '#/components/responses/InvalidContent'
+    /users/sign-in:
+        post:
+            tags:
+                - user
+            description: Login as a user
+            operationId: getUserToken
+            requestBody:
+                description: The login informations.
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/LoginDto'
+            responses:
+                '200':
+                    description: The user has entered correct authentification informations.
+                    headers:
+                        Authorization:
+                            description: The token allowing acces to the resources.
+                '400':
+                    $ref: '#/components/responses/MalformedRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+
+components:
+    schemas:
+        ErrorDto:
+            type: object
+            properties:
+                errorCode:
+                    type: integer
+                    description: A code to inform the client of the error origin.
+                msg:
+                    type: string
+        ISummaryDto:
+            type: object
+            properties:
+                endpoint:
+                    type: string
+                    description: The endpoint used to get more information about the object.
+        TileDto:
+            type: object
+            nullable: true
+            properties:
+                id:
+                    type: integer
+                value:
+                    type: string
+                    description: The character of the tile.
+                score:
+                    type: integer
+                    description: The score of the tile.
+        SlotDto:
+            type: object
+            discriminator:
+                propertyName: dType
+            properties:
+                sideId:
+                    type: integer
+                pos:
+                    type: integer
+                tile:
+                    $ref: '#/components/schemas/TileDto'
+                dType:
+                    type: string
+                    description: Used by jackson to determine polymorphism.
+        RackDto:
+            type: object
+            properties:
+                tiles:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/TileDto'
+        SwapRackDto:
+            allOf:
+                - $ref: '#/components/schemas/RackDto'
+        PlayerRackDto:
+            allOf:
+                - $ref: '#/components/schemas/RackDto'
+        ChallengeDto:
+            type: object
+            properties:
+                swapRack:
+                    $ref: '#/components/schemas/SwapRackDto'
+                slots:
+                    type: array
+                    maxItems: 7
+                    minItems: 7
+                    items:
+                        $ref: '#/components/schemas/SlotDto'
+
+        PlayerDto:
+            type: object
+            discriminator:
+                propertyName: dType
+            properties:
+                id:
+                    type: integer
+                name:
+                    type: string
+                avatar:
+                    type: string
+                    format: byte
+                    description: Base64 representation of the binary image.
+                dType:
+                    type: string
+                    description: Used by jackson to determine polymorphism.
+        UserSummaryDto:
+            type: object
+            allOf:
+                - $ref: '#/components/schemas/PlayerDto'
+                - $ref: '#/components/schemas/ISummaryDto'
+        UserDto:
+            type: object
+            allOf:
+                - $ref: '#/components/schemas/PlayerDto'
+                - type: object
+                  properties:
+                      level:
+                          type: integer
+                      profilImage:
+                          type: string
+                          format: byte
+                          description: Base64 representation of the binary image.
+        AnswerDto:
+            type: object
+            properties:
+                sideId:
+                    type: integer
+                num:
+                    type: integer
+                    description: The number indicating the position of the answer in the history of the game.
+                word:
+                    type: string
+                score:
+                    type: integer
+        SideDto:
+            type: object
+            properties:
+                id:
+                    type: integer
+                score:
+                    type: integer
+                player:
+                    $ref: '#/components/schemas/PlayerDto'
+                challenge:
+                    $ref: '#/components/schemas/ChallengeDto'
+                playerRack:
+                    $ref: '#/components/schemas/PlayerRackDto'
+        OtherSideDto:
+            description: The side use to hide protected information from the adversary.
+            type: object
+            properties:
+                id:
+                    type: integer
+                score:
+                    type: integer
+                player:
+                    $ref: '#/components/schemas/PlayerDto'
+                challenge:
+                    $ref: '#/components/schemas/ChallengeDto'
+        GameDto:
+            type: object
+            properties:
+                id:
+                    type: integer
+                lang:
+                    type: string
+                startDate:
+                    type: string
+                    format: datetime
+                yourTurn:
+                    type: boolean
+                mySide:
+                    $ref: '#/components/schemas/SideDto'
+                otherSide:
+                    $ref: '#/components/schemas/OtherSideDto'
+        GameSummaryDto:
+            type: object
+            allOf:
+                - type: object
+                  properties:
+                      id:
+                          type: integer
+                      name:
+                          type: string
+                - $ref: '#/components/schemas/ISummaryDto'
+        LoginDto:
+            type: object
+            properties:
+                login:
+                    type: string
+                password:
+                    type: string
+                    format: password
+    parameters:
+        gameIdParam:
+            name: gameId
+            in: path
+            description: ID of the game to use.
+            required: true
+            schema:
+                type: integer
+    responses:
+        Unauthorized:
+            description: No authorization has been given.
+            links:
+                sign-in: 
+                    operationId: getUserToken
+                sign-up:
+                    operationId: createUser
+        MalformedRequest:
+            description: The request was malformed.
+        InvalidContent:
+            description: The content of the request produced, when processed, an exception.
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/ErrorDto'
+    securitySchemes:
+        jwt:
+                type: http
+                scheme: bearer
+                bearerFormat: JWR

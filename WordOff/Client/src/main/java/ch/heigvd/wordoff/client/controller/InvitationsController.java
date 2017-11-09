@@ -15,13 +15,13 @@ import javafx.fxml.Initializable;
  *
  * @author Gabriel Luthier
  */
-public class InvitationsRecievedController implements Initializable {
+public class InvitationsController implements Initializable {
 
     @FXML
     private void handleGotoMenu(ActionEvent event) {
         String controller = "/fxml/mainMenu.fxml";
         FXMLLoader loader = new FXMLLoader(getClass().getResource(controller));
-        MainApp.changeScene(controller, loader);
+        MainApp.changeScene(loader);
     }
 
     /**

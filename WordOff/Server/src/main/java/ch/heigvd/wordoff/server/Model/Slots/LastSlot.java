@@ -2,10 +2,8 @@ package ch.heigvd.wordoff.server.Model.Slots;
 
 import ch.heigvd.wordoff.server.Model.Side;
 
-import javax.persistence.Entity;
-
-@Entity
 public class LastSlot extends Slot {
+
     private final int bonus = 10;
 
     public LastSlot(){

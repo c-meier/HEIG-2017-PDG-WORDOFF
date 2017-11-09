@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="197.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Circle fx:id="circle1" fill="DODGERBLUE" layoutX="43.0" layoutY="15.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="circle2" fill="DODGERBLUE" layoutX="68.0" layoutY="15.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="circle3" fill="DODGERBLUE" layoutX="94.0" layoutY="15.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="circle4" fill="DODGERBLUE" layoutX="120.0" layoutY="15.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="circle5" fill="DODGERBLUE" layoutX="144.0" layoutY="15.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label fx:id="score" layoutX="11.0" layoutY="2.0" prefHeight="24.0" prefWidth="28.0" text="10" />
+      <CheckBox fx:id="check" allowIndeterminate="true" disable="true" layoutX="168.0" layoutY="-3.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="36.0" selected="true" />
+   </children>
+</AnchorPane>

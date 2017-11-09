@@ -1,22 +1,17 @@
 package ch.heigvd.wordoff.server;
 
-import ch.heigvd.wordoff.server.Model.Bag;
-import ch.heigvd.wordoff.server.Model.Game;
-import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
-import ch.heigvd.wordoff.server.Model.Tiles.Tile;
-import ch.heigvd.wordoff.server.Model.User;
-import ch.heigvd.wordoff.server.Repository.GameRepository;
-import ch.heigvd.wordoff.server.Repository.PlayerRepository;
-import ch.heigvd.wordoff.server.Repository.SideRepository;
-import ch.heigvd.wordoff.server.Repository.LangSetRepository;
-import ch.heigvd.wordoff.server.Util.ChallengeFactory;
-import ch.heigvd.wordoff.server.Model.Answer;
-import ch.heigvd.wordoff.server.Model.Challenge;
-import ch.heigvd.wordoff.server.Model.Player;
+import ch.heigvd.wordoff.server.Model.*;
 import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
-import ch.heigvd.wordoff.server.Model.Side;
 import ch.heigvd.wordoff.server.Model.Slots.*;
+import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
+import ch.heigvd.wordoff.server.Model.Tiles.Tile;
+import ch.heigvd.wordoff.server.Repository.GameRepository;
+import ch.heigvd.wordoff.server.Repository.LangSetRepository;
+import ch.heigvd.wordoff.server.Repository.PlayerRepository;
+import ch.heigvd.wordoff.server.Repository.SideRepository;
+import ch.heigvd.wordoff.server.Util.ChallengeFactory;
+import ch.heigvd.wordoff.server.Utils.ChallengeUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +26,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.within;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -57,25 +51,23 @@ public class GameRepositoryTest {
 
     @Before
     public void setUp() {
-        one = playerRepository.save(new User("one"));
-        two = playerRepository.save(new User("two"));
+        one = playerRepository.save(new User("testOne"));
+        two = playerRepository.save(new User("testTwo"));
         ai = playerRepository.findOne(1L);
     }
 
     @Test
     public void testCanCreateAndSaveAGame() throws Exception {
-        LangSet set = tilesRepository.findByName("Français");
+        LangSet set = tilesRepository.findByName("fr");
         Game game = new Game(one, two, set);
 
-        repository.save(game);
-
-        Game savedGame = repository.findOne(1L);
+        Game savedGame = repository.save(game);
         assertThat(savedGame).isNotNull();
     }
 
     @Test
     public void testCanCreateAndSaveSide() throws Exception {
-        LangSet set = tilesRepository.findByName("Français");
+        LangSet set = tilesRepository.findByName("fr");
         List<Tile> tiles = set.getTiles();
         Bag bag = new Bag(tiles);
         Player player = new Player("testPlayer");
@@ -83,9 +75,14 @@ public class GameRepositoryTest {
 
         // Answers
         List<Answer> answers = side.getAnswers();
-        answers.add(new Answer(side, (short)1, "Hello", 23));
-        answers.add(new Answer(side, (short)2,"World", 32));
-        answers.add(new Answer(side, (short)3,"Bye", 14));
+
+        answers.add(new Answer(side, (short)1,
+                ChallengeUtils.fillChallenge(set, new ChallengeFactory(side).createRandomSlotPos().create(), "HELLO")));
+        answers.add(new Answer(side, (short)2,
+                ChallengeUtils.fillChallenge(set, new ChallengeFactory(side).createRandomSlotPos().create(), "WORLD")));
+        answers.add(new Answer(side, (short)3,
+                ChallengeUtils.fillChallenge(set, new ChallengeFactory(side).createRandomSlotPos().create(), "BYE")));
+
 
         // Challenge
         Challenge challenge = new ChallengeFactory(side).addAll(Arrays.asList(
@@ -109,9 +106,9 @@ public class GameRepositoryTest {
         playerRack.addTile(bag.pop());
         playerRack.addTile(bag.pop());
 
-        sideRepository.save(side);
+        Side savedSide = sideRepository.save(side);
 
-        Side savedSide = sideRepository.findOne(1L);
-        assertThat(savedSide).isNotNull();
+        Side recupSide = sideRepository.findOne(savedSide.getId());
+        assertThat(recupSide).isNotNull();
     }
 }

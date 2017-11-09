@@ -1,15 +1,21 @@
 package ch.heigvd.wordoff.server.Service;
 
 import ch.heigvd.wordoff.common.Constants;
+import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.common.WordAnalyzer;
 import ch.heigvd.wordoff.server.Model.*;
+import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 import ch.heigvd.wordoff.server.Model.Tiles.Tile;
+import ch.heigvd.wordoff.server.Repository.GameRepository;
 import ch.heigvd.wordoff.server.Repository.LangSetRepository;
+import ch.heigvd.wordoff.server.Repository.PlayerRepository;
+import ch.heigvd.wordoff.server.Repository.SideRepository;
 import ch.heigvd.wordoff.server.Rest.Exception.InvalidAiLevel;
 import ch.heigvd.wordoff.server.Rest.Exception.InvalidWordException;
+import ch.heigvd.wordoff.server.Rest.Exception.TileIsNotInRack;
 import ch.heigvd.wordoff.server.Rest.Exception.WrongPlayer;
 import ch.heigvd.wordoff.server.Util.ChallengeFactory;
 import ch.heigvd.wordoff.server.Util.DictionaryLoader;
@@ -26,9 +32,17 @@ import java.util.TreeMap;
 @Service
 public class GameService {
     private DictionaryLoader dictionaryLoader;
+    private LangSetRepository langSetRepository;
+    private PlayerRepository playerRepository;
+    private GameRepository gameRepository;
+    private SideRepository sideRepository;
 
-    public GameService() {
-        dictionaryLoader = new DictionaryLoader();
+    public GameService(DictionaryLoader dictionaryLoader, LangSetRepository langSetRepository, PlayerRepository playerRepository, GameRepository gameRepository, SideRepository sideRepository) {
+        this.dictionaryLoader = dictionaryLoader;
+        this.langSetRepository = langSetRepository;
+        this.playerRepository = playerRepository;
+        this.gameRepository = gameRepository;
+        this.sideRepository = sideRepository;
     }
 
     public Game play(Game game, Player player, Challenge challenge) {
@@ -44,29 +58,77 @@ public class GameService {
             // If the word doesn't exists
             if (!dictionaryLoader.getDico(game.getLang()).contains(wordChallenge)) {
                 throw new InvalidWordException("The word is not in the dictionary !");
-            } else {
-                // get a list of the tile taken from the bag of the game
-                List<Tile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE -
-                        game.getSideOfPlayer(player).getPlayerRack().getTiles().size());
-
-                // Update the player side
-                updatePlayerSide(game.getSideOfPlayer(player), challenge, newTiles);
-
-                // Send swap tiles to other player
-                game.getSideOfPlayer(game.getOtherPlayer(player)).getChallenge().setSwapRack(game.getSideOfPlayer(player).getChallenge().getSwapRack());
-
-                // set new empty swap rack
-                game.getSideOfPlayer(player).getChallenge().setSwapRack(new SwapRack());
-
-                // switch player
-                game.setCurrPlayer(game.getOtherPlayer(player));
-
-                // PlayerDto Side updated
-                side = game.getSideOfPlayer(player);
             }
+
+            // check if the challenge is possible with tiles that the player have
+            int i = 0;
+            boolean tileIsNotInSwapRacks = false;
+            boolean tileIsNotInPlayerRacks = false;
+            List<ITile> tempRackPlayer = new ArrayList<>();
+            List<ITile> tempSwapRack = new ArrayList<>();
+            tempSwapRack.addAll(game.getSideOfPlayer(player).getChallenge().getSwapRack().getTiles());
+            tempRackPlayer.addAll(game.getSideOfPlayer(player).getPlayerRack().getTiles());
+            while (challenge.getWord().length() != game.getSideOfPlayer(player).getChallenge().getWord().length()) {
+                ITile currTile = challenge.getSlots().get(i).getTile();
+                if (i < tempSwapRack.size()) {
+                    if (!tempSwapRack.contains(currTile)) {
+                        tileIsNotInSwapRacks = true;
+                    } else {
+                        game.getSideOfPlayer(player).getChallenge().addTile(game.getSideOfPlayer(player).getChallenge().getSwapRack().getTile(currTile.getId()));
+                        game.getSideOfPlayer(player).getChallenge().getSwapRack().getTiles().remove(game.getSideOfPlayer(player).getChallenge().getSwapRack().getTile(currTile.getId()));
+                        tileIsNotInSwapRacks = false;
+                    }
+                }
+
+                if (i < tempRackPlayer.size()) {
+                    if (!tempRackPlayer.contains(currTile)) {
+                        tileIsNotInPlayerRacks = true;
+                    } else {
+                        game.getSideOfPlayer(player).getChallenge().addTile(game.getSideOfPlayer(player).getPlayerRack().getTile(currTile.getId()));
+                        game.getSideOfPlayer(player).getPlayerRack().getTiles().remove(game.getSideOfPlayer(player).getPlayerRack().getTile(currTile.getId()));
+                        tileIsNotInPlayerRacks = false;
+                    }
+                }
+
+                if (tileIsNotInPlayerRacks && tileIsNotInSwapRacks) {
+                    throw new TileIsNotInRack("The tile is not in one of the player racks, are you trying to cheat ?");
+                }
+                i++;
+            }
+
+            // get a list of the tile taken from the bag of the game
+            List<Tile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE -
+                    game.getSideOfPlayer(player).getPlayerRack().getTiles().size());
+
+            // reset jokers' values
+            for(ISlot slot : game.getSideOfPlayer(player).getChallenge().getSlots()) {
+                if(slot.getTile() != null && slot.getTile().isJoker()) {
+                    slot.getTile().setValue('#');
+                }
+            }
+
+            // Send swap tiles to other player
+            game.getSideOfPlayer(game.getOtherPlayer(player)).getChallenge().setSwapRack(new SwapRack());
+            for (ITile tile : game.getSideOfPlayer(player).getChallenge().getTilesToSwap()) {
+                if (tile != null) {
+                    game.getSideOfPlayer(game.getOtherPlayer(player)).getChallenge().getSwapRack().addTile(tile);
+                }
+            }
+
+            // Update the player side
+            updatePlayerSide(game.getSideOfPlayer(player), game.getSideOfPlayer(player).getChallenge(), newTiles);
+
+            // switch player
+            game.setCurrPlayer(game.getOtherPlayer(player));
+
+            // PlayerDto Side updated
+            side = game.getSideOfPlayer(player);
+
         } else {
             throw new WrongPlayer("Not player turn to play !");
         }
+
+        gameRepository.save(game);
 
         return game;
     }
@@ -83,7 +145,7 @@ public class GameService {
         int sizeWordsByScore = wordsByScore.size();
 
         if (sizeWordsByScore == 0) {
-            /* The AI can't create a word, it pass */
+            /* TODO -> The AI can't create a word, it pass */
         } else if (sizeWordsByScore == 1) {
             // The AI play the only best possible word
             word = new ArrayList<>(wordsByScore.firstEntry().getValue());
@@ -117,35 +179,97 @@ public class GameService {
         // Move word to challenge
         game.getSideResp().setChallenge(word);
 
+        // Remove tile(s) from  swapRack
+        for (ITile tile : game.getSideResp().getChallenge().getSwapRack().getTiles()) {
+            if (game.getSideResp().getChallenge().getSwapRack().getTiles().contains(tile)) {
+                game.getSideResp().getChallenge().getSwapRack().getTiles().remove(game.getSideResp().getChallenge().getSwapRack().getTile(tile.getId()));
+            }
+        }
+
+        // Remove tile(s) from player rack
+        for (ITile tile : game.getSideResp().getPlayerRack().getTiles()) {
+            if (game.getSideResp().getPlayerRack().getTiles().contains(tile)) {
+                game.getSideResp().getPlayerRack().getTiles().remove(game.getSideResp().getPlayerRack().getTile(tile.getId()));
+            }
+        }
+
         // get a list of the tile taken from the bag of the game
         List<Tile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE -
                 game.getSideOfPlayer(player).getPlayerRack().getTiles().size());
 
-        // Update the side of the Ai
-        updatePlayerSide(game.getSideResp(), game.getSideResp().getChallenge(), newTiles);
+        // reset jokers' values
+        for(ISlot slot : game.getSideOfPlayer(player).getChallenge().getSlots()) {
+            if(slot.getTile() != null && slot.getTile().isJoker()) {
+                slot.getTile().setValue('#');
+            }
+        }
 
         // Send swap tiles to other player
-        game.getSideOfPlayer(game.getOtherPlayer(player)).getChallenge().setSwapRack(game.getSideOfPlayer(player).getChallenge().getSwapRack());
+        game.getSideOfPlayer(game.getOtherPlayer(player)).getChallenge().setSwapRack(new SwapRack());
+        for (ITile tile : game.getSideResp().getChallenge().getTilesToSwap()) {
+            if (tile != null) {
+                game.getSideOfPlayer(game.getOtherPlayer(player)).getChallenge().getSwapRack().addTile(tile);
+            }
+        }
 
-        // set new empty swap rack
-        game.getSideOfPlayer(player).getChallenge().setSwapRack(new SwapRack());
+        // Update the side of the Ai
+        updatePlayerSide(game.getSideResp(), game.getSideResp().getChallenge(), newTiles);
 
         // switch player
         game.setCurrPlayer(game.getOtherPlayer(player));
 
-        /* TODO -> set side as sideDTO */
+        gameRepository.save(game);
 
         return game;
     }
 
-
-    private LangSetRepository langSetRepository;
-
+    /**
+     * @brief Initialize a new game
+     * @param p1 Player 1
+     * @param p2 Player 2 (can be null and will be initialize as an AI)
+     * @param lang language of the game
+     * @return A new initialize game
+     */
     public Game initGame(Player p1, Player p2, String lang) {
         LangSet langSet = langSetRepository.findByName(lang);
-        Game game = new Game(p1, p2, langSet);
+        Game game = null;
 
-        /* TODO -> init game */
+        // Initialize game with or without Ai
+        if (p2 == null) {
+            game = new Game(p1, playerRepository.findOne(1L), langSet);
+        } else {
+            game = new Game(p1, p2, langSet);
+        }
+
+        Side sideInit = game.getSideInit();
+        Side sideResp = game.getSideResp();
+
+        // Set players Racks
+        PlayerRack p1R = sideInit.getPlayerRack();
+        PlayerRack p2R = sideResp.getPlayerRack();
+        p1R.setTiles(game.getBag().getSevenTiles());
+        p2R.setTiles(game.getBag().getSevenTiles());
+
+        // set new Challenge
+        sideInit.setChallenge(new ChallengeFactory(sideInit).createRandomSlotPos().create());
+        sideResp.setChallenge(new ChallengeFactory(sideResp).createRandomSlotPos().create());
+
+        // Set swap racks
+        SwapRack s1 = sideInit.getChallenge().getSwapRack();
+        SwapRack s2 = sideResp.getChallenge().getSwapRack();
+        s1.addTile(game.getBag().pop());
+        s1.addTile(game.getBag().pop());
+        s2.addTile(game.getBag().pop());
+        s2.addTile(game.getBag().pop());
+        sideInit.getChallenge().setSwapRack(s1);
+        sideResp.getChallenge().setSwapRack(s2);
+
+        // save the sides
+        sideRepository.save(sideInit);
+        sideRepository.save(sideResp);
+
+        // save the game
+        gameRepository.save(game);
 
         return game;
     }
@@ -162,15 +286,16 @@ public class GameService {
      */
     private void updatePlayerSide(Side side, Challenge challenge, List<Tile> newTiles) {
         // Update the score of the side of the player
+        int score = challenge.getScore();
         side.updateScore(challenge.getScore());
 
         // Create the answer for the history
-        side.addAnswer(challenge.getWord(), side.getScore());
+        side.addAnswer(challenge);
 
         // add the new tiles to the player Rack
         side.addTilesToPlayerRack(newTiles);
 
         // Create new challenge
-        side.setChallenge(new ChallengeFactory(side).create());
+        side.setChallenge(new ChallengeFactory(side).createRandomSlotPos().create());
     }
 }

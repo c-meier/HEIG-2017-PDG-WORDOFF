@@ -1,0 +1,12 @@
+[
+    {
+        "login": "one",
+        "password": "pass",
+        "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJvbmUiLCJleHAiOjE1MTc5MTEwMDJ9.N53PQhixLvNAU6TULySpcuvU1FYziaI0HBuTvGZMGQX2KSOrC2Em9Fn74JHvYQPI5X6WMQhfuPYKY6iBqvS5gw"
+    },
+    {
+        "login": "two",
+        "password": "pass",
+        "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0d28iLCJleHAiOjE1MTc5MTExMzJ9.LV3dxPNyvDJwBulOwn_XqsXjtfXluLN_rXrhGHZlQPjsuqKByA2SHbjG47fQOTCBK9FzzfBLCxIbD237075cyA"
+    }
+]

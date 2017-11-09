@@ -1,27 +1,13 @@
 package ch.heigvd.wordoff.server.Model.Tiles;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 @Entity
-public class Letter {
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setValue(char value) {
-        this.value = value;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
+public class Letter implements Serializable {
 
     @Id
     @GeneratedValue
@@ -30,14 +16,22 @@ public class Letter {
     private char value;
     private int score;
 
-    @ManyToOne(targetEntity = LangSet.class)
-    private LangSet langSet;
+    @Column(name = "lang_set_id")
+    private Integer langSetId;
 
     protected Letter() {}
 
     public Letter(char value, int score) {
         this.value = value;
         this.score = score;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setValue(char value) {
+        this.value = value;
     }
 
     public char getValue() {
@@ -47,4 +41,5 @@ public class Letter {
     public int getScore() {
         return score;
     }
+
 }

@@ -1,12 +1,13 @@
 package ch.heigvd.wordoff.common.Dto.Slots;
+
+import ch.heigvd.wordoff.common.Dto.IDto;
+import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
-import ch.heigvd.wordoff.common.Dto.AnswerDto;
-import ch.heigvd.wordoff.common.Dto.SideDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 @JsonTypeInfo(
@@ -14,13 +15,17 @@ import java.util.Objects;
         include = JsonTypeInfo.As.PROPERTY,
         property = "dtype"
 )
-public class SlotDto implements ISlot{
+public class SlotDto implements ISlot, IDto {
 
-    Long sideId;
+    private Long sideId;
 
-    Short pos;
+    private Short pos;
 
+    @JsonDeserialize(as = TileDto.class)
     private ITile tile;
+
+    // Necessary for Jackson deserialization
+    protected SlotDto() {}
 
     public SlotDto(Long sideId, Short pos) {
         this.sideId = sideId;
@@ -55,5 +60,24 @@ public class SlotDto implements ISlot{
 
     public void setPos(Short pos) {
         this.pos = pos;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof SlotDto)) {
+            return false;
+        }
+        SlotDto s = (SlotDto) o;
+        return Objects.equals(sideId, s.sideId) &&
+                Objects.equals(pos, s.pos) &&
+                Objects.equals(tile, s.tile);
+    }
+
+    @Override
+    public boolean isWellformed() {
+        return sideId != null && pos != null &&
+                ((tile == null) || (tile instanceof TileDto && ((TileDto)tile).isWellformed()));
     }
 }

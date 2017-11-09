@@ -1,6 +1,6 @@
 INSERT INTO lang_set (name) VALUES
-  ('Français'),
-  ('English');
+  ('fr'),
+  ('en');
 
 -- Jocker
 INSERT INTO letter (value, score) VALUES
@@ -133,3 +133,9 @@ INSERT INTO player (id, name) VALUES
 
 INSERT INTO ai (id) VALUES
   (1);
+
+-- Test users
+INSERT INTO player (id, name) VALUES
+  (2, 'one'), (3, 'two');
+INSERT INTO user (id, level, login, password) VALUES
+  (2, 1, 'one', 'pass'), (3, 1, 'two', 'pass');

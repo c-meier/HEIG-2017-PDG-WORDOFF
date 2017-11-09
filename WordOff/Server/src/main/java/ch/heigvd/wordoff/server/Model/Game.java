@@ -61,6 +61,10 @@ public class Game {
         }
     }
 
+    public void setSideInit(Side sideInit) {
+        this.sideInit = sideInit;
+    }
+
     public Bag getBag() {
         return bag;
     }

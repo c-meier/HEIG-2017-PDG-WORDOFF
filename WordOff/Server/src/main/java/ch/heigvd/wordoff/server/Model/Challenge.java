@@ -4,7 +4,11 @@ import ch.heigvd.wordoff.common.IModel.IChallenge;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
+import ch.heigvd.wordoff.server.Model.Slots.Slot;
 import ch.heigvd.wordoff.server.Model.Slots.SwapSlot;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,12 +17,15 @@ import java.util.List;
 public class Challenge implements IChallenge, Serializable {
     private SwapRack swapRack;
 
+    @JsonDeserialize(contentAs = Slot.class)
+    @JsonSerialize(contentAs = Slot.class)
     private List<ISlot> slots;
 
     protected Challenge() {
         this.swapRack = new SwapRack();
         slots = new ArrayList<>();
     }
+
     public Challenge(List<ISlot> slots) {
         this.swapRack = new SwapRack();
         this.slots = slots;
@@ -32,6 +39,7 @@ public class Challenge implements IChallenge, Serializable {
         this.swapRack = swapRack;
     }
 
+    @JsonIgnore
     public List<ITile> getTilesToSwap() {
         List<ITile> sTiles = new ArrayList<>();
         for (ISlot s : getSlots()) {

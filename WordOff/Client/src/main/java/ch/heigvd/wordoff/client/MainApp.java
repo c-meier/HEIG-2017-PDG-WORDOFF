@@ -23,6 +23,7 @@ public class MainApp extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
 
         Scene scene = new Scene(root);
+
         stage.setTitle("WordOff");
         stage.setScene(scene);
         stage.getIcons().add(new Image("/images/icon.png"));

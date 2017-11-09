@@ -4,23 +4,38 @@ import ch.heigvd.wordoff.client.MainApp;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import ch.heigvd.wordoff.client.logic.Game;
 import ch.heigvd.wordoff.common.Dto.GameDto;
+import ch.heigvd.wordoff.common.Dto.GameSummaryDto;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 
 public class MainMenuController implements Initializable {
 
-    // Game selected to list
+    // GameDto selected to list
     private GameDto selectGame = null;
+
+    // list de GameSummaryDto
+    private List<GameSummaryDto> gamesSummaryDto = new LinkedList<>();
+
+    @FXML
+    ListView<String> gamesPlayer = new ListView<>();
 
     private void handleGotoGame() {
         FXMLLoader loader = getLoader("/fxml/gameScreen.fxml");
@@ -93,12 +108,34 @@ public class MainMenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        setState();
     }
+
+    public void setState(){
+
+        for(GameSummaryDto dto: (new Game()).getGameSummaryDtoList() ){
+            gamesPlayer.getItems().add(dto.getOtherPlayer().getName());
+        }
+        //gamesPlayer.getItems().setAll("un","deux","trois");
+
+        gamesPlayer.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent click) {
+                if (click.getClickCount() == 2) {
+                   goToGame();
+                }
+            }
+        });
+    }
+
 
     @FXML
     private void goToGame(){
         // Récupérer le game dans la liste
         this.selectGame = (new Game()).getGameDto();
+        String select = gamesPlayer.getSelectionModel().getSelectedItem();
+        System.out.println(select);
         handleGotoGame();
     }
 

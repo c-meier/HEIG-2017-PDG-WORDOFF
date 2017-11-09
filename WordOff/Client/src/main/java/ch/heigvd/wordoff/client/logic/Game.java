@@ -11,12 +11,15 @@ import ch.heigvd.wordoff.common.IModel.ITile;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Game {
     private SideDto sideP1;
     private SideDto sideP2;
 
     private GameDto gameDto;
+
+    private List<GameSummaryDto> gameSummaryDtoList = new LinkedList<>();
 
     public Game() {
         this.sideP1 = new SideDto(1L,
@@ -71,9 +74,28 @@ public class Game {
         long id =46465464;
         OtherSideDto otherSideDto = new OtherSideDto(id,sideP2.getPlayer(),sideP2.getChallenge(),0);
         this.gameDto = new GameDto(id, sideP1, otherSideDto,true, "fr", null);
+
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+
+
     }
 
     public GameDto getGameDto() {
         return gameDto;
+    }
+
+    public List<GameSummaryDto> getGameSummaryDtoList() {
+        return gameSummaryDtoList;
     }
 }

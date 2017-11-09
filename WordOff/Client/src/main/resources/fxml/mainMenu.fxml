@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
@@ -101,8 +100,7 @@
                                           </AnchorPane>
                                         <AnchorPane prefHeight="140.0" prefWidth="435.0" GridPane.rowIndex="1">
                                              <children>
-                                                <ListView layoutX="120.0" layoutY="-53.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                <Button layoutX="155.0" layoutY="52.0" mnemonicParsing="false" onAction="#goToGame" text="Test goto game" />
+                                                <ListView fx:id="gamesPlayer" layoutX="120.0" layoutY="-53.0" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
                                        </children>

@@ -31,8 +31,11 @@ public class LoginController implements Initializable {
     
     @FXML
     private void handleGoToMainMenu(ActionEvent event){
-        String controller = "/fxml/mainMenu.fxml";
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(controller));
+        String pathContoller = "/fxml/mainMenu.fxml";
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(pathContoller));
+
+  //      MainMenuController controller = loader.getController();
+//        controller.setState();
         MainApp.changeScene(loader);
     }
     

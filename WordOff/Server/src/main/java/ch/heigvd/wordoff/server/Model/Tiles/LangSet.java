@@ -1,6 +1,7 @@
 package ch.heigvd.wordoff.server.Model.Tiles;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,6 +27,13 @@ public class LangSet {
 
     public LangSet(String name) {
         this.name = name;
+    }
+
+    public LangSet(LangSet langSet) {
+        this.id = langSet.id;
+        this.letters = new ArrayList<>(langSet.getLetters());
+        this.name = langSet.name;
+        this.tiles = new ArrayList<>(langSet.getTiles());
     }
 
     public Integer getId() {

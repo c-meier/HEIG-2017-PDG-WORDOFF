@@ -6,6 +6,9 @@ import ch.heigvd.wordoff.common.IModel.ITile;
 import java.util.List;
 
 public class SwapRackDto extends RackDto {
+    // Necessary for Jackson deserialization
+    protected SwapRackDto() {}
+
     public SwapRackDto(List<ITile> tiles) {
         super(tiles);
     }
@@ -18,5 +21,10 @@ public class SwapRackDto extends RackDto {
     @Override
     public int getMaxSizeRack() {
         return Constants.SWAP_RACK_SIZE;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o == this || o instanceof SwapRackDto && super.equals(o);
     }
 }

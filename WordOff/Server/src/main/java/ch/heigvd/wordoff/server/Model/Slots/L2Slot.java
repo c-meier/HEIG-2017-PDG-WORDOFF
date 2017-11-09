@@ -4,6 +4,7 @@ import ch.heigvd.wordoff.server.Model.Side;
 
 public class L2Slot extends LxSlot {
 
+
     private static int bonus = 2;
 
     public L2Slot() {

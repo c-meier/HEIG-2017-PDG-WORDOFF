@@ -23,7 +23,7 @@ public class MainApp extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
+
         stage.setTitle("WordOff");
         stage.setScene(scene);
         stage.getIcons().add(new Image("/images/icon.png"));
@@ -31,7 +31,6 @@ public class MainApp extends Application {
         stage.show();
         stage.setMinHeight(stage.getHeight());
         stage.setMinWidth(stage.getWidth());
-
     }
 
     /**
@@ -46,10 +45,9 @@ public class MainApp extends Application {
         launch(args);
     }
 
-    public static void changeScene(String sceneController, FXMLLoader loader) {
+    public static void changeScene(FXMLLoader loader) {
         try {
             Parent root = loader.load();
-
             Scene scene = new Scene(root);
             stage.setScene(scene);
         } catch (IOException ex) {
@@ -57,5 +55,8 @@ public class MainApp extends Application {
         }
     }
 
+    public static void changeScene(Scene scene){
+        stage.setScene(scene);
+    }
 
 }

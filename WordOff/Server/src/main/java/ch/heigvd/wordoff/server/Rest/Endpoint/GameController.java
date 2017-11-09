@@ -42,8 +42,8 @@ public class GameController {
         // TODO -> recup and convert the player games.
         List<GameSummaryDto> games = new ArrayList<>();
 
-        games.add(new GameSummaryDto(1, new PlayerDto(1L, "AI")));
-        games.add(new GameSummaryDto(2, new PlayerDto(1L, "One")));
+        games.add(new GameSummaryDto(1L, new PlayerDto(1L, "AI")));
+        games.add(new GameSummaryDto(2L, new PlayerDto(1L, "One")));
 
         return new ResponseEntity<>(games, HttpStatus.OK);
     }
@@ -64,7 +64,7 @@ public class GameController {
         }
 
         // TODO -> create and convert the new games.
-        GameSummaryDto game = new GameSummaryDto(1, new PlayerDto(playersId.get(0), "AI"));
+        GameSummaryDto game = new GameSummaryDto(1L, new PlayerDto(playersId.get(0), "AI"));
 
         return new ResponseEntity<>(game, HttpStatus.CREATED);
     }

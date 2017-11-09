@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.client.controller;
+package ch.heigvd.wordoff.client.Controller;
 
 import ch.heigvd.wordoff.client.MainApp;
 
@@ -15,7 +15,7 @@ import javafx.fxml.Initializable;
  *
  * @author Gabriel Luthier
  */
-public class InvitationsRecievedController implements Initializable {
+public class MessagesController implements Initializable {
 
     @FXML
     private void handleGotoMenu(ActionEvent event) {

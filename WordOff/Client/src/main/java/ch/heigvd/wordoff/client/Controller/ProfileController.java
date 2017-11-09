@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.client.controller;
+package ch.heigvd.wordoff.client.Controller;
 
 import ch.heigvd.wordoff.client.MainApp;
 
@@ -15,8 +15,8 @@ import javafx.fxml.Initializable;
  *
  * @author Gabriel Luthier
  */
-public class FriendsController implements Initializable {
-    
+public class ProfileController implements Initializable {
+
     @FXML
     private void handleGotoMenu(ActionEvent event) {
         String controller = "/fxml/mainMenu.fxml";
@@ -30,6 +30,5 @@ public class FriendsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
 }

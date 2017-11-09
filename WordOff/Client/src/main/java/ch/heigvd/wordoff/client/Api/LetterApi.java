@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.client.api;
+package ch.heigvd.wordoff.client.Api;
 
 import ch.heigvd.wordoff.client.Exception.BadRequestException;
 import org.springframework.http.HttpEntity;

@@ -1,8 +1,10 @@
-package ch.heigvd.wordoff.client.api;
+package ch.heigvd.wordoff.client.Api;
 
 import ch.heigvd.wordoff.client.Exception.BadRequestException;
+import ch.heigvd.wordoff.client.Exception.TokenNotFoundException;
 import ch.heigvd.wordoff.client.Exception.UnauthorizedException;
 import ch.heigvd.wordoff.client.Exception.UnprocessableEntityException;
+import ch.heigvd.wordoff.client.Util.TokenManager;
 import ch.heigvd.wordoff.common.Dto.ChallengeDto;
 import ch.heigvd.wordoff.common.Dto.ErrorDto;
 import ch.heigvd.wordoff.common.Dto.GameDto;
@@ -22,7 +24,23 @@ public class GameApi {
 
     private final static RestTemplate restTemplate = new RestTemplate();
 
-    public static List<GameSummaryDto> retrieveGames(String token) {
+    public static List<GameSummaryDto> retrieveGames() throws TokenNotFoundException {
+        return retrieveGames(TokenManager.loadToken());
+    }
+
+    public static GameSummaryDto createGame(String lang, List<Long> playerIds) throws TokenNotFoundException {
+        return createGame(TokenManager.loadToken(), lang, playerIds);
+    }
+
+    public static  GameDto getGame(Long gameId) throws TokenNotFoundException {
+        return getGame(TokenManager.loadToken(), gameId);
+    }
+
+    public static GameDto play(Long gameId, ChallengeDto challengeDto) throws TokenNotFoundException {
+        return play(TokenManager.loadToken(), gameId, challengeDto);
+    }
+
+    private static List<GameSummaryDto> retrieveGames(String token) {
         final String uri = SERVER_URI + "/games";
 
         HttpHeaders headers = new HttpHeaders();
@@ -44,7 +62,7 @@ public class GameApi {
         }
     }
 
-    public static GameSummaryDto createGame(String token, String lang, List<Long> playerIds) {
+    private static GameSummaryDto createGame(String token, String lang, List<Long> playerIds) {
         final String uri = SERVER_URI + "/games";
 
         Map<String, String> params = new HashMap<>();
@@ -73,7 +91,7 @@ public class GameApi {
         }
     }
 
-    public static GameDto getGame(String token, Long gameId) {
+    private static GameDto getGame(String token, Long gameId) {
         final String uri = SERVER_URI + "/games/{gameId}";
 
         Map<String, String> params = new HashMap<>();
@@ -102,7 +120,7 @@ public class GameApi {
         }
     }
 
-    public static GameDto play(String token, Long gameId, ChallengeDto challengeDto) {
+    private static GameDto play(String token, Long gameId, ChallengeDto challengeDto) {
         final String uri = SERVER_URI + "/games/{gameId}/challenge";
 
         Map<String, String> params = new HashMap<>();

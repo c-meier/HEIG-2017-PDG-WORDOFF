@@ -1,6 +1,6 @@
 package ch.heigvd.wordoff.client.rest;
 
-import ch.heigvd.wordoff.client.logic.Game;
+import ch.heigvd.wordoff.client.Logic.Game;
 
 public class RestAcces {
     /**

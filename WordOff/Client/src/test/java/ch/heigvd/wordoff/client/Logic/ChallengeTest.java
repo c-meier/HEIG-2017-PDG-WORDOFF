@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.client.logic;
+package ch.heigvd.wordoff.client.Logic;
 
 public class ChallengeTest {
   /*  static ArrayList initSlot;

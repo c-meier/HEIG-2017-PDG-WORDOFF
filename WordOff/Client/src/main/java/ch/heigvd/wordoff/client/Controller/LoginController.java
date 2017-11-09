@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ch.heigvd.wordoff.client.controller;
+package ch.heigvd.wordoff.client.Controller;
 
 import ch.heigvd.wordoff.client.MainApp;
 import javafx.event.ActionEvent;
@@ -27,7 +27,6 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
     }
     
     @FXML

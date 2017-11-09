@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.client.controller;
+package ch.heigvd.wordoff.client.Controller;
 
 
 import ch.heigvd.wordoff.client.Dialog;
@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import ch.heigvd.wordoff.client.logic.Game;
+import ch.heigvd.wordoff.client.Logic.Game;
 import ch.heigvd.wordoff.common.Dto.SideDto;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;

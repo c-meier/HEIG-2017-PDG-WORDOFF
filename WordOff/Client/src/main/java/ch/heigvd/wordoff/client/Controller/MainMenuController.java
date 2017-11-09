@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.client.controller;
+package ch.heigvd.wordoff.client.Controller;
 
 import ch.heigvd.wordoff.client.MainApp;
 

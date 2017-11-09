@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.client.logic;
+package ch.heigvd.wordoff.client.Logic;
 
 import ch.heigvd.wordoff.common.Dto.ChallengeDto;
 import ch.heigvd.wordoff.common.Dto.PlayerDto;

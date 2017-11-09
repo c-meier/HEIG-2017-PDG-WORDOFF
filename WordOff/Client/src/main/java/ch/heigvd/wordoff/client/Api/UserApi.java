@@ -1,8 +1,9 @@
-package ch.heigvd.wordoff.client.api;
+package ch.heigvd.wordoff.client.Api;
 
 import ch.heigvd.wordoff.client.Exception.BadRequestException;
 import ch.heigvd.wordoff.client.Exception.UnauthorizedException;
 import ch.heigvd.wordoff.client.Exception.UnprocessableEntityException;
+import ch.heigvd.wordoff.client.Util.TokenManager;
 import ch.heigvd.wordoff.common.Dto.ErrorDto;
 import ch.heigvd.wordoff.common.Dto.LoginDto;
 import org.springframework.http.*;
@@ -42,7 +43,7 @@ public class UserApi {
         }
     }
 
-    public static String signIn(LoginDto loginDto) {
+    public static void signIn(LoginDto loginDto) {
         final String uri = SERVER_URI + "/users/sign-in";
 
         HttpHeaders headers = new HttpHeaders();
@@ -56,9 +57,13 @@ public class UserApi {
 
         switch (responseEntity.getStatusCode()) {
             case OK:
+                // retrieve token from header
                 HttpHeaders httpHeaders = responseEntity.getHeaders();
                 List<String> listHeaders = httpHeaders.get("Authorization");
-                return listHeaders.get(0);
+                String token = listHeaders.get(0);
+                // save token to filesystem
+                TokenManager.saveToken(token);
+                return;
             case BAD_REQUEST: // 400
                 throw new BadRequestException();
             case UNAUTHORIZED: // 401

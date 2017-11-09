@@ -97,7 +97,7 @@ public class GameService {
 
             // reset jokers' values
             for(ISlot slot : game.getSideOfPlayer(player).getChallenge().getSlots()) {
-                if(slot.getTile().isJoker()) {
+                if(slot.getTile() != null && slot.getTile().isJoker()) {
                     slot.getTile().setValue('#');
                 }
             }
@@ -180,7 +180,7 @@ public class GameService {
 
         // reset jokers' values
         for(ISlot slot : game.getSideOfPlayer(player).getChallenge().getSlots()) {
-            if(slot.getTile().isJoker()) {
+            if(slot.getTile() != null && slot.getTile().isJoker()) {
                 slot.getTile().setValue('#');
             }
         }

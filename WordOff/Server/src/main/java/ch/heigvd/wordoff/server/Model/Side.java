@@ -59,6 +59,7 @@ public class Side {
 
     public void addAnswer(String word, int score) {
         answers.add(new Answer(this, answerCounter, word, score));
+
     }
 
     public Long getId() {

@@ -22,6 +22,7 @@ public class RestConfig extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor())
                 .addPathPatterns("/users/test")
+                .addPathPatterns("/games")
                 .addPathPatterns("/games/**/*");
         super.addInterceptors(registry);
     }

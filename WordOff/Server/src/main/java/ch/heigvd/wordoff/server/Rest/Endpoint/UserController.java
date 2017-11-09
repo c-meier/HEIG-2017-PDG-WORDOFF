@@ -47,7 +47,7 @@ public class UserController {
                 headers,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public HttpEntity signUp(@RequestBody LoginDto login) {
         if(!login.isWellformed()) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);

@@ -6,8 +6,6 @@
 package ch.heigvd.wordoff.client.controller;
 
 import ch.heigvd.wordoff.client.MainApp;
-import ch.heigvd.wordoff.client.api.UserApi;
-import ch.heigvd.wordoff.common.Dto.LoginDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,9 +28,6 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
-        LoginDto loginDto = new LoginDto("one", "pass".toCharArray());
-
-        String token = UserApi.signIn(loginDto);
     }
     
     @FXML

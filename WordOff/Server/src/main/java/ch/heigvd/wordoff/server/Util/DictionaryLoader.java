@@ -13,9 +13,10 @@ public class DictionaryLoader {
 
     public void loadDictionary(String lang) {
         if (!loadedDico.containsKey(lang)) {
-            URL path = getClass().getResource(lang + ".txt");
+            lang = lang.toLowerCase();
+            URL path = getClass().getResource("/dictionary/" + lang + ".txt");
             // Check if exist
-            loadedDico.put(lang, new Dictionary(path.toString()));
+            loadedDico.put(lang, new Dictionary(path.getFile()));
         }
     }
 

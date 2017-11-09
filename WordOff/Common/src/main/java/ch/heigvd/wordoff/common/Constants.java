@@ -6,8 +6,8 @@ package ch.heigvd.wordoff.common;
  */
 public interface Constants {
     // source : https://github.com/ManiacDC/TypingAid/tree/master/Wordlists
-    String ENGLISH_DICTIONARY = "../Common/src/main/resources/dictionary/english_dico_scrabble.txt";
-    String FRENCH_DICTIONARY = "../Common/src/main/resources/dictionary/francais_dico_scrabble.txt";
+    public static final String ENGLISH_DICTIONARY = "../Common/src/main/resources/dictionary/en.txt";
+    public static final String FRENCH_DICTIONARY = "../Common/src/main/resources/dictionary/fr.txt";
 
     int CHALLENGE_SIZE = 7;
     int PLAYER_RACK_SIZE = 7;

@@ -11,6 +11,7 @@ import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
 import ch.heigvd.wordoff.server.Util.ChallengeFactory;
+import ch.heigvd.wordoff.server.Utils.ChallengeUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,7 +58,7 @@ public class GameRepositoryTest {
 
     @Test
     public void testCanCreateAndSaveAGame() throws Exception {
-        LangSet set = tilesRepository.findByName("Français");
+        LangSet set = tilesRepository.findByName("fr");
         Game game = new Game(one, two, set);
 
         Game savedGame = repository.save(game);
@@ -66,7 +67,7 @@ public class GameRepositoryTest {
 
     @Test
     public void testCanCreateAndSaveSide() throws Exception {
-        LangSet set = tilesRepository.findByName("Français");
+        LangSet set = tilesRepository.findByName("fr");
         List<Tile> tiles = set.getTiles();
         Bag bag = new Bag(tiles);
         Player player = new Player("testPlayer");
@@ -74,9 +75,14 @@ public class GameRepositoryTest {
 
         // Answers
         List<Answer> answers = side.getAnswers();
-        answers.add(new Answer(side, (short)1, "Hello", 23));
-        answers.add(new Answer(side, (short)2,"World", 32));
-        answers.add(new Answer(side, (short)3,"Bye", 14));
+
+        answers.add(new Answer(side, (short)1,
+                ChallengeUtils.fillChallenge(set, new ChallengeFactory(side).createRandomSlotPos().create(), "HELLO")));
+        answers.add(new Answer(side, (short)2,
+                ChallengeUtils.fillChallenge(set, new ChallengeFactory(side).createRandomSlotPos().create(), "WORLD")));
+        answers.add(new Answer(side, (short)3,
+                ChallengeUtils.fillChallenge(set, new ChallengeFactory(side).createRandomSlotPos().create(), "BYE")));
+
 
         // Challenge
         Challenge challenge = new ChallengeFactory(side).addAll(Arrays.asList(
@@ -100,9 +106,9 @@ public class GameRepositoryTest {
         playerRack.addTile(bag.pop());
         playerRack.addTile(bag.pop());
 
-        sideRepository.save(side);
+        Side savedSide = sideRepository.save(side);
 
-        Side savedSide = sideRepository.findOne(1L);
-        assertThat(savedSide).isNotNull();
+        Side recupSide = sideRepository.findOne(savedSide.getId());
+        assertThat(recupSide).isNotNull();
     }
 }

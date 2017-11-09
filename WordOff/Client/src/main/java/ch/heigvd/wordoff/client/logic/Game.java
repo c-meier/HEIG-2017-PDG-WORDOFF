@@ -19,9 +19,6 @@ public class Game {
     private GameDto gameDto;
 
     public Game() {
-
-
-
         this.sideP1 = new SideDto(1L,
                 new PlayerDto(1L, "test1"),
                 new ChallengeDto(Arrays.asList(

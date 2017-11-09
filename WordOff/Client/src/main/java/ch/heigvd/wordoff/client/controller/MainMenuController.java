@@ -21,7 +21,7 @@ public class MainMenuController implements Initializable {
 
     // Game selected to list
     private GameDto selectGame = null;
-    
+
     private void handleGotoGame() {
         FXMLLoader loader = getLoader("/fxml/gameScreen.fxml");
         Scene scene = getScene(loader);

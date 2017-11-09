@@ -49,7 +49,6 @@ public class MainApp extends Application {
     public static void changeScene(String sceneController, FXMLLoader loader) {
         try {
             Parent root = loader.load();
-
             Scene scene = new Scene(root);
             stage.setScene(scene);
         } catch (IOException ex) {
@@ -57,5 +56,8 @@ public class MainApp extends Application {
         }
     }
 
+    public static void changeScene(Scene scene){
+        stage.setScene(scene);
+    }
 
 }

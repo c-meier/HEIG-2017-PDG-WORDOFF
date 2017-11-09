@@ -102,7 +102,7 @@
                                         <AnchorPane prefHeight="140.0" prefWidth="435.0" GridPane.rowIndex="1">
                                              <children>
                                                 <ListView layoutX="120.0" layoutY="-53.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                <Button layoutX="155.0" layoutY="52.0" mnemonicParsing="false" onAction="#handleGotoGame" text="Test goto game" />
+                                                <Button layoutX="155.0" layoutY="52.0" mnemonicParsing="false" onAction="#goToGame" text="Test goto game" />
                                              </children>
                                           </AnchorPane>
                                        </children>

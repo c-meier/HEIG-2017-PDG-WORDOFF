@@ -1,23 +1,26 @@
 package ch.heigvd.wordoff.client.logic;
 
-import ch.heigvd.wordoff.common.Dto.ChallengeDto;
-import ch.heigvd.wordoff.common.Dto.PlayerDto;
+import ch.heigvd.wordoff.common.Dto.*;
 import ch.heigvd.wordoff.common.Dto.Racks.PlayerRackDto;
 import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
-import ch.heigvd.wordoff.common.Dto.SideDto;
 import ch.heigvd.wordoff.common.Dto.Slots.*;
 import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedList;
 
 public class Game {
     private SideDto sideP1;
     private SideDto sideP2;
 
+    private GameDto gameDto;
+
     public Game() {
+
+
 
         this.sideP1 = new SideDto(1L,
                 new PlayerDto(1L, "test1"),
@@ -67,13 +70,13 @@ public class Game {
                     (ITile) new TileDto(16, 'p', 3)))),
                 0
         );
+
+        long id =46465464;
+        OtherSideDto otherSideDto = new OtherSideDto(id,sideP2.getPlayer(),sideP2.getChallenge(),0);
+        this.gameDto = new GameDto(id, sideP1, otherSideDto,true, "fr", null);
     }
 
-    public SideDto getSideP1() {
-        return sideP1;
-    }
-
-    public SideDto getSideP2() {
-        return sideP2;
+    public GameDto getGameDto() {
+        return gameDto;
     }
 }

@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import ch.heigvd.wordoff.client.logic.Game;
+import ch.heigvd.wordoff.common.Dto.ChallengeDto;
+import ch.heigvd.wordoff.common.Dto.GameDto;
 import ch.heigvd.wordoff.common.Dto.SideDto;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
@@ -32,7 +34,7 @@ import javafx.scene.control.Label;
  */
 public class GameScreenController implements Initializable {
 
-    private Game game;
+    private GameDto game;
     @FXML
     private Label p1Name, p2Name;
     @FXML
@@ -99,9 +101,12 @@ public class GameScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        setState(new Game());
     }
 
+    protected void setGame(GameDto game){
+        this.game = game;
+        setState(this.game);
+    }
 
     @FXML
     private void shuffleClear(){
@@ -113,7 +118,7 @@ public class GameScreenController implements Initializable {
     }
 
     private void shuffle(){
-        List<ITile> tiles = game.getSideP1().getPlayerRack().getTiles();
+        List<ITile> tiles = game.getMySide().getPlayerRack().getTiles();
         Collections.shuffle(tiles);
         setTiles(tiles, p1TilesPr, false);
     }
@@ -151,11 +156,13 @@ public class GameScreenController implements Initializable {
 
     @FXML
     private void peek(){
-        // TODO test confirmation du hint côté serveur
-      //  if(   ){
-            setTiles(game.getSideP2().getPlayerRack().getTiles(), p2TilesPr, false);
+        // TODO test confirmation du hint côté serveur et réception du rack à afficher
+        /*
+        if(   ){
+            setTiles(game.getOtherSide().getPlayerRack().getTiles(), p2TilesPr, false);
             setVisible(p2TilesPr,true);
-     //   }
+        }
+     */
     }
 
     @FXML
@@ -187,8 +194,7 @@ public class GameScreenController implements Initializable {
      *
      * @param game
      */
-    private void setState(Game game) {
-        this.game = game;
+    private void setState(GameDto game) {
         p1Name.setText("Player One");
         p2Name.setText("Player Two");
         /*
@@ -204,26 +210,26 @@ public class GameScreenController implements Initializable {
 
     private void setStateGame(){
         // Set les challenge slots
-        setBackgroundChallenge(game.getSideP1(), p1Ch1Back, p1Ch2Back, p1Ch3Back, p1Ch4Back, p1Ch5Back, p1Ch6Back, p1Ch7Back);
-        setBackgroundChallenge(game.getSideP2(), p2Ch1Back, p2Ch2Back, p2Ch3Back, p2Ch4Back, p2Ch5Back, p2Ch6Back, p2Ch7Back);
+        setBackgroundChallenge(game.getMySide().getChallenge(), p1Ch1Back, p1Ch2Back, p1Ch3Back, p1Ch4Back, p1Ch5Back, p1Ch6Back, p1Ch7Back);
+        setBackgroundChallenge(game.getOtherSide().getChallenge(), p2Ch1Back, p2Ch2Back, p2Ch3Back, p2Ch4Back, p2Ch5Back, p2Ch6Back, p2Ch7Back);
         // Set les swaps racks
-        setTiles(game.getSideP1().getChallenge().getSwapRack().getTiles(), p1TilesSr, true);
-        setTiles(game.getSideP2().getChallenge().getSwapRack().getTiles(), p2TilesSr, false);
+        setTiles(game.getMySide().getChallenge().getSwapRack().getTiles(), p1TilesSr, true);
+        setTiles(game.getOtherSide().getChallenge().getSwapRack().getTiles(), p2TilesSr, false);
         // Set le playerRack
-        setTiles(game.getSideP1().getPlayerRack().getTiles(), p1TilesPr, true);
+        setTiles(game.getMySide().getPlayerRack().getTiles(), p1TilesPr, true);
     }
 
     /**
      * Refresh GUI slots according to state of challenge
      *
-     * @param side  player side
+     * @param  challenge player challenge
      * @param slots GUI challenge of player
      */
-    private void setBackgroundChallenge(SideDto side, AnchorPane... slots) {
+    private void setBackgroundChallenge(ChallengeDto challenge, AnchorPane... slots) {
         // Placer les images du challenge selon les slots
         int i = 0;
         String styleClass="";
-        for (ISlot slot : side.getChallenge().getSlots()) {
+        for (ISlot slot : challenge.getSlots()) {
             // Get image source
             if ( slot.getClass() == LastSlotDto.class) {
                 styleClass = "slot_7letter";
@@ -354,8 +360,8 @@ public class GameScreenController implements Initializable {
                 numberTilesOnChallengeRack++;
 
                 // Move tile in logic game
-                ITile tile = game.getSideP1().getPlayerRack().getTile(idTile);
-                game.getSideP1().getChallenge().addTile(tile);
+                ITile tile = game.getMySide().getPlayerRack().getTile(idTile);
+                game.getMySide().getChallenge().addTile(tile);
             }
         } else if (p1SlotsSr.contains(slotParent)) {
             // Move to challenge from swap rack
@@ -365,8 +371,8 @@ public class GameScreenController implements Initializable {
                 numberTilesOnChallengeRack++;
 
                 // Move tile in logic game
-                ITile tile = game.getSideP1().getChallenge().getSwapRack().getTile(idTile);
-                game.getSideP1().getChallenge().addTile(tile);
+                ITile tile = game.getMySide().getChallenge().getSwapRack().getTile(idTile);
+                game.getMySide().getChallenge().addTile(tile);
             }
         } else {
             // Move to swapRack from challenge
@@ -377,8 +383,8 @@ public class GameScreenController implements Initializable {
                 numberTilesOnChallengeRack--;
 
                 // Maj Logic
-                ITile tile = game.getSideP1().getChallenge().getTileById(idTile);
-                game.getSideP1().getChallenge().getSwapRack().addTile(tile);
+                ITile tile = game.getMySide().getChallenge().getTileById(idTile);
+                game.getMySide().getChallenge().getSwapRack().addTile(tile);
             } else {
                 // Move to player rack from challenge
 
@@ -388,8 +394,8 @@ public class GameScreenController implements Initializable {
                 numberTilesOnChallengeRack--;
 
                 // Maj logic
-                ITile tile = game.getSideP1().getChallenge().getTileById(idTile);
-                game.getSideP1().getPlayerRack().addTile(tile);
+                ITile tile = game.getMySide().getChallenge().getTileById(idTile);
+                game.getMySide().getPlayerRack().addTile(tile);
             }
         }
 

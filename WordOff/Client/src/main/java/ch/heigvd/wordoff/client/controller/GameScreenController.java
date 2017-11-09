@@ -24,6 +24,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -41,6 +43,10 @@ public class GameScreenController implements Initializable {
     private Button shuffleButton;
     @FXML
     private Button discardButton;
+    @FXML
+    private Label tilesRemaining;
+    @FXML
+    private ImageView flag;
 
     private int numberTilesOnChallengeRack = 0;
     // Listes Player 1
@@ -96,7 +102,7 @@ public class GameScreenController implements Initializable {
     private void handleGotoMenu(ActionEvent event) {
         String controller = "/fxml/mainMenu.fxml";
         FXMLLoader loader = new FXMLLoader(getClass().getResource(controller));
-        MainApp.changeScene(controller, loader);
+        MainApp.changeScene(loader);
     }
 
     @Override
@@ -105,7 +111,17 @@ public class GameScreenController implements Initializable {
 
     protected void setGame(GameDto game){
         this.game = game;
+        setNumberOfTiles();
+        setLang();
         setState(this.game);
+    }
+    private void setLang(){
+        this.flag.setImage( new Image(getClass().getResource("/images/"+game.getLang()+".png").toExternalForm()));
+    }
+
+    private void setNumberOfTiles(){
+        String text = " tuile(s) restante(s)";
+        this.tilesRemaining.setText(103 + text);
     }
 
     @FXML

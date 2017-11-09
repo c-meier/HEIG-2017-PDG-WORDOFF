@@ -1,6 +1,6 @@
 package ch.heigvd.wordoff.common.Dto;
 
-public class LoginDto {
+public class LoginDto implements IDto {
     private String login;
 
     private char[] password;

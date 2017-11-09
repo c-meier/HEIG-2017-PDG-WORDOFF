@@ -1,7 +1,6 @@
 package ch.heigvd.wordoff.server;
 
 import ch.heigvd.wordoff.common.Constants;
-import ch.heigvd.wordoff.server.Model.Game;
 import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
 import org.slf4j.Logger;
@@ -20,7 +19,7 @@ import javax.annotation.PostConstruct;
  */
 
 @SpringBootApplication
-@EntityScan(basePackageClasses = {Constants.class, Game.class})
+@EntityScan(basePackageClasses = {Constants.class, MainServer.class})
 public class MainServer {
 
     private static Logger log = LoggerFactory.getLogger(MainServer.class);

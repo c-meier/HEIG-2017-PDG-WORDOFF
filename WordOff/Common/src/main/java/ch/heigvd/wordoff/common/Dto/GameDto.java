@@ -1,6 +1,9 @@
 package ch.heigvd.wordoff.common.Dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Project : WordOff
@@ -11,6 +14,7 @@ public class GameDto {
 
     private SideDto mySide;
 
+    @JsonSerialize(typing = JsonSerialize.Typing.STATIC)
     private OtherSideDto otherSide;
 
     private Date startDate;
@@ -20,6 +24,9 @@ public class GameDto {
     private boolean myTurn;
 
     /* TODO -> create GameSummaryDto */
+
+    // Necessary for Jackson deserialization
+    protected GameDto() {}
 
     public GameDto(Long id, SideDto mySide, OtherSideDto otherSide, boolean myTurn, String lang, Date startDate) {
         this.id = id;
@@ -60,5 +67,20 @@ public class GameDto {
 
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof GameDto)) {
+            return false;
+        }
+        GameDto c = (GameDto) o;
+        return Objects.equals(id, c.id) &&
+                Objects.equals(mySide, c.mySide) &&
+                Objects.equals(otherSide, c.otherSide) &&
+                Objects.equals(startDate, c.startDate) &&
+                Objects.equals(myTurn, c.myTurn) &&
+                Objects.equals(lang, c.lang);
     }
 }

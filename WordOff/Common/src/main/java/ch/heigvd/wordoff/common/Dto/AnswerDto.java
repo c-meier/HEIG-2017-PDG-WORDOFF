@@ -1,39 +1,30 @@
 package ch.heigvd.wordoff.common.Dto;
 
+import java.util.Objects;
+
 public class AnswerDto {
 
     private Long sideId;
 
     private Short num;
 
-    private String word;
+    private ChallengeDto challenge;
 
-    private int score;
+    // Necessary for Jackson deserialization
+    protected AnswerDto() {}
 
-    public AnswerDto() {
-    }
-
-    public AnswerDto(SideDto side, Short num, String word, int score) {
-        this.sideId = side.getId();
+    public AnswerDto(Long sideId, Short num, ChallengeDto challenge) {
+        this.sideId = sideId;
         this.num = num;
-        this.word = word;
-        this.score = score;
+        this.challenge = challenge;
     }
 
-    public String getWord() {
-        return word;
+    public ChallengeDto getChallenge() {
+        return challenge;
     }
 
-    public void setWord(String word) {
-        this.word = word;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
+    public void setChallenge(ChallengeDto challenge) {
+        this.challenge = challenge;
     }
 
     public Long getSideId() {
@@ -50,5 +41,17 @@ public class AnswerDto {
 
     public void setNum(Short num) {
         this.num = num;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof AnswerDto)) {
+            return false;
+        }
+        AnswerDto c = (AnswerDto) o;
+        return Objects.equals(sideId, c.sideId) &&
+                Objects.equals(num, c.num) &&
+                Objects.equals(challenge, c.challenge);
     }
 }

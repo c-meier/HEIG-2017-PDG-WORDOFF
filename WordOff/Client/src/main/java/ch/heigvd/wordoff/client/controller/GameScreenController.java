@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import ch.heigvd.wordoff.client.logic.Game;
+import ch.heigvd.wordoff.client.controller.characterSelectController;
 import ch.heigvd.wordoff.common.Dto.ChallengeDto;
 import ch.heigvd.wordoff.common.Dto.GameDto;
 import ch.heigvd.wordoff.common.Dto.SideDto;
@@ -23,6 +24,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,6 +32,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 /**
  * @author Gabriel Luthier
@@ -185,7 +188,16 @@ public class GameScreenController implements Initializable {
     private void hint(){
         // TODO
         System.out.println("Click hint");
+        final Stage test = new Stage();
+        test.initOwner(MainApp.getStage());
+        characterSelectController c = new characterSelectController();
+        
+        Scene testScene = new Scene(c, 400, 400);
+        test.setScene(testScene);
+        test.setTitle("Selection Joker");
+        test.show();
     }
+   
 
     @FXML
     private void play(){

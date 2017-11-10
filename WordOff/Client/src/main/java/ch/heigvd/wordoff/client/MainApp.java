@@ -58,5 +58,9 @@ public class MainApp extends Application {
     public static void changeScene(Scene scene){
         stage.setScene(scene);
     }
+    
+    public static Stage getStage(){
+        return stage;
+    }
 
 }

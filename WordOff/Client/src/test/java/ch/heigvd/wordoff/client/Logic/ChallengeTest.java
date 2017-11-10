@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.client.logic;
+package ch.heigvd.wordoff.client.Logic;
 
 public class ChallengeTest {
   /*  static ArrayList initSlot;
@@ -16,6 +16,7 @@ public class ChallengeTest {
 
     }
 
+    @Ignore
     @Test
     public void testGetSlots() {
         ChallengeDto ch = new ChallengeDto(new SideDto(), initSlot, new Dictionary(Constants.ENGLISH_DICTIONARY));
@@ -29,6 +30,7 @@ public class ChallengeTest {
         assertEquals(LastSlotDto.class, chSlots.get(6).getClass());
     }
 
+    @Ignore
     @Test
     public void testGetScore(){
         ChallengeDto ch = new ChallengeDto(new SideDto(), initSlot,new Dictionary(Constants.ENGLISH_DICTIONARY));
@@ -47,6 +49,7 @@ public class ChallengeTest {
         assertEquals(10,ch.getScoreWord());
     }
 
+    @Ignore
     @Test
     public void testCheckWord(){
         ChallengeDto ch = new ChallengeDto(new SideDto(), initSlot, new Dictionary(Constants.ENGLISH_DICTIONARY));
@@ -62,11 +65,14 @@ public class ChallengeTest {
         assertFalse(ch.checkWord());
     }
 
+    @Ignore
     @Test
     public void testGetSizeChallenge(){
         ChallengeDto ch = new ChallengeDto(new SideDto(), initSlot, new Dictionary(Constants.ENGLISH_DICTIONARY));
         assertEquals(7, ch.getSizeChallenge());
     }
+    
+    @Ignore
     @Test
     public void testPlayTurn(){
         ChallengeDto ch = new ChallengeDto(new SideDto(), initSlot, new Dictionary(Constants.ENGLISH_DICTIONARY));

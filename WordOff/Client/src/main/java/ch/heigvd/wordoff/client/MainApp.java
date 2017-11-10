@@ -1,10 +1,6 @@
 package ch.heigvd.wordoff.client;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,6 +8,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainApp extends Application {
 
@@ -57,6 +57,10 @@ public class MainApp extends Application {
 
     public static void changeScene(Scene scene){
         stage.setScene(scene);
+    }
+    
+    public static Stage getStage(){
+        return stage;
     }
 
 }

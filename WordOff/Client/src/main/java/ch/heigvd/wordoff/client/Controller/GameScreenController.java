@@ -1,35 +1,37 @@
-package ch.heigvd.wordoff.client.controller;
+package ch.heigvd.wordoff.client.Controller;
 
 
 import ch.heigvd.wordoff.client.Dialog;
 import ch.heigvd.wordoff.client.MainApp;
+import ch.heigvd.wordoff.common.Dto.ChallengeDto;
+import ch.heigvd.wordoff.common.Dto.GameDto;
+import ch.heigvd.wordoff.common.Dto.Slots.L2SlotDto;
+import ch.heigvd.wordoff.common.Dto.Slots.L3SlotDto;
+import ch.heigvd.wordoff.common.Dto.Slots.LastSlotDto;
+import ch.heigvd.wordoff.common.Dto.Slots.SwapSlotDto;
+import ch.heigvd.wordoff.common.IModel.ISlot;
+import ch.heigvd.wordoff.common.IModel.ITile;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import ch.heigvd.wordoff.client.logic.Game;
-import ch.heigvd.wordoff.common.Dto.ChallengeDto;
-import ch.heigvd.wordoff.common.Dto.GameDto;
-import ch.heigvd.wordoff.common.Dto.SideDto;
-import ch.heigvd.wordoff.common.IModel.ISlot;
-import ch.heigvd.wordoff.common.IModel.ITile;
-import ch.heigvd.wordoff.common.Dto.Slots.*;
-
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
-import javafx.scene.control.Label;
 
 /**
  * @author Gabriel Luthier
@@ -185,7 +187,16 @@ public class GameScreenController implements Initializable {
     private void hint(){
         // TODO
         System.out.println("Click hint");
+        final Stage test = new Stage();
+        test.initOwner(MainApp.getStage());
+        CharacterSelectController c = new CharacterSelectController();
+        
+        Scene testScene = new Scene(c, 400, 400);
+        test.setScene(testScene);
+        test.setTitle("Selection Joker");
+        test.show();
     }
+   
 
     @FXML
     private void play(){

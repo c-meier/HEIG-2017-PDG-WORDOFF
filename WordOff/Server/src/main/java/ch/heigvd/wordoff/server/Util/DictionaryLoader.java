@@ -4,6 +4,7 @@ import ch.heigvd.wordoff.common.Dictionary;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -16,7 +17,7 @@ public class DictionaryLoader {
             lang = lang.toLowerCase();
             URL path = getClass().getResource("/dictionary/" + lang + ".txt");
             // Check if exist
-            loadedDico.put(lang, new Dictionary(path.getFile()));
+            loadedDico.put(lang, new Dictionary(URLDecoder.decode(path.getFile())));
         }
     }
 

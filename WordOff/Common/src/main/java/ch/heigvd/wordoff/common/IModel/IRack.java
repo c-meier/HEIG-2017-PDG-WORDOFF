@@ -16,7 +16,7 @@ public interface IRack {
      * @param idTile id de la tuile à retirer
      * @return
      */
-    default ITile getTile(int idTile) {
+    default ITile removeTile(int idTile) {
         List<ITile> tiles = getTiles();
 
         for (ITile t : tiles) {
@@ -25,7 +25,23 @@ public interface IRack {
                 return t;
             }
         }
+        return null;
+    }
 
+    /**
+     * Accesseur d'une Tile par id
+     *
+     * @param idTile
+     * @return
+     */
+    default ITile getTile(int idTile) {
+        List<ITile> tiles = getTiles();
+
+        for (ITile t : tiles) {
+            if (t.getId() == idTile) {
+                return t;
+            }
+        }
         return null;
     }
 

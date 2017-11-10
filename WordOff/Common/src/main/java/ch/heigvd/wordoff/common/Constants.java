@@ -13,6 +13,11 @@ public interface Constants {
     int PLAYER_RACK_SIZE = 7;
     int SWAP_RACK_SIZE = 2;
 
+    String AUTHORIZATION_HEADER = "Authorization";
+    String SERVER_ADDRESS = "localhost";
+    int SERVER_PORT = 8080;
+    String SERVER_URI = "http://"+SERVER_ADDRESS+":"+SERVER_PORT;
+
     String EASY = "EASY";
     String AVERAGE = "AVERAGE";
     String HARD = "HARD";

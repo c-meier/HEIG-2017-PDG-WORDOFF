@@ -3,7 +3,9 @@ package ch.heigvd.wordoff.server.Rest.Inteceptor;
 import ch.heigvd.wordoff.server.Model.User;
 import ch.heigvd.wordoff.server.Repository.UserRepository;
 import ch.heigvd.wordoff.server.Security.SecurityConst;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.impl.TextCodec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -26,11 +28,13 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         String token = request.getHeader(SecurityConst.AUTH_HEADER);
         if (token != null) {
             // parse the token.
-            String login = Jwts.parser()
-                    .setSigningKey(SecurityConst.TOKEN_SECRET.getBytes())
-                    .parseClaimsJws(token.replace(SecurityConst.TOKEN_PREFIX, ""))
-                    .getBody()
-                    .getSubject();
+            Claims claims = Jwts.parser()
+                    .setSigningKey(TextCodec.BASE64.decode(SecurityConst.TOKEN_SECRET))
+                    .parseClaimsJws(token)
+                    //.parseClaimsJws(token.replace(SecurityConst.TOKEN_PREFIX, ""))
+                    .getBody();
+
+            String login = claims.get("login", String.class);
 
             if (login != null) {
                 User user = userRepository.findByCredentialsLogin(login);

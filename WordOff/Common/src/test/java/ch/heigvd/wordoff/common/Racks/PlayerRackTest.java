@@ -88,11 +88,11 @@ public class PlayerRackTest {
     @Test
     public void testGetTile() {
         PlayerRackDto pRack = new PlayerRackDto(new ArrayList<>());
-        assertEquals(null, pRack.getTile(listeTile.get(0).getId()));
+        assertEquals(null, pRack.removeTile(listeTile.get(0).getId()));
 
         pRack.addTile(listeTile.get(3));
 
-        ITile t = pRack.getTile(listeTile.get(3).getId());
+        ITile t = pRack.removeTile(listeTile.get(3).getId());
         assertEquals(listeTile.get(3), t);
     }
 }

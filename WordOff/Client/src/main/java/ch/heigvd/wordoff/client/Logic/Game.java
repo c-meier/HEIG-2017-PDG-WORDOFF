@@ -1,24 +1,29 @@
 package ch.heigvd.wordoff.client.Logic;
 
-import ch.heigvd.wordoff.common.Dto.ChallengeDto;
-import ch.heigvd.wordoff.common.Dto.PlayerDto;
+import ch.heigvd.wordoff.common.Dto.*;
 import ch.heigvd.wordoff.common.Dto.Racks.PlayerRackDto;
 import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
-import ch.heigvd.wordoff.common.Dto.SideDto;
-import ch.heigvd.wordoff.common.Dto.Slots.*;
+import ch.heigvd.wordoff.common.Dto.Slots.L2SlotDto;
+import ch.heigvd.wordoff.common.Dto.Slots.LastSlotDto;
+import ch.heigvd.wordoff.common.Dto.Slots.SlotDto;
+import ch.heigvd.wordoff.common.Dto.Slots.SwapSlotDto;
 import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Game {
     private SideDto sideP1;
     private SideDto sideP2;
 
-    public Game() {
+    private GameDto gameDto;
 
+    private List<GameSummaryDto> gameSummaryDtoList = new LinkedList<>();
+
+    public Game() {
         this.sideP1 = new SideDto(1L,
                 new PlayerDto(1L, "test1"),
                 new ChallengeDto(Arrays.asList(
@@ -67,13 +72,32 @@ public class Game {
                     (ITile) new TileDto(16, 'p', 3)))),
                 0
         );
+
+        long id = 46465464;
+        OtherSideDto otherSideDto = new OtherSideDto(id,sideP2.getPlayer(),sideP2.getChallenge(),0);
+        this.gameDto = new GameDto(id, sideP1, otherSideDto,true, "fr", null);
+
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
+
+
     }
 
-    public SideDto getSideP1() {
-        return sideP1;
+    public GameDto getGameDto() {
+        return gameDto;
     }
 
-    public SideDto getSideP2() {
-        return sideP2;
+    public List<GameSummaryDto> getGameSummaryDtoList() {
+        return gameSummaryDtoList;
     }
 }

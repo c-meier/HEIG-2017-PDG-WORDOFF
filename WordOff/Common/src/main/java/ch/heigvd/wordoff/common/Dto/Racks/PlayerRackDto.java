@@ -6,6 +6,9 @@ import ch.heigvd.wordoff.common.IModel.ITile;
 import java.util.List;
 
 public class PlayerRackDto extends RackDto {
+    // Necessary for Jackson deserialization
+    protected PlayerRackDto() {}
+
     public PlayerRackDto(List<ITile> tiles) {
         super(tiles);
     }
@@ -18,5 +21,10 @@ public class PlayerRackDto extends RackDto {
     @Override
     public int getMaxSizeRack() {
         return Constants.PLAYER_RACK_SIZE;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o == this || o instanceof PlayerRackDto && super.equals(o);
     }
 }

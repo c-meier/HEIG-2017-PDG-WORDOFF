@@ -1,28 +1,27 @@
 package ch.heigvd.wordoff.server.Service;
 
-import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
-import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.server.Model.*;
-import ch.heigvd.wordoff.server.Model.Slots.Slot;
-import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
+import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 import ch.heigvd.wordoff.server.Model.Tiles.Tile;
 import ch.heigvd.wordoff.server.Repository.GameRepository;
+import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
-import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Util.ChallengeFactory;
+import ch.heigvd.wordoff.server.Util.DictionaryLoader;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -33,6 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@Import({GameService.class, DictionaryLoader.class})
 @ActiveProfiles("test")
 public class GameServiceTest {
     @Autowired
@@ -46,6 +46,9 @@ public class GameServiceTest {
 
     @Autowired
     private GameRepository gameRepository;
+
+    @Autowired
+    private GameService gameService;
 
     private Player p1;
     private Player p2;
@@ -64,12 +67,16 @@ public class GameServiceTest {
 
     @Test
     public void makeAiPLay() throws Exception {
+        initGameWithAI();
+        gameWithAi.setCurrPlayer(gameWithAi.getSideResp().getPlayer());
 
+        gameRepository.save(gameWithAi);
+
+        gameService.makeAiPLay(gameWithAi, (User) gameWithAi.getOtherPlayer(ai));
     }
 
     @Test
     public void initGameWithAI() throws Exception {
-        /* TODO -> save swaprack */
         assertThat(gameWithAi.getBag().getTiles().size()).isEqualTo(105);
 
         Side side1 = gameWithAi.getSideInit();
@@ -108,30 +115,40 @@ public class GameServiceTest {
     }
 
     @Test
-    public void play() throws Exception {
+    public void testIfTheACanPlayARightChallenge() throws Exception {
         initGameWithAI();
-        GameService gameService = new GameService();
 
-        Side sideInit = new Side(p1);
-        sideInit.setChallenge(new ChallengeFactory(gameWithAi.getSideInit()).createRandomSlotPos().create());
-        sideInit.getChallenge().addTile((ITile) new TileDto(2, 'a', 1));
-        sideInit.getChallenge().addTile((ITile) new TileDto(10, 'i', 1));
+        Side sideInit = gameWithAi.getSideInit();
+
+        Challenge challenge = new ChallengeFactory(gameWithAi.getSideInit()).createRandomSlotPos().create();
+        sideInit.setChallenge(challenge);
 
         sideInit.setPlayerRack(new PlayerRack());
         sideInit.getPlayerRack().setTiles(new LinkedList<ITile>(Arrays.asList(
-                (ITile) new TileDto(2, 'a', 1),
-                (ITile) new TileDto(3, 'b', 3),
-                (ITile) new TileDto(4, 'c', 3),
-                (ITile) new TileDto(5, 'd', 2),
-                (ITile) new TileDto(6, 'e', 2),
-                (ITile) new TileDto(7, 'f', 4),
-                (ITile) new TileDto(10, 'i', 1))));
+                (ITile) new Tile(5, 'a', 1),
+                (ITile) new Tile(3, 'b', 3),
+                (ITile) new Tile(14, 'c', 3),
+                (ITile) new Tile(17, 'd', 2),
+                (ITile) new Tile(20, 'e', 2),
+                (ITile) new Tile(22, 'f', 4),
+                (ITile) new Tile(44, 'i', 1))));
+        sideInit.getChallenge().setSwapRack(new SwapRack());
+        sideInit.getChallenge().getSwapRack().setTiles(new LinkedList<ITile>(Arrays.asList(
+                (ITile) new Tile(4, 'a', 1),
+                (ITile) new Tile(45, 'i', 1))));
 
+        gameWithAi.setSideInit(sideInit);
 
-        Challenge challenge = new ChallengeFactory(gameWithAi.getSideInit()).createRandomSlotPos().create();
-        gameService.play(gameWithAi, p1, challenge);
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(challenge);
+        Challenge challengeClone = mapper.readValue(json, Challenge.class);
 
-        assertThat('a').isEqualTo('a');
+        challengeClone.addTile((ITile) new Tile(4, 'a', 1));
+        challengeClone.addTile((ITile) new Tile(44, 'i', 1));
+
+        sideRepository.save(sideInit);
+
+        gameService.play(gameWithAi, p1, challengeClone);
     }
 
 }

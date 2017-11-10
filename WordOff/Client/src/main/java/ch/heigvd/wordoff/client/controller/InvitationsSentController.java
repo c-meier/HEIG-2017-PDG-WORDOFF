@@ -1,14 +1,13 @@
 package ch.heigvd.wordoff.client.Controller;
 
 import ch.heigvd.wordoff.client.MainApp;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
@@ -21,7 +20,7 @@ public class InvitationsSentController implements Initializable {
     private void handleGotoMenu(ActionEvent event) {
         String controller = "/fxml/mainMenu.fxml";
         FXMLLoader loader = new FXMLLoader(getClass().getResource(controller));
-        MainApp.changeScene(controller, loader);
+        MainApp.changeScene(loader);
     }
 
     /**

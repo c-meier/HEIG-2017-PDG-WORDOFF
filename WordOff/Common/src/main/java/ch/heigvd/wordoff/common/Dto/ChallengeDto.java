@@ -1,17 +1,29 @@
 package ch.heigvd.wordoff.common.Dto;
 
+import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
+import ch.heigvd.wordoff.common.Dto.Slots.SlotDto;
 import ch.heigvd.wordoff.common.IModel.IChallenge;
 import ch.heigvd.wordoff.common.IModel.IRack;
 import ch.heigvd.wordoff.common.IModel.ISlot;
-import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class ChallengeDto implements IChallenge {
+public class ChallengeDto implements IChallenge, IDto{
 
     private IRack swapRack;
 
+    @JsonDeserialize(contentAs = SlotDto.class)
+    @JsonSerialize(contentAs = SlotDto.class)
     private List<ISlot> slots;
+
+    // Necessary for Jackson deserialization
+    protected ChallengeDto() {
+        slots = new ArrayList<>();
+    }
 
     public ChallengeDto(List<ISlot> slots, IRack swapRack) {
         this.swapRack = swapRack;
@@ -34,5 +46,24 @@ public class ChallengeDto implements IChallenge {
         this.slots = slots;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof ChallengeDto)) {
+            return false;
+        }
+        ChallengeDto c = (ChallengeDto) o;
+        return Objects.equals(swapRack, c.swapRack) &&
+                Objects.equals(slots, c.slots);
+    }
 
+    @Override
+    public boolean isWellformed() {
+        for(ISlot s : getSlots()) {
+            if(!(s instanceof SlotDto) || !((SlotDto) s).isWellformed()) {
+                return false;
+            }
+        }
+        return (swapRack instanceof SwapRackDto) && ((SwapRackDto)swapRack).isWellformed();
+    }
 }

@@ -4,14 +4,26 @@ package ch.heigvd.wordoff.common.Dto;
  * Created by Daniel on 05.11.2017.
  */
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+import java.util.Objects;
+
 /**
  * Player summary with minimum of information
  * Use endpoint to get the complete player dto information.
  */
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.MINIMAL_CLASS,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "dtype"
+)
 public class PlayerDto {
     private Long id;
 
     private String name;
+
+    // Necessary for Jackson deserialization
+    protected PlayerDto() {}
 
     public PlayerDto(Long id, String name) {
         this.id = id;
@@ -28,5 +40,16 @@ public class PlayerDto {
 
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof PlayerDto)) {
+            return false;
+        }
+        PlayerDto c = (PlayerDto) o;
+        return Objects.equals(id, c.id) &&
+                Objects.equals(name, c.name);
     }
 }

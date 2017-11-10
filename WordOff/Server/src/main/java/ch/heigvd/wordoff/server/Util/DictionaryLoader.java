@@ -3,7 +3,8 @@ package ch.heigvd.wordoff.server.Util;
 import ch.heigvd.wordoff.common.Dictionary;
 import org.springframework.stereotype.Component;
 
-import java.net.URL;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -14,9 +15,13 @@ public class DictionaryLoader {
     public void loadDictionary(String lang) {
         if (!loadedDico.containsKey(lang)) {
             lang = lang.toLowerCase();
-            URL path = getClass().getResource("/dictionary/" + lang + ".txt");
-            // Check if exist
-            loadedDico.put(lang, new Dictionary(path.getFile()));
+            try {
+                String platformIndependentPath = Paths.get(
+                        getClass().getResource("/dictionary/" + lang + ".txt").toURI()).toString();
+                loadedDico.put(lang, new Dictionary(platformIndependentPath));
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
         }
     }
 

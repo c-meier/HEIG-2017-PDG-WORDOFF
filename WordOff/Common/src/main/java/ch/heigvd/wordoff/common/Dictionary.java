@@ -22,11 +22,11 @@ public class Dictionary {
      * Il doit contenir un mot par ligne
      * Il doit être en UTF-8
      *
-     * @param fileName
+     * @param file
      */
-    public Dictionary(String fileName) {
+    public Dictionary(String file) {
         tst = new TST();
-        try (Stream<String> stream = Files.lines(Paths.get(fileName), Charset.forName("UTF-8"))) {
+        try (Stream<String> stream = Files.lines(Paths.get(file), Charset.forName("UTF-8"))) {
             stream.forEach(w -> {
                 w = w.toUpperCase();
                 w = java.text.Normalizer.normalize(w, java.text.Normalizer.Form.NFD)

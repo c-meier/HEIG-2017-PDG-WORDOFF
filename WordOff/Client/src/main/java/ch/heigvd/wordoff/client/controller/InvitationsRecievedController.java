@@ -15,7 +15,7 @@ import javafx.fxml.Initializable;
  *
  * @author Gabriel Luthier
  */
-public class SettingsController implements Initializable {
+public class InvitationsRecievedController implements Initializable {
 
     @FXML
     private void handleGotoMenu(ActionEvent event) {

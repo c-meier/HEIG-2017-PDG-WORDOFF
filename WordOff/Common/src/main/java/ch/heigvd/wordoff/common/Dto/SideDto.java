@@ -1,9 +1,8 @@
 package ch.heigvd.wordoff.common.Dto;
 
 import ch.heigvd.wordoff.common.Dto.Racks.PlayerRackDto;
-import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
 
-import java.util.List;
+import java.util.Objects;
 
 /**
  * Project : WordOff
@@ -12,6 +11,9 @@ import java.util.List;
 public class SideDto extends OtherSideDto {
 
     private PlayerRackDto playerRack;
+
+    // Necessary for Jackson deserialization
+    protected SideDto() {}
 
     public SideDto(Long id, PlayerDto player, ChallengeDto challenge, PlayerRackDto playerRack,
                    int score) {
@@ -25,6 +27,17 @@ public class SideDto extends OtherSideDto {
 
     public void setPlayerRack(PlayerRackDto playerRack) {
         this.playerRack = playerRack;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof SideDto)) {
+            return false;
+        }
+        SideDto c = (SideDto) o;
+        return super.equals(o) &&
+                Objects.equals(playerRack, c.playerRack);
     }
 
 }

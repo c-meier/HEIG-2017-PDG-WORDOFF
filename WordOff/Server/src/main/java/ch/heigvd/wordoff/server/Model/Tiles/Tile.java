@@ -1,6 +1,7 @@
 package ch.heigvd.wordoff.server.Model.Tiles;
 
 import ch.heigvd.wordoff.common.IModel.ITile;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -28,6 +29,7 @@ public class Tile implements ITile, Serializable {
         this.letter = new Letter(value, score);
     }
 
+    @JsonIgnore
     public char getValue() {
         return letter.getValue();
     }
@@ -36,6 +38,7 @@ public class Tile implements ITile, Serializable {
         return id;
     }
 
+    @JsonIgnore
     public int getScore() {
         return letter.getScore();
     }
@@ -43,6 +46,11 @@ public class Tile implements ITile, Serializable {
     @Override
     public void setValue(char c) {
         this.letter.setValue(c);
+    }
+
+    @Override
+    public ITile duplicate() {
+        return new Tile(id, getValue(), getScore());
     }
 
     public void setId(Integer id) {
@@ -55,5 +63,24 @@ public class Tile implements ITile, Serializable {
 
     public void setLetter(Letter letter) {
         this.letter = letter;
+    }
+
+    public Integer getLangSetId() {
+        return langSetId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Tile)) return false;
+
+        Tile tile = (Tile) o;
+
+        return id.equals(tile.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

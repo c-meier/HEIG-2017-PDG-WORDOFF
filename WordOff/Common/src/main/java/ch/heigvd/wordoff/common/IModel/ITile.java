@@ -8,6 +8,8 @@ public interface ITile {
     int getScore();
     void setValue(char c);
 
+    ITile duplicate();
+
     @JsonIgnore
     default boolean isJoker() {
         return getScore() == 0;

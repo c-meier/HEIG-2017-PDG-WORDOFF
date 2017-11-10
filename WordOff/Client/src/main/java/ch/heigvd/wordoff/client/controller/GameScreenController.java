@@ -388,7 +388,7 @@ public class GameScreenController implements Initializable {
                 numberTilesOnChallengeRack++;
 
                 // Move tile in logic game
-                ITile tile = game.getMySide().getPlayerRack().getTile(idTile);
+                ITile tile = game.getMySide().getPlayerRack().removeTile(idTile);
                 game.getMySide().getChallenge().addTile(tile);
             }
         } else if (p1SlotsSr.contains(slotParent)) {
@@ -399,7 +399,7 @@ public class GameScreenController implements Initializable {
                 numberTilesOnChallengeRack++;
 
                 // Move tile in logic game
-                ITile tile = game.getMySide().getChallenge().getSwapRack().getTile(idTile);
+                ITile tile = game.getMySide().getChallenge().getSwapRack().removeTile(idTile);
                 game.getMySide().getChallenge().addTile(tile);
             }
         } else {

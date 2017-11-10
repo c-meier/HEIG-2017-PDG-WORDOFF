@@ -80,11 +80,11 @@ public class SwapRackTest {
     public void testGetTile() {
         // Rack vide
         SwapRackDto spRack = new SwapRackDto(new ArrayList<>());
-        assertEquals(null, spRack.getTile(tile.getId()));
+        assertEquals(null, spRack.removeTile(tile.getId()));
 
         spRack.addTile(tile);
 
-        ITile t = spRack.getTile(tile.getId());
+        ITile t = spRack.removeTile(tile.getId());
         assertEquals(tile, t);
     }
 

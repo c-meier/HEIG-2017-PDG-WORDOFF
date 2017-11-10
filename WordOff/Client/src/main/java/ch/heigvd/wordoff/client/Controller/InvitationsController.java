@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
  *
  * @author Gabriel Luthier
  */
-public class TempInvitationsController implements Initializable {
+public class InvitationsController implements Initializable {
 
     @FXML
     private void handleGotoMenu(ActionEvent event) {

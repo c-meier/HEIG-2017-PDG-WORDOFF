@@ -189,7 +189,7 @@ public class GameScreenController implements Initializable {
         System.out.println("Click hint");
         final Stage test = new Stage();
         test.initOwner(MainApp.getStage());
-        TempCharacterSelectController c = new TempCharacterSelectController();
+        CharacterSelectController c = new CharacterSelectController();
         
         Scene testScene = new Scene(c, 400, 400);
         test.setScene(testScene);

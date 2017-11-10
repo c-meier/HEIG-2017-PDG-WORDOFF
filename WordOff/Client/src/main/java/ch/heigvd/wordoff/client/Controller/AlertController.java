@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
  *
  * @author Gabriel Luthier
  */
-public class TempAlertController implements Initializable {
+public class AlertController implements Initializable {
 
     @FXML
     private void handleGotoMenu(ActionEvent event) {

@@ -8,7 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class TileController extends AnchorPane implements Initializable{
+public class TempTileController extends AnchorPane implements Initializable{
 
     @FXML
     private Label letter;
@@ -19,7 +19,7 @@ public class TileController extends AnchorPane implements Initializable{
     private String letterValue;
     private int scoreValue;
     
-    public TileController(String letterValue, int scoreValue){
+    public TempTileController(String letterValue, int scoreValue){
         this.letterValue = letterValue;
         this.scoreValue = scoreValue;
     }

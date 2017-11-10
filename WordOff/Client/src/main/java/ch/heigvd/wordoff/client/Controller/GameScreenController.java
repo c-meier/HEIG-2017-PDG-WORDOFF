@@ -1,7 +1,6 @@
 package ch.heigvd.wordoff.client.Controller;
 
 
-import ch.heigvd.wordoff.client.Controller.CharacterSelectController;
 import ch.heigvd.wordoff.client.Dialog;
 import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.common.Dto.ChallengeDto;
@@ -190,7 +189,7 @@ public class GameScreenController implements Initializable {
         System.out.println("Click hint");
         final Stage test = new Stage();
         test.initOwner(MainApp.getStage());
-        CharacterSelectController c = new CharacterSelectController();
+        TempCharacterSelectController c = new TempCharacterSelectController();
         
         Scene testScene = new Scene(c, 400, 400);
         test.setScene(testScene);

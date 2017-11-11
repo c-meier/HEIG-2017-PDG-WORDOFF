@@ -121,9 +121,8 @@ public class MainMenuController implements Initializable {
     }
 
     public void setState(){
-        // Ajoute les games à la partie
-        //TODO ne fonctionne pas
-     /*   try {
+        // Remplire les games disponnibles
+        try {
            for(GameSummaryDto dto: (GameApi.retrieveGames())){
                 gamesPlayer.getItems().add(dto.getOtherPlayer().getName());
             }
@@ -134,7 +133,7 @@ public class MainMenuController implements Initializable {
             System.out.println("UnauthorizedException");
         }catch (HTTPException e){
             System.out.println("HTTPException");
-        }*/
+        }
 
         gamesPlayer.getItems().add(this.gameTest.getGameSummaryDtoList().get(0).getOtherPlayer().getName());
         // Ajoute un listener sur la liste

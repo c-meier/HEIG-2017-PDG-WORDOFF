@@ -169,12 +169,12 @@ public class GameScreenController implements Initializable {
     }
 
     private void discard() {
-        // TODO ouvrir l'alert choix
+        // TODO appeler discard au serveur
         System.out.println("Click discard");
     }
 
     private void passed() {
-        // TODO passer le tour
+        // TODO appeler passer le tour au serveur
         System.out.println("Click passed");
     }
 
@@ -191,7 +191,7 @@ public class GameScreenController implements Initializable {
 
     @FXML
     private void hint() {
-        // TODO
+        // TODO etat temporaire
         System.out.println("Click hint");
         final Stage test = new Stage();
         test.initOwner(MainApp.getStage());
@@ -222,7 +222,7 @@ public class GameScreenController implements Initializable {
     }
 
     private void verif() {
-        // TODO vérifie le mot via le word analyzer
+        // TODO vérifie sur demande le mot sur le challenge via le word analyzer
     }
 
     private void play() {
@@ -246,7 +246,6 @@ public class GameScreenController implements Initializable {
             setStateGame();
       /*  } catch (TokenNotFoundException e) {
             Dialog.getInstance().signalError("Ce mot n'est pas valide");
-            // TODO décommenter  e.printStackTrace();
         }*/
     }
 
@@ -421,7 +420,7 @@ public class GameScreenController implements Initializable {
     }
 
     private void moveOnDragAndDrop(DragEvent event) {
-        // TODO
+        // TODO drag and drop
     }
 
     /**

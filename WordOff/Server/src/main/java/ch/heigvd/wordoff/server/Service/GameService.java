@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -59,7 +60,7 @@ public class GameService {
         Side side = null;
 
         // Check if it's the right player who try to play
-        if (player.equals(game.getCurrPlayer())) {
+        if (Objects.equals(game.getCurrPlayer().getId(), player.getId())) {
             String wordChallenge = challenge.getWord();
 
             // If the word doesn't exists
@@ -135,7 +136,7 @@ public class GameService {
             throw new ErrorCodeException(Protocol.NOT_YOUR_TURN, "Not player turn to play !");
         }
 
-        gameRepository.save(game);
+//        gameRepository.save(game);
 
         return game;
     }

@@ -1,6 +1,7 @@
 package ch.heigvd.wordoff.client.Controller;
 
 import ch.heigvd.wordoff.client.MainApp;
+import ch.heigvd.wordoff.client.Util.GoToMainMenu;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,17 +19,15 @@ public class AlertController implements Initializable {
 
     @FXML
     private void handleGotoMenu(ActionEvent event) {
-        String controller = "/fxml/mainMenu.fxml";
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(controller));
-        MainApp.changeScene(loader);
+        GoToMainMenu.getInstance().handleGotoMenu();
     }
 
     /**
-     * Initializes the controller class.
+     * Initializes the Controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }    
     
 }

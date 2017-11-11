@@ -1,7 +1,10 @@
 package ch.heigvd.wordoff.client.Controller;
 
+import ch.heigvd.wordoff.client.Api.GameApi;
+import ch.heigvd.wordoff.client.Exception.*;
 import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.client.Logic.Game;
+import ch.heigvd.wordoff.client.Util.Dialog;
 import ch.heigvd.wordoff.common.Dto.GameDto;
 import ch.heigvd.wordoff.common.Dto.GameSummaryDto;
 import javafx.event.ActionEvent;
@@ -14,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 
+import javax.xml.ws.http.HTTPException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
@@ -21,6 +25,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainMenuController implements Initializable {
+    // Classe de test
+    private Game gameTest = new Game();
+    private GameDto gameTestDto = gameTest.getGameDto();
 
     // GameDto selected to list
     private GameDto selectGame = null;
@@ -111,32 +118,47 @@ public class MainMenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        setState();
     }
 
     public void setState(){
-
-        for(GameSummaryDto dto: (new Game()).getGameSummaryDtoList() ){
-            gamesPlayer.getItems().add(dto.getOtherPlayer().getName());
+        // Remplire les games disponnibles
+        try {
+            List<GameSummaryDto> list = GameApi.retrieveGames();
+           for(GameSummaryDto dto: list){
+                gamesPlayer.getItems().add(dto.getOtherPlayer().getName());
+            }
+        } catch (TokenNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("TockerFoundException");
+        } catch (UnauthorizedException e){
+            System.out.println("UnauthorizedException");
+        }catch (HTTPException e){
+            System.out.println("HTTPException");
         }
-        //gamesPlayer.getItems().setAll("un","deux","trois");
 
+        gamesPlayer.getItems().add(this.gameTest.getGameSummaryDtoList().get(0).getOtherPlayer().getName());
+        // Ajoute un listener sur la liste
         gamesPlayer.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
             @Override
             public void handle(MouseEvent click) {
                 if (click.getClickCount() == 2) {
-                   goToGame();
+                    goToGame();
                 }
             }
         });
+    }
+
+    @FXML
+    private void newGame(){
+        Dialog.getInstance().chooseNewGame("Nouvelle partie");
     }
 
 
     @FXML
     private void goToGame(){
         // Récupérer le game dans la liste
-        this.selectGame = (new Game()).getGameDto();
+        this.selectGame = this.gameTest.getGameDto();
+        // TODO récupéré la game GameApi.getGame();
         String select = gamesPlayer.getSelectionModel().getSelectedItem();
         System.out.println(select);
         handleGotoGame();

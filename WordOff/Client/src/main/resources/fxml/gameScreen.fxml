@@ -622,7 +622,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#play" text="Jouer">
+                  <Button fx:id="playButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#playOrVerif" text="Jouer">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

@@ -77,20 +77,7 @@ public class Game {
         OtherSideDto otherSideDto = new OtherSideDto(id,sideP2.getPlayer(),sideP2.getChallenge(),0);
         this.gameDto = new GameDto(id, sideP1, otherSideDto,true, "fr", null);
 
-        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
-        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
-        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
-        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
-        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
-        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
-        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
-        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
-        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
-        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
-        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
-        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Double click to go")));
-
-
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Game Test Static")));
     }
 
     public GameDto getGameDto() {
@@ -99,5 +86,56 @@ public class Game {
 
     public List<GameSummaryDto> getGameSummaryDtoList() {
         return gameSummaryDtoList;
+    }
+
+    public Game (GameDto game){
+        this.sideP1 = new SideDto(1L,
+                new PlayerDto(1L, "test1"),
+                new ChallengeDto(Arrays.asList(
+                (ISlot) new SlotDto(new Integer(1).shortValue()),
+                (ISlot) new SwapSlotDto(new Integer(2).shortValue()),
+                (ISlot) new SlotDto(new Integer(3).shortValue()),
+                (ISlot) new L2SlotDto(new Integer(4).shortValue()),
+                (ISlot) new SwapSlotDto(new Integer(5).shortValue()),
+                (ISlot) new SlotDto(new Integer(6).shortValue()),
+                (ISlot) new LastSlotDto(new Integer(7).shortValue())),
+                        new SwapRackDto(new LinkedList<ITile>(Arrays.asList(
+                                (ITile) new TileDto(7, 'h', 4),
+                                (ITile)new TileDto(8, 'i', 1))))),
+                new PlayerRackDto(new LinkedList<ITile>(Arrays.asList(
+                        (ITile) new TileDto(4, 'z', 2),
+                        (ITile) new TileDto(5, 'x', 4),
+                        (ITile) new TileDto(6, 'y', 2)))),
+                0
+        );
+        this.sideP2 = new SideDto(2L,
+                new PlayerDto(2L, "test2"),
+                new ChallengeDto(Arrays.asList(
+                        (ISlot) new SlotDto(new Integer(1).shortValue()),
+                        (ISlot) new SwapSlotDto(new Integer(2).shortValue()),
+                        (ISlot) new SlotDto(new Integer(3).shortValue()),
+                        (ISlot) new L2SlotDto(new Integer(4).shortValue()),
+                        (ISlot) new SwapSlotDto(new Integer(5).shortValue()),
+                        (ISlot) new SlotDto(new Integer(6).shortValue()),
+                        (ISlot) new LastSlotDto(new Integer(7).shortValue())),
+                        new SwapRackDto(new LinkedList<ITile>(Arrays.asList(
+                                (ITile) new TileDto(17, 'q', 8),
+                                (ITile) new TileDto(18, 'r', 1))))),
+                new PlayerRackDto(new LinkedList<ITile>(Arrays.asList(
+                        (ITile) new TileDto(10, 'j', 8),
+                        (ITile) new TileDto(11, 'k', 10),
+                        (ITile) new TileDto(12, 'l', 1),
+                        (ITile) new TileDto(13, 'm', 2),
+                        (ITile) new TileDto(14, 'n', 1),
+                        (ITile) new TileDto(15, 'o', 1),
+                        (ITile) new TileDto(16, 'p', 3)))),
+                0
+        );
+
+        long id = 46465464;
+        OtherSideDto otherSideDto = new OtherSideDto(id,sideP2.getPlayer(),sideP2.getChallenge(),0);
+        this.gameDto = new GameDto(id, sideP1, otherSideDto,true, "fr", null);
+        this.gameDto.setMyTurn(false);
+        this.gameSummaryDtoList.add(new GameSummaryDto(id,  new PlayerDto(1L, "Game Test Static")));
     }
 }

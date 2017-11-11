@@ -365,7 +365,11 @@ public class GameScreenController implements Initializable {
             Label value = (Label) tiles.get(i).getChildren().get(0);
             Label score = (Label) tiles.get(i).getChildren().get(1);
             Label id = (Label) tiles.get(i).getChildren().get(2);
-            value.setText(String.valueOf(tile.getValue()).toUpperCase());
+            if(tile.getScore()== 0){
+                value.setText("");
+            }else{
+                value.setText(String.valueOf(tile.getValue()).toUpperCase());
+            }
             score.setText(String.valueOf(tile.getScore()));
             id.setText(String.valueOf(tile.getId()));
 

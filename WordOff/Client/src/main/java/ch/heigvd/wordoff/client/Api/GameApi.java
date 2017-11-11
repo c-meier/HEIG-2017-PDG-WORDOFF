@@ -9,11 +9,15 @@ import ch.heigvd.wordoff.common.Dto.ChallengeDto;
 import ch.heigvd.wordoff.common.Dto.ErrorDto;
 import ch.heigvd.wordoff.common.Dto.GameDto;
 import ch.heigvd.wordoff.common.Dto.GameSummaryDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 import javax.xml.ws.http.HTTPException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +28,32 @@ import static ch.heigvd.wordoff.common.Constants.SERVER_URI;
 public class GameApi {
 
     private final static RestTemplate restTemplate = new RestTemplate();
+    private final static ObjectMapper mapper = new ObjectMapper();
+
+    {
+        restTemplate.setErrorHandler(new ResponseErrorHandler() {
+            @Override
+            public boolean hasError(ClientHttpResponse clientHttpResponse) throws IOException {
+                HttpStatus status = clientHttpResponse.getStatusCode();
+                return status.is4xxClientError() || status.is5xxServerError();
+            }
+
+            @Override
+            public void handleError(ClientHttpResponse clientHttpResponse) throws IOException {
+                switch (clientHttpResponse.getStatusCode()) {
+                    case BAD_REQUEST: // 400
+                        throw new BadRequestException();
+                    case UNAUTHORIZED: // 401
+                        throw new UnauthorizedException();
+                    case UNPROCESSABLE_ENTITY: // 422
+                        ErrorDto err = mapper.readValue(clientHttpResponse.getBody(), ErrorDto.class);
+                        throw new UnprocessableEntityException(err.getErrorCode(), err.getMsg());
+                    default:
+                        throw new HTTPException(clientHttpResponse.getStatusCode().value());
+                }
+            }
+        });
+    }
 
     public static List<GameSummaryDto> retrieveGames() throws TokenNotFoundException {
         return retrieveGames(TokenManager.loadToken());
@@ -53,14 +83,7 @@ public class GameApi {
                         new HttpEntity<>(headers),
                         new ParameterizedTypeReference<List<GameSummaryDto>>() {});
 
-        switch (responseEntity.getStatusCode()) {
-            case OK: // 200
-                return (List<GameSummaryDto>)responseEntity.getBody();
-            case UNAUTHORIZED: // 401
-                throw new UnauthorizedException();
-            default:
-                throw new HTTPException(responseEntity.getStatusCode().value());
-        }
+        return responseEntity.getBody();
     }
 
     private static GameSummaryDto createGame(String token, String lang, List<Long> playerIds) {
@@ -73,23 +96,13 @@ public class GameApi {
         headers.add(AUTHORIZATION_HEADER, token);
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        ResponseEntity responseEntity =
+        ResponseEntity<GameSummaryDto> responseEntity =
                 restTemplate.exchange(uri,
                         HttpMethod.POST,
                         new HttpEntity<>(playerIds, headers),
-                        ResponseEntity.class);
+                        GameSummaryDto.class);
 
-        switch (responseEntity.getStatusCode()) {
-            case CREATED: // 201
-                return (GameSummaryDto)responseEntity.getBody();
-            case BAD_REQUEST: // 400
-                throw new BadRequestException();
-            case UNPROCESSABLE_ENTITY: // 422
-                ErrorDto err = (ErrorDto)responseEntity.getBody();
-                throw new UnprocessableEntityException(err.getErrorCode(), err.getMsg());
-            default:
-                throw new HTTPException(responseEntity.getStatusCode().value());
-        }
+        return responseEntity.getBody();
     }
 
     private static GameDto getGame(String token, Long gameId) {
@@ -101,15 +114,16 @@ public class GameApi {
         HttpHeaders headers = new HttpHeaders();
         headers.add(AUTHORIZATION_HEADER, token);
 
-        ResponseEntity responseEntity =
+        ResponseEntity<GameDto> responseEntity =
                 restTemplate.exchange(uri,
                         HttpMethod.GET,
                         new HttpEntity<>(headers),
-                        ResponseEntity.class,
+                        GameDto.class,
                         params);
 
+        return responseEntity.getBody();
 
-        switch (responseEntity.getStatusCode()) {
+    /*    switch (responseEntity.getStatusCode()) {
             case OK: // 200
                 return (GameDto)responseEntity.getBody();
             case UNAUTHORIZED: // 401
@@ -119,7 +133,7 @@ public class GameApi {
                 throw new UnprocessableEntityException(err.getErrorCode(), err.getMsg());
             default:
                 throw new HTTPException(responseEntity.getStatusCode().value());
-        }
+        }*/
     }
 
     private static GameDto play(String token, Long gameId, ChallengeDto challengeDto) {
@@ -132,25 +146,13 @@ public class GameApi {
         headers.add(AUTHORIZATION_HEADER, token);
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        ResponseEntity responseEntity =
+        ResponseEntity<GameDto> responseEntity =
                 restTemplate.exchange(uri,
                         HttpMethod.POST,
                         new HttpEntity<>(challengeDto, headers),
-                        ResponseEntity.class,
+                        GameDto.class,
                         params);
 
-        switch (responseEntity.getStatusCode()) {
-            case OK: // 200
-                return (GameDto)responseEntity.getBody();
-            case BAD_REQUEST: // 400
-                throw new BadRequestException();
-            case UNAUTHORIZED: // 401
-                throw new UnauthorizedException();
-            case  UNPROCESSABLE_ENTITY: // 422
-                ErrorDto err = (ErrorDto)responseEntity.getBody();
-                throw new UnprocessableEntityException(err.getErrorCode(), err.getMsg());
-            default:
-                throw new HTTPException(responseEntity.getStatusCode().value());
-        }
+        return responseEntity.getBody();
     }
 }

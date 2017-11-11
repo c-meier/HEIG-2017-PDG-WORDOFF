@@ -31,6 +31,10 @@ public class OtherSideDto {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public PlayerDto getPlayer() {
         return player;
     }

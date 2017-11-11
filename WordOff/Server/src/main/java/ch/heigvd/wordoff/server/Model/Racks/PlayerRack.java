@@ -9,7 +9,9 @@ public class PlayerRack extends Rack {
      *
      * @return
      */
-    public PlayerRack() {}
+    public PlayerRack() {
+        super();
+    }
 
     @Override
     public int getMaxSizeRack() {

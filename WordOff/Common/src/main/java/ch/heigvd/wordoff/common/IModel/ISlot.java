@@ -6,6 +6,9 @@ public interface ISlot {
     ITile getTile();
     void setTile(ITile tile);
 
+    Short getPos();
+    void setPos(Short pos);
+
     @JsonIgnore
     int getScore();
 

@@ -10,7 +10,7 @@ public class L3Slot extends LxSlot {
         super(bonus);
     }
 
-    public L3Slot(Side side, Short pos) {
-        super(side, pos, bonus);
+    public L3Slot(Short pos) {
+        super(pos, bonus);
     }
 }

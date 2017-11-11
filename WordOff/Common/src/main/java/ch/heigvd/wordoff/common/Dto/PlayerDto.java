@@ -23,11 +23,11 @@ public class PlayerDto {
     private String name;
 
     // Necessary for Jackson deserialization
-    protected PlayerDto() {}
+    public PlayerDto() {}
 
     public PlayerDto(Long id, String name) {
-        this.id = id;
-        this.name = name;
+        this.setId(id);
+        this.setName(name);
     }
 
     public String getName() {
@@ -40,6 +40,10 @@ public class PlayerDto {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

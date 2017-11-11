@@ -15,11 +15,6 @@ public class RestConfig extends WebMvcConfigurerAdapter {
     private UserRepository repository;
 
     @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
-
-    @Bean
     AuthInterceptor authInterceptor() {
         return new AuthInterceptor();
     }

@@ -41,6 +41,15 @@ public class GameService {
         this.playerRepository = playerRepository;
         this.gameRepository = gameRepository;
         this.sideRepository = sideRepository;
+
+
+        Player ai = playerRepository.findOne(1L);
+        Player one = playerRepository.findOne(2L);
+        Player two = playerRepository.findOne(3L);
+
+        // create and convert the new games.
+        initGame(one, ai, "fr");
+        initGame(two, one, "fr");
     }
 
     public Game play(Game game, Player player, Challenge challenge) {
@@ -252,8 +261,8 @@ public class GameService {
         sideResp.getChallenge().setSwapRack(s2);
 
         // save the sides
-        sideRepository.save(sideInit);
-        sideRepository.save(sideResp);
+        game.setSideInit(sideRepository.save(sideInit));
+        game.setSideResp(sideRepository.save(sideResp));
 
         // save the game
         gameRepository.save(game);

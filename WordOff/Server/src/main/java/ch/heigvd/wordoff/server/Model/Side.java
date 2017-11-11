@@ -19,7 +19,7 @@ public class Side {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Player player;
 
     @Lob

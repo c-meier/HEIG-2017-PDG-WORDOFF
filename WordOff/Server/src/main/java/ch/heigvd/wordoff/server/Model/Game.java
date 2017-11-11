@@ -16,10 +16,10 @@ public class Game {
     @GeneratedValue
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Side sideInit;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Side sideResp;
 
     @Lob
@@ -64,10 +64,6 @@ public class Game {
         }
     }
 
-    public void setSideInit(Side sideInit) {
-        this.sideInit = sideInit;
-    }
-
     public Bag getBag() {
         return bag;
     }
@@ -88,8 +84,16 @@ public class Game {
         return sideInit;
     }
 
+    public void setSideInit(Side sideInit) {
+        this.sideInit = sideInit;
+    }
+
     public Side getSideResp() {
         return sideResp;
+    }
+
+    public void setSideResp(Side sideResp) {
+        this.sideResp = sideResp;
     }
 
     public Player getCurrPlayer() {

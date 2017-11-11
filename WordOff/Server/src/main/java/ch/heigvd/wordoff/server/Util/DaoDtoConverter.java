@@ -106,7 +106,10 @@ public class DaoDtoConverter {
         //
         // Games
         //
+        Converter<Bag, Integer> bagConverter = ctx -> ctx.getSource().getTiles().size();
+
         TypeMap<Game, GameDto> gameMap = modelMapper.createTypeMap(Game.class, GameDto.class);
+        gameMap.addMappings(mapper -> mapper.using(bagConverter).map(Game::getBag, GameDto::setBagSize));
 
         // ============================
         //  Reverse conversion

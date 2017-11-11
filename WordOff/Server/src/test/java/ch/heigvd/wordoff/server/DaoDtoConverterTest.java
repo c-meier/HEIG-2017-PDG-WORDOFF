@@ -182,6 +182,7 @@ public class DaoDtoConverterTest {
         GameDto dto = converter.toDto(dao, dao.getCurrPlayer());
 
         assertEquals(GameDto.class, dto.getClass());
+        assertEquals(dao.getBag().getTiles().size(), dto.getBagSize());
     }
 
     @Test

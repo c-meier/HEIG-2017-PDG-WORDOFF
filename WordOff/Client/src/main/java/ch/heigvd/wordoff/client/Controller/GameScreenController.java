@@ -6,6 +6,7 @@ import ch.heigvd.wordoff.client.Logic.Game;
 import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.client.Util.Dialog;
 import ch.heigvd.wordoff.client.Util.GoToMainMenu;
+import ch.heigvd.wordoff.common.Dictionary;
 import ch.heigvd.wordoff.common.Dto.ChallengeDto;
 import ch.heigvd.wordoff.common.Dto.GameDto;
 import ch.heigvd.wordoff.common.Dto.Slots.L2SlotDto;
@@ -17,6 +18,7 @@ import ch.heigvd.wordoff.common.IModel.ITile;
 
 import java.io.IOException;
 
+import ch.heigvd.wordoff.common.WordAnalyzer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -76,6 +78,7 @@ public class GameScreenController implements Initializable {
     private List<StackPane> p2SlotsSr = new ArrayList<>();
     private List<StackPane> p2SlotsPr = new ArrayList<>();
 
+    private WordAnalyzer wordAnalyzer ;
 
     // PLAYER 1
     // ChallengeDto background and foreground
@@ -125,6 +128,7 @@ public class GameScreenController implements Initializable {
         setNumberOfTiles();
         setLang();
         setState(this.game);
+        // TODO set le wordAnalyzer
     }
 
     private void setLang() {
@@ -173,7 +177,7 @@ public class GameScreenController implements Initializable {
         if (discardButton.getText().equals("Jeter")) {
             discard();
         } else {
-            // appel passer
+           // TODO demande au serveur pour passer
         }
     }
 
@@ -250,6 +254,14 @@ public class GameScreenController implements Initializable {
             // Actualise l'état du jeu
             setStateGame();
             setNumberOfTiles();
+            System.out.print("Player rack : ");
+            for(ITile tile : game.getMySide().getPlayerRack().getTiles()){
+                System.out.print(tile.getValue() + " ");
+            }
+            System.out.print("\nSwap rack : ");
+            for(ITile tile : game.getMySide().getChallenge().getSwapRack().getTiles()){
+                System.out.print(tile.getValue() + " ");
+            }
         } catch (TokenNotFoundException e) {
             Dialog.getInstance().signalError("Ce mot n'est pas valide");
         }
@@ -294,12 +306,8 @@ public class GameScreenController implements Initializable {
      * @param game
      */
     private void setState(GameDto game) {
-        p1Name.setText("Player One");
-        p2Name.setText("Player Two");
-        /*
-        p1Name.setText(sideP1.getPlayer().getName());
-        p2Name.setText(sideP2.getPlayer().getName());
-        */
+        p1Name.setText(game.getMySide().getPlayer().getName());
+        p2Name.setText(game.getOtherSide().getPlayer().getName());
 
         // Initialization lists
         initList();
@@ -319,6 +327,8 @@ public class GameScreenController implements Initializable {
 
         if (this.game.isMyTurn() == false) {
             playButton.setText("Vérifier");
+        }else{
+            playButton.setText("Jouer");
         }
     }
 

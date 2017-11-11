@@ -114,7 +114,7 @@ public class DaoDtoConverter {
 
         Converter<Tile, ITile> toTileDao =
                 ctx -> ctx.getSource() == null ? null : modelMapper.map(ctx.getSource(), Tile.class);
-//
+
         // Tiles
         //
         TypeMap<TileDto, ITile> tileReverseMap = modelMapper.createTypeMap(TileDto.class, ITile.class);

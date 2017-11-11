@@ -3,7 +3,11 @@ package ch.heigvd.wordoff.client.Util;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import javax.swing.text.LabelView;
 
 public class Dialog {
 
@@ -79,5 +83,40 @@ public class Dialog {
                 getClass().getResource("/styles/Style_alert.css").toExternalForm());
         dialogPane.getStyleClass().add("myDialog");
 
+    }
+
+    public String chooseNewGame(String msg){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Démarrer une nouvelle partie");
+        alert.setContentText(msg);
+
+        Label labLang = new Label();
+        labLang.setText("Langue : ");
+
+        ChoiceBox<String> lang = new ChoiceBox<>();
+        lang.getItems().add("Français");
+        lang.getItems().add("English");
+
+        FlowPane pane = new FlowPane();
+        pane.getChildren().add(labLang);
+        pane.getChildren().add(lang);
+
+        alert.getDialogPane().setContent(pane);
+
+
+        ButtonType no = new ButtonType("Non", ButtonBar.ButtonData.OK_DONE);
+        ButtonType yes = new ButtonType("Oui", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(yes, no);
+
+        applyStyleSheet(alert);
+
+        alert.showAndWait();
+
+        if (alert.getResult().getButtonData().getTypeCode() == yes.getButtonData().getTypeCode()) {
+            return "";
+        }
+        return "";
     }
 }

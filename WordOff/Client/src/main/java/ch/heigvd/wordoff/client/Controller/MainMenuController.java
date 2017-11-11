@@ -1,10 +1,10 @@
 package ch.heigvd.wordoff.client.Controller;
 
 import ch.heigvd.wordoff.client.Api.GameApi;
-import ch.heigvd.wordoff.client.Exception.TokenNotFoundException;
-import ch.heigvd.wordoff.client.Exception.UnauthorizedException;
+import ch.heigvd.wordoff.client.Exception.*;
 import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.client.Logic.Game;
+import ch.heigvd.wordoff.client.Util.Dialog;
 import ch.heigvd.wordoff.common.Dto.GameDto;
 import ch.heigvd.wordoff.common.Dto.GameSummaryDto;
 import javafx.event.ActionEvent;
@@ -123,11 +123,12 @@ public class MainMenuController implements Initializable {
     public void setState(){
         // Remplire les games disponnibles
         try {
-           for(GameSummaryDto dto: (GameApi.retrieveGames())){
+            List<GameSummaryDto> list = GameApi.retrieveGames();
+           for(GameSummaryDto dto: list){
                 gamesPlayer.getItems().add(dto.getOtherPlayer().getName());
             }
         } catch (TokenNotFoundException e) {
-          //  e.printStackTrace();
+            e.printStackTrace();
             System.out.println("TockerFoundException");
         } catch (UnauthorizedException e){
             System.out.println("UnauthorizedException");
@@ -145,6 +146,11 @@ public class MainMenuController implements Initializable {
                 }
             }
         });
+    }
+
+    @FXML
+    private void newGame(){
+        Dialog.getInstance().chooseNewGame("Nouvelle partie");
     }
 
 

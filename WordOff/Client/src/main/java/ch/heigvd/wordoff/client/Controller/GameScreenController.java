@@ -1,7 +1,10 @@
 package ch.heigvd.wordoff.client.Controller;
 
+import ch.heigvd.wordoff.client.Api.GameApi;
+import ch.heigvd.wordoff.client.Exception.*;
 import ch.heigvd.wordoff.client.Logic.Game;
 import ch.heigvd.wordoff.client.MainApp;
+import ch.heigvd.wordoff.client.Util.Dialog;
 import ch.heigvd.wordoff.client.Util.GoToMainMenu;
 import ch.heigvd.wordoff.common.Dto.ChallengeDto;
 import ch.heigvd.wordoff.common.Dto.GameDto;
@@ -228,11 +231,11 @@ public class GameScreenController implements Initializable {
     private void play() {
         // TODO vérifier le mot avec le word analyzer avant de jouer le coup
 
-        //try {
+        try {
             // TODO  Echanger les lignes ci-dessous pour utiliser le serveur et décommenter le try catch
-            //  this.game = GameApi.play(game.getId(), game.getMySide().getChallenge());
-            this.game = null;
-            this.game = (new Game(game)).getGameDto();
+              this.game = GameApi.play(game.getId(), game.getMySide().getChallenge());
+       //     this.game = null;
+         //   this.game = (new Game(game)).getGameDto();
 
             // Cache les cases du player 2 (cas du pouvoir apercu activé pendant le tour
             setVisible(p2TilesPr, false);
@@ -244,9 +247,9 @@ public class GameScreenController implements Initializable {
             replaceTilesOrigin(p1SlotsCh);
             // Actualise l'état du jeu
             setStateGame();
-      /*  } catch (TokenNotFoundException e) {
+        } catch (TokenNotFoundException e) {
             Dialog.getInstance().signalError("Ce mot n'est pas valide");
-        }*/
+        }
     }
 
     private void replaceTilesOrigin(List<StackPane> slotsChallenge) {

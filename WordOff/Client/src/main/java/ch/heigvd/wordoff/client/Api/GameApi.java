@@ -9,6 +9,7 @@ import ch.heigvd.wordoff.common.Dto.ChallengeDto;
 import ch.heigvd.wordoff.common.Dto.ErrorDto;
 import ch.heigvd.wordoff.common.Dto.GameDto;
 import ch.heigvd.wordoff.common.Dto.GameSummaryDto;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -46,11 +47,11 @@ public class GameApi {
         HttpHeaders headers = new HttpHeaders();
         headers.add(AUTHORIZATION_HEADER, token);
 
-        ResponseEntity responseEntity =
+        ResponseEntity<List<GameSummaryDto>> responseEntity =
                 restTemplate.exchange(uri,
-                        HttpMethod.POST,
+                        HttpMethod.GET,
                         new HttpEntity<>(headers),
-                        ResponseEntity.class);
+                        new ParameterizedTypeReference<List<GameSummaryDto>>() {});
 
         switch (responseEntity.getStatusCode()) {
             case OK: // 200

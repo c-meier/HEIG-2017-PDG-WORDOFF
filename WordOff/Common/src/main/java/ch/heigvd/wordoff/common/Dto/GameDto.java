@@ -23,6 +23,8 @@ public class GameDto {
 
     private boolean myTurn;
 
+    private int bagSize;
+
     /* TODO -> create GameSummaryDto */
 
     // Necessary for Jackson deserialization
@@ -75,6 +77,14 @@ public class GameDto {
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
+    }
+
+    public int getBagSize() {
+        return bagSize;
+    }
+
+    public void setBagSize(int bagSize) {
+        this.bagSize = bagSize;
     }
 
     public Long getId() {

@@ -10,7 +10,7 @@
    <bottom>
       <ToolBar stylesheets="@../styles/Style_toolBarBottom.css">
          <items>
-          <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#closeWindow" styleClass="button_wood" stylesheets="\@../styles/Styles.css" text="Annuler" textAlignment="CENTER" />
+          <Button fx:id="closeButton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#closeWindow" styleClass="button_wood" stylesheets="\@../styles/Styles.css" text="Annuler" textAlignment="CENTER" />
          </items>
       </ToolBar>
    </bottom>

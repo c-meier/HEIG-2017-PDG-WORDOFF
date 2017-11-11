@@ -11,6 +11,7 @@ import ch.heigvd.wordoff.common.Dto.Slots.LastSlotDto;
 import ch.heigvd.wordoff.common.Dto.Slots.SwapSlotDto;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -32,6 +33,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.BorderPane;
 
 /**
  * @author Gabriel Luthier
@@ -189,12 +194,21 @@ public class GameScreenController implements Initializable {
         System.out.println("Click hint");
         final Stage test = new Stage();
         test.initOwner(MainApp.getStage());
-        CharacterSelectController c = new CharacterSelectController();
-        
-        Scene testScene = new Scene(c, 400, 400);
-        test.setScene(testScene);
-        test.setTitle("Selection Joker");
-        test.show();
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/fxml/characterSelect.fxml"));   
+        BorderPane c;
+        try {
+            c = loader.load();
+            Scene testScene = new Scene(c);
+            test.setScene(testScene);
+            test.setTitle("Selection Joker");
+            test.sizeToScene();
+            test.show();
+            test.setMinHeight(test.getHeight());
+            test.setMinWidth(test.getWidth());
+        } catch (IOException ex) {
+            Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
    
 

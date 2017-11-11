@@ -6,11 +6,18 @@ public class UserSummaryDto extends PlayerDto implements ISummaryDto {
     private String endpoint;
 
     // Necessary for Jackson deserialization
-    protected UserSummaryDto() {}
+    public UserSummaryDto() {}
 
     public UserSummaryDto(Long id, String name) {
         super(id, name);
-        endpoint = "/users/" + id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        super.setId(id);
+        if(id != null) {
+            endpoint = "/users/" + id;
+        }
     }
 
     @Override

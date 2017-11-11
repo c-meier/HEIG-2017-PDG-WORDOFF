@@ -12,5 +12,5 @@ public class Ai extends Player {
     /**
      * Can not create AI, must recuperate from DB.
      */
-    protected Ai () {}
+    public Ai () {super("AI");}
 }

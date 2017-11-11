@@ -4,6 +4,7 @@ import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Project : WordOff
@@ -31,6 +32,8 @@ public class Game {
     @ManyToOne
     private Player currPlayer;
 
+    public Game() {}
+
     public Game(Player p1, Player p2, LangSet tileSet) {
         this.sideInit = new Side(p1);
         this.sideResp = new Side(p2);
@@ -40,9 +43,9 @@ public class Game {
     }
 
     public Side getSideOfPlayer(Player player) {
-        if (sideInit.getPlayer().equals(player)) {
+        if (Objects.equals(sideInit.getPlayer().getId(), player.getId())) {
             return sideInit;
-        } else if (sideResp.getPlayer().equals(player)) {
+        } else if (Objects.equals(sideResp.getPlayer().getId(), player.getId())) {
             return sideResp;
         } else {
             /* TODO -> EXCEPTION*/
@@ -51,9 +54,9 @@ public class Game {
     }
 
     public Player getOtherPlayer(Player player) {
-        if (player.equals(sideInit.getPlayer())) {
+        if (Objects.equals(player.getId(), sideInit.getPlayer().getId())) {
             return sideResp.getPlayer();
-        } else if (player.equals(sideResp.getPlayer())) {
+        } else if (Objects.equals(player.getId(), sideResp.getPlayer().getId())) {
             return sideInit.getPlayer();
         } else {
             /* TODO -> EXCEPTION */
@@ -99,5 +102,9 @@ public class Game {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

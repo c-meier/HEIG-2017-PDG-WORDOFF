@@ -3,6 +3,7 @@ package ch.heigvd.wordoff.server.Service;
 import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
+import ch.heigvd.wordoff.common.Protocol;
 import ch.heigvd.wordoff.common.WordAnalyzer;
 import ch.heigvd.wordoff.server.Model.*;
 import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
@@ -13,10 +14,7 @@ import ch.heigvd.wordoff.server.Repository.GameRepository;
 import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
-import ch.heigvd.wordoff.server.Rest.Exception.InvalidAiLevel;
-import ch.heigvd.wordoff.server.Rest.Exception.InvalidWordException;
-import ch.heigvd.wordoff.server.Rest.Exception.TileIsNotInRack;
-import ch.heigvd.wordoff.server.Rest.Exception.WrongPlayer;
+import ch.heigvd.wordoff.server.Rest.Exception.ErrorCodeException;
 import ch.heigvd.wordoff.server.Util.ChallengeFactory;
 import ch.heigvd.wordoff.server.Util.DictionaryLoader;
 import javafx.util.Pair;
@@ -57,7 +55,7 @@ public class GameService {
 
             // If the word doesn't exists
             if (!dictionaryLoader.getDico(game.getLang()).contains(wordChallenge)) {
-                throw new InvalidWordException("The word is not in the dictionary !");
+                throw new ErrorCodeException(Protocol.INVALID_WORD, "The word is not in the dictionary !");
             }
 
             // check if the challenge is possible with tiles that the player have
@@ -91,7 +89,7 @@ public class GameService {
                 }
 
                 if (tileIsNotInPlayerRacks && tileIsNotInSwapRacks) {
-                    throw new TileIsNotInRack("The tile is not in one of the player racks, are you trying to cheat ?");
+                    throw new ErrorCodeException(Protocol.CHEATING, "The tile is not in one of the player racks, are you trying to cheat ?");
                 }
                 i++;
             }
@@ -125,7 +123,7 @@ public class GameService {
             side = game.getSideOfPlayer(player);
 
         } else {
-            throw new WrongPlayer("Not player turn to play !");
+            throw new ErrorCodeException(Protocol.NOT_YOUR_TURN, "Not player turn to play !");
         }
 
         gameRepository.save(game);
@@ -169,7 +167,7 @@ public class GameService {
                     index = sizeWordsByScore - 1;
                     break;
                 default:
-                    throw new InvalidAiLevel("This ai level is not handled !");
+                    throw new ErrorCodeException(Protocol.NON_EXISTANT_PLAYER_LVL, "This ai level is not handled !");
             }
 
             // Get the List of tile chosen by the Ai

@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface IRack {
     List<ITile> getTiles();
+    void setTiles(List<ITile> tiles);
 
     @JsonIgnore
     int getMaxSizeRack();

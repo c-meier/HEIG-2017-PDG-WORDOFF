@@ -28,13 +28,11 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         String token = request.getHeader(SecurityConst.AUTH_HEADER);
         if (token != null) {
             // parse the token.
-            Claims claims = Jwts.parser()
-                    .setSigningKey(TextCodec.BASE64.decode(SecurityConst.TOKEN_SECRET))
-                    .parseClaimsJws(token)
-                    //.parseClaimsJws(token.replace(SecurityConst.TOKEN_PREFIX, ""))
-                    .getBody();
-
-            String login = claims.get("login", String.class);
+            String login = Jwts.parser()
+                    .setSigningKey(SecurityConst.TOKEN_SECRET.getBytes())
+                    .parseClaimsJws(token.replace(SecurityConst.TOKEN_PREFIX, ""))
+                    .getBody()
+                    .getSubject();
 
             if (login != null) {
                 User user = userRepository.findByCredentialsLogin(login);

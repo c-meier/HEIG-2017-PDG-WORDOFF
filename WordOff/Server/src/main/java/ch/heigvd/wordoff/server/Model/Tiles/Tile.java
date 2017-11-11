@@ -18,7 +18,9 @@ public class Tile implements ITile, Serializable {
     @Column(name = "lang_set_id")
     private Integer langSetId;
 
-    protected Tile() {}
+    public Tile() {
+        this.letter = new Letter();
+    }
 
     public Tile(int id, char value, int score) {
         this.id = id;
@@ -44,6 +46,11 @@ public class Tile implements ITile, Serializable {
     }
 
     @Override
+    public void setScore(int score) {
+        letter.setScore(score);
+    }
+
+    @Override
     public void setValue(char c) {
         this.letter.setValue(c);
     }
@@ -53,7 +60,7 @@ public class Tile implements ITile, Serializable {
         return new Tile(id, getValue(), getScore());
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

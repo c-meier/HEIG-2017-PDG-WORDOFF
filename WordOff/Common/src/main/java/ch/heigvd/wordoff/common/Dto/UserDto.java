@@ -7,7 +7,7 @@ public class UserDto extends PlayerDto {
     private String profilImage;
 
     // Necessary for Jackson deserialization
-    protected UserDto() {}
+    public UserDto() {}
 
     public UserDto(Long id, String name) {
         super(id, name);

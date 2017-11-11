@@ -1,0 +1,37 @@
+.slot{
+	-fx-background-image: url("../images/slot.png");
+	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);    
+	-fx-background-position: center,center;
+	-fx-background-size: 40px,40px;
+	-fx-background-repeat:stretch;
+}
+
+.slot_2L{
+	-fx-background-image: url("../images/slot_2L.png");
+	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);    
+	-fx-background-position: center,center;
+	-fx-background-size:  40px,40px;
+	-fx-background-repeat:stretch;
+}
+.slot_3L{
+	-fx-background-image: url("../images/slot_3L.png");
+	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);    
+	-fx-background-position: center,center;
+	-fx-background-size:  40px,40px;
+	-fx-background-repeat:stretch;
+}
+.slot_W{
+	-fx-background-size:  40px, 40px;
+	-fx-background-image: url("../images/slot_W.png");
+	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);    
+	-fx-background-position: center,center;
+	-fx-background-repeat: stretch;
+}
+
+.slot_7letter{
+	-fx-background-image: url("../images/slot_7letter.png");
+	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);    
+	-fx-background-position: center, center;
+	-fx-background-size: 40px,40px;
+	-fx-background-repeat: stretch;
+}

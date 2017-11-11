@@ -1,0 +1,38 @@
+package ch.heigvd.wordoff.server;
+
+import ch.heigvd.wordoff.common.Constants;
+import ch.heigvd.wordoff.common.Dictionary;
+import ch.heigvd.wordoff.server.Util.DictionaryLoader;
+import org.junit.*;
+
+import static org.junit.Assert.*;
+
+/**
+ * Project : WordOff
+ * Date : 27.09.17
+ */
+public class DictionaryTest {
+    static Dictionary dicoFr;
+    static Dictionary dicoEng;
+
+    @BeforeClass
+    public static void init() {
+        dicoFr = new DictionaryLoader().getDico("fr");
+        dicoEng = new DictionaryLoader().getDico("en");
+    }
+
+    @Test
+    public void tryingAFewWords() {
+        assertTrue(dicoEng.contains("helLo"));
+        assertTrue(dicoEng.contains("dad"));
+        assertTrue(dicoEng.contains("mummy"));
+
+        assertTrue(dicoFr.contains("cheni"));
+    }
+
+    @Test
+    public void generateAnagrams() {
+        System.out.println(dicoFr.getAnagrams("pap#").toString());
+        assertTrue(true);
+    }
+}

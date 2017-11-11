@@ -7,15 +7,15 @@
 	},
 	"item": [
 		{
-			"name": "/user/sign-up",
+			"name": "/users/",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
 							"});"
 						]
 					}
@@ -34,22 +34,114 @@
 					"raw": "{\"login\":\"testUser\", \"password\":\"testPass\"}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/user/sign-up",
+					"raw": "http://localhost:8080/users/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"user",
-						"sign-up"
+						"users",
+						""
 					]
-				}
+				},
+				"description": null
 			},
 			"response": []
 		},
 		{
-			"name": "/user/sign-in",
+			"name": "/users/ malformed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"nologin\":\"testUser\", \"password\":\"testPass\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						""
+					]
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "/users/ already exists",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 422\", function () {",
+							"    pm.response.to.have.status(422);",
+							"});",
+							"",
+							"pm.test(\"Error code is present\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"errorCode\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"login\":\"one\", \"password\":\"pass\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						""
+					]
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "/users/sign-in",
 			"event": [
 				{
 					"listen": "test",
@@ -84,22 +176,115 @@
 					"raw": "{\"login\":\"testUser\", \"password\":\"testPass\"}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/user/sign-in",
+					"raw": "http://localhost:8080/users/sign-in",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"user",
+						"users",
 						"sign-in"
 					]
-				}
+				},
+				"description": null
 			},
 			"response": []
 		},
 		{
-			"name": "/user/test",
+			"name": "/users/sign-in malformed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"nologin\":\"testUser\", \"password\":\"testPass\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/sign-in",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"sign-in"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "/users/sign-in unknown",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"login\":\"unknownUser\", \"password\":\"testPass\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/sign-in",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"sign-in"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "/users/test",
 			"event": [
 				{
 					"listen": "test",
@@ -127,14 +312,14 @@
 				],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/user/test",
+					"raw": "http://localhost:8080/users/test",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"user",
+						"users",
 						"test"
 					]
 				},
@@ -168,15 +353,482 @@
 				],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/user/test",
+					"raw": "http://localhost:8080/users/test",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"user",
+						"users",
 						"test"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/games",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/games",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/games no token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/games",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/games",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[2,1]"
+				},
+				"url": {
+					"raw": "http://localhost:8080/games?lang=fr",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "fr",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/games unknown lang",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 422\", function () {",
+							"    pm.response.to.have.status(422);",
+							"});",
+							"",
+							"pm.test(\"Error code is present\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"errorCode\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[2,1]"
+				},
+				"url": {
+					"raw": "http://localhost:8080/games?lang=unknown",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "unknown",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/games wrong content",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[2]"
+				},
+				"url": {
+					"raw": "http://localhost:8080/games?lang=fr",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "fr",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/games no lang",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[2,1]"
+				},
+				"url": {
+					"raw": "http://localhost:8080/games",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/games/{{gameId}}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/games/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games",
+						"1"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/games/{{gameId}}/challenge",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{Token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"swapRack\": {\n        \"tiles\": [\n            {\n                \"id\": 3,\n                \"score\": 1,\n                \"value\": \"A\"\n            }\n        ]\n    },\n    \"slots\": [\n        {\n            \"dtype\": \".L2SlotDto\",\n            \"sideId\": 1,\n            \"pos\": 1,\n            \"tile\": {\n                \"id\": 1,\n                \"score\": 0,\n                \"value\": \"Y\"\n            }\n        },\n        {\n            \"dtype\": \".SwapSlotDto\",\n            \"sideId\": 1,\n            \"pos\": 2,\n            \"tile\": {\n                \"id\": 76,\n                \"score\": 1,\n                \"value\": \"O\"\n            }\n        },\n        {\n            \"dtype\": \".SlotDto\",\n            \"sideId\": 1,\n            \"pos\": 3,\n            \"tile\": null\n        },\n        {\n            \"dtype\": \".L3SlotDto\",\n            \"sideId\": 1,\n            \"pos\": 4,\n            \"tile\": null\n        },\n        {\n            \"dtype\": \".SwapSlotDto\",\n            \"sideId\": 1,\n            \"pos\": 5,\n            \"tile\": null\n        },\n        {\n            \"dtype\": \".SlotDto\",\n            \"sideId\": 1,\n            \"pos\": 6,\n            \"tile\": null\n        },\n        {\n            \"dtype\": \".LastSlotDto\",\n            \"sideId\": 1,\n            \"pos\": 7,\n            \"tile\": null\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/games/23/challenge",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games",
+						"23",
+						"challenge"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/letters/fr",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"All letters are present\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(26);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/letters/fr",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"letters",
+						"fr"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "/letters/unknown",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 422\", function () {",
+							"    pm.response.to.have.status(422);",
+							"});",
+							"",
+							"pm.test(\"Error code is present\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"errorCode\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/letters/unknown",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"letters",
+						"unknown"
 					]
 				},
 				"description": ""

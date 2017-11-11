@@ -1,6 +1,7 @@
 package ch.heigvd.wordoff.client.Controller;
 
 import ch.heigvd.wordoff.client.MainApp;
+import ch.heigvd.wordoff.client.Util.GoToMainMenu;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,12 +16,10 @@ import java.util.ResourceBundle;
  * @author Gabriel Luthier
  */
 public class FriendsController implements Initializable {
-    
+
     @FXML
     private void handleGotoMenu(ActionEvent event) {
-        String controller = "/fxml/mainMenu.fxml";
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(controller));
-        MainApp.changeScene(loader);
+        GoToMainMenu.getInstance().handleGotoMenu();
     }
     
     /**

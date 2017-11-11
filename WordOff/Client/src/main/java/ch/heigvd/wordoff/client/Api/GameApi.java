@@ -108,6 +108,7 @@ public class GameApi {
                         ResponseEntity.class,
                         params);
 
+
         switch (responseEntity.getStatusCode()) {
             case OK: // 200
                 return (GameDto)responseEntity.getBody();

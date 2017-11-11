@@ -7,8 +7,11 @@ import ch.heigvd.wordoff.common.IModel.IChallenge;
 import ch.heigvd.wordoff.common.IModel.IRack;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.util.Pair;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -105,12 +108,6 @@ public class WordAnalyzer {
             pairList.add(new Pair<>(tempChall.getScore(), tiles));
             tempChall.getSlots().forEach(ISlot::removeTile); // retire les tiles des slots
         }
-
-        System.out.println("-------");
-        pairList.forEach((k) -> {
-            k.getValue().forEach((j) -> System.out.print(j.getValue()));
-            System.out.println();
-        });
 
         pairList.sort(Comparator.comparingInt(Pair::getKey));
         return pairList;

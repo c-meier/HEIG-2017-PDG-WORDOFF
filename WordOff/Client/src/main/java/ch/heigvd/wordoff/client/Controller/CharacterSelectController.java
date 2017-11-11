@@ -1,5 +1,6 @@
 package ch.heigvd.wordoff.client.Controller;
 
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
@@ -8,31 +9,56 @@ import javafx.scene.layout.GridPane;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
-public class CharacterSelectController extends ScrollPane implements Initializable{
-  /*  private static final int GRID_WIDTH = 9;
-    
+public class CharacterSelectController extends BorderPane implements Initializable{
+    private static final int GRID_WIDTH = 9;
+
     @FXML
     private ScrollPane characters;
+    
+    @FXML
+    private Button closeButton;
     
     String alphabetString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     List<Character> alphabet = alphabetString
             .chars()
             .mapToObj(e->(char)e)
             .collect(Collectors.toList());
-*/
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-  /*      final int height = Math.floorDiv(alphabet.size(), GRID_WIDTH) + 1;
+       final int height = Math.floorDiv(alphabet.size(), GRID_WIDTH) + 1;
         GridPane grid = new GridPane();
-        grid.getChildren().add(new TileController("A", 1));
-        characters.setContent(grid);
-        for(Character c : alphabet){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/tile.fxml"));
+        try {
+            TileController c = new TileController("D", 0);
+            fxmlLoader.setController(c);
+            AnchorPane tile = fxmlLoader.load();
+            grid.getChildren().add(tile);
+            characters.setContent(grid);
+        } catch (IOException ex) {
+            Logger.getLogger(CharacterSelectController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        for (Character c : alphabet) {
+
 
         }
-*/
-    }    
+    }
 
-
+    
+    @FXML
+    public void closeWindow(ActionEvent event) {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
+    }
 }

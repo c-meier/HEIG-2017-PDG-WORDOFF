@@ -1,7 +1,8 @@
-package ch.heigvd.wordoff.common;
+package ch.heigvd.wordoff.server;
 
 import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dictionary;
+import ch.heigvd.wordoff.server.Util.DictionaryLoader;
 import org.junit.*;
 
 import static org.junit.Assert.*;
@@ -16,8 +17,8 @@ public class DictionaryTest {
 
     @BeforeClass
     public static void init() {
-        dicoFr = new Dictionary(Constants.FRENCH_DICTIONARY);
-        dicoEng = new Dictionary(Constants.ENGLISH_DICTIONARY);
+        dicoFr = new DictionaryLoader().getDico("fr");
+        dicoEng = new DictionaryLoader().getDico("en");
     }
 
     @Test

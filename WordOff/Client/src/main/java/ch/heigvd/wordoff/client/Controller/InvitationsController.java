@@ -24,7 +24,7 @@ public class InvitationsController implements Initializable {
     }
 
     /**
-     * Initializes the controller class.
+     * Initializes the Controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

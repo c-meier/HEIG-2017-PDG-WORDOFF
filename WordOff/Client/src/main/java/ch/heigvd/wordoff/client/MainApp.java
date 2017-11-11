@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.event.ActionEvent;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -19,6 +20,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
         MainApp.stage = stage;
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
 

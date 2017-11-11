@@ -1,8 +1,8 @@
 package ch.heigvd.wordoff.client.Controller;
 
-
-import ch.heigvd.wordoff.client.Dialog;
+import ch.heigvd.wordoff.client.Logic.Game;
 import ch.heigvd.wordoff.client.MainApp;
+import ch.heigvd.wordoff.client.Util.GoToMainMenu;
 import ch.heigvd.wordoff.common.Dto.ChallengeDto;
 import ch.heigvd.wordoff.common.Dto.GameDto;
 import ch.heigvd.wordoff.common.Dto.Slots.L2SlotDto;
@@ -11,11 +11,15 @@ import ch.heigvd.wordoff.common.Dto.Slots.LastSlotDto;
 import ch.heigvd.wordoff.common.Dto.Slots.SwapSlotDto;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
+
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -28,10 +32,11 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javafx.scene.layout.BorderPane;
 
 /**
  * @author Gabriel Luthier
@@ -46,6 +51,8 @@ public class GameScreenController implements Initializable {
     @FXML
     private Button discardButton;
     @FXML
+    private Button playButton;
+    @FXML
     private Label tilesRemaining;
     @FXML
     private ImageView flag;
@@ -57,13 +64,14 @@ public class GameScreenController implements Initializable {
     private List<StackPane> p1SlotsCh = new ArrayList<>();
     private List<StackPane> p1SlotsSr = new ArrayList<>();
     private List<StackPane> p1SlotsPr = new ArrayList<>();
+    private List<StackPane> p1OriginPr = new ArrayList<>();
+    private List<StackPane> p1OriginSr = new ArrayList<>();
     // Listes Player 2
     private List<AnchorPane> p2TilesPr = new ArrayList<>();
     private List<AnchorPane> p2TilesSr = new ArrayList<>();
     private List<StackPane> p2SlotsCh = new ArrayList<>();
     private List<StackPane> p2SlotsSr = new ArrayList<>();
     private List<StackPane> p2SlotsPr = new ArrayList<>();
-
 
 
     // PLAYER 1
@@ -102,48 +110,47 @@ public class GameScreenController implements Initializable {
 
     @FXML
     private void handleGotoMenu(ActionEvent event) {
-        String controller = "/fxml/mainMenu.fxml";
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(controller));
-        MainApp.changeScene(loader);
+        GoToMainMenu.getInstance().handleGotoMenu();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
 
-    protected void setGame(GameDto game){
+    protected void setGame(GameDto game) {
         this.game = game;
         setNumberOfTiles();
         setLang();
         setState(this.game);
     }
-    private void setLang(){
-        this.flag.setImage( new Image(getClass().getResource("/images/"+game.getLang()+".png").toExternalForm()));
+
+    private void setLang() {
+        this.flag.setImage(new Image(getClass().getResource("/images/" + game.getLang() + ".png").toExternalForm()));
     }
 
-    private void setNumberOfTiles(){
+    private void setNumberOfTiles() {
         String text = " tuile(s) restante(s)";
         this.tilesRemaining.setText(103 + text);
     }
 
     @FXML
-    private void shuffleClear(){
-        if(shuffleButton.getText().compareTo("Melanger") == 0){
+    private void shuffleClear() {
+        if (shuffleButton.getText().compareTo("Melanger") == 0) {
             shuffle();
-        }else{
-            clear();
+        } else {
+            clear(p1SlotsCh);
         }
     }
 
-    private void shuffle(){
-        List<ITile> tiles = game.getMySide().getPlayerRack().getTiles();
+    private void shuffle() {
+        List<ITile> tiles = this.game.getMySide().getPlayerRack().getTiles();
         Collections.shuffle(tiles);
         setTiles(tiles, p1TilesPr, false);
     }
 
-    private void clear(){
-        for(StackPane slotParent : p1SlotsCh){
-            if(!slotParent.getChildren().isEmpty()){
+    private void clear(List<StackPane> slotsChallenge) {
+        for (StackPane slotParent : slotsChallenge) {
+            if (!slotParent.getChildren().isEmpty()) {
                 AnchorPane tile = (AnchorPane) slotParent.getChildren().get(0);
                 move(tile, slotParent);
             }
@@ -153,27 +160,26 @@ public class GameScreenController implements Initializable {
     }
 
     @FXML
-    private void discardOrPasse(){
-        if(discardButton.getText().equals("Jeter")){
+    private void discardOrPasse() {
+        if (discardButton.getText().equals("Jeter")) {
             discard();
-        }
-        else{
+        } else {
             // appel passer
         }
     }
 
-    private void discard(){
+    private void discard() {
         // TODO ouvrir l'alert choix
         System.out.println("Click discard");
     }
 
-    private void passed(){
+    private void passed() {
         // TODO passer le tour
         System.out.println("Click passed");
     }
 
     @FXML
-    private void peek(){
+    private void peek() {
         // TODO test confirmation du hint côté serveur et réception du rack à afficher
         /*
         if(   ){
@@ -184,37 +190,98 @@ public class GameScreenController implements Initializable {
     }
 
     @FXML
-    private void hint(){
+    private void hint() {
         // TODO
         System.out.println("Click hint");
         final Stage test = new Stage();
         test.initOwner(MainApp.getStage());
-        CharacterSelectController c = new CharacterSelectController();
-        
-        Scene testScene = new Scene(c, 400, 400);
-        test.setScene(testScene);
-        test.setTitle("Selection Joker");
-        test.show();
-    }
-   
-
-    @FXML
-    private void play(){
-        // TODO envoyer le mot
-        // TODO vérifie si il y a un message d'erreur du serveur
-        System.out.println("Click play");
-        boolean error = true;
-        String errorString = "Error 404 - .......";
-        if(error == false){
-            // TODO set les side du game
-            setVisible(p2TilesPr,false);
-            setStateGame();
-        }else{
-            // TODO afficher un message d'erreur
-            Dialog.getInstance().signalError(errorString);
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/fxml/characterSelect.fxml"));
+        BorderPane c;
+        try {
+            c = loader.load();
+            Scene testScene = new Scene(c);
+            test.setScene(testScene);
+            test.setTitle("Selection Joker");
+            test.sizeToScene();
+            test.show();
+            test.setMinHeight(test.getHeight());
+            test.setMinWidth(test.getWidth());
+        } catch (IOException ex) {
+            Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    @FXML
+    private void playOrVerif() {
+        if (playButton.getText().equals("Jouer")) {
+            play();
+        } else {
+            verif();
+        }
+    }
+
+    private void verif() {
+        // TODO vérifie le mot via le word analyzer
+    }
+
+    private void play() {
+        // TODO vérifier le mot avec le word analyzer avant de jouer le coup
+
+        //try {
+            // TODO  Echanger les lignes ci-dessous pour utiliser le serveur et décommenter le try catch
+            //  this.game = GameApi.play(game.getId(), game.getMySide().getChallenge());
+            this.game = null;
+            this.game = (new Game(game)).getGameDto();
+
+            // Cache les cases du player 2 (cas du pouvoir apercu activé pendant le tour
+            setVisible(p2TilesPr, false);
+            // Clear les valeurs des tiles GUI
+            clearTiles(p1TilesPr);
+            clearTiles(p1TilesSr);
+            clearTiles(p2TilesSr);
+            // Replace les tiles aux slots d'origines
+            replaceTilesOrigin(p1SlotsCh);
+            // Actualise l'état du jeu
+            setStateGame();
+      /*  } catch (TokenNotFoundException e) {
+            Dialog.getInstance().signalError("Ce mot n'est pas valide");
+            // TODO décommenter  e.printStackTrace();
+        }*/
+    }
+
+    private void replaceTilesOrigin(List<StackPane> slotsChallenge) {
+        if (slotsChallenge.equals(p1SlotsCh)) {
+            for (int i = 0; i < 7; i++) {
+                addTileToSlot(p1SlotsPr.get(i), p1TilesPr.get(i));
+            }
+            for (int i = 0; i < 2; i++) {
+                addTileToSlot(p1SlotsSr.get(i), p1TilesSr.get(i));
+            }
+        } else {
+            for (int i = 0; i < 7; i++) {
+                addTileToSlot(p2SlotsPr.get(i), p2TilesPr.get(i));
+            }
+            for (int i = 0; i < 2; i++) {
+                addTileToSlot(p2SlotsSr.get(i), p2TilesSr.get(i));
+            }
+        }
+
+    }
+
+
+    private void clearTiles(List<AnchorPane> tiles) {
+        int i = 0;
+        for (AnchorPane tile : tiles) {
+            Label value = (Label) tiles.get(i).getChildren().get(0);
+            Label score = (Label) tiles.get(i).getChildren().get(1);
+            Label id = (Label) tiles.get(i).getChildren().get(2);
+            value.setText("");
+            score.setText("");
+            id.setText("");
+            i++;
+        }
+    }
 
     /**
      * Recoit le side lié à la game
@@ -235,30 +302,34 @@ public class GameScreenController implements Initializable {
         setStateGame();
     }
 
-    private void setStateGame(){
+    private void setStateGame() {
         // Set les challenge slots
-        setBackgroundChallenge(game.getMySide().getChallenge(), p1Ch1Back, p1Ch2Back, p1Ch3Back, p1Ch4Back, p1Ch5Back, p1Ch6Back, p1Ch7Back);
-        setBackgroundChallenge(game.getOtherSide().getChallenge(), p2Ch1Back, p2Ch2Back, p2Ch3Back, p2Ch4Back, p2Ch5Back, p2Ch6Back, p2Ch7Back);
+        setBackgroundChallenge(this.game.getMySide().getChallenge(), p1Ch1Back, p1Ch2Back, p1Ch3Back, p1Ch4Back, p1Ch5Back, p1Ch6Back, p1Ch7Back);
+        setBackgroundChallenge(this.game.getOtherSide().getChallenge(), p2Ch1Back, p2Ch2Back, p2Ch3Back, p2Ch4Back, p2Ch5Back, p2Ch6Back, p2Ch7Back);
         // Set les swaps racks
-        setTiles(game.getMySide().getChallenge().getSwapRack().getTiles(), p1TilesSr, true);
-        setTiles(game.getOtherSide().getChallenge().getSwapRack().getTiles(), p2TilesSr, false);
+        setTiles(this.game.getMySide().getChallenge().getSwapRack().getTiles(), p1TilesSr, true);
+        setTiles(this.game.getOtherSide().getChallenge().getSwapRack().getTiles(), p2TilesSr, false);
         // Set le playerRack
-        setTiles(game.getMySide().getPlayerRack().getTiles(), p1TilesPr, true);
+        setTiles(this.game.getMySide().getPlayerRack().getTiles(), p1TilesPr, true);
+
+        if (this.game.isMyTurn() == false) {
+            playButton.setText("Vérifier");
+        }
     }
 
     /**
      * Refresh GUI slots according to state of challenge
      *
-     * @param  challenge player challenge
-     * @param slots GUI challenge of player
+     * @param challenge player challenge
+     * @param slots     GUI challenge of player
      */
     private void setBackgroundChallenge(ChallengeDto challenge, AnchorPane... slots) {
         // Placer les images du challenge selon les slots
         int i = 0;
-        String styleClass="";
+        String styleClass = "";
         for (ISlot slot : challenge.getSlots()) {
             // Get image source
-            if ( slot.getClass() == LastSlotDto.class) {
+            if (slot.getClass() == LastSlotDto.class) {
                 styleClass = "slot_7letter";
             } else if (slot.getClass() == L2SlotDto.class) {
                 styleClass = "slot_2L";
@@ -274,7 +345,7 @@ public class GameScreenController implements Initializable {
         }
     }
 
-    private void setBackground(AnchorPane slot, String styleClass){
+    private void setBackground(AnchorPane slot, String styleClass) {
         slot.getStyleClass().clear();
         slot.getStyleClass().add(styleClass);
     }
@@ -317,7 +388,7 @@ public class GameScreenController implements Initializable {
         // Hide tiles not used
         if (rack.size() < tiles.size()) {
             for (int j = rack.size(); j < tiles.size(); j++) {
-                tiles.get(i).setVisible(false);
+                tiles.get(j).setVisible(false);
             }
         }
     }
@@ -355,28 +426,28 @@ public class GameScreenController implements Initializable {
 
     /**
      * Move a tile to challenge from swapRack or playerRack, or inverse, when tile is clicked.
+     *
      * @param event mouseEvent
      */
     private void moveOnClick(MouseEvent event) {
         AnchorPane tileSelect = (AnchorPane) event.getSource();
         StackPane slotParent = (StackPane) tileSelect.getParent();
         // Apply move
-        move(tileSelect,slotParent);
-        if(numberTilesOnChallengeRack == 0){
+        move(tileSelect, slotParent);
+        if (numberTilesOnChallengeRack == 0) {
             shuffleButton.setText("Melanger");
-        }else{
+        } else {
             shuffleButton.setText("Effacer");
         }
         // TODO editer l'tat du wordAlyzer
     }
 
     /**
-     *
      * @param tileSelect
      * @param slotParent
      */
-    private void move(AnchorPane tileSelect, StackPane slotParent){
-        int idTile = Integer.valueOf(((Label)tileSelect.getChildren().get(2)).getText());
+    private void move(AnchorPane tileSelect, StackPane slotParent) {
+        int idTile = Integer.valueOf(((Label) tileSelect.getChildren().get(2)).getText());
         StackPane destination = null;
 
         if (p1SlotsPr.contains(slotParent)) {
@@ -386,9 +457,9 @@ public class GameScreenController implements Initializable {
                 addTileToSlot(destination, tileSelect);
                 numberTilesOnChallengeRack++;
 
-                // Move tile in logic game
-                ITile tile = game.getMySide().getPlayerRack().removeTile(idTile);
-                game.getMySide().getChallenge().addTile(tile);
+                // Move tile in Logic game
+                ITile tile = this.game.getMySide().getPlayerRack().removeTile(idTile);
+                this.game.getMySide().getChallenge().addTile(tile);
             }
         } else if (p1SlotsSr.contains(slotParent)) {
             // Move to challenge from swap rack
@@ -397,9 +468,9 @@ public class GameScreenController implements Initializable {
                 addTileToSlot(destination, tileSelect);
                 numberTilesOnChallengeRack++;
 
-                // Move tile in logic game
-                ITile tile = game.getMySide().getChallenge().getSwapRack().removeTile(idTile);
-                game.getMySide().getChallenge().addTile(tile);
+                // Move tile in Logic game
+                ITile tile = this.game.getMySide().getChallenge().getSwapRack().removeTile(idTile);
+                this.game.getMySide().getChallenge().addTile(tile);
             }
         } else {
             // Move to swapRack from challenge
@@ -410,8 +481,8 @@ public class GameScreenController implements Initializable {
                 numberTilesOnChallengeRack--;
 
                 // Maj Logic
-                ITile tile = game.getMySide().getChallenge().getTileById(idTile);
-                game.getMySide().getChallenge().getSwapRack().addTile(tile);
+                ITile tile = this.game.getMySide().getChallenge().getTileById(idTile);
+                this.game.getMySide().getChallenge().getSwapRack().addTile(tile);
             } else {
                 // Move to player rack from challenge
 
@@ -420,14 +491,13 @@ public class GameScreenController implements Initializable {
                 addTileToSlot(destination, tileSelect);
                 numberTilesOnChallengeRack--;
 
-                // Maj logic
-                ITile tile = game.getMySide().getChallenge().getTileById(idTile);
-                game.getMySide().getPlayerRack().addTile(tile);
+                // Maj Logic
+                ITile tile = this.game.getMySide().getChallenge().getTileById(idTile);
+                this.game.getMySide().getPlayerRack().addTile(tile);
             }
         }
 
     }
-
 
 
     /**
@@ -445,6 +515,7 @@ public class GameScreenController implements Initializable {
         addConentListStackPane(p1SlotsSr, p1Sr1Fore, p1Sr2Fore);
         // Tiles swap rack
         addConentListAnchorePane(p1TilesSr, true, p1TileSr1, p1TileSr2);
+
 
         // initialization player 2
         // Challenge
@@ -473,7 +544,7 @@ public class GameScreenController implements Initializable {
         }
     }
 
-    private void setVisible(List<AnchorPane> tiles, boolean isVisible){
+    private void setVisible(List<AnchorPane> tiles, boolean isVisible) {
         for (AnchorPane p : tiles) {
             p.setVisible(isVisible);
         }

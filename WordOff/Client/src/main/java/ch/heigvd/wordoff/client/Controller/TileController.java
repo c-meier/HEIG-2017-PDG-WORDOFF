@@ -26,7 +26,7 @@ public class TileController extends AnchorPane implements Initializable{
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        score.setText(score.toString());
+        score.setText(String.valueOf(scoreValue));
         letter.setText(letterValue);
     }
     

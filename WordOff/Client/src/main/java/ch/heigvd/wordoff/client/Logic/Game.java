@@ -41,7 +41,7 @@ public class Game {
                     (ITile) new TileDto(0, 'a', 1),
                     (ITile) new TileDto(1, 'b', 3),
                     (ITile) new TileDto(2, 'c', 3),
-                    (ITile) new TileDto(3, 'd', 2),
+                    (ITile) new TileDto(3, '#', 0),
                     (ITile) new TileDto(4, 'e', 2),
                     (ITile) new TileDto(5, 'f', 4),
                     (ITile) new TileDto(6, 'g', 2)))),

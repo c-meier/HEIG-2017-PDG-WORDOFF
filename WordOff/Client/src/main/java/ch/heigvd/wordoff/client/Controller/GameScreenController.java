@@ -132,8 +132,14 @@ public class GameScreenController implements Initializable {
     }
 
     private void setNumberOfTiles() {
-        String text = " tuile(s) restante(s)";
-        this.tilesRemaining.setText(103 + text);
+        int size = game.getBagSize();
+        String text = "";
+        if(size > 0){
+            text = size + " tuiles restantes";
+        }else{
+            text = size + " tuile restante";
+        }
+        this.tilesRemaining.setText(text);
     }
 
     @FXML
@@ -232,11 +238,7 @@ public class GameScreenController implements Initializable {
         // TODO vérifier le mot avec le word analyzer avant de jouer le coup
 
         try {
-            // TODO  Echanger les lignes ci-dessous pour utiliser le serveur et décommenter le try catch
-              this.game = GameApi.play(game.getId(), game.getMySide().getChallenge());
-       //     this.game = null;
-         //   this.game = (new Game(game)).getGameDto();
-
+            this.game = GameApi.play(game.getId(), game.getMySide().getChallenge());
             // Cache les cases du player 2 (cas du pouvoir apercu activé pendant le tour
             setVisible(p2TilesPr, false);
             // Clear les valeurs des tiles GUI
@@ -247,6 +249,7 @@ public class GameScreenController implements Initializable {
             replaceTilesOrigin(p1SlotsCh);
             // Actualise l'état du jeu
             setStateGame();
+            setNumberOfTiles();
         } catch (TokenNotFoundException e) {
             Dialog.getInstance().signalError("Ce mot n'est pas valide");
         }
@@ -365,7 +368,7 @@ public class GameScreenController implements Initializable {
             Label value = (Label) tiles.get(i).getChildren().get(0);
             Label score = (Label) tiles.get(i).getChildren().get(1);
             Label id = (Label) tiles.get(i).getChildren().get(2);
-            if(tile.getScore()== 0){
+            if(tile.getScore() == 0){
                 value.setText("");
             }else{
                 value.setText(String.valueOf(tile.getValue()).toUpperCase());

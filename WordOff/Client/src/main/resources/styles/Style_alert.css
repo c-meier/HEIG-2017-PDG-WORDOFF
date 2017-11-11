@@ -1,54 +1,68 @@
-.myDialog{
+.myDialog {
     -fx-background-color: #ffd3a3;
     -fx-background-image: url("../images/wood_texture.png");
     /*-fx-border-radius: 8;
     -fx-border-color: brown;
     -fx-border-width: 1;*/
 }
-.myDialog > *.button-bar > *.container{
+
+.myDialog > *.button-bar > *.container {
     -fx-background-color: #ffd3a3;
     -fx-background-image: url("../images/wood_texture.png");
 }
-.myDialog > *.label.content{
+
+.myDialog > *.label.content {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-background-color: #ae814e;
     -fx-text-fill: #ffff;
 }
-.myDialog:header *.header-panel{
+
+.myDialog:header *.header-panel {
     -fx-background-color: #ffd3a3;
     -fx-background-image: url("../images/wood_texture.png");
     -fx-font-size: 16px;
     -fx-font-weight: bold;
 }
 
-.myDialog > *.button-bar > *.container > .button{
+.myDialog > *.button-bar > *.container > .button {
     -fx-text-fill: #ffff;
     -fx-padding: 4 8 8 4;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-insets: 0, 0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;
-    -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #c7a880 0%, #ae814e 100%),
-            #c8813e,
-            #df9c5d,
-            radial-gradient(center 50% 50%, radius 100%, #df9c5d, #c8813e);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #c7a880 0%, #ae814e 100%),
+    #c8813e,
+    #df9c5d,
+    radial-gradient(center 50% 50%, radius 100%, #df9c5d, #c8813e);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 4, 0, 0, 1);
     -fx-font-weight: bold;
     -fx-font-size: 1.1em;
 }
 
-
 .myDialog > *.button-bar > *.container > .button:showing,
 .myDialog > *.button-bar > *.container > .button:hover,
-.myDialog > *.button-bar > *.container > .button:focused{
-    -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #c7a880 0%, #ae814e 100%),
-            #c8a380,
-            #deb186,
-            radial-gradient(center 50% 50%, radius 100%, #deb186, #c8a380);
+.myDialog > *.button-bar > *.container > .button:focused {
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #c7a880 0%, #ae814e 100%),
+    #c8a380,
+    #deb186,
+    radial-gradient(center 50% 50%, radius 100%, #deb186, #c8a380);
 }
 
 .myDialog > *.button-bar > *.container > .button:pressed {
-    -fx-padding:  4 8 8 4;
-    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+    -fx-padding: 4 8 8 4;
+    -fx-background-insets: 2 0 0 0, 2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+
+.choice-box,
+.choice-box .context-menu {
+    -fx-background-color: #ffeeba;
+}
+
+.choice-box .menu-item:focused {
+    -fx-background-color: #8c683f;
+    -fx-text-fill: #FFFFFF;
+}
+
+.choice-box .menu-item:focused > .label {
+    -fx-text-fill: #FFFFFF;
 }

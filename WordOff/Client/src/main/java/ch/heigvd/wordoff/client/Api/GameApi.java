@@ -122,6 +122,18 @@ public class GameApi {
                         params);
 
         return responseEntity.getBody();
+
+    /*    switch (responseEntity.getStatusCode()) {
+            case OK: // 200
+                return (GameDto)responseEntity.getBody();
+            case UNAUTHORIZED: // 401
+                throw new UnauthorizedException();
+            case  UNPROCESSABLE_ENTITY: // 422
+                ErrorDto err = (ErrorDto)responseEntity.getBody();
+                throw new UnprocessableEntityException(err.getErrorCode(), err.getMsg());
+            default:
+                throw new HTTPException(responseEntity.getStatusCode().value());
+        }*/
     }
 
     private static GameDto play(String token, Long gameId, ChallengeDto challengeDto) {

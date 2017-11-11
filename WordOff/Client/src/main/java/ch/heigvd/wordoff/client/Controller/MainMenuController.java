@@ -62,31 +62,31 @@ public class MainMenuController implements Initializable {
         FXMLLoader loader = getLoader("/fxml/profile.fxml");
         changeScene(getScene(loader));
     }
-    
+
     @FXML
     private void handleGotoFriends(ActionEvent event) {
         FXMLLoader loader = getLoader("/fxml/friends.fxml");
         changeScene(getScene(loader));
     }
-    
+
     @FXML
     private void handleGotoMessages(ActionEvent event) {
         FXMLLoader loader = getLoader("/fxml/messages.fxml");
         changeScene(getScene(loader));
     }
-    
+
     @FXML
     private void handleGotoSettings(ActionEvent event) {
         FXMLLoader loader = getLoader("/fxml/settings.fxml");
         changeScene(getScene(loader));
     }
-    
+
     @FXML
     private void handleGotoInvitations(ActionEvent event) {
         FXMLLoader loader = getLoader("/fxml/invitations.fxml");
         changeScene(getScene(loader));
     }
-    
+
     @FXML
     private void handleGotoAlert(ActionEvent event) {
         FXMLLoader loader = getLoader("/fxml/alertes.fxml");
@@ -99,17 +99,17 @@ public class MainMenuController implements Initializable {
     }
 
     // Récupère le fxml loader depuis le path
-    private FXMLLoader getLoader(String fxmlPath){
+    private FXMLLoader getLoader(String fxmlPath) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         return loader;
     }
 
     // Création de la scène du loader
-    private Scene getScene(FXMLLoader loader){
+    private Scene getScene(FXMLLoader loader) {
         Parent root = null;
         try {
             root = loader.load();
-        }catch (IOException e){
+        } catch (IOException e) {
 
         }
         return new Scene(root);
@@ -117,22 +117,25 @@ public class MainMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }
 
-    public void setState(){
+    public void setState() {
         // Remplire les games disponnibles
         try {
             List<GameSummaryDto> list = GameApi.retrieveGames();
-           for(GameSummaryDto dto: list){
+            for (GameSummaryDto dto : list) {
+                gamesSummaryDto.add(dto);
                 gamesPlayer.getItems().add(dto.getOtherPlayer().getName());
             }
         } catch (TokenNotFoundException e) {
             e.printStackTrace();
             System.out.println("TockerFoundException");
-        } catch (UnauthorizedException e){
+        } catch (UnauthorizedException e) {
+            e.printStackTrace();
             System.out.println("UnauthorizedException");
-        }catch (HTTPException e){
+        } catch (HTTPException e) {
+            e.printStackTrace();
             System.out.println("HTTPException");
         }
 
@@ -149,19 +152,32 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    private void newGame(){
-        Dialog.getInstance().chooseNewGame("Nouvelle partie");
+    private void newGame() {
+        String choice = Dialog.getInstance().choicesDialog("Démarrer une nouvelle partie",
+                "Veuillez sélectionner la langue",
+                "Langue : ", "Français", "English");
+        System.out.println(choice);
+        // TODO demande de créer la nuvelle partie au serveur
     }
 
 
     @FXML
-    private void goToGame(){
-        // Récupérer le game dans la liste
-        this.selectGame = this.gameTest.getGameDto();
-        // TODO récupéré la game GameApi.getGame();
-        String select = gamesPlayer.getSelectionModel().getSelectedItem();
-        System.out.println(select);
-        handleGotoGame();
+    private void goToGame() {
+        // Partie de test static
+        if (gamesPlayer.getSelectionModel().getSelectedItem().equals("Game Test Static")) {
+            selectGame = gameTest.getGameDto();
+            handleGotoGame();
+        } else {
+            // Partie venant du serveur
+            Long selectId = gamesSummaryDto.get(gamesPlayer.getSelectionModel().getSelectedIndex()).getId();
+            try {
+                selectGame = GameApi.getGame(selectId);
+                System.out.println(selectId);
+                handleGotoGame();
+            } catch (TokenNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

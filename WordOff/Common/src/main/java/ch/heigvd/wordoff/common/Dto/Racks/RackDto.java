@@ -14,7 +14,7 @@ public abstract class RackDto implements IRack, IDto {
     private List<ITile> tiles;
 
     // Necessary for Jackson deserialization
-    protected RackDto() {}
+    public RackDto() {}
 
     public RackDto(List<ITile> tiles) {
         this.tiles = tiles;

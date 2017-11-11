@@ -44,6 +44,11 @@ public class Tile implements ITile, Serializable {
     }
 
     @Override
+    public void setScore(int score) {
+        letter.setScore(score);
+    }
+
+    @Override
     public void setValue(char c) {
         this.letter.setValue(c);
     }
@@ -53,7 +58,7 @@ public class Tile implements ITile, Serializable {
         return new Tile(id, getValue(), getScore());
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

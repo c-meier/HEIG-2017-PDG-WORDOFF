@@ -26,7 +26,7 @@ public class Slot implements ISlot, Serializable {
         this.tile = null;
     }
 
-    public Slot(Side side, Short pos) {
+    public Slot(Short pos) {
         this.pos = pos;
         this.tile = null;
     }
@@ -46,5 +46,10 @@ public class Slot implements ISlot, Serializable {
 
     public Short getPos() {
         return pos;
+    }
+
+    @Override
+    public void setPos(Short pos) {
+        this.pos = pos;
     }
 }

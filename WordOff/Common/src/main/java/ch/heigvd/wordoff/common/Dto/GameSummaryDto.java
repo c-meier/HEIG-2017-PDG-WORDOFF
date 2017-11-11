@@ -16,9 +16,9 @@ public class GameSummaryDto implements ISummaryDto {
     protected GameSummaryDto() {}
 
     public GameSummaryDto(Long id, PlayerDto otherPlayer) {
-        this.id = id;
+        this.setId(id);
         this.otherPlayer = otherPlayer;
-        this.endpoint = "/games/" + id;
+
     }
 
     @Override
@@ -32,6 +32,9 @@ public class GameSummaryDto implements ISummaryDto {
 
     public void setId(Long id) {
         this.id = id;
+        if(id != null) {
+            this.endpoint = "/games/" + id;
+        }
     }
 
     public PlayerDto getOtherPlayer() {

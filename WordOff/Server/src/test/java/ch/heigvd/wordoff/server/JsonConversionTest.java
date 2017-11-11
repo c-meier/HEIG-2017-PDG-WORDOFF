@@ -22,8 +22,6 @@ import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
-@DataJpaTest
 @ActiveProfiles("test")
 public class JsonConversionTest {
     private final ObjectMapper mapper = new ObjectMapper();
@@ -53,13 +51,13 @@ public class JsonConversionTest {
         user = new UserDto(2L, "testUser");
 
         challengeDto = new ChallengeDto(Arrays.asList(
-                new SlotDto(1L, (short)1),
-                new SlotDto(1L, (short)2),
-                new SwapSlotDto(1L, (short)3),
-                new L2SlotDto(1L, (short)4),
-                new SwapSlotDto(1L, (short)5),
-                new SlotDto(1L, (short)6),
-                new LastSlotDto(1L, (short)7)),
+                new SlotDto((short)1),
+                new SlotDto((short)2),
+                new SwapSlotDto((short)3),
+                new L2SlotDto((short)4),
+                new SwapSlotDto((short)5),
+                new SlotDto((short)6),
+                new LastSlotDto((short)7)),
                 new SwapRackDto(Arrays.asList(new TileDto(7, 'B', 1))));
         challengeDto.addTile(new TileDto(2, 'X', 0));
         challengeDto.addTile(new TileDto(13, 'E', 1));

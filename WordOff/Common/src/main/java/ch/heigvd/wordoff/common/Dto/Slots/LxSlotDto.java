@@ -1,5 +1,7 @@
 package ch.heigvd.wordoff.common.Dto.Slots;
 
+import java.util.Objects;
+
 public abstract class LxSlotDto extends SlotDto {
     private int bonus;
 
@@ -8,13 +10,18 @@ public abstract class LxSlotDto extends SlotDto {
         this.bonus = bonus;
     }
 
-    public LxSlotDto(Long sideId, Short pos, int bonus) {
-        super(sideId, pos);
+    public LxSlotDto(Short pos, int bonus) {
+        super(pos);
         this.bonus = bonus;
     }
 
     @Override
     public int getScore() {
         return super.getScore() * bonus;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o == this || (o instanceof LxSlotDto && super.equals(o) && Objects.equals(bonus, ((LxSlotDto) o).bonus));
     }
 }

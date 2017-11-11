@@ -18,7 +18,9 @@ public class Tile implements ITile, Serializable {
     @Column(name = "lang_set_id")
     private Integer langSetId;
 
-    protected Tile() {}
+    public Tile() {
+        this.letter = new Letter();
+    }
 
     public Tile(int id, char value, int score) {
         this.id = id;

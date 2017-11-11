@@ -2,9 +2,11 @@ package ch.heigvd.wordoff.server;
 
 import ch.heigvd.wordoff.common.Dto.*;
 import ch.heigvd.wordoff.common.Dto.Racks.RackDto;
+import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
 import ch.heigvd.wordoff.common.Dto.Slots.SlotDto;
 import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
 import ch.heigvd.wordoff.server.Model.*;
+import ch.heigvd.wordoff.server.Model.Racks.Rack;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.server.Model.Slots.L2Slot;
 import ch.heigvd.wordoff.server.Model.Slots.LastSlot;
@@ -43,7 +45,7 @@ public class DaoDtoConverterTest {
 
     @Test
     public void SlotToDto() throws Exception {
-        Slot dao = new Slot((short)1);
+        Slot dao = model.getEmptySlot();
         SlotDto dto = converter.toDto(dao);
 
         assertEquals(dao.getPos(), dto.getPos());
@@ -52,8 +54,7 @@ public class DaoDtoConverterTest {
 
     @Test
     public void SlotWithTileToDto() throws Exception {
-        Slot dao = new Slot((short)1);
-        dao.setTile(model.getTile());
+        Slot dao = model.getSlot();
         SlotDto dto = converter.toDto(dao);
 
         assertEquals(dao.getPos(), dto.getPos());
@@ -66,27 +67,26 @@ public class DaoDtoConverterTest {
     @Test
     public void SwapRackToDto() throws Exception {
         SwapRack dao = new SwapRack();
+
         RackDto dto = converter.toDto(dao);
+
+        assertEquals(SwapRackDto.class, dto.getClass());
     }
 
     @Test
     public void SwapRackWithTilesToDto() throws Exception {
         SwapRack dao = new SwapRack();
+        dao.addTile(model.getTile());
+
         RackDto dto = converter.toDto(dao);
+
+        assertEquals(SwapRackDto.class, dto.getClass());
+        assertEquals(TileDto.class, dto.getTiles().get(0).getClass());
     }
 
     @Test
     public void ChallengeToDto() throws Exception {
-        Slot slot1 = new Slot((short)1);
-        slot1.setTile(model.getTile());
-
-        Slot slot2 = new L2Slot((short)2);
-        slot2.setTile(model.getTile());
-
-        Challenge dao = new Challenge(Arrays.asList(
-            slot1, slot2, new LastSlot((short)3)
-        ));
-        dao.getSwapRack().addTile(model.getTile());
+        Challenge dao = model.getChallenge();
         ChallengeDto dto = converter.toDto(dao);
 
         assertEquals(TileDto.class, dto.getSwapRack().getTiles().get(0).getClass());
@@ -135,18 +135,7 @@ public class DaoDtoConverterTest {
     public void UserSideToDto() throws Exception {
         Side dao = new Side(model.getUserOne());
 
-        Slot slot1 = new Slot((short)1);
-        slot1.setTile(model.getTile());
-
-        Slot slot2 = new L2Slot((short)2);
-        slot2.setTile(model.getTile());
-
-        Challenge challenge = new Challenge(Arrays.asList(
-                slot1, slot2, new LastSlot((short)3)
-        ));
-        challenge.getSwapRack().addTile(model.getTile());
-
-        dao.setChallenge(challenge);
+        dao.setChallenge(model.getChallenge());
         dao.setScore(234);
         dao.getPlayerRack().addTile(model.getTile());
 
@@ -193,5 +182,50 @@ public class DaoDtoConverterTest {
         GameDto dto = converter.toDto(dao, dao.getCurrPlayer());
 
         assertEquals(GameDto.class, dto.getClass());
+    }
+
+    @Test
+    public void TileToDao() throws Exception {
+        TileDto dto = converter.toDto(model.getTile());
+
+        Tile dao = converter.fromDto(dto);
+
+        assertEquals(Tile.class, dao.getClass());
+        assertEquals(dto.getId(), dao.getId());
+        assertEquals(dto.getScore(), dao.getScore());
+        assertEquals(dto.getValue(), dao.getValue());
+    }
+
+    @Test
+    public void SlotToDao() throws Exception {
+        Slot origin = model.getSlot();
+        SlotDto dto = converter.toDto(origin);
+
+        Slot dao = converter.fromDto(dto);
+
+        assertEquals(origin.getClass(), dao.getClass());
+    }
+
+    @Test
+    public void RackToDao() throws Exception {
+        Rack origin = new SwapRack();
+        origin.addTile(model.getTile());
+        RackDto dto = converter.toDto(origin);
+
+        Rack dao = converter.fromDto(dto);
+
+        assertEquals(origin.getClass(), dao.getClass());
+        assertEquals(Tile.class, dao.getTiles().get(0).getClass());
+    }
+
+    @Test
+    public void ChallengeToDao() throws Exception {
+        Challenge origin = model.getChallenge();
+        ChallengeDto dto = converter.toDto(origin);
+
+        Challenge dao = converter.fromDto(dto);
+
+        assertEquals(Challenge.class, dao.getClass());
+        assertEquals(origin.getSlots().get(0).getClass(), dao.getSlots().get(0).getClass());
     }
 }

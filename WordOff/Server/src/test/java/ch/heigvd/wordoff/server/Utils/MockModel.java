@@ -1,17 +1,27 @@
 package ch.heigvd.wordoff.server.Utils;
 
+import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.server.Model.Ai;
+import ch.heigvd.wordoff.server.Model.Challenge;
 import ch.heigvd.wordoff.server.Model.Game;
+import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
+import ch.heigvd.wordoff.server.Model.Slots.*;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 import ch.heigvd.wordoff.server.Model.Tiles.Tile;
 import ch.heigvd.wordoff.server.Model.User;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class MockModel {
     private LangSet langSet;
+    private List<Slot> slots;
+    private List<Slot> emptySlots;
+    private SwapRack swapRack;
+    private Challenge challenge;
     private Ai ai;
     private User one;
     private User two;
@@ -19,6 +29,8 @@ public class MockModel {
     private Game aiGame;
 
     private int indexTile;
+    private int indexSlot;
+    private int indexEmptySlot;
 
     public MockModel() {
         langSet = new LangSet("fr");
@@ -52,6 +64,38 @@ public class MockModel {
                 new Tile(27, 'Z', 10)
         ));
         indexTile = 0;
+
+        slots = Arrays.asList(
+                new SwapSlot((short) 1),
+                new Slot((short) 2),
+                new L2Slot((short) 3),
+                new SwapSlot((short) 4),
+                new L3Slot((short) 5),
+                new Slot((short) 6),
+                new LastSlot((short) 7)
+        );
+        for(Slot s : slots) {
+            s.setTile(getTile());
+        }
+        indexSlot = 0;
+
+        emptySlots = Arrays.asList(
+                new L2Slot((short) 1),
+                new Slot((short) 2),
+                new SwapSlot((short) 3),
+                new Slot((short) 4),
+                new L3Slot((short) 5),
+                new SwapSlot((short) 6),
+                new LastSlot((short) 7)
+        );
+        indexEmptySlot = 0;
+
+        swapRack = new SwapRack();
+        swapRack.addTile(getTile());
+        swapRack.addTile(getTile());
+
+        challenge = new Challenge(slots.stream().collect(Collectors.toList()));
+        challenge.setSwapRack(swapRack);
 
         ai = new Ai();
         ai.setId(1L);
@@ -93,6 +137,26 @@ public class MockModel {
         List<Tile> tiles = langSet.getTiles();
         indexTile = indexTile % tiles.size();
         return tiles.get(indexTile++);
+    }
+
+    public Slot getSlot() {
+        List<Slot> s = slots;
+        indexSlot = indexSlot % s.size();
+        return s.get(indexSlot++);
+    }
+
+    public Slot getEmptySlot() {
+        List<Slot> s = emptySlots;
+        indexEmptySlot = indexEmptySlot % s.size();
+        return s.get(indexEmptySlot++);
+    }
+
+    public SwapRack getSwapRack() {
+        return swapRack;
+    }
+
+    public Challenge getChallenge() {
+        return challenge;
     }
 
     public Game getDuelGame() {

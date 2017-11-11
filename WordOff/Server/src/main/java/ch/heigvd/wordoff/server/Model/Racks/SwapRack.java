@@ -8,7 +8,9 @@ public class SwapRack extends Rack {
      *
      * @return
      */
-    public SwapRack() {}
+    public SwapRack() {
+        super();
+    }
 
     @Override
     public int getMaxSizeRack() {

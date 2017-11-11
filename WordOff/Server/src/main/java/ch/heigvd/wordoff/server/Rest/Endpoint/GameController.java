@@ -46,13 +46,18 @@ public class GameController {
     public ResponseEntity<List<GameSummaryDto>> listGames(
             @RequestAttribute("player") Player player) {
 
-        // TODO -> recup and convert the player games.
-        List<GameSummaryDto> games = new ArrayList<>();
+        List<GameSummaryDto> gamesDto = new ArrayList<>();
 
-        games.add(new GameSummaryDto(1L, new PlayerDto(1L, "AI")));
-        games.add(new GameSummaryDto(2L, new PlayerDto(1L, "One")));
+        List<Game> games = gameRepository.findAllBySideInitPlayerId(player.getId());
+        for(Game g : games) {
+            gamesDto.add(daoDtoConverter.toSummaryDto(g, player));
+        }
+        games = gameRepository.findAllBySideRespPlayerId(player.getId());
+        for(Game g : games) {
+            gamesDto.add(daoDtoConverter.toSummaryDto(g, player));
+        }
 
-        return new ResponseEntity<>(games, HttpStatus.OK);
+        return new ResponseEntity<>(gamesDto, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -70,8 +75,15 @@ public class GameController {
             throw new ErrorCodeException(Protocol.LANG_NOT_EXISTS, "The language " + lang + " does not exist!");
         }
 
+        Player init = playerRepository.findOne(playersId.get(0));
+        Player resp = playerRepository.findOne(playersId.get(1));
+
+        if(init == null || resp == null) {
+            throw new ErrorCodeException(Protocol.PLAYER_NOT_EXISTS, "One of the player does not exists");
+        }
+
         // create and convert the new games.
-        Game game = gameService.initGame(playerRepository.findOne(playersId.get(0)), playerRepository.findOne(playersId.get(1)), lang);
+        Game game = gameService.initGame(init, resp, lang);
         GameSummaryDto gameSummaryDto = daoDtoConverter.toSummaryDto(game, player);
 
         return new ResponseEntity<>(gameSummaryDto, HttpStatus.CREATED);
@@ -131,11 +143,7 @@ public class GameController {
 
         Challenge challenge = daoDtoConverter.fromDto(challengeDto);
 
-        try {
-            game = gameService.play(game, player, challenge);
-        } catch (ErrorCodeException e) {
-            throw new ErrorCodeException(e.getCode(), e.getMessage());
-        }
+        game = gameService.play(game, player, challenge);
         // convert dao game to dto
         GameDto gameDto = daoDtoConverter.toDto(game, player);
 

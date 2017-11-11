@@ -7,6 +7,7 @@ package ch.heigvd.wordoff.common;
 public interface Protocol {
     // Error codes
     int USER_ALREADY_EXISTS = 100;
+    int PLAYER_NOT_EXISTS = 101;
     int LANG_NOT_EXISTS = 201;
     int GAME_NOT_EXISTS = 301;
     int NOT_PLAYER_GAME = 302;

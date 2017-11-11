@@ -150,7 +150,8 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void newGame(){
-        Dialog.getInstance().chooseNewGame("Nouvelle partie");
+        String choice = Dialog.getInstance().chooseNewGame("Nouvelle partie");
+        System.out.println(choice);
     }
 
 

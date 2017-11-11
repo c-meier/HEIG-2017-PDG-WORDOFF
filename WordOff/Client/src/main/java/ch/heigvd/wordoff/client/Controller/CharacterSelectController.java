@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class CharacterSelectController extends ScrollPane implements Initializable{
-    private static final int GRID_WIDTH = 9;
+  /*  private static final int GRID_WIDTH = 9;
     
     @FXML
     private ScrollPane characters;
@@ -21,17 +21,17 @@ public class CharacterSelectController extends ScrollPane implements Initializab
             .chars()
             .mapToObj(e->(char)e)
             .collect(Collectors.toList());
-
+*/
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        final int height = Math.floorDiv(alphabet.size(), GRID_WIDTH) + 1;
+  /*      final int height = Math.floorDiv(alphabet.size(), GRID_WIDTH) + 1;
         GridPane grid = new GridPane();
         grid.getChildren().add(new TileController("A", 1));
         characters.setContent(grid);
         for(Character c : alphabet){
-            
-        }
 
+        }
+*/
     }    
 
 

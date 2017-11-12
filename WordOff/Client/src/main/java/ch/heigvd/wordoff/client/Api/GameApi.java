@@ -170,13 +170,12 @@ public class GameApi {
                             GameDto.class,
                             params);
 
-     /*       switch (responseEntity.getStatusCodeValue()){
-                case 306 : throw new BadRequestException();
-            }*/
             return responseEntity.getBody();
 
         }catch(HttpClientErrorException e){
             System.out.println(e.getStatusCode());
+        }catch(UnprocessableEntityException e){
+            throw new UnprocessableEntityException(e.getErrorCode(),e.getMsg());
         }
 
         return responseEntity.getBody();

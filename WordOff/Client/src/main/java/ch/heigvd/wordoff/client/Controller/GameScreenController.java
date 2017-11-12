@@ -78,7 +78,7 @@ public class GameScreenController implements Initializable {
     private List<StackPane> p2SlotsSr = new ArrayList<>();
     private List<StackPane> p2SlotsPr = new ArrayList<>();
 
-    private WordAnalyzer wordAnalyzer ;
+    private WordAnalyzer wordAnalyzer;
 
     // PLAYER 1
     // ChallengeDto background and foreground
@@ -138,9 +138,9 @@ public class GameScreenController implements Initializable {
     private void setNumberOfTiles() {
         int size = game.getBagSize();
         String text = "";
-        if(size > 0){
+        if (size > 0) {
             text = size + " tuiles restantes";
-        }else{
+        } else {
             text = size + " tuile restante";
         }
         this.tilesRemaining.setText(text);
@@ -177,7 +177,7 @@ public class GameScreenController implements Initializable {
         if (discardButton.getText().equals("Jeter")) {
             discard();
         } else {
-           // TODO demande au serveur pour passer
+            // TODO demande au serveur pour passer
         }
     }
 
@@ -255,9 +255,10 @@ public class GameScreenController implements Initializable {
             setStateGame();
             setNumberOfTiles();
         } catch (TokenNotFoundException e) {
-            Dialog.getInstance().signalError("Ce mot n'est pas valide");
+            Dialog.getInstance().signalError("Une erreur s'est produite. Veuillez vous reconnecter");
+        } catch (UnprocessableEntityException e) {
+            Dialog.getInstance().signalInformation("Ce n'est pas votre tour de jouer");
         }
-      //  }catch(){}
     }
 
     private void replaceTilesOrigin(List<StackPane> slotsChallenge) {
@@ -317,11 +318,10 @@ public class GameScreenController implements Initializable {
         setTiles(this.game.getOtherSide().getChallenge().getSwapRack().getTiles(), p2TilesSr, false);
         // Set le playerRack
         setTiles(this.game.getMySide().getPlayerRack().getTiles(), p1TilesPr, true);
-
-        // TODO Vérification du myTurn pas encore implémenter côté serveur
-       if (this.game.isMyTurn() == false) {
+        // Maj de myTurn
+        if (this.game.isMyTurn() == false) {
             playButton.setText("Vérifier");
-        }else {
+        } else {
             playButton.setText("Jouer");
         }
     }
@@ -372,9 +372,9 @@ public class GameScreenController implements Initializable {
             Label value = (Label) tiles.get(i).getChildren().get(0);
             Label score = (Label) tiles.get(i).getChildren().get(1);
             Label id = (Label) tiles.get(i).getChildren().get(2);
-            if(tile.getScore() == 0){
+            if (tile.getScore() == 0) {
                 value.setText("");
-            }else{
+            } else {
                 value.setText(String.valueOf(tile.getValue()).toUpperCase());
             }
             score.setText(String.valueOf(tile.getScore()));

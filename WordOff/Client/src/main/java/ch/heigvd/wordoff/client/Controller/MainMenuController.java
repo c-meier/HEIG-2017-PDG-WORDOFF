@@ -155,7 +155,7 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void newGame() {
-   /*     final String Fr = "Français";
+        final String Fr = "Français";
         final String En = "English";
         String langSelect = "";
         long myId = 1;
@@ -182,17 +182,18 @@ public class MainMenuController implements Initializable {
             playersId.add(otherId);
 
             System.out.println("Demande de créer une nouvelle partie : " + langSelect);
-
+/*
        try {
             GameSummaryDto newGame = GameApi.createGame(langSelect, playersId);
             gamesSummaryDto.add(newGame);
             gamesPlayer.getItems().add(newGame.getOtherPlayer().getName());
         } catch (TokenNotFoundException e) {
-            e.printStackTrace();
+
+        }
+        */
+
         }
 
-        }*/
-        setState();
     }
 
 

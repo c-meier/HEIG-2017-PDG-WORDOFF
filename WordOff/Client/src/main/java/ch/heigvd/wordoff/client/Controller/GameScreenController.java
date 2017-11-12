@@ -140,6 +140,23 @@ public class GameScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
 
+    private void displayState() {
+        System.out.println("Size pr : " + game.getMySide().getPlayerRack().getTiles().size());
+        System.out.print("Player Rack : ");
+        for (ITile tile : game.getMySide().getPlayerRack().getTiles()) {
+            System.out.print(tile.getValue() + " ");
+        }
+        System.out.print("\nChallenge : ");
+        for (ISlot tile : game.getMySide().getChallenge().getSlots()) {
+            if (!tile.isEmpty())
+                System.out.print(tile.getTile().getValue() + " ");
+        }
+        System.out.print("\nSwap Rack : ");
+        for (ITile tile : game.getMySide().getChallenge().getSwapRack().getTiles()) {
+            System.out.print(tile.getValue() + " ");
+        }
+    }
+
     protected void setGame(GameDto game) {
         this.game = game;
         setNumberOfTiles();
@@ -265,11 +282,11 @@ public class GameScreenController implements Initializable {
         }
 
         // Trous dans le mot
-        for(int i = 0; i < challenge.size(); i++){
-            if(challenge.get(i).isEmpty() && (i != challenge.size()-1)){
+        for (int i = 0; i < challenge.size(); i++) {
+            if (challenge.get(i).isEmpty() && (i != challenge.size() - 1)) {
                 // Vérifier si une lettre suit
-                for(int j = i+1 ; j < challenge.size(); j++){
-                    if(!challenge.get(j).isEmpty()){
+                for (int j = i + 1; j < challenge.size(); j++) {
+                    if (!challenge.get(j).isEmpty()) {
                         return false;
                     }
                 }
@@ -291,7 +308,7 @@ public class GameScreenController implements Initializable {
                     score += slot.getTile().getScore();
                 }
             }
-            if(challengeIsValid(challenge.getSlots()))
+            if (challengeIsValid(challenge.getSlots()))
                 isValidWord = dico.contains(word);
         }
         scoreWordAlyzer.setText(String.valueOf(score));
@@ -308,6 +325,7 @@ public class GameScreenController implements Initializable {
     private void play() {
         if (majWordAlyzer() == true) {
             try {
+
                 this.game = GameApi.play(game.getId(), game.getMySide().getChallenge());
                 // Cache les cases du player 2 (cas du pouvoir apercu activé pendant le tour
                 setVisible(p2TilesPr, false);
@@ -320,33 +338,43 @@ public class GameScreenController implements Initializable {
                 // Actualise l'état du jeu
                 setStateGame();
                 setNumberOfTiles();
+                majWordAlyzer();
             } catch (TokenNotFoundException e) {
                 Dialog.getInstance().signalError("Une erreur s'est produite. Veuillez vous reconnecter");
             } catch (UnprocessableEntityException e) {
                 Dialog.getInstance().signalInformation("Ce n'est pas votre tour de jouer");
             }
-        }else{
+        } else {
             Dialog.getInstance().signalInformation("Ce mot n'est pas valide");
         }
     }
 
     private void replaceTilesOrigin(List<StackPane> slotsChallenge) {
         if (slotsChallenge.equals(p1SlotsCh)) {
-            for (int i = 0; i < 7; i++) {
-                addTileToSlot(p1SlotsPr.get(i), p1TilesPr.get(i));
-            }
-            for (int i = 0; i < 2; i++) {
-                addTileToSlot(p1SlotsSr.get(i), p1TilesSr.get(i));
+            for (StackPane slot : p1SlotsCh) {
+                if (!slot.getChildren().isEmpty()) {
+                    AnchorPane tile = (AnchorPane) slot.getChildren().get(0);
+                    // check origin
+                    if (p1TilesPr.contains(tile)) {
+                        addTileToSlot(firstSlotEmpty(p1SlotsPr), tile);
+                    } else {
+                        addTileToSlot(firstSlotEmpty(p1SlotsSr), tile);
+                    }
+                }
             }
         } else {
-            for (int i = 0; i < 7; i++) {
-                addTileToSlot(p2SlotsPr.get(i), p2TilesPr.get(i));
-            }
-            for (int i = 0; i < 2; i++) {
-                addTileToSlot(p2SlotsSr.get(i), p2TilesSr.get(i));
+            for (StackPane slot : p2SlotsCh) {
+                if (!slot.getChildren().isEmpty()) {
+                    AnchorPane tile = (AnchorPane) slot.getChildren().get(0);
+                    // check origin
+                    if (p2TilesPr.contains(tile)) {
+                        addTileToSlot(firstSlotEmpty(p2SlotsPr), tile);
+                    } else {
+                        addTileToSlot(firstSlotEmpty(p2SlotsSr), tile);
+                    }
+                }
             }
         }
-
     }
 
 

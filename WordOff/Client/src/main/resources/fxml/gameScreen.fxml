@@ -699,39 +699,58 @@
       </MenuBar>
    </top>
    <bottom>
-      <AnchorPane BorderPane.alignment="CENTER">
+      <GridPane BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" prefWidth="603.0" />
+            <ColumnConstraints hgrow="SOMETIMES" prefWidth="297.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <ToolBar stylesheets="@../styles/Style_toolBarBottom.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <items>
-                  <Button fx:id="shuffleButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#shuffleClear" text="Mélanger">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button fx:id="discardButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#discardOrPasse" text="Jeter">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button fx:id="playButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#playOrVerif" text="Jouer">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#peek" text="Aperçu">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#hint" text="Indice">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#refresh" text="Refresh" />
-              </items>
-            </ToolBar>
+            <AnchorPane>
+               <children>
+                  <ToolBar stylesheets="@../styles/Style_toolBarBottom.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                        <Button fx:id="shuffleButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#shuffleClear" text="Mélanger">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="discardButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#discardOrPasse" text="Jeter">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="playButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#playOrVerif" text="Jouer">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#peek" text="Aperçu">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#hint" text="Indice">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                    </items>
+                  </ToolBar>
+               </children>
+            </AnchorPane>
+            <AnchorPane GridPane.columnIndex="1">
+               <children>
+                  <ToolBar stylesheets="@../styles/Style_toolBarBottom.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <items>
+                        <Button mnemonicParsing="false" onAction="#refresh" text="Refresh" />
+                     </items>
+                  </ToolBar>
+               </children>
+            </AnchorPane>
          </children>
-      </AnchorPane>
+      </GridPane>
    </bottom>
 </BorderPane>

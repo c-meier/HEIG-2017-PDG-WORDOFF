@@ -9,8 +9,8 @@ public class LastSlot extends Slot {
     public LastSlot(){
     }
 
-    public LastSlot(Side side, Short pos) {
-        super(side, pos);
+    public LastSlot(Short pos) {
+        super(pos);
     }
 
     public int getScore() {

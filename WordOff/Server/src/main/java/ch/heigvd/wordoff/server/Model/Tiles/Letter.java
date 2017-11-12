@@ -19,7 +19,7 @@ public class Letter implements Serializable {
     @Column(name = "lang_set_id")
     private Integer langSetId;
 
-    protected Letter() {}
+    public Letter() {}
 
     public Letter(char value, int score) {
         this.value = value;
@@ -42,4 +42,7 @@ public class Letter implements Serializable {
         return score;
     }
 
+    public void setScore(int score) {
+        this.score = score;
+    }
 }

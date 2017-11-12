@@ -3,6 +3,7 @@ package ch.heigvd.wordoff.server.Service;
 import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
+import ch.heigvd.wordoff.common.Protocol;
 import ch.heigvd.wordoff.common.WordAnalyzer;
 import ch.heigvd.wordoff.server.Model.*;
 import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
@@ -13,10 +14,7 @@ import ch.heigvd.wordoff.server.Repository.GameRepository;
 import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
-import ch.heigvd.wordoff.server.Rest.Exception.InvalidAiLevel;
-import ch.heigvd.wordoff.server.Rest.Exception.InvalidWordException;
-import ch.heigvd.wordoff.server.Rest.Exception.TileIsNotInRack;
-import ch.heigvd.wordoff.server.Rest.Exception.WrongPlayer;
+import ch.heigvd.wordoff.server.Rest.Exception.ErrorCodeException;
 import ch.heigvd.wordoff.server.Util.ChallengeFactory;
 import ch.heigvd.wordoff.server.Util.DictionaryLoader;
 import javafx.util.Pair;
@@ -24,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -43,6 +42,15 @@ public class GameService {
         this.playerRepository = playerRepository;
         this.gameRepository = gameRepository;
         this.sideRepository = sideRepository;
+
+
+        Player ai = playerRepository.findOne(1L);
+        Player one = playerRepository.findOne(2L);
+        Player two = playerRepository.findOne(3L);
+
+        // create and convert the new games.
+        initGame(one, ai, "fr");
+        initGame(two, one, "fr");
     }
 
     public Game play(Game game, Player player, Challenge challenge) {
@@ -52,12 +60,12 @@ public class GameService {
         Side side = null;
 
         // Check if it's the right player who try to play
-        if (player.equals(game.getCurrPlayer())) {
+        if (Objects.equals(game.getCurrPlayer().getId(), player.getId())) {
             String wordChallenge = challenge.getWord();
 
             // If the word doesn't exists
             if (!dictionaryLoader.getDico(game.getLang()).contains(wordChallenge)) {
-                throw new InvalidWordException("The word is not in the dictionary !");
+                throw new ErrorCodeException(Protocol.INVALID_WORD, "The word is not in the dictionary !");
             }
 
             // check if the challenge is possible with tiles that the player have
@@ -91,7 +99,7 @@ public class GameService {
                 }
 
                 if (tileIsNotInPlayerRacks && tileIsNotInSwapRacks) {
-                    throw new TileIsNotInRack("The tile is not in one of the player racks, are you trying to cheat ?");
+                    throw new ErrorCodeException(Protocol.CHEATING, "The tile is not in one of the player racks, are you trying to cheat ?");
                 }
                 i++;
             }
@@ -125,10 +133,10 @@ public class GameService {
             side = game.getSideOfPlayer(player);
 
         } else {
-            throw new WrongPlayer("Not player turn to play !");
+            throw new ErrorCodeException(Protocol.NOT_YOUR_TURN, "Not player turn to play !");
         }
 
-        gameRepository.save(game);
+//        gameRepository.save(game);
 
         return game;
     }
@@ -169,7 +177,7 @@ public class GameService {
                     index = sizeWordsByScore - 1;
                     break;
                 default:
-                    throw new InvalidAiLevel("This ai level is not handled !");
+                    throw new ErrorCodeException(Protocol.NON_EXISTANT_PLAYER_LVL, "This ai level is not handled !");
             }
 
             // Get the List of tile chosen by the Ai
@@ -254,8 +262,8 @@ public class GameService {
         sideResp.getChallenge().setSwapRack(s2);
 
         // save the sides
-        sideRepository.save(sideInit);
-        sideRepository.save(sideResp);
+        game.setSideInit(sideRepository.save(sideInit));
+        game.setSideResp(sideRepository.save(sideResp));
 
         // save the game
         gameRepository.save(game);

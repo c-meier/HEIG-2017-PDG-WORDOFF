@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 public class CharacterSelectController extends BorderPane implements Initializable{
     private static final int GRID_WIDTH = 9;
-    
+
     @FXML
     private ScrollPane characters;
     
@@ -36,7 +36,7 @@ public class CharacterSelectController extends BorderPane implements Initializab
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        final int height = Math.floorDiv(alphabet.size(), GRID_WIDTH) + 1;
+       final int height = Math.floorDiv(alphabet.size(), GRID_WIDTH) + 1;
         GridPane grid = new GridPane();
         for(Character c : alphabet){
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/tile.fxml"));     
@@ -50,15 +50,13 @@ public class CharacterSelectController extends BorderPane implements Initializab
                 Logger.getLogger(CharacterSelectController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-
         }
     }
+
     
     @FXML
     public void closeWindow(ActionEvent event) {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
-
-
 }

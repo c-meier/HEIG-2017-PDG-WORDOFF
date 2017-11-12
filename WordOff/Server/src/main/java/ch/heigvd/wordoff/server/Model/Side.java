@@ -19,7 +19,7 @@ public class Side {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Player player;
 
     @Lob
@@ -63,6 +63,10 @@ public class Side {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Player getPlayer() {

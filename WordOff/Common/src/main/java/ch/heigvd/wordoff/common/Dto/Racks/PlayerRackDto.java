@@ -7,7 +7,7 @@ import java.util.List;
 
 public class PlayerRackDto extends RackDto {
     // Necessary for Jackson deserialization
-    protected PlayerRackDto() {}
+    public PlayerRackDto() {}
 
     public PlayerRackDto(List<ITile> tiles) {
         super(tiles);

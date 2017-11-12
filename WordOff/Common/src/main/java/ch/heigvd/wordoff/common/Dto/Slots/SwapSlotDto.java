@@ -2,10 +2,10 @@ package ch.heigvd.wordoff.common.Dto.Slots;
 
 public class SwapSlotDto extends SlotDto {
     // Necessary for Jackson deserialization
-    protected SwapSlotDto() {}
+    public SwapSlotDto() {}
 
-    public SwapSlotDto(Long sideId, Short pos) {
-        super(sideId, pos);
+    public SwapSlotDto(Short pos) {
+        super(pos);
     }
 
     @Override

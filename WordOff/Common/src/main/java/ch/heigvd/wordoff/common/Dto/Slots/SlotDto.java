@@ -16,19 +16,15 @@ import java.util.Objects;
         property = "dtype"
 )
 public class SlotDto implements ISlot, IDto {
-
-    private Long sideId;
-
     private Short pos;
 
     @JsonDeserialize(as = TileDto.class)
     private ITile tile;
 
     // Necessary for Jackson deserialization
-    protected SlotDto() {}
+    public SlotDto() {}
 
-    public SlotDto(Long sideId, Short pos) {
-        this.sideId = sideId;
+    public SlotDto(Short pos) {
         this.pos = pos;
         this.tile = null;
     }
@@ -44,14 +40,6 @@ public class SlotDto implements ISlot, IDto {
     @JsonIgnore
     public int getScore() {
         return null == tile ? 0 : tile.getScore();
-    }
-
-    public Long getSideId() {
-        return sideId;
-    }
-
-    public void setSideId(Long sideId) {
-        this.sideId = sideId;
     }
 
     public Short getPos() {
@@ -70,14 +58,13 @@ public class SlotDto implements ISlot, IDto {
             return false;
         }
         SlotDto s = (SlotDto) o;
-        return Objects.equals(sideId, s.sideId) &&
-                Objects.equals(pos, s.pos) &&
+        return Objects.equals(pos, s.pos) &&
                 Objects.equals(tile, s.tile);
     }
 
     @Override
     public boolean isWellformed() {
-        return sideId != null && pos != null &&
+        return pos != null &&
                 ((tile == null) || (tile instanceof TileDto && ((TileDto)tile).isWellformed()));
     }
 }

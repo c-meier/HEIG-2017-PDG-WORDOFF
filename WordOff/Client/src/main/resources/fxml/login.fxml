@@ -50,18 +50,18 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                      <Button mnemonicParsing="false" onAction="#handleGoToMainMenu" styleClass="button_wood" stylesheets="@../styles/Styles.css" text="Login" GridPane.halignment="CENTER">
+                      <Button defaultButton="true" mnemonicParsing="false" onAction="#signIn" styleClass="button_wood" stylesheets="@../styles/Styles.css" text="Login" GridPane.halignment="CENTER">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <Button mnemonicParsing="false" styleClass="button_wood" stylesheets="@../styles/Styles.css" text="Sign up" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                  <Button mnemonicParsing="false" onAction="#signUp" styleClass="button_wood" stylesheets="@../styles/Styles.css" text="Sign up" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
                </children>
             </GridPane>
-                <TextField promptText="Username" GridPane.columnIndex="1" />
-            <PasswordField promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="userName" promptText="Username" GridPane.columnIndex="1" />
+            <PasswordField fx:id="passWord" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             </children>
         </GridPane>
     </center>

@@ -9,8 +9,8 @@ public abstract class LxSlot extends Slot {
         this.bonus = bonus;
     }
 
-    public LxSlot(Side side, Short pos, int bonus) {
-        super(side, pos);
+    public LxSlot(Short pos, int bonus) {
+        super(pos);
         this.bonus = bonus;
     }
 

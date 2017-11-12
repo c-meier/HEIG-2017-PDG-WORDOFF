@@ -2,7 +2,6 @@ package ch.heigvd.wordoff.server.Rest;
 
 import ch.heigvd.wordoff.common.Dto.ErrorDto;
 import ch.heigvd.wordoff.server.Rest.Exception.ErrorCodeException;
-import ch.heigvd.wordoff.server.Rest.Exception.InvalidWordException;
 import ch.heigvd.wordoff.server.Rest.Exception.UnauthorizedException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,12 +25,5 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorDto err = new ErrorDto(ex.getCode(), ex.getMessage());
         return handleExceptionInternal(ex, err,
                 new HttpHeaders(), HttpStatus.UNPROCESSABLE_ENTITY, request);
-    }
-
-    @ExceptionHandler(value = { InvalidWordException.class })
-    protected ResponseEntity<Object> handleWordInvalid(RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "This should be application specific";
-        return handleExceptionInternal(ex, bodyOfResponse,
-                new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 }

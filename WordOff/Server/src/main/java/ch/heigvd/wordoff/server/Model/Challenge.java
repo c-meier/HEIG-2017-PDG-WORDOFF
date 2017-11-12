@@ -21,7 +21,7 @@ public class Challenge implements IChallenge, Serializable {
     @JsonSerialize(contentAs = Slot.class)
     private List<ISlot> slots;
 
-    protected Challenge() {
+    public Challenge() {
         this.swapRack = new SwapRack();
         slots = new ArrayList<>();
     }

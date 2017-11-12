@@ -20,3 +20,8 @@
 .list-cell:empty{
     -fx-background-color: #ffeeba;
 }
+
+.list-view{
+    -fx-background-color: #ffeeba;
+}
+

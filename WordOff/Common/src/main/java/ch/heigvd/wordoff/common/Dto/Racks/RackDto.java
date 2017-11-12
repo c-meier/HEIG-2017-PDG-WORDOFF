@@ -6,6 +6,7 @@ import ch.heigvd.wordoff.common.IModel.IRack;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,7 +15,9 @@ public abstract class RackDto implements IRack, IDto {
     private List<ITile> tiles;
 
     // Necessary for Jackson deserialization
-    protected RackDto() {}
+    public RackDto() {
+        this.tiles = new ArrayList<>();
+    }
 
     public RackDto(List<ITile> tiles) {
         this.tiles = tiles;

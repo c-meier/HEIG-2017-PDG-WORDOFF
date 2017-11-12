@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SwapRackDto extends RackDto {
     // Necessary for Jackson deserialization
-    protected SwapRackDto() {}
+    public SwapRackDto() {}
 
     public SwapRackDto(List<ITile> tiles) {
         super(tiles);

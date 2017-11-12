@@ -4,6 +4,7 @@ import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Project : WordOff
@@ -15,10 +16,10 @@ public class Game {
     @GeneratedValue
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Side sideInit;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Side sideResp;
 
     @Lob
@@ -31,6 +32,8 @@ public class Game {
     @ManyToOne
     private Player currPlayer;
 
+    public Game() {}
+
     public Game(Player p1, Player p2, LangSet tileSet) {
         this.sideInit = new Side(p1);
         this.sideResp = new Side(p2);
@@ -40,9 +43,9 @@ public class Game {
     }
 
     public Side getSideOfPlayer(Player player) {
-        if (sideInit.getPlayer().equals(player)) {
+        if (Objects.equals(sideInit.getPlayer().getId(), player.getId())) {
             return sideInit;
-        } else if (sideResp.getPlayer().equals(player)) {
+        } else if (Objects.equals(sideResp.getPlayer().getId(), player.getId())) {
             return sideResp;
         } else {
             /* TODO -> EXCEPTION*/
@@ -51,18 +54,14 @@ public class Game {
     }
 
     public Player getOtherPlayer(Player player) {
-        if (player.equals(sideInit.getPlayer())) {
+        if (Objects.equals(player.getId(), sideInit.getPlayer().getId())) {
             return sideResp.getPlayer();
-        } else if (player.equals(sideResp.getPlayer())) {
+        } else if (Objects.equals(player.getId(), sideResp.getPlayer().getId())) {
             return sideInit.getPlayer();
         } else {
             /* TODO -> EXCEPTION */
             return null;
         }
-    }
-
-    public void setSideInit(Side sideInit) {
-        this.sideInit = sideInit;
     }
 
     public Bag getBag() {
@@ -85,8 +84,16 @@ public class Game {
         return sideInit;
     }
 
+    public void setSideInit(Side sideInit) {
+        this.sideInit = sideInit;
+    }
+
     public Side getSideResp() {
         return sideResp;
+    }
+
+    public void setSideResp(Side sideResp) {
+        this.sideResp = sideResp;
     }
 
     public Player getCurrPlayer() {
@@ -99,5 +106,9 @@ public class Game {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

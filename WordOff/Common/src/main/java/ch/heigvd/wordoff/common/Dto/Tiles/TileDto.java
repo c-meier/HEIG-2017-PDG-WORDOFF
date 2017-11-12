@@ -10,8 +10,8 @@ public class TileDto implements ITile, IDto {
     private char value;
     private int score;
 
-    // Necessary for Jackson deserialization
-    protected TileDto() {}
+    // Necessary for Jackson deserialization & modelMapping
+    public TileDto() {}
 
     public TileDto(int id, char valueLetter, int scoreLetter) {
         this.id = id;
@@ -27,6 +27,10 @@ public class TileDto implements ITile, IDto {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public void setValue(char c) {
         value = c;
@@ -39,6 +43,10 @@ public class TileDto implements ITile, IDto {
 
     public int getScore() {
         return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     @Override

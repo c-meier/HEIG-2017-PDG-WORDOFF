@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public interface ITile {
     char getValue();
-    int getId();
-    int getScore();
     void setValue(char c);
+    int getId();
+    void setId(int id);
+    int getScore();
+    void setScore(int score);
 
     ITile duplicate();
 

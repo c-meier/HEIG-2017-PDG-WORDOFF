@@ -23,6 +23,8 @@ public class GameDto {
 
     private boolean myTurn;
 
+    private int bagSize;
+
     /* TODO -> create GameSummaryDto */
 
     // Necessary for Jackson deserialization
@@ -49,8 +51,16 @@ public class GameDto {
         return mySide;
     }
 
+    public void setMySide(SideDto mySide) {
+        this.mySide = mySide;
+    }
+
     public OtherSideDto getOtherSide() {
         return otherSide;
+    }
+
+    public void setOtherSide(OtherSideDto otherSide) {
+        this.otherSide = otherSide;
     }
 
     public boolean isMyTurn() {
@@ -65,8 +75,24 @@ public class GameDto {
         return startDate;
     }
 
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public int getBagSize() {
+        return bagSize;
+    }
+
+    public void setBagSize(int bagSize) {
+        this.bagSize = bagSize;
+    }
+
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

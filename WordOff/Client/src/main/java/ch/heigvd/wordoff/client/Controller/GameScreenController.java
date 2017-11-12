@@ -14,6 +14,7 @@ import ch.heigvd.wordoff.common.Dto.Slots.L2SlotDto;
 import ch.heigvd.wordoff.common.Dto.Slots.L3SlotDto;
 import ch.heigvd.wordoff.common.Dto.Slots.LastSlotDto;
 import ch.heigvd.wordoff.common.Dto.Slots.SwapSlotDto;
+import ch.heigvd.wordoff.common.IModel.IChallenge;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 
@@ -40,6 +41,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.time.chrono.IsoChronology;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -146,7 +148,7 @@ public class GameScreenController implements Initializable {
         // TODO set le wordAnalyzer
         DictionaryLoader dicoLoad = new DictionaryLoader();
         this.dico = dicoLoad.getDico(this.game.getLang());
-        this.wordAnalyzer = new WordAnalyzer(dicoLoad.getDico(this.game.getLang()), this.game.getMySide().getChallenge(),this.game.getMySide().getPlayerRack());
+        this.wordAnalyzer = new WordAnalyzer(dicoLoad.getDico(this.game.getLang()), this.game.getMySide().getChallenge(), this.game.getMySide().getPlayerRack());
     }
 
     private void setLang() {
@@ -252,44 +254,78 @@ public class GameScreenController implements Initializable {
         }
     }
 
-    private void majWordAlyzer(){
+    private boolean challengeIsValid(List<ISlot> challenge) {
+        // Première case vide
+        if (challenge.get(0).isEmpty())
+            return false;
+
+        // Aucune tile sur le challenge
+        if (numberTilesOnChallengeRack == 0) {
+            return false;
+        }
+
+        // Trous dans le mot
+        for(int i = 0; i < challenge.size(); i++){
+            if(challenge.get(i).isEmpty() && (i != challenge.size()-1)){
+                // Vérifier si une lettre suit
+                for(int j = i+1 ; j < challenge.size(); j++){
+                    if(!challenge.get(j).isEmpty()){
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private boolean majWordAlyzer() {
         String word = "";
         int score = 0;
         boolean isValidWord = false;
-        if(!game.getMySide().getChallenge().getSlots().isEmpty()){
-            for(ISlot slot : game.getMySide().getChallenge().getSlots()) {
-                word += slot.getTile().getValue();
-                score += slot.getTile().getScore();
+        ChallengeDto challenge = game.getMySide().getChallenge();
+        if (numberTilesOnChallengeRack > 0) {
+            for (ISlot slot : game.getMySide().getChallenge().getSlots()) {
+                if (!slot.isEmpty()) {
+                    word += slot.getTile().getValue();
+                    score += slot.getTile().getScore();
+                }
             }
-            isValidWord = dico.contains(word);
+            if(challengeIsValid(challenge.getSlots()))
+                isValidWord = dico.contains(word);
         }
-        //wordAlyzerGUI.getChildren().
+        scoreWordAlyzer.setText(String.valueOf(score));
+        checkWordAlyzer.setSelected(isValidWord);
+        return isValidWord;
     }
 
     private void verif() {
-        // TODO vérifie sur demande le mot sur le challenge via le word analyzer
+        boolean isValidWord = majWordAlyzer();
+        String text = isValidWord ? "Ce mot est correct" : "Ce mot n'existe pas";
+        Dialog.getInstance().signalInformation(text);
     }
 
     private void play() {
         // TODO vérifier le mot avec le word analyzer avant de jouer le coup
-
-        try {
-            this.game = GameApi.play(game.getId(), game.getMySide().getChallenge());
-            // Cache les cases du player 2 (cas du pouvoir apercu activé pendant le tour
-            setVisible(p2TilesPr, false);
-            // Clear les valeurs des tiles GUI
-            clearTiles(p1TilesPr);
-            clearTiles(p1TilesSr);
-            clearTiles(p2TilesSr);
-            // Replace les tiles aux slots d'origines
-            replaceTilesOrigin(p1SlotsCh);
-            // Actualise l'état du jeu
-            setStateGame();
-            setNumberOfTiles();
-        } catch (TokenNotFoundException e) {
-            Dialog.getInstance().signalError("Une erreur s'est produite. Veuillez vous reconnecter");
-        } catch (UnprocessableEntityException e) {
-            Dialog.getInstance().signalInformation("Ce n'est pas votre tour de jouer");
+        if (majWordAlyzer() == true) {
+            try {
+                this.game = GameApi.play(game.getId(), game.getMySide().getChallenge());
+                // Cache les cases du player 2 (cas du pouvoir apercu activé pendant le tour
+                setVisible(p2TilesPr, false);
+                // Clear les valeurs des tiles GUI
+                clearTiles(p1TilesPr);
+                clearTiles(p1TilesSr);
+                clearTiles(p2TilesSr);
+                // Replace les tiles aux slots d'origines
+                replaceTilesOrigin(p1SlotsCh);
+                // Actualise l'état du jeu
+                setStateGame();
+                setNumberOfTiles();
+            } catch (TokenNotFoundException e) {
+                Dialog.getInstance().signalError("Une erreur s'est produite. Veuillez vous reconnecter");
+            } catch (UnprocessableEntityException e) {
+                Dialog.getInstance().signalInformation("Ce n'est pas votre tour de jouer");
+            }
         }
     }
 
@@ -341,17 +377,17 @@ public class GameScreenController implements Initializable {
         setStateGame();
     }
 
-    private void setStateChallengeOtherSide(){
-        if(game.getOtherSide().getChallenge().getSlots().isEmpty()){
-            for(AnchorPane pane : p2TilesCh){
+    private void setStateChallengeOtherSide() {
+        if (game.getOtherSide().getChallenge().getSlots().isEmpty()) {
+            for (AnchorPane pane : p2TilesCh) {
                 pane.setVisible(false);
             }
-        }else{
+        } else {
             int i = 0;
-            for(ISlot slot : game.getOtherSide().getChallenge().getSlots()){
-                if(slot.isEmpty()){
+            for (ISlot slot : game.getOtherSide().getChallenge().getSlots()) {
+                if (slot.isEmpty()) {
                     p2TilesCh.get(i).setVisible(false);
-                }else{
+                } else {
                     setTile(p2TilesCh.get(i), slot.getTile());
                     p2TilesCh.get(i).setVisible(true);
                 }
@@ -414,10 +450,11 @@ public class GameScreenController implements Initializable {
 
     /**
      * Change state of tile GUI from tile logic
+     *
      * @param tilePane
      * @param tileLogic
      */
-    private void setTile(AnchorPane tilePane, ITile tileLogic){
+    private void setTile(AnchorPane tilePane, ITile tileLogic) {
         Label value = (Label) tilePane.getChildren().get(0);
         Label score = (Label) tilePane.getChildren().get(1);
         Label id = (Label) tilePane.getChildren().get(2);
@@ -439,7 +476,7 @@ public class GameScreenController implements Initializable {
     private void setTiles(List<ITile> rack, List<AnchorPane> tiles, boolean withListener) {
         int i = 0;
         for (ITile tile : rack) {
-            setTile(tiles.get(i),tile);
+            setTile(tiles.get(i), tile);
             if (withListener) {
                 // Add listener mouseClicket
                 tiles.get(i).setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -569,7 +606,7 @@ public class GameScreenController implements Initializable {
                 this.game.getMySide().getPlayerRack().addTile(tile);
             }
         }
-
+        majWordAlyzer();
     }
 
 
@@ -602,7 +639,7 @@ public class GameScreenController implements Initializable {
         // Tiles swap rack
         addConentListAnchorePane(p2TilesSr, true, p2TileSr1, p2TileSr2);
         // Tiles challenge
-        addConentListAnchorePane(p2TilesCh,false,p2TileCh1, p2TileCh2, p2TileCh3, p2TileCh4, p2TileCh5, p2TileCh6, p2TileCh7);
+        addConentListAnchorePane(p2TilesCh, false, p2TileCh1, p2TileCh2, p2TileCh3, p2TileCh4, p2TileCh5, p2TileCh6, p2TileCh7);
 
     }
 

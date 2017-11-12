@@ -16,7 +16,7 @@ import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
 import ch.heigvd.wordoff.server.Rest.Exception.ErrorCodeException;
 import ch.heigvd.wordoff.server.Util.ChallengeFactory;
-import ch.heigvd.wordoff.server.Util.DictionaryLoader;
+import ch.heigvd.wordoff.common.DictionaryLoader;
 import javafx.util.Pair;
 import org.springframework.stereotype.Service;
 
@@ -68,34 +68,33 @@ public class GameService {
                 throw new ErrorCodeException(Protocol.INVALID_WORD, "The word is not in the dictionary !");
             }
 
+            // get side of player
+            side = game.getSideOfPlayer(player);
+
             // check if the challenge is possible with tiles that the player have
             int i = 0;
             boolean tileIsNotInSwapRacks = false;
             boolean tileIsNotInPlayerRacks = false;
             List<ITile> tempRackPlayer = new ArrayList<>();
             List<ITile> tempSwapRack = new ArrayList<>();
-            tempSwapRack.addAll(game.getSideOfPlayer(player).getChallenge().getSwapRack().getTiles());
-            tempRackPlayer.addAll(game.getSideOfPlayer(player).getPlayerRack().getTiles());
-            while (challenge.getWord().length() != game.getSideOfPlayer(player).getChallenge().getWord().length()) {
+            tempSwapRack.addAll(side.getChallenge().getSwapRack().getTiles());
+            tempRackPlayer.addAll(side.getPlayerRack().getTiles());
+            while (challenge.getWord().length() != side.getChallenge().getWord().length()) {
                 ITile currTile = challenge.getSlots().get(i).getTile();
-                if (i < tempSwapRack.size()) {
-                    if (!tempSwapRack.contains(currTile)) {
-                        tileIsNotInSwapRacks = true;
-                    } else {
-                        game.getSideOfPlayer(player).getChallenge().addTile(game.getSideOfPlayer(player).getChallenge().getSwapRack().removeTile(currTile.getId()));
-                        game.getSideOfPlayer(player).getChallenge().getSwapRack().getTiles().remove(game.getSideOfPlayer(player).getChallenge().getSwapRack().removeTile(currTile.getId()));
-                        tileIsNotInSwapRacks = false;
-                    }
+                if (!tempSwapRack.contains(currTile)) {
+                    tileIsNotInSwapRacks = true;
+                } else {
+                    side.getChallenge().addTile(side.getChallenge().getSwapRack().removeTile(currTile.getId()));
+                    side.getChallenge().getSwapRack().getTiles().remove(side.getChallenge().getSwapRack().removeTile(currTile.getId()));
+                    tileIsNotInSwapRacks = false;
                 }
 
-                if (i < tempRackPlayer.size()) {
-                    if (!tempRackPlayer.contains(currTile)) {
-                        tileIsNotInPlayerRacks = true;
-                    } else {
-                        game.getSideOfPlayer(player).getChallenge().addTile(game.getSideOfPlayer(player).getPlayerRack().removeTile(currTile.getId()));
-                        game.getSideOfPlayer(player).getPlayerRack().getTiles().remove(game.getSideOfPlayer(player).getPlayerRack().removeTile(currTile.getId()));
-                        tileIsNotInPlayerRacks = false;
-                    }
+                if (!tempRackPlayer.contains(currTile)) {
+                    tileIsNotInPlayerRacks = true;
+                } else {
+                    side.getChallenge().addTile(side.getPlayerRack().removeTile(currTile.getId()));
+                    side.getPlayerRack().getTiles().remove(side.getPlayerRack().removeTile(currTile.getId()));
+                    tileIsNotInPlayerRacks = false;
                 }
 
                 if (tileIsNotInPlayerRacks && tileIsNotInSwapRacks) {
@@ -106,10 +105,10 @@ public class GameService {
 
             // get a list of the tile taken from the bag of the game
             List<Tile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE -
-                    game.getSideOfPlayer(player).getPlayerRack().getTiles().size());
+                    side.getPlayerRack().getTiles().size());
 
             // reset jokers' values
-            for(ISlot slot : game.getSideOfPlayer(player).getChallenge().getSlots()) {
+            for(ISlot slot : side.getChallenge().getSlots()) {
                 if(slot.getTile() != null && slot.getTile().isJoker()) {
                     slot.getTile().setValue('#');
                 }
@@ -117,14 +116,14 @@ public class GameService {
 
             // Send swap tiles to other player
             game.getSideOfPlayer(game.getOtherPlayer(player)).getChallenge().setSwapRack(new SwapRack());
-            for (ITile tile : game.getSideOfPlayer(player).getChallenge().getTilesToSwap()) {
+            for (ITile tile : side.getChallenge().getTilesToSwap()) {
                 if (tile != null) {
                     game.getSideOfPlayer(game.getOtherPlayer(player)).getChallenge().getSwapRack().addTile(tile);
                 }
             }
 
             // Update the player side
-            updatePlayerSide(game.getSideOfPlayer(player), game.getSideOfPlayer(player).getChallenge(), newTiles);
+            updatePlayerSide(side, side.getChallenge(), newTiles);
 
             // switch player
             game.setCurrPlayer(game.getOtherPlayer(player));

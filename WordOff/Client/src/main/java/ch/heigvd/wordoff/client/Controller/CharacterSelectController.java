@@ -43,9 +43,9 @@ public class CharacterSelectController extends BorderPane implements Initializab
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/tile.fxml"));     
             try {
                 TileController tc = new TileController(String.valueOf(c), 0);
-                fxmlLoader.setController(c);
+                fxmlLoader.setController(tc);
                 AnchorPane tile = fxmlLoader.load();
-                grid.add(tile, i/GRID_WIDTH, i % GRID_WIDTH);
+                grid.add(tile, i % GRID_WIDTH, i/GRID_WIDTH);
                 characters.setContent(grid);
             } catch (IOException ex) {
                 Logger.getLogger(CharacterSelectController.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,7 +56,7 @@ public class CharacterSelectController extends BorderPane implements Initializab
 
     
     @FXML
-    public void closeWindow(ActionEvent event) {
+    public void closeWindow() {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }

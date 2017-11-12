@@ -306,7 +306,6 @@ public class GameScreenController implements Initializable {
     }
 
     private void play() {
-        // TODO vérifier le mot avec le word analyzer avant de jouer le coup
         if (majWordAlyzer() == true) {
             try {
                 this.game = GameApi.play(game.getId(), game.getMySide().getChallenge());
@@ -326,6 +325,8 @@ public class GameScreenController implements Initializable {
             } catch (UnprocessableEntityException e) {
                 Dialog.getInstance().signalInformation("Ce n'est pas votre tour de jouer");
             }
+        }else{
+            Dialog.getInstance().signalInformation("Ce mot n'est pas valide");
         }
     }
 

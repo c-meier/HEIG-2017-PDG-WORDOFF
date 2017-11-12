@@ -21,16 +21,28 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import static ch.heigvd.wordoff.common.Constants.AUTHORIZATION_HEADER;
 import static ch.heigvd.wordoff.common.Constants.SERVER_URI;
 
 public class GameApi {
 
-    private final static RestTemplate restTemplate = new RestTemplate();
-    private final static ObjectMapper mapper = new ObjectMapper();
+    private final RestTemplate restTemplate;
+    private final ObjectMapper mapper = new ObjectMapper();
+    private final static Logger LOG = Logger.getLogger(GameApi.class.getSimpleName());
 
-    {
+    private static GameApi instance = null;
+
+    public static GameApi getInstance() {
+        if(instance == null) {
+            instance = new GameApi();
+        }
+        return instance;
+    }
+
+    private GameApi() {
+        this.restTemplate = new RestTemplate();
         restTemplate.setErrorHandler(new ResponseErrorHandler() {
             @Override
             public boolean hasError(ClientHttpResponse clientHttpResponse) throws IOException {
@@ -47,8 +59,10 @@ public class GameApi {
                         throw new UnauthorizedException();
                     case UNPROCESSABLE_ENTITY: // 422
                         ErrorDto err = mapper.readValue(clientHttpResponse.getBody(), ErrorDto.class);
+                        LOG.warning(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(err));
                         throw new UnprocessableEntityException(err.getErrorCode(), err.getMsg());
                     default:
+                        LOG.severe(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(clientHttpResponse.getBody())));
                         throw new HTTPException(clientHttpResponse.getStatusCode().value());
                 }
             }
@@ -56,22 +70,22 @@ public class GameApi {
     }
 
     public static List<GameSummaryDto> retrieveGames() throws TokenNotFoundException {
-        return retrieveGames(TokenManager.loadToken());
+        return getInstance().retrieveGames(TokenManager.loadToken());
     }
 
     public static GameSummaryDto createGame(String lang, List<Long> playerIds) throws TokenNotFoundException {
-        return createGame(TokenManager.loadToken(), lang, playerIds);
+        return getInstance().createGame(TokenManager.loadToken(), lang, playerIds);
     }
 
     public static  GameDto getGame(Long gameId) throws TokenNotFoundException {
-        return getGame(TokenManager.loadToken(), gameId);
+        return getInstance().getGame(TokenManager.loadToken(), gameId);
     }
 
     public static GameDto play(Long gameId, ChallengeDto challengeDto) throws TokenNotFoundException {
-        return play(TokenManager.loadToken(), gameId, challengeDto);
+        return getInstance().play(TokenManager.loadToken(), gameId, challengeDto);
     }
 
-    private static List<GameSummaryDto> retrieveGames(String token) {
+    private List<GameSummaryDto> retrieveGames(String token) {
         final String uri = SERVER_URI + "/games";
 
         HttpHeaders headers = new HttpHeaders();
@@ -86,7 +100,7 @@ public class GameApi {
         return responseEntity.getBody();
     }
 
-    private static GameSummaryDto createGame(String token, String lang, List<Long> playerIds) {
+    private GameSummaryDto createGame(String token, String lang, List<Long> playerIds) {
         final String uri = SERVER_URI + "/games";
 
         Map<String, String> params = new HashMap<>();
@@ -105,7 +119,7 @@ public class GameApi {
         return responseEntity.getBody();
     }
 
-    private static GameDto getGame(String token, Long gameId) {
+    private GameDto getGame(String token, Long gameId) {
         final String uri = SERVER_URI + "/games/{gameId}";
 
         Map<String, String> params = new HashMap<>();
@@ -136,7 +150,7 @@ public class GameApi {
         }*/
     }
 
-    private static GameDto play(String token, Long gameId, ChallengeDto challengeDto) {
+    private GameDto play(String token, Long gameId, ChallengeDto challengeDto) {
         final String uri = SERVER_URI + "/games/{gameId}/challenge";
 
         Map<String, String> params = new HashMap<>();

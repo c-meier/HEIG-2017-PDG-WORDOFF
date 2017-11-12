@@ -124,6 +124,7 @@ public class MainMenuController implements Initializable {
         // Remplire les games disponnibles
         try {
             List<GameSummaryDto> list = GameApi.retrieveGames();
+            // TODO trier les différentes games pour les mettre dans les bonnes listes
             for (GameSummaryDto dto : list) {
                 gamesSummaryDto.add(dto);
                 gamesPlayer.getItems().add(dto.getOtherPlayer().getName());

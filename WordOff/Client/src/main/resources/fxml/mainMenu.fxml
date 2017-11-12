@@ -137,7 +137,7 @@
                                                 <Label alignment="CENTER" layoutX="117.0" layoutY="6.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="410.0" styleClass="backgroundGame_withoutShadow" stylesheets="@../styles/Styles.css" text="Parties terminées" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.rowIndex="3">
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="gridPaneMainMenu" stylesheets="@../styles/Style_listView.css" GridPane.rowIndex="3">
                                              <children>
                                                 <ListView fx:id="gamesPlayerFinish" layoutX="120.0" layoutY="-53.0" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>

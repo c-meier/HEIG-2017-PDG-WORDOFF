@@ -35,8 +35,10 @@ public class UserApi {
                 return;
             case BAD_REQUEST: // 400
                 throw new BadRequestException();
-            case  UNPROCESSABLE_ENTITY: // 422
-                ErrorDto err = (ErrorDto)responseEntity.getBody();
+            case UNAUTHORIZED: // 401
+                throw new UnauthorizedException();
+            case UNPROCESSABLE_ENTITY: // 422
+                ErrorDto err = (ErrorDto) responseEntity.getBody();
                 throw new UnprocessableEntityException(err.getErrorCode(), err.getMsg());
             default:
                 throw new HTTPException(responseEntity.getStatusCode().value());

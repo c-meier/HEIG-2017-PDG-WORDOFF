@@ -129,6 +129,7 @@ public class GameScreenController implements Initializable {
         setLang();
         setState(this.game);
         // TODO set le wordAnalyzer
+     //   this.wordAnalyzer = new WordAnalyzer(dico, this.game.getMySide().getChallenge(),this.game.getMySide().getPlayerRack());
     }
 
     private void setLang() {

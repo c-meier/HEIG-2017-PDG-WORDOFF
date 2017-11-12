@@ -32,6 +32,20 @@ public class Dialog {
         return INSTANCE;
     }
 
+    private void applyStyleSheet(Alert alert) {
+        // Set Icon
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(getClass().getResource("/images/icon.png").toExternalForm()));
+        //   stage.initStyle(StageStyle.UNDECORATED);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        ObservableList<String> st = dialogPane.getStylesheets();
+        dialogPane.getStylesheets().add(
+                getClass().getResource("/styles/Style_alert.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialog");
+
+    }
+
     public void signalError(String error) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -74,21 +88,9 @@ public class Dialog {
         return false;
     }
 
-    private void applyStyleSheet(Alert alert) {
-        // Set Icon
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image(getClass().getResource("/images/icon.png").toExternalForm()));
-        //   stage.initStyle(StageStyle.UNDECORATED);
 
-        DialogPane dialogPane = alert.getDialogPane();
-        ObservableList<String> st = dialogPane.getStylesheets();
-        dialogPane.getStylesheets().add(
-                getClass().getResource("/styles/Style_alert.css").toExternalForm());
-        dialogPane.getStyleClass().add("myDialog");
 
-    }
-
-    public String choicesDialog(String title, String content, String typeChoice, String ... choices){
+    public String choicesBoxDialog(String title, String content, String typeChoice, String ... choices){
         final String[] choose = {""};
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");

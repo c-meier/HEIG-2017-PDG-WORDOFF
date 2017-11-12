@@ -70,19 +70,22 @@ public class LoginController implements Initializable {
     @FXML
     private void signUp(ActionEvent event){
         if(nameAndPasswordIsEmpty() == false){
-            try{
+            try {
                 String name = userName.getText();
                 char[] pass = passWord.getText().toCharArray();
                 UserApi.signUp(new LoginDto(name, pass));
                 handleGoToMainMenu();
             }catch(BadRequestException e){
-                e.printStackTrace();
-            }catch(UnprocessableEntityException e){
-                Dialog.getInstance().signalInformation("Une erreur s'est produite");
-                e.printStackTrace();
+                Dialog.getInstance().signalInformation("Une erreur s'est produite " + e.getMessage());
+                //e.printStackTrace();
+            }catch(UnprocessableEntityException e) {
+                Dialog.getInstance().signalInformation("Une erreur s'est produite " + e.getMessage());
+                //e.printStackTrace();
             }catch(HTTPException e){
-                e.printStackTrace();
-                Dialog.getInstance().signalInformation("Une erreur s'est produite");
+               // e.printStackTrace();
+                Dialog.getInstance().signalInformation("Une erreur s'est produite " + e.getMessage());
+            }catch(Exception e ) {
+                Dialog.getInstance().signalInformation("Une erreur s'est produite " + e.getMessage());
             }
         }
     }

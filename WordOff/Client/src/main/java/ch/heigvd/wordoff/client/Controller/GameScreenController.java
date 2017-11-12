@@ -352,7 +352,6 @@ public class GameScreenController implements Initializable {
                 if(slot.isEmpty()){
                     p2TilesCh.get(i).setVisible(false);
                 }else{
-                   // TODO JE SUSI La
                     setTile(p2TilesCh.get(i), slot.getTile());
                     p2TilesCh.get(i).setVisible(true);
                 }
@@ -440,18 +439,6 @@ public class GameScreenController implements Initializable {
     private void setTiles(List<ITile> rack, List<AnchorPane> tiles, boolean withListener) {
         int i = 0;
         for (ITile tile : rack) {
-      /*      // Maj tile GUI
-            Label value = (Label) tiles.get(i).getChildren().get(0);
-            Label score = (Label) tiles.get(i).getChildren().get(1);
-            Label id = (Label) tiles.get(i).getChildren().get(2);
-            if (tile.getScore() == 0) {
-                value.setText("");
-            } else {
-                value.setText(String.valueOf(tile.getValue()).toUpperCase());
-            }
-            score.setText(String.valueOf(tile.getScore()));
-            id.setText(String.valueOf(tile.getId()));
-*/
             setTile(tiles.get(i),tile);
             if (withListener) {
                 // Add listener mouseClicket

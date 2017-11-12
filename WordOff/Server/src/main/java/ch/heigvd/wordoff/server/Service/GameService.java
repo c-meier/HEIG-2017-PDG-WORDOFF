@@ -85,7 +85,6 @@ public class GameService {
                     tileIsNotInSwapRacks = true;
                 } else {
                     side.getChallenge().addTile(side.getChallenge().getSwapRack().removeTile(currTile.getId()));
-                    side.getChallenge().getSwapRack().getTiles().remove(side.getChallenge().getSwapRack().removeTile(currTile.getId()));
                     tileIsNotInSwapRacks = false;
                 }
 
@@ -93,7 +92,6 @@ public class GameService {
                     tileIsNotInPlayerRacks = true;
                 } else {
                     side.getChallenge().addTile(side.getPlayerRack().removeTile(currTile.getId()));
-                    side.getPlayerRack().getTiles().remove(side.getPlayerRack().removeTile(currTile.getId()));
                     tileIsNotInPlayerRacks = false;
                 }
 
@@ -104,7 +102,7 @@ public class GameService {
             }
 
             // get a list of the tile taken from the bag of the game
-            List<Tile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE -
+            List<ITile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE -
                     side.getPlayerRack().getTiles().size());
 
             // reset jokers' values
@@ -127,10 +125,6 @@ public class GameService {
 
             // switch player
             game.setCurrPlayer(game.getOtherPlayer(player));
-
-            // PlayerDto Side updated
-            side = game.getSideOfPlayer(player);
-
         } else {
             throw new ErrorCodeException(Protocol.NOT_YOUR_TURN, "Not player turn to play !");
         }
@@ -190,7 +184,7 @@ public class GameService {
         game.getSideResp().getPlayerRack().getTiles().removeAll(word);
 
         // get a list of the tile taken from the bag of the game
-        List<Tile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE -
+        List<ITile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE -
                 game.getSideOfPlayer(player).getPlayerRack().getTiles().size());
 
         // reset jokers' values
@@ -243,8 +237,8 @@ public class GameService {
         // Set players Racks
         PlayerRack p1R = sideInit.getPlayerRack();
         PlayerRack p2R = sideResp.getPlayerRack();
-        p1R.setTiles(game.getBag().getSevenTiles());
-        p2R.setTiles(game.getBag().getSevenTiles());
+        p1R.setTiles(game.getBag().getXTile(7));
+        p2R.setTiles(game.getBag().getXTile(7));
 
         // set new Challenge
         sideInit.setChallenge(new ChallengeFactory(sideInit).createRandomSlotPos().create());
@@ -280,7 +274,7 @@ public class GameService {
      *          - add new tiles to player rack
      *          - create a new challenge
      */
-    private void updatePlayerSide(Side side, Challenge challenge, List<Tile> newTiles) {
+    private void updatePlayerSide(Side side, Challenge challenge, List<ITile> newTiles) {
         // Update the score of the side of the player
         int score = challenge.getScore();
         side.updateScore(challenge.getScore());

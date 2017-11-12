@@ -131,14 +131,14 @@ public class MainMenuController implements Initializable {
             }
             // TODO récupérer mon id
         } catch (TokenNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("TockerFoundException");
+           // e.printStackTrace();
+            Dialog.getInstance().signalInformation("Une erreur s'est produite " + e.getMessage());
         } catch (UnauthorizedException e) {
-            e.printStackTrace();
-            System.out.println("UnauthorizedException");
+          //  e.printStackTrace();
+            Dialog.getInstance().signalInformation("Une erreur s'est produite " + e.getMessage());
         } catch (HTTPException e) {
-            e.printStackTrace();
-            System.out.println("HTTPException");
+           // e.printStackTrace();
+            Dialog.getInstance().signalInformation("Une erreur s'est produite " + e.getMessage());
         }
 
         gamesPlayer.getItems().add(this.gameTest.getGameSummaryDtoList().get(0).getOtherPlayer().getName());

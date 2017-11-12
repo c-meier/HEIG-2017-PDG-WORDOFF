@@ -38,19 +38,19 @@ public class CharacterSelectController extends BorderPane implements Initializab
     public void initialize(URL url, ResourceBundle rb) {
         final int height = Math.floorDiv(alphabet.size(), GRID_WIDTH) + 1;
         GridPane grid = new GridPane();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/tile.fxml"));     
-        try {
-            TileController c = new TileController("D", 0);
-            fxmlLoader.setController(c);
-            AnchorPane tile = fxmlLoader.load();
-            grid.getChildren().add(tile);
-            characters.setContent(grid);
-        } catch (IOException ex) {
-            Logger.getLogger(CharacterSelectController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
         for(Character c : alphabet){
-            
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/tile.fxml"));     
+            try {
+                TileController tc = new TileController(String.valueOf(c), 0);
+                fxmlLoader.setController(c);
+                AnchorPane tile = fxmlLoader.load();
+                grid.getChildren().add(tile);
+                characters.setContent(grid);
+            } catch (IOException ex) {
+                Logger.getLogger(CharacterSelectController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
         }
     }
     

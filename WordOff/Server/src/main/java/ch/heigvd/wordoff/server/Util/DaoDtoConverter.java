@@ -19,6 +19,7 @@ import org.modelmapper.*;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Objects;
 
 @Component
@@ -204,12 +205,24 @@ public class DaoDtoConverter {
     }
 
     public GameDto toDto(Game dao, Player viewer) {
+        Side mySide = dao.getSideOfPlayer(viewer);
+        Side otherSide = dao.getSideOfPlayer(dao.getOtherPlayer(viewer));
+
         GameDto dto = modelMapper.map(dao, GameDto.class);
         dto.setMySide(modelMapper.map(
-                dao.getSideOfPlayer(viewer), SideDto.class));
+                mySide, SideDto.class));
         dto.setOtherSide(modelMapper.map(
-                dao.getSideOfPlayer(dao.getOtherPlayer(viewer)), OtherSideDto.class));
+                otherSide, OtherSideDto.class));
         dto.setMyTurn(Objects.equals(dao.getCurrPlayer().getId(), viewer.getId()));
+
+        // If it's the viewer turn, then he sees the last completed challenge (if it exists) of his
+        // adversary.
+        List<Answer> otherAnswers = otherSide.getAnswers();
+        if(dto.isMyTurn() && !otherAnswers.isEmpty()) {
+            Challenge lastChallenge = otherAnswers.get(otherAnswers.size() - 1).getChallenge();
+            dto.getOtherSide().setChallenge(modelMapper.map(lastChallenge, ChallengeDto.class));
+        }
+
         return dto;
     }
 

@@ -51,8 +51,8 @@ public class Side {
         score += challengeScore;
     }
 
-    public void addTilesToPlayerRack(List<Tile> newTiles) {
-        for (Tile tile : newTiles) {
+    public void addTilesToPlayerRack(List<ITile> newTiles) {
+        for (ITile tile : newTiles) {
             playerRack.addTile(tile);
         }
     }

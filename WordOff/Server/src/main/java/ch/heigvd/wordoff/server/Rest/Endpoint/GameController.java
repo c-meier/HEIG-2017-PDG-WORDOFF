@@ -144,6 +144,7 @@ public class GameController {
         Challenge challenge = daoDtoConverter.fromDto(challengeDto);
 
         game = gameService.play(game, player, challenge);
+
         // convert dao game to dto
         GameDto gameDto = daoDtoConverter.toDto(game, player);
 

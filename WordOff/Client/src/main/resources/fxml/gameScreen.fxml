@@ -728,6 +728,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
+                  <Button mnemonicParsing="false" onAction="#refresh" text="Refresh" />
               </items>
             </ToolBar>
          </children>

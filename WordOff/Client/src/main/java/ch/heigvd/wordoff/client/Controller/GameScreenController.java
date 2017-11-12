@@ -240,6 +240,27 @@ public class GameScreenController implements Initializable {
     }
 
     @FXML
+    private void refresh(){
+        try {
+            this.game = GameApi.getGame(game.getId());
+            // Cache les cases du player 2 (cas du pouvoir apercu activé pendant le tour
+            setVisible(p2TilesPr, false);
+            // Clear les valeurs des tiles GUI
+            clearTiles(p1TilesPr);
+            clearTiles(p1TilesSr);
+            clearTiles(p2TilesSr);
+            // Replace les tiles aux slots d'origines
+            replaceTilesOrigin(p1SlotsCh);
+            // Actualise l'état du jeu
+            setStateGame();
+            setNumberOfTiles();
+            majWordAlyzer();
+        } catch (TokenNotFoundException e) {
+            Dialog.getInstance().signalError("Une erreur s'est produite. Veuillez vous reconnecter");
+        }
+    }
+
+    @FXML
     private void hint() {
         // TODO etat temporaire
         System.out.println("Click hint");
@@ -325,7 +346,6 @@ public class GameScreenController implements Initializable {
     private void play() {
         if (majWordAlyzer() == true) {
             try {
-
                 this.game = GameApi.play(game.getId(), game.getMySide().getChallenge());
                 // Cache les cases du player 2 (cas du pouvoir apercu activé pendant le tour
                 setVisible(p2TilesPr, false);

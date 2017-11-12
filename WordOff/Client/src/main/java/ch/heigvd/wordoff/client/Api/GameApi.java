@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
@@ -159,13 +160,23 @@ public class GameApi {
         HttpHeaders headers = new HttpHeaders();
         headers.add(AUTHORIZATION_HEADER, token);
         headers.setContentType(MediaType.APPLICATION_JSON);
+        ResponseEntity<GameDto> responseEntity = null;
 
-        ResponseEntity<GameDto> responseEntity =
-                restTemplate.exchange(uri,
-                        HttpMethod.POST,
-                        new HttpEntity<>(challengeDto, headers),
-                        GameDto.class,
-                        params);
+        try {
+            responseEntity =
+                    restTemplate.exchange(uri,
+                            HttpMethod.POST,
+                            new HttpEntity<>(challengeDto, headers),
+                            GameDto.class,
+                            params);
+
+            return responseEntity.getBody();
+
+        }catch(HttpClientErrorException e){
+            System.out.println(e.getStatusCode());
+        }catch(UnprocessableEntityException e){
+            throw new UnprocessableEntityException(e.getErrorCode(),e.getMsg());
+        }
 
         return responseEntity.getBody();
     }

@@ -6,7 +6,10 @@ import ch.heigvd.wordoff.client.Exception.UnprocessableEntityException;
 import ch.heigvd.wordoff.client.Util.TokenManager;
 import ch.heigvd.wordoff.common.Dto.ErrorDto;
 import ch.heigvd.wordoff.common.Dto.LoginDto;
+import org.apache.http.client.HttpClient;
+import org.apache.http.protocol.HTTP;
 import org.springframework.http.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.xml.ws.http.HTTPException;
@@ -24,24 +27,26 @@ public class UserApi {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        ResponseEntity responseEntity =
-                restTemplate.exchange(uri,
-                        HttpMethod.POST,
-                        new HttpEntity<>(loginDto, headers),
-                        ResponseEntity.class);
+        ResponseEntity responseEntity = null;
+        try {
+            responseEntity =
+                    restTemplate.exchange(uri,
+                            HttpMethod.POST,
+                            new HttpEntity<>(loginDto, headers),
+                            ResponseEntity.class);
 
-        switch (responseEntity.getStatusCode()) {
-            case OK: // 200
-                return;
-            case BAD_REQUEST: // 400
-                throw new BadRequestException();
-            case UNAUTHORIZED: // 401
-                throw new UnauthorizedException();
-            case UNPROCESSABLE_ENTITY: // 422
-                ErrorDto err = (ErrorDto) responseEntity.getBody();
-                throw new UnprocessableEntityException(err.getErrorCode(), err.getMsg());
-            default:
-                throw new HTTPException(responseEntity.getStatusCode().value());
+        } catch (HttpClientErrorException e) {
+            switch (e.getStatusCode()) {
+                case BAD_REQUEST: // 400
+                    throw new BadRequestException();
+                case UNAUTHORIZED: // 401
+                    throw new UnauthorizedException();
+                case UNPROCESSABLE_ENTITY: // 422
+                    ErrorDto err = (ErrorDto) responseEntity.getBody();
+                    throw new UnprocessableEntityException(err.getErrorCode(), err.getMsg());
+                default:
+                    throw new HTTPException(responseEntity.getStatusCode().value());
+            }
         }
     }
 
@@ -50,29 +55,30 @@ public class UserApi {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-
-        ResponseEntity responseEntity =
-                restTemplate.exchange(uri,
-                        HttpMethod.POST,
-                        new HttpEntity<>(loginDto, headers),
-                        ResponseEntity.class);
-
-        switch (responseEntity.getStatusCode()) {
-            case OK:
-                // retrieve token from header
-                HttpHeaders httpHeaders = responseEntity.getHeaders();
-                List<String> listHeaders = httpHeaders.get("Authorization");
-                String token = listHeaders.get(0);
-                // save token to filesystem
-                TokenManager.saveToken(token);
-                return;
-            case BAD_REQUEST: // 400
-                throw new BadRequestException();
-            case UNAUTHORIZED: // 401
-                throw new UnauthorizedException();
-            default:
-                throw new HTTPException(responseEntity.getStatusCode().value());
+        ResponseEntity responseEntity = null;
+        try {
+            responseEntity =
+                    restTemplate.exchange(uri,
+                            HttpMethod.POST,
+                            new HttpEntity<>(loginDto, headers),
+                            ResponseEntity.class);
+        } catch (HttpClientErrorException e) {
+            switch (e.getStatusCode()) {
+                case BAD_REQUEST: // 400
+                    throw new BadRequestException();
+                case UNAUTHORIZED: // 401
+                    throw new UnauthorizedException();
+                default:
+                    throw new HTTPException(responseEntity.getStatusCode().value());
+            }
         }
+
+        // retrieve token from header
+        HttpHeaders httpHeaders = responseEntity.getHeaders();
+        List<String> listHeaders = httpHeaders.get("Authorization");
+        String token = listHeaders.get(0);
+        // save token to filesystem
+        TokenManager.saveToken(token);
     }
 
 }

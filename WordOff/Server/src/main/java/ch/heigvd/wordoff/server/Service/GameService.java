@@ -136,7 +136,7 @@ public class GameService {
             throw new ErrorCodeException(Protocol.NOT_YOUR_TURN, "Not player turn to play !");
         }
 
-//        gameRepository.save(game);
+        gameRepository.save(game);
 
         return game;
     }
@@ -215,7 +215,7 @@ public class GameService {
         // switch player
         game.setCurrPlayer(game.getOtherPlayer(player));
 
-        gameRepository.save(game);
+//        gameRepository.save(game);
 
         return game;
     }

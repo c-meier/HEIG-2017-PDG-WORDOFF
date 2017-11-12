@@ -6,6 +6,7 @@ import java.util.Objects;
 
 @Entity
 public class Answer {
+    @Lob
     private Challenge challenge;
 
     @EmbeddedId

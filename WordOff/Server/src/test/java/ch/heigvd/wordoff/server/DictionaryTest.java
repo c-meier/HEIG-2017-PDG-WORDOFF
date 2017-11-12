@@ -1,8 +1,7 @@
 package ch.heigvd.wordoff.server;
 
-import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dictionary;
-import ch.heigvd.wordoff.server.Util.DictionaryLoader;
+import ch.heigvd.wordoff.common.DictionaryLoader;
 import org.junit.*;
 
 import static org.junit.Assert.*;

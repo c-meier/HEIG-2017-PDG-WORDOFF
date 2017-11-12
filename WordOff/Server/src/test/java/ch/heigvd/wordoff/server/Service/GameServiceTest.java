@@ -11,7 +11,7 @@ import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
 import ch.heigvd.wordoff.server.Util.ChallengeFactory;
-import ch.heigvd.wordoff.server.Util.DictionaryLoader;
+import ch.heigvd.wordoff.common.DictionaryLoader;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;

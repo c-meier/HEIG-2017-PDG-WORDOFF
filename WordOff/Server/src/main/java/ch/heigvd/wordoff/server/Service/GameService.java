@@ -85,7 +85,6 @@ public class GameService {
                     tileIsNotInSwapRacks = true;
                 } else {
                     side.getChallenge().addTile(side.getChallenge().getSwapRack().removeTile(currTile.getId()));
-                    side.getChallenge().getSwapRack().getTiles().remove(side.getChallenge().getSwapRack().removeTile(currTile.getId()));
                     tileIsNotInSwapRacks = false;
                 }
 
@@ -93,7 +92,6 @@ public class GameService {
                     tileIsNotInPlayerRacks = true;
                 } else {
                     side.getChallenge().addTile(side.getPlayerRack().removeTile(currTile.getId()));
-                    side.getPlayerRack().getTiles().remove(side.getPlayerRack().removeTile(currTile.getId()));
                     tileIsNotInPlayerRacks = false;
                 }
 
@@ -127,10 +125,6 @@ public class GameService {
 
             // switch player
             game.setCurrPlayer(game.getOtherPlayer(player));
-
-            // PlayerDto Side updated
-            side = game.getSideOfPlayer(player);
-
         } else {
             throw new ErrorCodeException(Protocol.NOT_YOUR_TURN, "Not player turn to play !");
         }

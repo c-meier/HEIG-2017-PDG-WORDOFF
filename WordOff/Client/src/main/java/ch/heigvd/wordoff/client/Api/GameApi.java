@@ -9,6 +9,7 @@ import ch.heigvd.wordoff.common.Dto.ChallengeDto;
 import ch.heigvd.wordoff.common.Dto.ErrorDto;
 import ch.heigvd.wordoff.common.Dto.GameDto;
 import ch.heigvd.wordoff.common.Dto.GameSummaryDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -135,6 +136,12 @@ public class GameApi {
                         new HttpEntity<>(headers),
                         GameDto.class,
                         params);
+
+        try {
+            LOG.info(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(responseEntity.getBody()));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
 
         return responseEntity.getBody();
 

@@ -36,7 +36,7 @@ public class Bag implements Serializable {
 
     public List<ITile> getXTile(int nbTiles) {
         List<ITile> newTiles = new ArrayList<>();
-        for (int i = 0; i < nbTiles; i++) {
+        for (int i = 0; i < nbTiles && !getTiles().isEmpty(); i++) {
             newTiles.add(pop());
         }
         return newTiles;

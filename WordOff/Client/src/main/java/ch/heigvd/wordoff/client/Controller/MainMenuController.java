@@ -161,7 +161,7 @@ public class MainMenuController implements Initializable {
         long myId = 1;
         long otherId = 2;
 
-        String choice = Dialog.getInstance().choicesDialog("Démarrer une nouvelle partie",
+        String choice = Dialog.getInstance().choicesBoxDialog("Démarrer une nouvelle partie",
                 "Veuillez sélectionner la langue",
                 "Langue : ", Fr, En);
 
@@ -211,7 +211,9 @@ public class MainMenuController implements Initializable {
                 System.out.println(selectId);
                 handleGotoGame();
             } catch (TokenNotFoundException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
+                Dialog.getInstance().signalError("Nous sommes désolés, une erreur s'est produite. " +
+                        "Veuillez vous reconnecter pour vous identifier");
             }
         }
     }

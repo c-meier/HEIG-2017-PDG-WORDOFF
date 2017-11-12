@@ -242,7 +242,30 @@ public class GameScreenController implements Initializable {
         // TODO vérifier le mot avec le word analyzer avant de jouer le coup
 
         try {
+
+            System.out.println("Avant changement d'état");
+            System.out.print("Player Rack : ");
+            for(ITile tile : game.getMySide().getPlayerRack().getTiles()){
+                System.out.print(tile.getValue() + " ");
+            }
+            System.out.print("\nSwap Rack : ");
+            for(ITile tile : game.getMySide().getChallenge().getSwapRack().getTiles()){
+                System.out.print(tile.getValue() + " ");
+            }
+
+
             this.game = GameApi.play(game.getId(), game.getMySide().getChallenge());
+
+
+            System.out.println("Retour du play ");
+            System.out.print("Player Rack : ");
+            for(ITile tile : game.getMySide().getPlayerRack().getTiles()){
+                System.out.print(tile.getValue() + " ");
+            }
+            System.out.print("\nSwap Rack : ");
+            for(ITile tile : game.getMySide().getChallenge().getSwapRack().getTiles()){
+                System.out.print(tile.getValue() + " ");
+            }
             // Cache les cases du player 2 (cas du pouvoir apercu activé pendant le tour
             setVisible(p2TilesPr, false);
             // Clear les valeurs des tiles GUI
@@ -254,14 +277,6 @@ public class GameScreenController implements Initializable {
             // Actualise l'état du jeu
             setStateGame();
             setNumberOfTiles();
-            System.out.print("Player rack : ");
-            for(ITile tile : game.getMySide().getPlayerRack().getTiles()){
-                System.out.print(tile.getValue() + " ");
-            }
-            System.out.print("\nSwap rack : ");
-            for(ITile tile : game.getMySide().getChallenge().getSwapRack().getTiles()){
-                System.out.print(tile.getValue() + " ");
-            }
         } catch (TokenNotFoundException e) {
             Dialog.getInstance().signalError("Ce mot n'est pas valide");
         }
@@ -325,10 +340,20 @@ public class GameScreenController implements Initializable {
         // Set le playerRack
         setTiles(this.game.getMySide().getPlayerRack().getTiles(), p1TilesPr, true);
 
+        // TODO Vérification du myTurn pas encore implémenter côté serveur
         if (this.game.isMyTurn() == false) {
             playButton.setText("Vérifier");
         }else{
             playButton.setText("Jouer");
+        }
+        System.out.println("\nAprès setState");
+        System.out.print("Player Rack : ");
+        for(ITile tile : game.getMySide().getPlayerRack().getTiles()){
+            System.out.print(tile.getValue() + " ");
+        }
+        System.out.print("\nSwap Rack : ");
+        for(ITile tile : game.getMySide().getChallenge().getSwapRack().getTiles()){
+            System.out.print(tile.getValue() + " ");
         }
     }
 

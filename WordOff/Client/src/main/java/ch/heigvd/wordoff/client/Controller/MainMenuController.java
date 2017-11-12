@@ -31,9 +31,9 @@ public class MainMenuController implements Initializable {
 
     // GameDto selected to list
     private GameDto selectGame = null;
-
     // list de GameSummaryDto
     private List<GameSummaryDto> gamesSummaryDto = new LinkedList<>();
+    private long myId;
 
     @FXML
     ListView<String> gamesPlayer = new ListView<>();
@@ -129,15 +129,16 @@ public class MainMenuController implements Initializable {
                 gamesSummaryDto.add(dto);
                 gamesPlayer.getItems().add(dto.getOtherPlayer().getName());
             }
+            // TODO récupérer mon id
         } catch (TokenNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("TockerFoundException");
+           // e.printStackTrace();
+            Dialog.getInstance().signalInformation("Une erreur s'est produite " + e.getMessage());
         } catch (UnauthorizedException e) {
-            e.printStackTrace();
-            System.out.println("UnauthorizedException");
+          //  e.printStackTrace();
+            Dialog.getInstance().signalInformation("Une erreur s'est produite " + e.getMessage());
         } catch (HTTPException e) {
-            e.printStackTrace();
-            System.out.println("HTTPException");
+           // e.printStackTrace();
+            Dialog.getInstance().signalInformation("Une erreur s'est produite " + e.getMessage());
         }
 
         gamesPlayer.getItems().add(this.gameTest.getGameSummaryDtoList().get(0).getOtherPlayer().getName());
@@ -154,11 +155,45 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void newGame() {
+        final String Fr = "Français";
+        final String En = "English";
+        String langSelect = "";
+        long myId = 1;
+        long otherId = 2;
+
         String choice = Dialog.getInstance().choicesDialog("Démarrer une nouvelle partie",
                 "Veuillez sélectionner la langue",
-                "Langue : ", "Français", "English");
-        System.out.println(choice);
-        // TODO demande de créer la nuvelle partie au serveur
+                "Langue : ", Fr, En);
+
+        if (null != choice) {
+            switch (choice) {
+                case Fr:
+                    langSelect = "fr";
+                    break;
+                case En:
+                    langSelect = "en";
+                    break;
+                default:
+                    return;
+            }
+            // TODO demande de créer la nuvelle partie au serveur
+            List<Long> playersId = new LinkedList();
+            playersId.add(myId);
+            playersId.add(otherId);
+
+            System.out.println("Demande de créer une nouvelle partie : " + langSelect);
+/*
+       try {
+            GameSummaryDto newGame = GameApi.createGame(langSelect, playersId);
+            gamesSummaryDto.add(newGame);
+            gamesPlayer.getItems().add(newGame.getOtherPlayer().getName());
+        } catch (TokenNotFoundException e) {
+
+        }
+        */
+
+        }
+
     }
 
 

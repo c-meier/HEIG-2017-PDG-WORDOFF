@@ -7,6 +7,7 @@ import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.client.Util.Dialog;
 import ch.heigvd.wordoff.client.Util.GoToMainMenu;
 import ch.heigvd.wordoff.common.Dictionary;
+import ch.heigvd.wordoff.common.DictionaryLoader;
 import ch.heigvd.wordoff.common.Dto.ChallengeDto;
 import ch.heigvd.wordoff.common.Dto.GameDto;
 import ch.heigvd.wordoff.common.Dto.Slots.L2SlotDto;
@@ -27,6 +28,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,6 +36,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -62,6 +65,14 @@ public class GameScreenController implements Initializable {
     @FXML
     private ImageView flag;
 
+    // Composant du WordAlyzer
+    @FXML
+    private Label scoreWordAlyzer;
+    @FXML
+    private CheckBox checkWordAlyzer;
+    @FXML
+    private Circle circle1WordAlyzer, circle2WordAlyzer, circle3WordAlyzer, circle4WordAlyzer, circle5WordAlyzer;
+
     private int numberTilesOnChallengeRack = 0;
     // Listes Player 1
     private List<AnchorPane> p1TilesPr = new ArrayList<>();
@@ -74,11 +85,13 @@ public class GameScreenController implements Initializable {
     // Listes Player 2
     private List<AnchorPane> p2TilesPr = new ArrayList<>();
     private List<AnchorPane> p2TilesSr = new ArrayList<>();
+    private List<AnchorPane> p2TilesCh = new ArrayList<>();
     private List<StackPane> p2SlotsCh = new ArrayList<>();
     private List<StackPane> p2SlotsSr = new ArrayList<>();
     private List<StackPane> p2SlotsPr = new ArrayList<>();
 
     private WordAnalyzer wordAnalyzer;
+    private Dictionary dico;
 
     // PLAYER 1
     // ChallengeDto background and foreground
@@ -113,6 +126,8 @@ public class GameScreenController implements Initializable {
     private AnchorPane p2TileSr1, p2TileSr2;
     @FXML
     private AnchorPane p2TilePr1, p2TilePr2, p2TilePr3, p2TilePr4, p2TilePr5, p2TilePr6, p2TilePr7;
+    @FXML
+    private AnchorPane p2TileCh1, p2TileCh2, p2TileCh3, p2TileCh4, p2TileCh5, p2TileCh6, p2TileCh7;
 
     @FXML
     private void handleGotoMenu(ActionEvent event) {
@@ -129,7 +144,9 @@ public class GameScreenController implements Initializable {
         setLang();
         setState(this.game);
         // TODO set le wordAnalyzer
-     //   this.wordAnalyzer = new WordAnalyzer(dico, this.game.getMySide().getChallenge(),this.game.getMySide().getPlayerRack());
+        DictionaryLoader dicoLoad = new DictionaryLoader();
+        this.dico = dicoLoad.getDico(this.game.getLang());
+        this.wordAnalyzer = new WordAnalyzer(dicoLoad.getDico(this.game.getLang()), this.game.getMySide().getChallenge(),this.game.getMySide().getPlayerRack());
     }
 
     private void setLang() {
@@ -235,6 +252,20 @@ public class GameScreenController implements Initializable {
         }
     }
 
+    private void majWordAlyzer(){
+        String word = "";
+        int score = 0;
+        boolean isValidWord = false;
+        if(!game.getMySide().getChallenge().getSlots().isEmpty()){
+            for(ISlot slot : game.getMySide().getChallenge().getSlots()) {
+                word += slot.getTile().getValue();
+                score += slot.getTile().getScore();
+            }
+            isValidWord = dico.contains(word);
+        }
+        //wordAlyzerGUI.getChildren().
+    }
+
     private void verif() {
         // TODO vérifie sur demande le mot sur le challenge via le word analyzer
     }
@@ -310,15 +341,37 @@ public class GameScreenController implements Initializable {
         setStateGame();
     }
 
+    private void setStateChallengeOtherSide(){
+        if(game.getOtherSide().getChallenge().getSlots().isEmpty()){
+            for(AnchorPane pane : p2TilesCh){
+                pane.setVisible(false);
+            }
+        }else{
+            int i = 0;
+            for(ISlot slot : game.getOtherSide().getChallenge().getSlots()){
+                if(slot.isEmpty()){
+                    p2TilesCh.get(i).setVisible(false);
+                }else{
+                   // TODO JE SUSI La
+                    setTile(p2TilesCh.get(i), slot.getTile());
+                    p2TilesCh.get(i).setVisible(true);
+                }
+                i++;
+            }
+        }
+    }
+
     private void setStateGame() {
         // Set les challenge slots
         setBackgroundChallenge(this.game.getMySide().getChallenge(), p1Ch1Back, p1Ch2Back, p1Ch3Back, p1Ch4Back, p1Ch5Back, p1Ch6Back, p1Ch7Back);
         setBackgroundChallenge(this.game.getOtherSide().getChallenge(), p2Ch1Back, p2Ch2Back, p2Ch3Back, p2Ch4Back, p2Ch5Back, p2Ch6Back, p2Ch7Back);
+        setStateChallengeOtherSide();
         // Set les swaps racks
         setTiles(this.game.getMySide().getChallenge().getSwapRack().getTiles(), p1TilesSr, true);
         setTiles(this.game.getOtherSide().getChallenge().getSwapRack().getTiles(), p2TilesSr, false);
         // Set le playerRack
         setTiles(this.game.getMySide().getPlayerRack().getTiles(), p1TilesPr, true);
+
         // Maj de myTurn
         if (this.game.isMyTurn() == false) {
             playButton.setText("Vérifier");
@@ -361,6 +414,24 @@ public class GameScreenController implements Initializable {
     }
 
     /**
+     * Change state of tile GUI from tile logic
+     * @param tilePane
+     * @param tileLogic
+     */
+    private void setTile(AnchorPane tilePane, ITile tileLogic){
+        Label value = (Label) tilePane.getChildren().get(0);
+        Label score = (Label) tilePane.getChildren().get(1);
+        Label id = (Label) tilePane.getChildren().get(2);
+        if (tileLogic.getScore() == 0) {
+            value.setText("");
+        } else {
+            value.setText(String.valueOf(tileLogic.getValue()).toUpperCase());
+        }
+        score.setText(String.valueOf(tileLogic.getScore()));
+        id.setText(String.valueOf(tileLogic.getId()));
+    }
+
+    /**
      * Refresh GUI tiles according to state of rack
      *
      * @param rack  Game rack
@@ -369,7 +440,7 @@ public class GameScreenController implements Initializable {
     private void setTiles(List<ITile> rack, List<AnchorPane> tiles, boolean withListener) {
         int i = 0;
         for (ITile tile : rack) {
-            // Maj tile GUI
+      /*      // Maj tile GUI
             Label value = (Label) tiles.get(i).getChildren().get(0);
             Label score = (Label) tiles.get(i).getChildren().get(1);
             Label id = (Label) tiles.get(i).getChildren().get(2);
@@ -380,7 +451,8 @@ public class GameScreenController implements Initializable {
             }
             score.setText(String.valueOf(tile.getScore()));
             id.setText(String.valueOf(tile.getId()));
-
+*/
+            setTile(tiles.get(i),tile);
             if (withListener) {
                 // Add listener mouseClicket
                 tiles.get(i).setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -542,6 +614,8 @@ public class GameScreenController implements Initializable {
         addConentListStackPane(p2SlotsSr, p2Sr1Fore, p2Sr2Fore);
         // Tiles swap rack
         addConentListAnchorePane(p2TilesSr, true, p2TileSr1, p2TileSr2);
+        // Tiles challenge
+        addConentListAnchorePane(p2TilesCh,false,p2TileCh1, p2TileCh2, p2TileCh3, p2TileCh4, p2TileCh5, p2TileCh6, p2TileCh7);
 
     }
 

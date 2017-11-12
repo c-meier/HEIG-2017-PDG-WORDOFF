@@ -84,13 +84,13 @@
                                  <children>
                                     <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="180.0" stylesheets="@../styles/Style_wordAlyzer.css">
                                        <children>
-                                          <Circle fx:id="circle1" fill="DODGERBLUE" layoutX="43.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-                                          <Circle fx:id="circle2" fill="DODGERBLUE" layoutX="64.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-                                          <Circle fx:id="circle3" fill="DODGERBLUE" layoutX="86.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-                                          <Circle fx:id="circle4" fill="DODGERBLUE" layoutX="109.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-                                          <Circle fx:id="circle5" fill="DODGERBLUE" layoutX="131.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-                                          <Label fx:id="score" layoutX="6.0" layoutY="-7.0" prefHeight="36.0" prefWidth="28.0" text="10" />
-                                          <CheckBox fx:id="check" disable="true" layoutX="153.0" layoutY="-6.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="28.0" />
+                                          <Circle fx:id="circle1WordAlyzer" fill="DODGERBLUE" layoutX="43.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="circle2WordAlyzer" fill="DODGERBLUE" layoutX="64.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="circle3WordAlyzer" fill="DODGERBLUE" layoutX="86.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="circle4WordAlyzer" fill="DODGERBLUE" layoutX="109.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Circle fx:id="circle5WordAlyzer" fill="DODGERBLUE" layoutX="131.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                                          <Label fx:id="scoreWordAlyzer" layoutX="6.0" layoutY="-7.0" prefHeight="36.0" prefWidth="28.0" text="10" />
+                                          <CheckBox fx:id="checkWordAlyzer" disable="true" layoutX="153.0" layoutY="-6.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="28.0" />
                                        </children>
                                     </AnchorPane>
                                  </children>
@@ -249,37 +249,128 @@
                               </AnchorPane>
                               <AnchorPane fx:id="p2Ch1Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Style_slot.css" GridPane.rowIndex="1">
                                  <children>
-                                    <StackPane fx:id="p2Ch1Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p2Ch1Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <AnchorPane fx:id="p2TileCh1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
+                                             </children>
+                                          </AnchorPane>
+                                       </children></StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Ch2Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Style_slot.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <StackPane fx:id="p2Ch2Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p2Ch2Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <AnchorPane fx:id="p2TileCh2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
+                                             </children>
+                                          </AnchorPane>
+                                       </children></StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Ch3Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Style_slot.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <children>
-                                    <StackPane fx:id="p2Ch3Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p2Ch3Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <AnchorPane fx:id="p2TileCh3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
+                                             </children>
+                                          </AnchorPane>
+                                       </children></StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Ch4Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Style_slot.css" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <children>
-                                    <StackPane fx:id="p2Ch4Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p2Ch4Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <AnchorPane fx:id="p2TileCh4" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
+                                             </children>
+                                          </AnchorPane>
+                                       </children></StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Ch5Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Style_slot.css" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <children>
-                                    <StackPane fx:id="p2Ch5Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p2Ch5Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <AnchorPane fx:id="p2TileCh5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
+                                             </children>
+                                          </AnchorPane>
+                                       </children></StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Ch6Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Style_slot.css" GridPane.columnIndex="5" GridPane.rowIndex="1">
                                  <children>
-                                    <StackPane fx:id="p2Ch6Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p2Ch6Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <AnchorPane fx:id="p2TileCh6" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
+                                             </children>
+                                          </AnchorPane>
+                                       </children></StackPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="p2Ch7Back" prefHeight="200.0" prefWidth="200.0" styleClass="slot" stylesheets="@../styles/Style_slot.css" GridPane.columnIndex="6" GridPane.rowIndex="1">
                                  <children>
-                                    <StackPane fx:id="p2Ch7Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <StackPane fx:id="p2Ch7Fore" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <AnchorPane fx:id="p2TileCh7" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" styleClass="tile" stylesheets="@../styles/Style_tile.css">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutY="12.0" maxWidth="40.0" minWidth="40.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" maxWidth="40.0" minWidth="36.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="1" textAlignment="RIGHT">
+                                                   <font>
+                                                      <Font size="10.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label cacheShape="false" centerShape="false" focusTraversable="false" scaleShape="false" text="Label" visible="false" />
+                                             </children>
+                                          </AnchorPane>
+                                       </children></StackPane>
                                  </children>
                               </AnchorPane>
                               <ImageView fx:id="p2Avatar" fitHeight="58.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />

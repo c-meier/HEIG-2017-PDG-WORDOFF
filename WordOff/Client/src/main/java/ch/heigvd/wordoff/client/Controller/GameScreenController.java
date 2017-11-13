@@ -495,6 +495,7 @@ public class GameScreenController implements Initializable {
         }
         score.setText(String.valueOf(tileLogic.getScore()));
         id.setText(String.valueOf(tileLogic.getId()));
+        tilePane.setVisible(true);
     }
 
     /**

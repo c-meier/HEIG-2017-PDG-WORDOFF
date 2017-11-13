@@ -1,16 +1,21 @@
 .tile{
 	-fx-background-color: #ffeeba;
 	-fx-background-image: url("../images/wood_texture.png");
-	-fx-effect: dropshadow(gaussian, purple, 10, 0, 0, 0);     
+	-fx-effect: dropshadow(gaussian, purple, 10, 0, 0, 0);
+	-fx-cursor: hand;
 }
 .tile_value{
 	-fx-font-weight: 900;
 	-fx-font-size:20px;
 	-fx-color: #444;
 	-fx-display: inline-block;
+	-fx-alignment: center;
+	-fx-content-display: center;
 }
 
 .tile_score{
 	-fx-font-size: 12px;
 	-fx-color: #444;
+	-fx-alignment: center-right;
+	-fx-content-display: right;
 }

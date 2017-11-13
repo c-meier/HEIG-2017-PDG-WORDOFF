@@ -1,9 +1,12 @@
 package ch.heigvd.wordoff.client.Controller;
 
 import java.io.IOException;
+
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
@@ -27,6 +30,8 @@ public class CharacterSelectController extends BorderPane implements Initializab
     
     @FXML
     private Button closeButton;
+
+    private Character selectedChar = null;
     
     String alphabetString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     List<Character> alphabet = alphabetString
@@ -45,6 +50,13 @@ public class CharacterSelectController extends BorderPane implements Initializab
                 TileController tc = new TileController(String.valueOf(c), 0);
                 fxmlLoader.setController(tc);
                 AnchorPane tile = fxmlLoader.load();
+                tile.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        selectedChar = c;
+                        closeWindow();
+                    }
+                });
                 grid.add(tile, i % GRID_WIDTH, i/GRID_WIDTH);
                 characters.setContent(grid);
             } catch (IOException ex) {
@@ -59,5 +71,9 @@ public class CharacterSelectController extends BorderPane implements Initializab
     public void closeWindow() {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
+    }
+
+    public Character getSelectedChar() {
+        return selectedChar;
     }
 }

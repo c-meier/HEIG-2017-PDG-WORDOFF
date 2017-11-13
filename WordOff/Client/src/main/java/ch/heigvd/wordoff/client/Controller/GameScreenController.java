@@ -6,6 +6,7 @@ import ch.heigvd.wordoff.client.Logic.Game;
 import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.client.Util.Dialog;
 import ch.heigvd.wordoff.client.Util.GoToMainMenu;
+import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dictionary;
 import ch.heigvd.wordoff.common.DictionaryLoader;
 import ch.heigvd.wordoff.common.Dto.ChallengeDto;
@@ -264,23 +265,6 @@ public class GameScreenController implements Initializable {
     private void hint() {
         // TODO etat temporaire
         System.out.println("Click hint");
-        final Stage test = new Stage();
-        test.initOwner(MainApp.getStage());
-        FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/fxml/characterSelect.fxml"));
-        BorderPane c;
-        try {
-            c = loader.load();
-            Scene testScene = new Scene(c);
-            test.setScene(testScene);
-            test.setTitle("Selection Joker");
-            test.sizeToScene();
-            test.show();
-            test.setMinHeight(test.getHeight());
-            test.setMinWidth(test.getWidth());
-        } catch (IOException ex) {
-            Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     @FXML
@@ -591,14 +575,86 @@ public class GameScreenController implements Initializable {
     private void moveOnClick(MouseEvent event) {
         AnchorPane tileSelect = (AnchorPane) event.getSource();
         StackPane slotParent = (StackPane) tileSelect.getParent();
-        // Apply move
-        move(tileSelect, slotParent);
+
+        Label tileValue = ((Label)tileSelect.getChildren().get(0));
+        Label tileScore = ((Label)tileSelect.getChildren().get(1));
+        int tileId = Integer.valueOf(((Label) tileSelect.getChildren().get(2)).getText());
+        boolean cancelMove = false;
+
+        //If the tile is in the challenge
+        if(p1SlotsCh.contains(slotParent)){
+            //And contains a joker (score 0), reset to a joker tile before move
+            if(Integer.valueOf(tileScore.getText()) == 0){
+                tileValue.setText("");
+                for(ISlot slot : this.game.getMySide().getChallenge().getSlots()){
+                    if(!slot.isEmpty()){
+                        if(slot.getTile().getId() == tileId){
+                            slot.getTile().setValue('#');
+                        }
+                    }
+                }
+            }
+        } else if (tileValue.getText().equals("") && numberTilesOnChallengeRack != Constants.CHALLENGE_SIZE){
+            Character result = getCharacterSelect();
+            if(result == null){
+                cancelMove = true;
+            }else{
+                if(p1TilesSr.contains(slotParent)){
+                    for(ITile t : this.game.getMySide().getChallenge().getSwapRack().getTiles()){
+                        if(t.getId() == tileId){
+                            t.setValue(result);
+                        }
+                    }
+                }else{
+                    for(ITile t : this.game.getMySide().getPlayerRack().getTiles()){
+                        if(t.getId() == tileId){
+                            t.setValue(result);
+                        }
+                    }
+
+                }
+                tileValue.setText(String.valueOf(result));
+            }
+        }
+
+        // Apply move if not cancelled
+        if(!cancelMove){
+            move(tileSelect, slotParent);
+        }
+
         if (numberTilesOnChallengeRack == 0) {
             shuffleButton.setText("Melanger");
         } else {
             shuffleButton.setText("Effacer");
         }
         // TODO editer l'tat du wordAlyzer
+    }
+
+    /**
+     * Opens a character selection window and waits for user selection
+     * @return the selected character, or null if cancelled or window closed
+     */
+    private Character getCharacterSelect() {
+        final Stage popUp = new Stage();
+        popUp.initOwner(MainApp.getStage());
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/fxml/characterSelect.fxml"));
+        BorderPane c;
+        try {
+            c = loader.load();
+            CharacterSelectController controller = loader.<CharacterSelectController>getController();
+            Scene testScene = new Scene(c);
+            popUp.setScene(testScene);
+            popUp.setTitle("Selection Joker");
+            popUp.sizeToScene();
+            popUp.showAndWait();
+            popUp.setMinHeight(popUp.getHeight());
+            popUp.setMinWidth(popUp.getWidth());
+            return controller.getSelectedChar();
+        } catch (IOException ex) {
+            Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     /**

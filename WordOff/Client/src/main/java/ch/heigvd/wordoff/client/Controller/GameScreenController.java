@@ -39,6 +39,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -647,6 +648,7 @@ public class GameScreenController implements Initializable {
             popUp.setScene(testScene);
             popUp.setTitle("Selection Joker");
             popUp.sizeToScene();
+            popUp.initModality(Modality.APPLICATION_MODAL);
             popUp.showAndWait();
             popUp.setMinHeight(popUp.getHeight());
             popUp.setMinWidth(popUp.getWidth());

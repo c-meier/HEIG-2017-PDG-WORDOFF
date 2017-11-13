@@ -6,6 +6,7 @@ import ch.heigvd.wordoff.client.Api.LetterApi;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -59,6 +60,9 @@ public class CharacterSelectController extends BorderPane implements Initializab
                     }
                 });
                 grid.add(tile, i % GRID_WIDTH, i/GRID_WIDTH);
+                grid.setHgap(12);
+                grid.setVgap(12);
+                grid.setPadding(new Insets(10, 10, 10, 10)); //margins around the whole grid
                 characters.setContent(grid);
             } catch (IOException ex) {
                 Logger.getLogger(CharacterSelectController.class.getName()).log(Level.SEVERE, null, ex);

@@ -6,8 +6,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ffeeba;" styleClass="tile" stylesheets="@../styles/Style_tile.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="letter" layoutX="6.0" layoutY="12.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="Label" />
-      <Label fx:id="score" layoutX="15.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="Score">
+      <Label fx:id="letter" alignment="CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="11.0" styleClass="tile_value" stylesheets="@../styles/Style_tile.css" text="A" />
+      <Label fx:id="score" layoutX="27.0" layoutY="2.0" styleClass="tile_score" stylesheets="@../styles/Style_tile.css" text="0">
          <font>
             <Font size="10.0" />
          </font>

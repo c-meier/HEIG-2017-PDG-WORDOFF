@@ -3,10 +3,12 @@ package ch.heigvd.wordoff.client.Controller;
 import java.io.IOException;
 
 import ch.heigvd.wordoff.client.Api.LetterApi;
+import com.sun.org.apache.regexp.internal.RE;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
@@ -23,6 +25,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -49,7 +52,7 @@ public class CharacterSelectController extends BorderPane implements Initializab
         GridPane grid = new GridPane();
         int i = 0;
         for(Character c : alphabet){
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/tile.fxml"));     
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/tile.fxml"));
             try {
                 TileController tc = new TileController(String.valueOf(c), 0);
                 fxmlLoader.setController(tc);

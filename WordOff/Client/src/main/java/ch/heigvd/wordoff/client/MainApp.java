@@ -9,6 +9,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -23,7 +24,6 @@ public class MainApp extends Application {
 
         MainApp.stage = stage;
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
-
         Scene scene = new Scene(root);
 
         stage.setTitle("WordOff");
@@ -45,6 +45,12 @@ public class MainApp extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    private void applyStyleSheet(Parent root){
+        root.getStylesheets().add(
+                getClass().getResource("/styles/Style_window.css").toExternalForm());
+        root.getStyleClass().add("rootPane");
     }
 
     public static void changeScene(FXMLLoader loader) {

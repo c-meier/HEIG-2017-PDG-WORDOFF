@@ -5,7 +5,7 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.client.Controller.CharacterSelectController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="500.0" styleClass="border-pane" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.client.Controller.CharacterSelectController">
    <bottom>
       <ToolBar stylesheets="@../styles/Style_toolBarBottom.css">
          <items>
@@ -14,6 +14,6 @@
       </ToolBar>
    </bottom>
    <center>
-      <ScrollPane fx:id="characters" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <ScrollPane fx:id="characters" fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

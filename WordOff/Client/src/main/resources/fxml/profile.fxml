@@ -51,7 +51,7 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.rowIndex="1">
                            <children>
-                              <TextArea layoutX="249.0" prefHeight="244.0" prefWidth="898.0" text="Ton profil d'invité ne permet pas les changements de profil public.&#10;Merci de te connecter avec l'une des options ci-dessous." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <TextArea layoutX="249.0" prefHeight="244.0" prefWidth="898.0" stylesheets="@../styles/Styles.css" text="Ton profil d'invité ne permet pas les changements de profil public.&#10;Merci de te connecter avec l'une des options ci-dessous." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -81,8 +81,8 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <TextArea prefHeight="200.0" prefWidth="200.0" text="Connexion par e-mail&#10;Activer pour permettre la connexion avec l'e-mail" />
-                                    <TextArea prefHeight="200.0" prefWidth="200.0" text="Connexion avec Facebook&#10;Activer pour permettre les foncitonnalités Facebook" GridPane.rowIndex="1" />
+                                    <TextArea prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="Connexion par e-mail&#10;Activer pour permettre la connexion avec l'e-mail" />
+                                    <TextArea prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="Connexion avec Facebook&#10;Activer pour permettre les foncitonnalités Facebook" GridPane.rowIndex="1" />
                                  </children>
                               </GridPane>
                            </children>

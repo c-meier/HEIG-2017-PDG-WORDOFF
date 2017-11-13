@@ -47,9 +47,9 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextArea prefHeight="200.0" prefWidth="200.0" text="Mon profil (Guest5888902)&#10;Modifier ton profil de joueur WordOff" />
-                        <TextArea prefHeight="200.0" prefWidth="200.0" text="Code de récompense&#10;Partage et gagne des récompenses pour toi et tes amis" GridPane.rowIndex="1" />
-                        <TextArea prefHeight="200.0" prefWidth="200.0" text="Gérer les joueurs&#10;Modifier tes amis et ta lste noire" GridPane.rowIndex="2" />
+                        <TextArea prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="Mon profil (Guest5888902)&#10;Modifier ton profil de joueur WordOff" />
+                        <TextArea prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="Code de récompense&#10;Partage et gagne des récompenses pour toi et tes amis" GridPane.rowIndex="1" />
+                        <TextArea prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="Gérer les joueurs&#10;Modifier tes amis et ta lste noire" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.rowIndex="2">
@@ -69,11 +69,11 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextArea prefHeight="200.0" prefWidth="200.0" text="Activer le son: jouer la musique et les effets sonores" />
-                        <TextArea prefHeight="200.0" prefWidth="200.0" text="Activer les vibrations: ressentez le jeu" GridPane.rowIndex="1" />
-                        <TextArea prefHeight="200.0" prefWidth="200.0" text="Recevoir des notifications: savoir quand c'est ton tour" GridPane.rowIndex="2" />
-                        <TextArea prefHeight="200.0" prefWidth="200.0" text="Activer l'aide dans le jeu" GridPane.rowIndex="3" />
-                        <TextArea prefHeight="200.0" prefWidth="200.0" text="Langue de l'application: définir à français" GridPane.rowIndex="4" />
+                        <TextArea prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="Activer le son: jouer la musique et les effets sonores" />
+                        <TextArea prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="Activer les vibrations: ressentez le jeu" GridPane.rowIndex="1" />
+                        <TextArea prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="Recevoir des notifications: savoir quand c'est ton tour" GridPane.rowIndex="2" />
+                        <TextArea prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="Activer l'aide dans le jeu" GridPane.rowIndex="3" />
+                        <TextArea prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="Langue de l'application: définir à français" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.rowIndex="4">
@@ -92,10 +92,10 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextArea prefHeight="200.0" prefWidth="200.0" text="Commentaires&#10;Aide-nous à améliorer le jeu" />
-                        <TextArea prefHeight="200.0" prefWidth="200.0" text="WordOff sur Facebook&#10;Rencontre d'autres fans et reste à jour" GridPane.rowIndex="1" />
-                        <TextArea prefHeight="200.0" prefWidth="200.0" text="Mentions légales&#10;Licence et informations sur la société" GridPane.rowIndex="2" />
-                        <TextArea prefHeight="200.0" prefWidth="200.0" text="WordOff (2.1.16 #1)" GridPane.rowIndex="3" />
+                        <TextArea prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="Commentaires&#10;Aide-nous à améliorer le jeu" />
+                        <TextArea prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="WordOff sur Facebook&#10;Rencontre d'autres fans et reste à jour" GridPane.rowIndex="1" />
+                        <TextArea prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="Mentions légales&#10;Licence et informations sur la société" GridPane.rowIndex="2" />
+                        <TextArea prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="WordOff (2.1.16 #1)" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </children>

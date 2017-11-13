@@ -1,14 +1,11 @@
 package ch.heigvd.wordoff.client.Controller;
 
-import ch.heigvd.wordoff.client.MainApp;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import ch.heigvd.wordoff.client.Util.GoToMainMenu;
+import ch.heigvd.wordoff.client.Util.UtilChangeScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 /**
@@ -20,7 +17,7 @@ public class ProfileController implements Initializable {
 
     @FXML
     private void handleGotoMenu(ActionEvent event) {
-        GoToMainMenu.getInstance().handleGotoMenu();
+        UtilChangeScene.getInstance().handleGotoMenu();
     }
     
     /**

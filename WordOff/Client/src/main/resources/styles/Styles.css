@@ -34,6 +34,7 @@
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 1.1em;
+	-fx-cursor: hand;
 }
 .button_wood:hover, .button:showing {
 	 -fx-background-color: 
@@ -78,4 +79,33 @@
 	-fx-background-image: url("../images/wood_texture.png");
 	-fx-alignment:center;
 	-fx-background-size: stretch;
+}
+
+
+.scroll-pane > .viewport {
+	-fx-background-color: transparent;
+}
+
+.scroll-pane > .scroll-bar{
+	-fx-background-color: #8c683f;
+}
+
+.scroll-bar:vertical .thumb{
+	-fx-background-color: #ffeeba;
+}
+
+.border-pane {
+	-fx-background-color: #ffeeba;
+}
+
+.text-area {
+	text-area-background: #ffeeba ;
+}
+
+.text-area .content {
+	-fx-background-color: text-area-background ;
+}
+
+.backgroundBasic{
+	-fx-background-color: #ffeeba;
 }

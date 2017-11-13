@@ -8,13 +8,13 @@ import javafx.scene.Scene;
 
 import java.io.IOException;
 
-public class GoToMainMenu {
+public class UtilChangeScene {
 
-   private static GoToMainMenu INSTANCE = new GoToMainMenu();
+   private static UtilChangeScene INSTANCE = new UtilChangeScene();
 
-   private GoToMainMenu(){}
+   private UtilChangeScene(){}
 
-   public static GoToMainMenu getInstance(){
+   public static UtilChangeScene getInstance(){
        return INSTANCE;
    }
 
@@ -32,5 +32,6 @@ public class GoToMainMenu {
            e.printStackTrace();
        }
    }
+
 
 }

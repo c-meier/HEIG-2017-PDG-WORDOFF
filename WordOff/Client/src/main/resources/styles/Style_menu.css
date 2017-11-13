@@ -42,6 +42,7 @@
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 9pt;
+    -fx-cursor: hand;
 }
 
 
@@ -58,6 +59,9 @@
 /*** Top-level menu's label (not selected / hovered) ***/
 .menu-bar > .container > .menu-button > .label {
     -fx-text-fill: -fx-my-menu-font-color-highlighted;
+}
+.menu-item{
+    -fx-cursor: hand;
 }
 
 /*** The item's label (not hovered / focused) ***/   

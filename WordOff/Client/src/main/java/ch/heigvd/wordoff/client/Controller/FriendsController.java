@@ -1,10 +1,8 @@
 package ch.heigvd.wordoff.client.Controller;
 
-import ch.heigvd.wordoff.client.MainApp;
-import ch.heigvd.wordoff.client.Util.GoToMainMenu;
+import ch.heigvd.wordoff.client.Util.UtilChangeScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
@@ -19,7 +17,7 @@ public class FriendsController implements Initializable {
 
     @FXML
     private void handleGotoMenu(ActionEvent event) {
-        GoToMainMenu.getInstance().handleGotoMenu();
+        UtilChangeScene.getInstance().handleGotoMenu();
     }
     
     /**

@@ -20,9 +20,9 @@
       </MenuBar>
    </top>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffeeba;" BorderPane.alignment="CENTER">
          <children>
-            <TextArea layoutX="199.0" layoutY="103.0" prefHeight="567.0" prefWidth="900.0" text="Talpie&#10;Envoyée le 03.10.17 09:11" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <TextArea layoutX="199.0" layoutY="103.0" prefHeight="567.0" prefWidth="900.0" styleClass="text-area" stylesheets="@../styles/Styles.css" text="Talpie&#10;Envoyée le 03.10.17 09:11" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
    </center>

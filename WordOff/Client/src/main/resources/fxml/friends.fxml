@@ -51,7 +51,7 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.rowIndex="1">
                            <children>
-                              <ListView fx:id="friendsList" layoutX="171.0" layoutY="14.0" prefHeight="237.0" prefWidth="898.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <ListView fx:id="friendsList" layoutX="171.0" layoutY="14.0" prefHeight="237.0" prefWidth="898.0" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -72,7 +72,7 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.rowIndex="1">
                            <children>
-                              <ListView fx:id="blackList" layoutX="177.0" layoutY="18.0" prefHeight="236.0" prefWidth="898.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <ListView fx:id="blackList" layoutX="177.0" layoutY="18.0" prefHeight="236.0" prefWidth="898.0" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                      </children>

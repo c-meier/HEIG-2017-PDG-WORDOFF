@@ -2,10 +2,9 @@ package ch.heigvd.wordoff.client.Controller;
 
 import ch.heigvd.wordoff.client.Api.GameApi;
 import ch.heigvd.wordoff.client.Exception.*;
-import ch.heigvd.wordoff.client.Logic.Game;
 import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.client.Util.Dialog;
-import ch.heigvd.wordoff.client.Util.GoToMainMenu;
+import ch.heigvd.wordoff.client.Util.UtilChangeScene;
 import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dictionary;
 import ch.heigvd.wordoff.common.DictionaryLoader;
@@ -15,7 +14,6 @@ import ch.heigvd.wordoff.common.Dto.Slots.L2SlotDto;
 import ch.heigvd.wordoff.common.Dto.Slots.L3SlotDto;
 import ch.heigvd.wordoff.common.Dto.Slots.LastSlotDto;
 import ch.heigvd.wordoff.common.Dto.Slots.SwapSlotDto;
-import ch.heigvd.wordoff.common.IModel.IChallenge;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 
@@ -27,7 +25,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -43,7 +40,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.time.chrono.IsoChronology;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -135,7 +131,7 @@ public class GameScreenController implements Initializable {
 
     @FXML
     private void handleGotoMenu(ActionEvent event) {
-        GoToMainMenu.getInstance().handleGotoMenu();
+        UtilChangeScene.getInstance().handleGotoMenu();
     }
 
     @Override
@@ -582,6 +578,7 @@ public class GameScreenController implements Initializable {
         int tileId = Integer.valueOf(((Label) tileSelect.getChildren().get(2)).getText());
         boolean cancelMove = false;
 
+        // TODO Modifier la logique. On test d'abbord si la tile est un jocker et seulement après son origine.
         //If the tile is in the challenge
         if(p1SlotsCh.contains(slotParent)){
             //And contains a joker (score 0), reset to a joker tile before move
@@ -628,7 +625,6 @@ public class GameScreenController implements Initializable {
         } else {
             shuffleButton.setText("Effacer");
         }
-        // TODO editer l'tat du wordAlyzer
     }
 
     /**
@@ -646,12 +642,13 @@ public class GameScreenController implements Initializable {
             CharacterSelectController controller = loader.<CharacterSelectController>getController();
             Scene testScene = new Scene(c);
             popUp.setScene(testScene);
-            popUp.setTitle("Selection Joker");
+
+            popUp.setTitle("Selection du Joker");
             popUp.sizeToScene();
+            popUp.setResizable(false);
+
             popUp.initModality(Modality.APPLICATION_MODAL);
             popUp.showAndWait();
-            popUp.setMinHeight(popUp.getHeight());
-            popUp.setMinWidth(popUp.getWidth());
             return controller.getSelectedChar();
         } catch (IOException ex) {
             Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);

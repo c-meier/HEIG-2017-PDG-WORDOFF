@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Text?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.client.Controller.InvitationsController">
    <top>
       <MenuBar stylesheets="@../styles/Style_menuButton.css" BorderPane.alignment="CENTER">
@@ -21,7 +20,7 @@
       </MenuBar>
    </top>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="backgroundBasic" stylesheets="@../styles/Styles.css" BorderPane.alignment="CENTER">
          <children>
             <Text layoutX="412.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rien à afficher" />
          </children>

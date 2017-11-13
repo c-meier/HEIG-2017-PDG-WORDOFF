@@ -2,6 +2,7 @@ package ch.heigvd.wordoff.client.Controller;
 
 import java.io.IOException;
 
+import ch.heigvd.wordoff.client.Api.LetterApi;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,7 +33,7 @@ public class CharacterSelectController extends BorderPane implements Initializab
     private Button closeButton;
 
     private Character selectedChar = null;
-    
+
     String alphabetString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     List<Character> alphabet = alphabetString
             .chars()
@@ -76,4 +77,5 @@ public class CharacterSelectController extends BorderPane implements Initializab
     public Character getSelectedChar() {
         return selectedChar;
     }
+
 }

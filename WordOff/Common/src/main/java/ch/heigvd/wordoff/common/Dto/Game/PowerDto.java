@@ -4,7 +4,5 @@ import ch.heigvd.wordoff.common.Dto.Endpoint.IResource;
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 
 public class PowerDto {
-    private int cost;
-
     private String name;
 }

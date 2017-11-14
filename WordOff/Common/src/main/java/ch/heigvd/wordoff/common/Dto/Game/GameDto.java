@@ -131,11 +131,6 @@ public class GameDto implements IResource<GameDto> {
     private ResourceWriteList<GameDto, PowerDto> powers;
 
     /**
-     * Endpoint to GET and POST messages (chat).
-     */
-    private ResourceWriteList<GameDto, PowerDto> messages;
-
-    /**
      * Endpoint to refresh (GET) the game
      */
     private String endpoint;

@@ -2,7 +2,7 @@ package ch.heigvd.wordoff.common.Dto.User;
 
 import ch.heigvd.wordoff.common.Dto.Endpoint.IResource;
 
-public class RelationDto implements IResource<UserDto> {
+public class RelationDto implements IResource<RelationDto> {
     private Long userId;
 
     private RelationStatus status;

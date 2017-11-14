@@ -15,7 +15,7 @@ public class MeDto extends PlayerDto implements IResource<MeDto> {
         this.invitations = new ResourceList<>(baseUrl + "/invitations");
         this.adversaries = new ResourceList<>(baseUrl + "/adversaries");
         this.relations = new ResourceList<>(baseUrl + "/relations");
-        this.modes = new ResourceWriteList<>(baseUrl + "/modes");
+        this.modes = new ResourceWriteList<>("/modes");
     }
 
     /**

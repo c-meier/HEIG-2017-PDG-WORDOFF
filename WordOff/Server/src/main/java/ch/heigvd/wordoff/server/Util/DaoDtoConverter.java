@@ -1,11 +1,14 @@
 package ch.heigvd.wordoff.server.Util;
 
-import ch.heigvd.wordoff.common.Dto.*;
-import ch.heigvd.wordoff.common.Dto.Racks.PlayerRackDto;
-import ch.heigvd.wordoff.common.Dto.Racks.RackDto;
-import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
-import ch.heigvd.wordoff.common.Dto.Slots.*;
-import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.Game.*;
+import ch.heigvd.wordoff.common.Dto.Game.Racks.PlayerRackDto;
+import ch.heigvd.wordoff.common.Dto.Game.Racks.RackDto;
+import ch.heigvd.wordoff.common.Dto.Game.Racks.SwapRackDto;
+import ch.heigvd.wordoff.common.Dto.Game.Slots.*;
+import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.User.PlayerDto;
+import ch.heigvd.wordoff.common.Dto.User.UserDto;
+import ch.heigvd.wordoff.common.Dto.User.UserSummaryDto;
 import ch.heigvd.wordoff.common.IModel.IRack;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
@@ -18,7 +21,6 @@ import ch.heigvd.wordoff.server.Model.Tiles.Tile;
 import org.modelmapper.*;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Objects;
 

@@ -1,6 +1,7 @@
-package ch.heigvd.wordoff.common.Dto;
+package ch.heigvd.wordoff.common.Dto.Game;
 
-import ch.heigvd.wordoff.common.Dto.Racks.PlayerRackDto;
+import ch.heigvd.wordoff.common.Dto.Game.Racks.PlayerRackDto;
+import ch.heigvd.wordoff.common.Dto.User.PlayerDto;
 
 import java.util.Objects;
 

@@ -1,10 +1,8 @@
 package ch.heigvd.wordoff.server.Rest.Endpoint;
 
-import ch.heigvd.wordoff.common.Dto.*;
-import ch.heigvd.wordoff.common.Dto.Racks.PlayerRackDto;
-import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
-import ch.heigvd.wordoff.common.Dto.Slots.*;
-import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.Game.ChallengeDto;
+import ch.heigvd.wordoff.common.Dto.Game.GameDto;
+import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
 import ch.heigvd.wordoff.common.Protocol;
 import ch.heigvd.wordoff.server.Model.Challenge;
 import ch.heigvd.wordoff.server.Model.Game;
@@ -21,8 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 @RestController

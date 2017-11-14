@@ -1,17 +1,14 @@
 package ch.heigvd.wordoff.common;
 
-import ch.heigvd.wordoff.common.Dto.ChallengeDto;
-import ch.heigvd.wordoff.common.Dto.Racks.PlayerRackDto;
-import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
+import ch.heigvd.wordoff.common.Dto.Game.ChallengeDto;
+import ch.heigvd.wordoff.common.Dto.Game.Racks.PlayerRackDto;
+import ch.heigvd.wordoff.common.Dto.Game.Racks.SwapRackDto;
 import ch.heigvd.wordoff.common.IModel.IChallenge;
 import ch.heigvd.wordoff.common.IModel.IRack;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.util.Pair;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;

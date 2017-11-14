@@ -1,25 +1,23 @@
 package ch.heigvd.wordoff.server;
 
-import ch.heigvd.wordoff.common.Dto.*;
-import ch.heigvd.wordoff.common.Dto.Racks.RackDto;
-import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
-import ch.heigvd.wordoff.common.Dto.Slots.SlotDto;
-import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.Game.*;
+import ch.heigvd.wordoff.common.Dto.Game.Racks.RackDto;
+import ch.heigvd.wordoff.common.Dto.Game.Racks.SwapRackDto;
+import ch.heigvd.wordoff.common.Dto.Game.Slots.SlotDto;
+import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.User.PlayerDto;
+import ch.heigvd.wordoff.common.Dto.User.UserDto;
+import ch.heigvd.wordoff.common.Dto.User.UserSummaryDto;
 import ch.heigvd.wordoff.server.Model.*;
 import ch.heigvd.wordoff.server.Model.Racks.Rack;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
-import ch.heigvd.wordoff.server.Model.Slots.L2Slot;
-import ch.heigvd.wordoff.server.Model.Slots.LastSlot;
 import ch.heigvd.wordoff.server.Model.Slots.Slot;
 import ch.heigvd.wordoff.server.Model.Tiles.Tile;
 import ch.heigvd.wordoff.server.Util.DaoDtoConverter;
 import ch.heigvd.wordoff.server.Utils.MockModel;
-import org.hibernate.cfg.NotYetImplementedException;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
-
-import java.util.Arrays;
 
 import static org.junit.Assert.*;
 

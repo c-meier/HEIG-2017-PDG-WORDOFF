@@ -1,15 +1,22 @@
-package ch.heigvd.wordoff.common.Dto;
+package ch.heigvd.wordoff.common.Dto.Game;
+
+import ch.heigvd.wordoff.common.Dto.Endpoint.IResource;
+import ch.heigvd.wordoff.common.Dto.ISummaryDto;
+import ch.heigvd.wordoff.common.Dto.User.PlayerDto;
 
 import java.util.Objects;
 
 /**
  * Created by Daniel on 05.11.2017.
  */
-public class GameSummaryDto implements ISummaryDto {
+public class GameSummaryDto implements ISummaryDto, IResource<GameDto> {
     private Long id;
 
     private PlayerDto otherPlayer;
 
+    /**
+     * Endpoint to GET the full game information.
+     */
     private String endpoint;
 
     // Necessary for Jackson deserialization

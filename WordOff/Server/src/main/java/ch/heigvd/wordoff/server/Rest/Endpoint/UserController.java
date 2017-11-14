@@ -1,6 +1,6 @@
 package ch.heigvd.wordoff.server.Rest.Endpoint;
 
-import ch.heigvd.wordoff.common.Dto.LoginDto;
+import ch.heigvd.wordoff.common.Dto.User.LoginDto;
 import ch.heigvd.wordoff.server.Repository.UserRepository;
 import ch.heigvd.wordoff.server.Security.SecurityConst;
 import ch.heigvd.wordoff.server.Service.UserService;

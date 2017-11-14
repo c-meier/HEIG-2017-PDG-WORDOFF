@@ -8,12 +8,12 @@ import ch.heigvd.wordoff.client.Util.UtilChangeScene;
 import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dictionary;
 import ch.heigvd.wordoff.common.DictionaryLoader;
-import ch.heigvd.wordoff.common.Dto.ChallengeDto;
-import ch.heigvd.wordoff.common.Dto.GameDto;
-import ch.heigvd.wordoff.common.Dto.Slots.L2SlotDto;
-import ch.heigvd.wordoff.common.Dto.Slots.L3SlotDto;
-import ch.heigvd.wordoff.common.Dto.Slots.LastSlotDto;
-import ch.heigvd.wordoff.common.Dto.Slots.SwapSlotDto;
+import ch.heigvd.wordoff.common.Dto.Game.ChallengeDto;
+import ch.heigvd.wordoff.common.Dto.Game.GameDto;
+import ch.heigvd.wordoff.common.Dto.Game.Slots.L2SlotDto;
+import ch.heigvd.wordoff.common.Dto.Game.Slots.L3SlotDto;
+import ch.heigvd.wordoff.common.Dto.Game.Slots.LastSlotDto;
+import ch.heigvd.wordoff.common.Dto.Game.Slots.SwapSlotDto;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 

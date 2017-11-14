@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.common.Dto.Slots;
+package ch.heigvd.wordoff.common.Dto.Game.Slots;
 
 public class LastSlotDto extends SlotDto {
     private final int bonus = 10;

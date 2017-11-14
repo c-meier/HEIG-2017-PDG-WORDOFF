@@ -1,5 +1,7 @@
-package ch.heigvd.wordoff.common.Dto;
+package ch.heigvd.wordoff.common.Dto.Game;
 
+import ch.heigvd.wordoff.common.Dto.Endpoint.IResource;
+import ch.heigvd.wordoff.common.Dto.Endpoint.ResourceWriteList;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.util.Date;
@@ -9,7 +11,7 @@ import java.util.Objects;
  * Project : WordOff
  * Date : 10.10.17
  */
-public class GameDto {
+public class GameDto implements IResource<GameDto> {
     private Long id;
 
     private SideDto mySide;
@@ -93,6 +95,12 @@ public class GameDto {
 
     public void setId(Long id) {
         this.id = id;
+        if(id != null) {
+            String url = "/games/" + id;
+            setEndpoint(url);
+            setChallenges(new ResourceWriteList<>(url + "/challenges"));
+            setChallenges(new ResourceWriteList<>(url + "/powers"));
+        }
     }
 
     @Override
@@ -108,5 +116,52 @@ public class GameDto {
                 Objects.equals(startDate, c.startDate) &&
                 Objects.equals(myTurn, c.myTurn) &&
                 Objects.equals(lang, c.lang);
+    }
+
+    /**
+     * Endpoint to POST challenges.
+     * Is used to play a word.
+     */
+    private ResourceWriteList<GameDto, ChallengeDto> challenges;
+
+    /**
+     * Endpoint to POST powers.
+     * Is used to activate a power.
+     */
+    private ResourceWriteList<GameDto, PowerDto> powers;
+
+    /**
+     * Endpoint to GET and POST messages (chat).
+     */
+    private ResourceWriteList<GameDto, PowerDto> messages;
+
+    /**
+     * Endpoint to refresh (GET) the game
+     */
+    private String endpoint;
+
+    @Override
+    public String getEndpoint() {
+        return endpoint;
+    }
+
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
+    }
+
+    public ResourceWriteList<GameDto, ChallengeDto> getChallenges() {
+        return challenges;
+    }
+
+    public void setChallenges(ResourceWriteList<GameDto, ChallengeDto> challenges) {
+        this.challenges = challenges;
+    }
+
+    public ResourceWriteList<GameDto, PowerDto> getPowers() {
+        return powers;
+    }
+
+    public void setPowers(ResourceWriteList<GameDto, PowerDto> powers) {
+        this.powers = powers;
     }
 }

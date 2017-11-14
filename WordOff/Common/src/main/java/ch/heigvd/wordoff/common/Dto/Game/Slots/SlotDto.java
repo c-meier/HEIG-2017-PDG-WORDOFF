@@ -1,7 +1,7 @@
-package ch.heigvd.wordoff.common.Dto.Slots;
+package ch.heigvd.wordoff.common.Dto.Game.Slots;
 
 import ch.heigvd.wordoff.common.Dto.IDto;
-import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import com.fasterxml.jackson.annotation.JsonIgnore;

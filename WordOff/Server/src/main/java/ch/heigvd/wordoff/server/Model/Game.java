@@ -16,6 +16,9 @@ public class Game {
     @GeneratedValue
     private Long id;
 
+    @ManyToOne
+    private Mode mode;
+
     @OneToOne
     private Side sideInit;
 

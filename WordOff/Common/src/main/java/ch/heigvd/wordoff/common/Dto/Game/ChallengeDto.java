@@ -1,7 +1,8 @@
-package ch.heigvd.wordoff.common.Dto;
+package ch.heigvd.wordoff.common.Dto.Game;
 
-import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
-import ch.heigvd.wordoff.common.Dto.Slots.SlotDto;
+import ch.heigvd.wordoff.common.Dto.Game.Racks.SwapRackDto;
+import ch.heigvd.wordoff.common.Dto.Game.Slots.SlotDto;
+import ch.heigvd.wordoff.common.Dto.IDto;
 import ch.heigvd.wordoff.common.IModel.IChallenge;
 import ch.heigvd.wordoff.common.IModel.IRack;
 import ch.heigvd.wordoff.common.IModel.ISlot;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ChallengeDto implements IChallenge, IDto{
+public class ChallengeDto implements IChallenge, IDto {
 
     private IRack swapRack;
 

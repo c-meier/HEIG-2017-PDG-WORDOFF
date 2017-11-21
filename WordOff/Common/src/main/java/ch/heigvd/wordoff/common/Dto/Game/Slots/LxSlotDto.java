@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.common.Dto.Slots;
+package ch.heigvd.wordoff.common.Dto.Game.Slots;
 
 import java.util.Objects;
 

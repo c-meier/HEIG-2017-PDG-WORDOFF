@@ -1,8 +1,17 @@
-package ch.heigvd.wordoff.common.Dto;
+package ch.heigvd.wordoff.common.Dto.User;
+
+import ch.heigvd.wordoff.common.Dto.Endpoint.IResource;
+import ch.heigvd.wordoff.common.Dto.ISummaryDto;
 
 import java.util.Objects;
 
-public class UserSummaryDto extends PlayerDto implements ISummaryDto {
+/**
+ * Summary information about a user.
+ */
+public class UserSummaryDto extends PlayerDto implements ISummaryDto, IResource<UserDto> {
+    /**
+     * Endpoint to GET the full user information.
+     */
     private String endpoint;
 
     // Necessary for Jackson deserialization

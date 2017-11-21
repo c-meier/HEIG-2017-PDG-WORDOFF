@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.common.Dto;
+package ch.heigvd.wordoff.common.Dto.User;
 
 /**
  * Created by Daniel on 05.11.2017.

@@ -1,8 +1,8 @@
 package ch.heigvd.wordoff.common.Racks;
 
 import ch.heigvd.wordoff.common.IModel.ITile;
-import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
-import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.Game.Racks.SwapRackDto;
+import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
 import org.junit.*;
 
 import java.util.ArrayList;

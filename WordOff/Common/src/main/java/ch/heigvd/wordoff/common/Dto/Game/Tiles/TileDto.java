@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.common.Dto.Tiles;
+package ch.heigvd.wordoff.common.Dto.Game.Tiles;
 
 import ch.heigvd.wordoff.common.Dto.IDto;
 import ch.heigvd.wordoff.common.IModel.ITile;

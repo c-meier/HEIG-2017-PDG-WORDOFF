@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.common.Dto.Racks;
+package ch.heigvd.wordoff.common.Dto.Game.Racks;
 
 import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.IModel.ITile;

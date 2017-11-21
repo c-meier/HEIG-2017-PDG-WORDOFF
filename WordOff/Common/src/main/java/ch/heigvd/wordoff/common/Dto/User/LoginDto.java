@@ -1,4 +1,6 @@
-package ch.heigvd.wordoff.common.Dto;
+package ch.heigvd.wordoff.common.Dto.User;
+
+import ch.heigvd.wordoff.common.Dto.IDto;
 
 import java.util.Arrays;
 import java.util.Objects;

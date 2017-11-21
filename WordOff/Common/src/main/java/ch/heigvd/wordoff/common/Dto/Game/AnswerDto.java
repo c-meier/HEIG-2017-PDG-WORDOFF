@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.common.Dto;
+package ch.heigvd.wordoff.common.Dto.Game;
 
 import java.util.Objects;
 

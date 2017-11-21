@@ -1,4 +1,4 @@
-package ch.heigvd.wordoff.common.Dto.Slots;
+package ch.heigvd.wordoff.common.Dto.Game.Slots;
 
 public class SwapSlotDto extends SlotDto {
     // Necessary for Jackson deserialization

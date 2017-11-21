@@ -40,11 +40,11 @@ public class CharacterSelectController extends BorderPane implements Initializab
 
     private Character selectedChar = null;
 
-    String alphabetString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    List<Character> alphabet = alphabetString
-            .chars()
-            .mapToObj(e->(char)e)
-            .collect(Collectors.toList());
+    private List<Character> alphabet;
+
+    public CharacterSelectController(List<Character> alphabet){
+        this.alphabet = alphabet;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

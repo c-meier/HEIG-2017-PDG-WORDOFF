@@ -5,6 +5,7 @@ import ch.heigvd.wordoff.client.Util.TokenManager;
 import ch.heigvd.wordoff.common.Dto.Game.ChallengeDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
+import ch.heigvd.wordoff.common.Dto.Game.PowerDto;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -34,6 +35,10 @@ public class GameApi {
 
     public static GameDto play(Long gameId, ChallengeDto challengeDto) throws TokenNotFoundException {
         return play(TokenManager.loadToken(), gameId, challengeDto);
+    }
+
+    public static GameDto usePower(Long gameId, PowerDto powerDto) throws TokenNotFoundException {
+        return usePower(TokenManager.loadToken(), gameId, powerDto);
     }
 
     private static List<GameSummaryDto> retrieveGames(String token) {
@@ -103,6 +108,26 @@ public class GameApi {
                 restTemplate.exchange(uri,
                         HttpMethod.POST,
                         new HttpEntity<>(challengeDto, headers),
+                        GameDto.class,
+                        params);
+
+        return responseEntity.getBody();
+    }
+
+    private static GameDto usePower(String token, Long gameId, PowerDto powerDto) {
+        final String uri = SERVER_URI + "/games/{gameId}/powers";
+
+        Map<String, String> params = new HashMap<>();
+        params.put("gameId", gameId.toString());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(AUTHORIZATION_HEADER, token);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        ResponseEntity<GameDto> responseEntity =
+                restTemplate.exchange(uri,
+                        HttpMethod.POST,
+                        new HttpEntity<>(powerDto, headers),
                         GameDto.class,
                         params);
 

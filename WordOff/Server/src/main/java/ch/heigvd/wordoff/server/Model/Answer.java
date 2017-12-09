@@ -81,7 +81,7 @@ public class Answer {
         @Override
         public boolean equals(Object o) {
             if (o == this) return true;
-            if (!(o instanceof Answer)) {
+            if (!(o instanceof AnswerId)) {
                 return false;
             }
             AnswerId answerId = (AnswerId) o;

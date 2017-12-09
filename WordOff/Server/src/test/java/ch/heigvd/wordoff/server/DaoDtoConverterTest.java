@@ -13,7 +13,8 @@ import ch.heigvd.wordoff.server.Model.Racks.Rack;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.server.Model.Slots.Slot;
 import ch.heigvd.wordoff.server.Model.Tiles.Tile;
-import ch.heigvd.wordoff.server.Util.DaoDtoConverter;
+import ch.heigvd.wordoff.server.Util.DtoFactory;
+import ch.heigvd.wordoff.server.Util.EntityFactory;
 import ch.heigvd.wordoff.server.Utils.MockModel;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,19 +24,17 @@ import static org.junit.Assert.*;
 
 @ActiveProfiles("test")
 public class DaoDtoConverterTest {
-    DaoDtoConverter converter;
 
     MockModel model = new MockModel();
 
     @Before
     public void setUp() throws Exception {
-        converter = new DaoDtoConverter();
     }
 
     @Test
     public void TileToDto() throws Exception {
         Tile dao = model.getTile();
-        TileDto dto = converter.toDto(dao);
+        TileDto dto = DtoFactory.createFrom(dao);
         assertEquals(dao.getId(), dto.getId());
         assertEquals(dao.getValue(), dto.getValue());
         assertEquals(dao.getScore(), dto.getScore());
@@ -44,7 +43,7 @@ public class DaoDtoConverterTest {
     @Test
     public void SlotToDto() throws Exception {
         Slot dao = model.getEmptySlot();
-        SlotDto dto = converter.toDto(dao);
+        SlotDto dto = DtoFactory.createFrom(dao);
 
         assertEquals(dao.getPos(), dto.getPos());
         assertEquals(dao.getTile(), dto.getTile());
@@ -53,7 +52,7 @@ public class DaoDtoConverterTest {
     @Test
     public void SlotWithTileToDto() throws Exception {
         Slot dao = model.getSlot();
-        SlotDto dto = converter.toDto(dao);
+        SlotDto dto = DtoFactory.createFrom(dao);
 
         assertEquals(dao.getPos(), dto.getPos());
         assertEquals(TileDto.class, dto.getTile().getClass());
@@ -66,7 +65,7 @@ public class DaoDtoConverterTest {
     public void SwapRackToDto() throws Exception {
         SwapRack dao = new SwapRack();
 
-        RackDto dto = converter.toDto(dao);
+        RackDto dto = DtoFactory.createFrom(dao);
 
         assertEquals(SwapRackDto.class, dto.getClass());
     }
@@ -76,7 +75,7 @@ public class DaoDtoConverterTest {
         SwapRack dao = new SwapRack();
         dao.addTile(model.getTile());
 
-        RackDto dto = converter.toDto(dao);
+        RackDto dto = DtoFactory.createFrom(dao);
 
         assertEquals(SwapRackDto.class, dto.getClass());
         assertEquals(TileDto.class, dto.getTiles().get(0).getClass());
@@ -85,7 +84,7 @@ public class DaoDtoConverterTest {
     @Test
     public void ChallengeToDto() throws Exception {
         Challenge dao = model.getChallenge();
-        ChallengeDto dto = converter.toDto(dao);
+        ChallengeDto dto = DtoFactory.createFrom(dao);
 
         assertEquals(TileDto.class, dto.getSwapRack().getTiles().get(0).getClass());
         assertEquals(TileDto.class, dto.getSlots().get(0).getTile().getClass());
@@ -94,7 +93,7 @@ public class DaoDtoConverterTest {
     @Test
     public void UserToSummaryDto() throws Exception {
         User dao = model.getUserOne();
-        UserSummaryDto dto = converter.toSummaryDto(dao);
+        UserSummaryDto dto = DtoFactory.createSummaryFrom(dao);
         assertEquals(UserSummaryDto.class, dto.getClass());
         assertEquals(dao.getId(), dto.getId());
         assertEquals(dao.getName(), dto.getName());
@@ -103,7 +102,7 @@ public class DaoDtoConverterTest {
     @Test
     public void AiAsPlayerToDto() throws Exception {
         Player dao = model.getAi();
-        PlayerDto dto = converter.toDto(dao);
+        PlayerDto dto = DtoFactory.createFrom(dao);
         assertEquals(PlayerDto.class, dto.getClass());
         assertEquals(dao.getId(), dto.getId());
         assertEquals(dao.getName(), dto.getName());
@@ -112,7 +111,7 @@ public class DaoDtoConverterTest {
     @Test
     public void UserAsPlayerToDto() throws Exception {
         Player dao = model.getUserOne();
-        PlayerDto dto = converter.toDto(dao);
+        PlayerDto dto = DtoFactory.createFrom(dao);
         assertEquals(UserSummaryDto.class, dto.getClass());
         assertEquals(dao.getId(), dto.getId());
         assertEquals(dao.getName(), dto.getName());
@@ -122,7 +121,7 @@ public class DaoDtoConverterTest {
     @Test
     public void UserToDto() throws Exception {
         User dao = model.getUserOne();
-        UserDto dto = converter.toDto(dao);
+        UserDto dto = DtoFactory.createFrom(dao);
         assertEquals(UserDto.class, dto.getClass());
         assertEquals(dao.getId(), dto.getId());
         assertEquals(dao.getName(), dto.getName());
@@ -137,7 +136,7 @@ public class DaoDtoConverterTest {
         dao.setScore(234);
         dao.getPlayerRack().addTile(model.getTile());
 
-        SideDto dto = converter.toDto(dao);
+        SideDto dto = DtoFactory.createFrom(dao);
 
         assertEquals(dao.getScore(), dto.getScore());
         assertEquals(UserSummaryDto.class, dto.getPlayer().getClass());
@@ -148,7 +147,7 @@ public class DaoDtoConverterTest {
     public void AiSideToDto() throws Exception {
         Side dao = new Side(model.getAi());
 
-        SideDto dto = converter.toDto(dao);
+        SideDto dto = DtoFactory.createFrom(dao);
 
         assertEquals(PlayerDto.class, dto.getPlayer().getClass());
     }
@@ -157,7 +156,7 @@ public class DaoDtoConverterTest {
     public void SideToOtherDto() throws Exception {
         Side dao = new Side(model.getUserTwo());
 
-        OtherSideDto dto = converter.toOtherDto(dao);
+        OtherSideDto dto = DtoFactory.createOtherFrom(dao);
 
         assertEquals(OtherSideDto.class, dto.getClass());
     }
@@ -166,7 +165,7 @@ public class DaoDtoConverterTest {
     public void GameToSummaryDto() throws Exception {
         Game dao = model.getDuelGame();
 
-        GameSummaryDto dto = converter.toSummaryDto(dao, dao.getCurrPlayer());
+        GameSummaryDto dto = DtoFactory.createSummaryFrom(dao, dao.getCurrPlayer());
 
         assertEquals(GameSummaryDto.class, dto.getClass());
         assertEquals(dao.getId(), dto.getId());
@@ -177,7 +176,7 @@ public class DaoDtoConverterTest {
     public void GameToDto() throws Exception {
         Game dao = model.getDuelGame();
 
-        GameDto dto = converter.toDto(dao, dao.getCurrPlayer());
+        GameDto dto = DtoFactory.createFrom(dao, dao.getCurrPlayer());
 
         assertEquals(GameDto.class, dto.getClass());
         assertEquals(dao.getBag().getTiles().size(), dto.getBagSize());
@@ -185,9 +184,9 @@ public class DaoDtoConverterTest {
 
     @Test
     public void TileToDao() throws Exception {
-        TileDto dto = converter.toDto(model.getTile());
+        TileDto dto = DtoFactory.createFrom(model.getTile());
 
-        Tile dao = converter.fromDto(dto);
+        Tile dao = EntityFactory.createFrom(dto);
 
         assertEquals(Tile.class, dao.getClass());
         assertEquals(dto.getId(), dao.getId());
@@ -198,9 +197,9 @@ public class DaoDtoConverterTest {
     @Test
     public void SlotToDao() throws Exception {
         Slot origin = model.getSlot();
-        SlotDto dto = converter.toDto(origin);
+        SlotDto dto = DtoFactory.createFrom(origin);
 
-        Slot dao = converter.fromDto(dto);
+        Slot dao = EntityFactory.createFrom(dto);
 
         assertEquals(origin.getClass(), dao.getClass());
     }
@@ -209,9 +208,9 @@ public class DaoDtoConverterTest {
     public void RackToDao() throws Exception {
         Rack origin = new SwapRack();
         origin.addTile(model.getTile());
-        RackDto dto = converter.toDto(origin);
+        RackDto dto = DtoFactory.createFrom(origin);
 
-        Rack dao = converter.fromDto(dto);
+        Rack dao = EntityFactory.createFrom(dto);
 
         assertEquals(origin.getClass(), dao.getClass());
         assertEquals(Tile.class, dao.getTiles().get(0).getClass());
@@ -220,9 +219,9 @@ public class DaoDtoConverterTest {
     @Test
     public void ChallengeToDao() throws Exception {
         Challenge origin = model.getChallenge();
-        ChallengeDto dto = converter.toDto(origin);
+        ChallengeDto dto = DtoFactory.createFrom(origin);
 
-        Challenge dao = converter.fromDto(dto);
+        Challenge dao = EntityFactory.createFrom(dto);
 
         assertEquals(Challenge.class, dao.getClass());
         assertEquals(origin.getSlots().get(0).getClass(), dao.getSlots().get(0).getClass());

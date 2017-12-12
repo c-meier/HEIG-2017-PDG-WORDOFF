@@ -5,6 +5,8 @@ import ch.heigvd.wordoff.client.Exception.*;
 import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.client.Logic.Game;
 import ch.heigvd.wordoff.client.Util.Dialog;
+import ch.heigvd.wordoff.client.Util.ListGames;
+import ch.heigvd.wordoff.client.Util.UtilStringReference;
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
 import javafx.event.ActionEvent;
@@ -14,8 +16,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 
 import javax.xml.ws.http.HTTPException;
 import java.io.IOException;
@@ -34,18 +39,35 @@ public class MainMenuController implements Initializable {
     // list de GameSummaryDto
     private List<GameSummaryDto> gamesSummaryDto = new LinkedList<>();
     private long myId;
+    // Listes des games triées
+    private ListGames listGamesDuel;
+    private ListGames listGamesDuelWait;
+    private ListGames listGamesDuelFinish;
+    private ListGames listGamesTournamentsFriends;
+    private ListGames listGamesTournamentCompetition;
 
+    // Vbox pour afficher les différentes games
     @FXML
-    ListView<String> gamesPlayer = new ListView<>();
+    VBox vBoxgamesPlayer =  new VBox();
     @FXML
-    ListView<String> gamesPlayerWait = new ListView<>();
+    VBox vBoxgamesPlayerWait = new VBox();
     @FXML
-    ListView<String> gamesPlayerFinish = new ListView<>();
+    VBox vBoxgamesPlayerFinish = new VBox();
     @FXML
-    ListView<String> gamesTurnamentComp = new ListView<>();
+    VBox vBoxgamesTurnamentFriend =  new VBox();
     @FXML
-    ListView<String> gamesTurnamentFriend = new ListView<>();
+    Accordion accordionTournament = new Accordion();
 
+    // MouseEvent d'un double clique, appelle l'ouverture de la game.
+    private EventHandler<MouseEvent> eventGoToGame = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent click) {
+            ListView list = (ListView) click.getSource(); // Source du clique
+            if (click.getClickCount() == 2) {
+                goToGame(list);
+            }
+        }
+    };
 
     private void handleGotoGame() {
         FXMLLoader loader = getLoader("/fxml/gameScreen.fxml");
@@ -121,36 +143,55 @@ public class MainMenuController implements Initializable {
     }
 
     public void setState() {
-        // Remplire les games disponnibles
+        // TODO Récupérer l'id joueur
+        // Créations des listes et de leurs listener
+        listGamesDuel = new ListGames(vBoxgamesPlayer);
+        listGamesDuelWait = new ListGames(vBoxgamesPlayerWait);
+        listGamesDuelFinish = new ListGames(vBoxgamesPlayerFinish);
+
+        listGamesDuel.getListView().setOnMouseClicked(eventGoToGame);
+        listGamesDuelWait.getListView().setOnMouseClicked(eventGoToGame);
+        listGamesDuelFinish.getListView().setOnMouseClicked(eventGoToGame);
+
+        sortGames();
+    }
+
+    private void sortGames(){
         try {
-            List<GameSummaryDto> list = GameApi.retrieveGames();
+            gamesSummaryDto = GameApi.retrieveGames();
             // TODO trier les différentes games pour les mettre dans les bonnes listes
-            for (GameSummaryDto dto : list) {
-                gamesSummaryDto.add(dto);
-                gamesPlayer.getItems().add(dto.getOtherPlayer().getName());
+            for (GameSummaryDto dto : gamesSummaryDto) {
+                listGamesDuel.addGame(dto);
+                // TODO switch sur dto.getMode()
+                // cas duel : listGamesDuel.addGame(dto)
+                // cas duel en attente :  listGamesDuelWait.addGame(dto);
+                // cas duel fini : listGamesDuelFinish.addGame(dto);
+                // cas tournament
+
+                // Exemple pour construire les tournois
+                // Idée : remplacer le vbox de titlePane pour jouer entre les jours et les participants du jours
+                TitledPane titledPane = new TitledPane();
+                VBox vBox = new VBox();
+                titledPane.setText(dto.getOtherPlayer().getName());
+                titledPane.setContent(vBox);
+                accordionTournament.getPanes().add(titledPane);
+                ListGames listGames = new ListGames(vBox);
+                listGames.addGameAndUpdate(dto);
+                listGames.getListView().setOnMouseClicked(eventGoToGame);
             }
-            // TODO récupérer mon id
+
+            // TODO update des listes
+            listGamesDuel.addGameAndUpdate(this.gameTest.getGameSummaryDtoList().get(0));
+
+
         } catch (TokenNotFoundException e) {
-           // e.printStackTrace();
-            Dialog.getInstance().signalInformation("Une erreur s'est produite " + e.getMessage());
+            Dialog.getInstance().signalInformation(UtilStringReference.ERROR + " " + e.getMessage());
         } catch (UnauthorizedException e) {
-          //  e.printStackTrace();
-            Dialog.getInstance().signalInformation("Une erreur s'est produite " + e.getMessage());
+            Dialog.getInstance().signalInformation(UtilStringReference.ERROR + " "+ e.getMessage());
         } catch (HTTPException e) {
-           // e.printStackTrace();
-            Dialog.getInstance().signalInformation("Une erreur s'est produite " + e.getMessage());
+            Dialog.getInstance().signalInformation(UtilStringReference.ERROR + " " + e.getMessage());
         }
 
-        gamesPlayer.getItems().add(this.gameTest.getGameSummaryDtoList().get(0).getOtherPlayer().getName());
-        // Ajoute un listener sur la liste
-        gamesPlayer.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent click) {
-                if (click.getClickCount() == 2) {
-                    goToGame();
-                }
-            }
-        });
     }
 
     @FXML
@@ -162,7 +203,7 @@ public class MainMenuController implements Initializable {
         long otherId = 2;
 
         String choice = Dialog.getInstance().choicesBoxDialog("Démarrer une nouvelle partie",
-                "Veuillez sélectionner la langue",
+                UtilStringReference.INFOS_SELECT_LANGUAGE,
                 "Langue : ", Fr, En);
 
         if (null != choice) {
@@ -176,13 +217,14 @@ public class MainMenuController implements Initializable {
                 default:
                     return;
             }
-            // TODO demande de créer la nuvelle partie au serveur
+
             List<Long> playersId = new LinkedList();
             playersId.add(myId);
             playersId.add(otherId);
 
             System.out.println("Demande de créer une nouvelle partie : " + langSelect);
-/*
+        // TODO demande de créer la nuvelle partie au serveur
+            /*
        try {
             GameSummaryDto newGame = GameApi.createGame(langSelect, playersId);
             gamesSummaryDto.add(newGame);
@@ -193,27 +235,25 @@ public class MainMenuController implements Initializable {
         */
 
         }
-
     }
 
 
     @FXML
-    private void goToGame() {
+    private void goToGame(ListView games) {
         // Partie de test static
-        if (gamesPlayer.getSelectionModel().getSelectedItem().equals("Game Test Static")) {
+        if (games.getSelectionModel().getSelectedItem().equals("Game Test Static")) {
             selectGame = gameTest.getGameDto();
             handleGotoGame();
         } else {
             // Partie venant du serveur
-            Long selectId = gamesSummaryDto.get(gamesPlayer.getSelectionModel().getSelectedIndex()).getId();
+            Long selectId = gamesSummaryDto.get(games.getSelectionModel().getSelectedIndex()).getId();
             try {
                 selectGame = GameApi.getGame(selectId);
                 System.out.println(selectId);
                 handleGotoGame();
             } catch (TokenNotFoundException e) {
                 //e.printStackTrace();
-                Dialog.getInstance().signalError("Nous sommes désolés, une erreur s'est produite. " +
-                        "Veuillez vous reconnecter pour vous identifier");
+                Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
             }
         }
     }

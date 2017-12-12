@@ -4,6 +4,7 @@ import ch.heigvd.wordoff.server.Model.Game;
 import ch.heigvd.wordoff.server.Model.Invitation;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -20,7 +21,7 @@ public abstract class Mode {
     @OneToMany(mappedBy = "mode")
     private List<Game> games;
 
-    private Date startDate;
+    private LocalDate startDate;
 
     public Mode() {
         this.invitations = new TreeMap<>();
@@ -55,11 +56,11 @@ public abstract class Mode {
         this.games = games;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 }

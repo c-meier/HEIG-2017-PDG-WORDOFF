@@ -4,6 +4,7 @@ import ch.heigvd.wordoff.server.Model.Modes.Mode;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -29,12 +30,14 @@ public class Game {
     @Lob
     private Bag bag;
 
-    private Date startDate;
+    private LocalDate startDate;
 
     private String lang;
 
     @ManyToOne
     private Player currPlayer;
+
+    private boolean terminated;
 
     public Game() {}
 
@@ -44,6 +47,8 @@ public class Game {
         this.lang = tileSet.getName();
         currPlayer = p1;
         bag = new Bag(tileSet.getTiles());
+        startDate = LocalDate.now();
+        terminated = false;
     }
 
     public Side getSideOfPlayer(Player player) {
@@ -114,5 +119,17 @@ public class Game {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public boolean isTerminated() {
+        return terminated;
+    }
+
+    public void setTerminated(boolean terminated) {
+        this.terminated = terminated;
     }
 }

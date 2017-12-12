@@ -91,7 +91,6 @@ public class GameScreenController implements Initializable {
     private List<StackPane> p2SlotsSr = new ArrayList<>();
     private List<StackPane> p2SlotsPr = new ArrayList<>();
 
-    private WordAnalyzer wordAnalyzer;
     private Dictionary dico;
 
     // PLAYER 1
@@ -161,10 +160,8 @@ public class GameScreenController implements Initializable {
         setNumberOfTiles();
         setLang();
         setState(this.game);
-        // TODO set le wordAnalyzer
         DictionaryLoader dicoLoad = new DictionaryLoader();
         this.dico = dicoLoad.getDico(this.game.getLang());
-        this.wordAnalyzer = new WordAnalyzer(dicoLoad.getDico(this.game.getLang()), this.game.getMySide().getChallenge(), this.game.getMySide().getPlayerRack());
     }
 
     private void setLang() {

@@ -3,20 +3,7 @@ package ch.heigvd.wordoff.common.Dto.User;
 import ch.heigvd.wordoff.common.Dto.Endpoint.IResource;
 
 public class RelationDto implements IResource<RelationDto> {
-    private Long userId;
-
     private RelationStatus status;
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-        if(userId != null) {
-            setEndpoint("/me/relations/" + userId);
-        }
-    }
 
     public RelationStatus getStatus() {
         return status;

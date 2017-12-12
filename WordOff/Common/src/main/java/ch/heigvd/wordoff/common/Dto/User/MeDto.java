@@ -4,7 +4,7 @@ import ch.heigvd.wordoff.common.Dto.Endpoint.IResource;
 import ch.heigvd.wordoff.common.Dto.Endpoint.ResourceList;
 import ch.heigvd.wordoff.common.Dto.Endpoint.ResourceWriteList;
 import ch.heigvd.wordoff.common.Dto.InvitationDto;
-import ch.heigvd.wordoff.common.Dto.ModeDto;
+import ch.heigvd.wordoff.common.Dto.Mode.ModeDto;
 import ch.heigvd.wordoff.common.Dto.NotificationDto;
 
 public class MeDto extends PlayerDto implements IResource<MeDto> {

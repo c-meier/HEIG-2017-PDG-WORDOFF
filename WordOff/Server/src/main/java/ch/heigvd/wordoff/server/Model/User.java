@@ -2,13 +2,9 @@ package ch.heigvd.wordoff.server.Model;
 
 import ch.heigvd.wordoff.common.Dto.User.RelationStatus;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import javax.persistence.*;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
@@ -18,18 +14,19 @@ public class User extends Player {
     private Credentials credentials;
 
     @OneToMany(mappedBy = "pk.owner")
-    private List<Relation> relations;
+    @MapKey(name = "pk.target")
+    private Map<Long, Relation> relations;
 
     private int level;
 
     protected User() {
-        this.relations = new ArrayList<>();
+        this.relations = new TreeMap<>();
     }
 
     public User(String name) {
         super(name);
         this.level = 1;
-        this.relations = new ArrayList<>();
+        this.relations = new TreeMap<>();
     }
 
     public int getLevel() {
@@ -48,27 +45,25 @@ public class User extends Player {
         this.credentials = credentials;
     }
 
-    public List<Relation> getRelations() {
+    public Map<Long, Relation> getRelations() {
         return relations;
     }
 
-    public void setRelations(List<Relation> relations) {
+    public void setRelations(Map<Long, Relation> relations) {
         this.relations = relations;
     }
 
+    public Relation getRelation(User target) {
+        return getRelations().getOrDefault(
+                target.getId(),
+                new Relation(this, target, RelationStatus.NONE));
+    }
+
     public void setRelation(User target, RelationStatus status) {
-        boolean present = false;
-        for(Relation r : getRelations()) {
-            if(Objects.equals(r.getTarget().getId(), target.getId())) {
-                present = true;
-                r.setStatus(status);
-                if(status == RelationStatus.NONE) {
-                    getRelations().remove(r);
-                }
-            }
-        }
-        if(!present && status != RelationStatus.NONE) {
-            getRelations().add(new Relation(this, target, status));
+        if(getRelations().containsKey(target.getId()) && status == RelationStatus.NONE) {
+            getRelations().remove(target.getId());
+        } else {
+            getRelations().put(target.getId(), new Relation(this, target, status));
         }
     }
 }

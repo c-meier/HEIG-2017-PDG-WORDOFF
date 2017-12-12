@@ -1,6 +1,7 @@
 package ch.heigvd.wordoff.server.Model;
 
 import ch.heigvd.wordoff.common.Dto.InvitationStatus;
+import ch.heigvd.wordoff.server.Model.Modes.Mode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,12 +20,15 @@ public class Invitation {
     @Enumerated(EnumType.ORDINAL)
     private InvitationStatus status;
 
+    private String name;
+
     public Invitation() {
     }
 
-    public Invitation(Mode mode, User target, InvitationStatus status) {
+    public Invitation(Mode mode, User target, InvitationStatus status, String name) {
         this.pk = new InvitationId(mode, target);
         this.status = status;
+        this.name = name;
     }
 
     public InvitationId getPk() {
@@ -59,6 +63,14 @@ public class Invitation {
 
     public void setStatus(InvitationStatus status) {
         this.status = status;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Embeddable

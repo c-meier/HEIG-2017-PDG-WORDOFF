@@ -8,13 +8,14 @@ import ch.heigvd.wordoff.server.Model.Challenge;
 import ch.heigvd.wordoff.server.Model.Game;
 import ch.heigvd.wordoff.server.Model.Player;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
+import ch.heigvd.wordoff.server.Model.User;
 import ch.heigvd.wordoff.server.Repository.GameRepository;
 import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Rest.Exception.ErrorCodeException;
 import ch.heigvd.wordoff.server.Service.GameService;
-import ch.heigvd.wordoff.server.Util.EntityFactory;
 import ch.heigvd.wordoff.server.Util.DtoFactory;
+import ch.heigvd.wordoff.server.Util.EntityFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +41,7 @@ public class GameController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<GameSummaryDto>> listGames(
-            @RequestAttribute("player") Player player) {
+            @RequestAttribute("player") User player) {
 
         List<GameSummaryDto> gamesDto = gameRepository.retrieveAllByOnePlayerId(player.getId())
                 .stream()
@@ -52,7 +53,7 @@ public class GameController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<GameSummaryDto> newGame(
-            @RequestAttribute("player") Player player,
+            @RequestAttribute("player") User player,
             @RequestParam("lang") String lang,
             @RequestBody List<Long> playersId) {
 
@@ -87,7 +88,7 @@ public class GameController {
      */
     @RequestMapping(value = "/{gameId}", method = RequestMethod.GET)
     public ResponseEntity<GameDto> getGame(
-            @RequestAttribute("player") Player player,
+            @RequestAttribute("player") User player,
             @PathVariable("gameId") Long gameId) {
         boolean gameExists = true;
         if(!gameExists) {
@@ -121,7 +122,7 @@ public class GameController {
      */
     @RequestMapping(value = "/{gameId}/challenge", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<GameDto> play(
-            @RequestAttribute("player") Player player,
+            @RequestAttribute("player") User player,
             @PathVariable("gameId") Long gameId,
             @RequestBody ChallengeDto challengeDto) {
 

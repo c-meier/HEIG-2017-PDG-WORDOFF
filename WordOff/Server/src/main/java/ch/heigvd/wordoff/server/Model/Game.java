@@ -1,5 +1,6 @@
 package ch.heigvd.wordoff.server.Model;
 
+import ch.heigvd.wordoff.server.Model.Modes.Mode;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 
 import javax.persistence.*;

@@ -1,6 +1,6 @@
 package ch.heigvd.wordoff.common.Cases;
 
-import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
 import org.junit.*;
 
 public class L3Test {

@@ -1,6 +1,6 @@
 package ch.heigvd.wordoff.common.logic;
 
-import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
 import org.junit.*;
 import static org.junit.Assert.*;
 

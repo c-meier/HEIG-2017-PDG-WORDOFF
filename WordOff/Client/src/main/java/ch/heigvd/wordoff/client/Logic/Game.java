@@ -1,13 +1,14 @@
 package ch.heigvd.wordoff.client.Logic;
 
-import ch.heigvd.wordoff.common.Dto.*;
-import ch.heigvd.wordoff.common.Dto.Racks.PlayerRackDto;
-import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
-import ch.heigvd.wordoff.common.Dto.Slots.L2SlotDto;
-import ch.heigvd.wordoff.common.Dto.Slots.LastSlotDto;
-import ch.heigvd.wordoff.common.Dto.Slots.SlotDto;
-import ch.heigvd.wordoff.common.Dto.Slots.SwapSlotDto;
-import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.Game.*;
+import ch.heigvd.wordoff.common.Dto.Game.Racks.PlayerRackDto;
+import ch.heigvd.wordoff.common.Dto.Game.Racks.SwapRackDto;
+import ch.heigvd.wordoff.common.Dto.Game.Slots.L2SlotDto;
+import ch.heigvd.wordoff.common.Dto.Game.Slots.LastSlotDto;
+import ch.heigvd.wordoff.common.Dto.Game.Slots.SlotDto;
+import ch.heigvd.wordoff.common.Dto.Game.Slots.SwapSlotDto;
+import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.User.PlayerDto;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 

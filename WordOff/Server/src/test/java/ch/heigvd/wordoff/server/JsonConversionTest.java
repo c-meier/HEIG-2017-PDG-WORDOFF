@@ -1,21 +1,23 @@
 package ch.heigvd.wordoff.server;
 
 import ch.heigvd.wordoff.common.Dto.*;
-import ch.heigvd.wordoff.common.Dto.Racks.PlayerRackDto;
-import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
-import ch.heigvd.wordoff.common.Dto.Slots.L2SlotDto;
-import ch.heigvd.wordoff.common.Dto.Slots.LastSlotDto;
-import ch.heigvd.wordoff.common.Dto.Slots.SlotDto;
-import ch.heigvd.wordoff.common.Dto.Slots.SwapSlotDto;
-import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.Game.*;
+import ch.heigvd.wordoff.common.Dto.Game.Racks.PlayerRackDto;
+import ch.heigvd.wordoff.common.Dto.Game.Racks.SwapRackDto;
+import ch.heigvd.wordoff.common.Dto.Game.Slots.L2SlotDto;
+import ch.heigvd.wordoff.common.Dto.Game.Slots.LastSlotDto;
+import ch.heigvd.wordoff.common.Dto.Game.Slots.SlotDto;
+import ch.heigvd.wordoff.common.Dto.Game.Slots.SwapSlotDto;
+import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.User.LoginDto;
+import ch.heigvd.wordoff.common.Dto.User.PlayerDto;
+import ch.heigvd.wordoff.common.Dto.User.UserDto;
+import ch.heigvd.wordoff.common.Dto.User.UserSummaryDto;
 import ch.heigvd.wordoff.common.Protocol;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.Date;

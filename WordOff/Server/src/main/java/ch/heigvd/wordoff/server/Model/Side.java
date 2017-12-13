@@ -2,7 +2,6 @@ package ch.heigvd.wordoff.server.Model;
 
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
-import ch.heigvd.wordoff.server.Model.Tiles.Tile;
 
 import javax.persistence.*;
 import java.util.ArrayList;

@@ -1,20 +1,16 @@
 package ch.heigvd.wordoff.server.Utils;
 
-import ch.heigvd.wordoff.common.IModel.ITile;
-import ch.heigvd.wordoff.server.Model.Ai;
-import ch.heigvd.wordoff.server.Model.Challenge;
-import ch.heigvd.wordoff.server.Model.Game;
+import ch.heigvd.wordoff.common.Dto.InvitationStatus;
+import ch.heigvd.wordoff.common.Dto.User.RelationStatus;
+import ch.heigvd.wordoff.server.Model.*;
+import ch.heigvd.wordoff.server.Model.Modes.DuelMode;
+import ch.heigvd.wordoff.server.Model.Modes.TournamentMode;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.server.Model.Slots.*;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 import ch.heigvd.wordoff.server.Model.Tiles.Tile;
-import ch.heigvd.wordoff.server.Model.User;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class MockModel {
     private LangSet langSet;
@@ -27,6 +23,9 @@ public class MockModel {
     private User two;
     private Game duelGame;
     private Game aiGame;
+    private TournamentMode tournamentMode;
+    private Invitation invitation;
+    private DuelMode duelMode;
 
     private int indexTile;
     private int indexSlot;
@@ -94,7 +93,7 @@ public class MockModel {
         swapRack.addTile(getTile());
         swapRack.addTile(getTile());
 
-        challenge = new Challenge(slots.stream().collect(Collectors.toList()));
+        challenge = new Challenge(new ArrayList<>(slots));
         challenge.setSwapRack(swapRack);
 
         ai = new Ai();
@@ -105,6 +104,7 @@ public class MockModel {
 
         two = new User("testUserTwo");
         two.setId(3L);
+        two.setRelation(one, RelationStatus.FRIEND);
 
         aiGame = new Game(one, ai, langSet);
         aiGame.setId(1L);
@@ -115,6 +115,14 @@ public class MockModel {
         duelGame.setId(2L);
         duelGame.getSideInit().setId(3L);
         duelGame.getSideResp().setId(4L);
+
+        duelMode = new DuelMode();
+        duelMode.setId(2L);
+        duelMode.setGames(new ArrayList<>(Collections.singletonList(duelGame)));
+        duelMode.putInvitation(new Invitation(duelMode, one, InvitationStatus.ORIGIN, two.getName()));
+        invitation = new Invitation(duelMode, two, InvitationStatus.WAITING, one.getName());
+        duelMode.putInvitation(invitation);
+        duelMode.setStartDate(new Date());
     }
 
     public LangSet getLangSet() {
@@ -165,5 +173,13 @@ public class MockModel {
 
     public Game getAiGame() {
         return aiGame;
+    }
+
+    public Invitation getInvitation() {
+        return invitation;
+    }
+
+    public DuelMode getDuelMode() {
+        return duelMode;
     }
 }

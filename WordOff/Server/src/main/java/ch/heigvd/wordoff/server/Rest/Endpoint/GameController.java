@@ -1,29 +1,28 @@
 package ch.heigvd.wordoff.server.Rest.Endpoint;
 
-import ch.heigvd.wordoff.common.Dto.*;
-import ch.heigvd.wordoff.common.Dto.Racks.PlayerRackDto;
-import ch.heigvd.wordoff.common.Dto.Racks.SwapRackDto;
-import ch.heigvd.wordoff.common.Dto.Slots.*;
-import ch.heigvd.wordoff.common.Dto.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.Game.ChallengeDto;
+import ch.heigvd.wordoff.common.Dto.Game.GameDto;
+import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
 import ch.heigvd.wordoff.common.Protocol;
 import ch.heigvd.wordoff.server.Model.Challenge;
 import ch.heigvd.wordoff.server.Model.Game;
 import ch.heigvd.wordoff.server.Model.Player;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
+import ch.heigvd.wordoff.server.Model.User;
 import ch.heigvd.wordoff.server.Repository.GameRepository;
 import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Rest.Exception.ErrorCodeException;
 import ch.heigvd.wordoff.server.Service.GameService;
-import ch.heigvd.wordoff.server.Util.DaoDtoConverter;
+import ch.heigvd.wordoff.server.Util.DtoFactory;
+import ch.heigvd.wordoff.server.Util.EntityFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/games", produces = "application/json")
@@ -31,38 +30,30 @@ public class GameController {
     private GameRepository gameRepository;
     private LangSetRepository langSetRepository;
     private GameService gameService;
-    private DaoDtoConverter daoDtoConverter;
     private PlayerRepository playerRepository;
 
-    public GameController(GameRepository gameRepository, GameService gameService, LangSetRepository langSetRepository, DaoDtoConverter daoDtoConverter, PlayerRepository playerRepository) {
+    public GameController(GameRepository gameRepository, GameService gameService, LangSetRepository langSetRepository, PlayerRepository playerRepository) {
         this.gameRepository = gameRepository;
         this.gameService = gameService;
         this.langSetRepository = langSetRepository;
-        this.daoDtoConverter = daoDtoConverter;
         this.playerRepository = playerRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<GameSummaryDto>> listGames(
-            @RequestAttribute("player") Player player) {
+            @RequestAttribute("player") User player) {
 
-        List<GameSummaryDto> gamesDto = new ArrayList<>();
-
-        List<Game> games = gameRepository.findAllBySideInitPlayerId(player.getId());
-        for(Game g : games) {
-            gamesDto.add(daoDtoConverter.toSummaryDto(g, player));
-        }
-        games = gameRepository.findAllBySideRespPlayerId(player.getId());
-        for(Game g : games) {
-            gamesDto.add(daoDtoConverter.toSummaryDto(g, player));
-        }
+        List<GameSummaryDto> gamesDto = gameRepository.retrieveAllByOnePlayerId(player.getId())
+                .stream()
+                .map(g -> DtoFactory.createSummaryFrom(g, player))
+                .collect(Collectors.toCollection(ArrayList::new));
 
         return new ResponseEntity<>(gamesDto, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<GameSummaryDto> newGame(
-            @RequestAttribute("player") Player player,
+            @RequestAttribute("player") User player,
             @RequestParam("lang") String lang,
             @RequestBody List<Long> playersId) {
 
@@ -84,7 +75,7 @@ public class GameController {
 
         // create and convert the new games.
         Game game = gameService.initGame(init, resp, lang);
-        GameSummaryDto gameSummaryDto = daoDtoConverter.toSummaryDto(game, player);
+        GameSummaryDto gameSummaryDto = DtoFactory.createSummaryFrom(game, player);
 
         return new ResponseEntity<>(gameSummaryDto, HttpStatus.CREATED);
     }
@@ -97,7 +88,7 @@ public class GameController {
      */
     @RequestMapping(value = "/{gameId}", method = RequestMethod.GET)
     public ResponseEntity<GameDto> getGame(
-            @RequestAttribute("player") Player player,
+            @RequestAttribute("player") User player,
             @PathVariable("gameId") Long gameId) {
         boolean gameExists = true;
         if(!gameExists) {
@@ -116,7 +107,7 @@ public class GameController {
 //        }
 
         // Converter new game to dto
-        GameDto gameDto = daoDtoConverter.toDto(game, player);
+        GameDto gameDto = DtoFactory.createFrom(game, player);
 
         // send new game to player
         return new ResponseEntity<>(gameDto, HttpStatus.OK);
@@ -131,7 +122,7 @@ public class GameController {
      */
     @RequestMapping(value = "/{gameId}/challenge", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<GameDto> play(
-            @RequestAttribute("player") Player player,
+            @RequestAttribute("player") User player,
             @PathVariable("gameId") Long gameId,
             @RequestBody ChallengeDto challengeDto) {
 
@@ -141,12 +132,12 @@ public class GameController {
 
         Game game = gameRepository.findOne(gameId);
 
-        Challenge challenge = daoDtoConverter.fromDto(challengeDto);
+        Challenge challenge = EntityFactory.createFrom(challengeDto);
 
         game = gameService.play(game, player, challenge);
 
         // convert dao game to dto
-        GameDto gameDto = daoDtoConverter.toDto(game, player);
+        GameDto gameDto = DtoFactory.createFrom(game, player);
 
         // Send update of the game
         return new ResponseEntity<>(gameDto, HttpStatus.OK);

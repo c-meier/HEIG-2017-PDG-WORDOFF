@@ -1,6 +1,6 @@
 package ch.heigvd.wordoff.server.Service;
 
-import ch.heigvd.wordoff.common.Dto.LoginDto;
+import ch.heigvd.wordoff.common.Dto.User.LoginDto;
 import ch.heigvd.wordoff.common.Protocol;
 import ch.heigvd.wordoff.server.Model.Credentials;
 import ch.heigvd.wordoff.server.Model.User;

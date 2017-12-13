@@ -5,14 +5,13 @@
  */
 package ch.heigvd.wordoff.client.Controller;
 
-import ch.heigvd.wordoff.client.Api.GameApi;
 import ch.heigvd.wordoff.client.Api.UserApi;
 import ch.heigvd.wordoff.client.Exception.BadRequestException;
 import ch.heigvd.wordoff.client.Exception.UnauthorizedException;
 import ch.heigvd.wordoff.client.Exception.UnprocessableEntityException;
 import ch.heigvd.wordoff.client.Util.Dialog;
 import ch.heigvd.wordoff.client.MainApp;
-import ch.heigvd.wordoff.common.Dto.LoginDto;
+import ch.heigvd.wordoff.common.Dto.User.LoginDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

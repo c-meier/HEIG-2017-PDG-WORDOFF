@@ -79,4 +79,6 @@ public interface IRack {
     default boolean isEmpty() {
         return getTiles().isEmpty();
     }
+
+    IRack duplicate();
 }

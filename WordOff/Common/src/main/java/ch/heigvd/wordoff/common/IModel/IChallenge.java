@@ -63,4 +63,6 @@ public interface IChallenge {
         }
         return null;
     }
+
+    IChallenge duplicate();
 }

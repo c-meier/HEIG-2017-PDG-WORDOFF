@@ -7,11 +7,7 @@ import ch.heigvd.wordoff.common.IModel.IChallenge;
 import ch.heigvd.wordoff.common.IModel.IRack;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.util.Pair;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -28,7 +24,7 @@ public class WordAnalyzer {
      *
      * @return List<Pair<Integer (score), List<ITile> (mot)>>
      */
-    public static List<Pair<Integer, List<ITile>>> getWordsByScore(final Dictionary DICTIONARY, IChallenge challenge,
+    public static List<Pair<Integer, List<ITile>>> getWordsByScore(Dictionary dico, IChallenge challenge,
                                                                    IRack playerRack) {
         List<Pair<Integer, List<ITile>>> pairList = new ArrayList<>();
 
@@ -43,7 +39,7 @@ public class WordAnalyzer {
         String letters = lettersBuilder.toString();
 
         // récupère les mots possibles
-        List<String> anagrams = DICTIONARY.getAnagrams(letters);
+        List<String> anagrams = dico.getAnagrams(letters);
 
         for (String str : anagrams) {
             // challenge et racks temporaires

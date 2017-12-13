@@ -2,7 +2,6 @@ package ch.heigvd.wordoff.server.Model.Slots;
 
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
-import ch.heigvd.wordoff.server.Model.Side;
 import ch.heigvd.wordoff.server.Model.Tiles.Tile;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -42,6 +41,13 @@ public class Slot implements ISlot, Serializable {
 
     public int getScore() {
         return null == tile ? 0 : tile.getScore();
+    }
+
+    @Override
+    public ISlot duplicate() {
+        Slot copy = new Slot(new Short(pos.shortValue()));
+        copy.setTile(tile.duplicate());
+        return copy;
     }
 
     public Short getPos() {

@@ -42,6 +42,14 @@ public class ChallengeDto implements IChallenge, IDto{
         return slots;
     }
 
+    @Override
+    public IChallenge duplicate() {
+        List<ISlot> newSlots = new ArrayList<>();
+        slots.forEach((elem) -> newSlots.add(elem.duplicate()));
+        IChallenge copy = new ChallengeDto(newSlots, swapRack.duplicate());
+        return copy;
+    }
+
     public void setSlots(List<ISlot> slots) {
         this.slots = slots;
     }

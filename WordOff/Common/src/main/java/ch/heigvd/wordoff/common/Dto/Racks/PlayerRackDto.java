@@ -1,8 +1,10 @@
 package ch.heigvd.wordoff.common.Dto.Racks;
 
 import ch.heigvd.wordoff.common.Constants;
+import ch.heigvd.wordoff.common.IModel.IRack;
 import ch.heigvd.wordoff.common.IModel.ITile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerRackDto extends RackDto {
@@ -21,6 +23,13 @@ public class PlayerRackDto extends RackDto {
     @Override
     public int getMaxSizeRack() {
         return Constants.PLAYER_RACK_SIZE;
+    }
+
+    @Override
+    public IRack duplicate() {
+        List<ITile> tilesCopy = new ArrayList<>();
+        getTiles().forEach((elem)->tilesCopy.add(elem.duplicate()));
+        return new PlayerRackDto(tilesCopy);
     }
 
     @Override

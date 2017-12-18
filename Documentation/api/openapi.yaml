@@ -5,7 +5,7 @@ info:
     contact:
         name: Christopher Meier
         email: christopher.meier@heig-vd.ch
-    version: 0.2.0
+    version: 0.2.1
 paths:
     /letters/{lang}:
         get:
@@ -109,6 +109,33 @@ paths:
             security:
                 - jwt:
                     - read:me
+    /me/invitations/{modeId}:
+        put:
+            tags:
+                - me
+            description: Respond to invitation for the given mode.
+            requestBody:
+                description: The updated invitation.
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/InvitationDto'
+            responses:
+                '200':
+                    description: The updated relations.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/InvitationDto'
+                '422':
+                    $ref: '#/components/responses/InvalidContent'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+            security:
+                - jwt:
+                    - read:me
+        parameters:
+            - $ref: '#/components/parameters/modeIdParam'
     /me/adversaries:
         get:
             tags:
@@ -684,7 +711,15 @@ components:
         NotificationDto:
             type: object
         InvitationDto:
-            type: object
+            allOf:
+                - type: object
+                  properties:
+                      invitationId:
+                          type: integer
+                      status:
+                          type: string
+                          enum: ["WAITING", "ACCEPT", "DENY"]
+                - $ref: '#/components/schemas/IEndpointDto'
     parameters:
         gameIdParam:
             name: gameId

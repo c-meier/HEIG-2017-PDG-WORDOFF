@@ -6,9 +6,8 @@ import ch.heigvd.wordoff.common.Dto.Game.Racks.RackDto;
 import ch.heigvd.wordoff.common.Dto.Game.Racks.SwapRackDto;
 import ch.heigvd.wordoff.common.Dto.Game.Slots.*;
 import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
-import ch.heigvd.wordoff.common.Dto.User.PlayerDto;
-import ch.heigvd.wordoff.common.Dto.User.UserDto;
-import ch.heigvd.wordoff.common.Dto.User.UserSummaryDto;
+import ch.heigvd.wordoff.common.Dto.InvitationDto;
+import ch.heigvd.wordoff.common.Dto.User.*;
 import ch.heigvd.wordoff.common.IModel.IRack;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
@@ -18,18 +17,20 @@ import ch.heigvd.wordoff.server.Model.Racks.Rack;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.server.Model.Slots.*;
 import ch.heigvd.wordoff.server.Model.Tiles.Tile;
-import org.modelmapper.*;
+import org.modelmapper.Converter;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
 
 @Component
-public class DaoDtoConverter {
-    ModelMapper modelMapper;
+public class DtoFactory {
+    private static ModelMapper modelMapper = configuredModelMapper();
 
-    public DaoDtoConverter() {
-        this.modelMapper = new ModelMapper();
+    private static ModelMapper configuredModelMapper() {
+        ModelMapper modelMapper = new ModelMapper();
 
         Converter<Tile, ITile> toTileDto =
                 ctx -> ctx.getSource() == null ? null : modelMapper.map(ctx.getSource(), TileDto.class);
@@ -114,108 +115,75 @@ public class DaoDtoConverter {
         TypeMap<Game, GameDto> gameMap = modelMapper.createTypeMap(Game.class, GameDto.class);
         gameMap.addMappings(mapper -> mapper.using(bagConverter).map(Game::getBag, GameDto::setBagSize));
 
-        // ============================
-        //  Reverse conversion
-        // ============================
-
-        Converter<Tile, ITile> toTileDao =
-                ctx -> ctx.getSource() == null ? null : modelMapper.map(ctx.getSource(), Tile.class);
-
-        // Tiles
         //
-        TypeMap<TileDto, ITile> tileReverseMap = modelMapper.createTypeMap(TileDto.class, ITile.class);
-        tileReverseMap.setProvider(req -> new Tile());
-
-        tileReverseMap.include(TileDto.class, Tile.class);
+        // Relations
+        //
+        TypeMap<Relation, RelationDto> relationMap = modelMapper.createTypeMap(Relation.class, RelationDto.class);
+        relationMap.addMappings(mapper -> mapper
+                .using(getUrlConverter("/me/relations"))
+                .map(r -> r.getTarget().getId(), RelationDto::setEndpoint));
 
         //
-        // Racks
+        // Invitations
         //
-        TypeMap<RackDto, IRack> rackReverseMap = modelMapper.createTypeMap(RackDto.class, IRack.class)
-                .include(SwapRackDto.class, IRack.class)
-                .include(PlayerRackDto.class, IRack.class)
-                .include(SwapRackDto.class, Rack.class)
-                .include(PlayerRackDto.class, Rack.class);
-        modelMapper.typeMap(SwapRackDto.class, IRack.class).setProvider(req -> new SwapRack());
-        modelMapper.typeMap(PlayerRackDto.class, IRack.class).setProvider(req -> new PlayerRack());
-        modelMapper.typeMap(SwapRackDto.class, Rack.class).setProvider(req -> new SwapRack());
-        modelMapper.typeMap(PlayerRackDto.class, Rack.class).setProvider(req -> new PlayerRack());
+        TypeMap<Invitation, InvitationDto> invitationMap = modelMapper.createTypeMap(Invitation.class, InvitationDto.class);
+        invitationMap.addMappings(mapper -> mapper
+                .using(getUrlConverter("/me/invitations"))
+                .map(i -> i.getMode().getId(), InvitationDto::setEndpoint));
 
-        //
-        // Slots
-        //
-        TypeMap<SlotDto, ISlot> slotReverseMap = modelMapper.createTypeMap(SlotDto.class, ISlot.class);
-        slotReverseMap.addMappings(mapper -> mapper.using(toTileDao).map(SlotDto::getTile, ISlot::setTile));
-
-        slotReverseMap.include(SwapSlotDto.class, ISlot.class)
-                .include(L2SlotDto.class, ISlot.class)
-                .include(L3SlotDto.class, ISlot.class)
-                .include(LastSlotDto.class, ISlot.class)
-                .include(SlotDto.class, Slot.class)
-                .include(SwapSlotDto.class, Slot.class)
-                .include(L2SlotDto.class, Slot.class)
-                .include(L3SlotDto.class, Slot.class)
-                .include(LastSlotDto.class, Slot.class);
-
-        modelMapper.typeMap(SwapSlotDto.class, Slot.class).setProvider(req -> new SwapSlot());
-        modelMapper.typeMap(L2SlotDto.class, Slot.class).setProvider(req -> new L2Slot());
-        modelMapper.typeMap(L3SlotDto.class, Slot.class).setProvider(req -> new L3Slot());
-        modelMapper.typeMap(LastSlotDto.class, Slot.class).setProvider(req -> new LastSlot());
-        modelMapper.typeMap(SlotDto.class, ISlot.class).setProvider(req -> new Slot());
-        modelMapper.typeMap(SwapSlotDto.class, ISlot.class).setProvider(req -> new SwapSlot());
-        modelMapper.typeMap(L2SlotDto.class, ISlot.class).setProvider(req -> new L2Slot());
-        modelMapper.typeMap(L3SlotDto.class, ISlot.class).setProvider(req -> new L3Slot());
-        modelMapper.typeMap(LastSlotDto.class, ISlot.class).setProvider(req -> new LastSlot());
-
+        return modelMapper;
     }
 
-    public TileDto toDto(Tile dao) {
-        return modelMapper.map(dao, TileDto.class);
+    private static Converter<Long, String> getUrlConverter(String resource) {
+        return ctx -> resource + "/" + ctx.getSource();
     }
 
-    public SlotDto toDto(Slot dao) {
-        return modelMapper.map(dao, SlotDto.class);
+    public static TileDto createFrom(Tile entity) {
+        return modelMapper.map(entity, TileDto.class);
     }
 
-    public RackDto toDto(Rack dao) {
-        return modelMapper.map(dao, RackDto.class);
+    public static SlotDto createFrom(Slot entity) {
+        return modelMapper.map(entity, SlotDto.class);
     }
 
-    public ChallengeDto toDto(Challenge dao) {
-        return modelMapper.map(dao, ChallengeDto.class);
+    public static RackDto createFrom(Rack entity) {
+        return modelMapper.map(entity, RackDto.class);
     }
 
-    public UserSummaryDto toSummaryDto(User dao) {
-        return modelMapper.map(dao, UserSummaryDto.class);
+    public static ChallengeDto createFrom(Challenge entity) {
+        return modelMapper.map(entity, ChallengeDto.class);
     }
 
-    public UserDto toDto(User dao) {
-        return modelMapper.map(dao, UserDto.class);
+    public static UserSummaryDto createSummaryFrom(User entity) {
+        return modelMapper.map(entity, UserSummaryDto.class);
     }
 
-    public PlayerDto toDto(Player dao) {
-        return modelMapper.map(dao, PlayerDto.class);
+    public static UserDto createFrom(User entity) {
+        return modelMapper.map(entity, UserDto.class);
     }
 
-
-    public SideDto toDto(Side dao) {
-        return modelMapper.map(dao, SideDto.class);
+    public static PlayerDto createFrom(Player entity) {
+        return modelMapper.map(entity, PlayerDto.class);
     }
 
-    public OtherSideDto toOtherDto(Side dao) {
-        return modelMapper.map(dao, OtherSideDto.class);
+    public static SideDto createFrom(Side entity) {
+        return modelMapper.map(entity, SideDto.class);
     }
 
-    public GameDto toDto(Game dao, Player viewer) {
-        Side mySide = dao.getSideOfPlayer(viewer);
-        Side otherSide = dao.getSideOfPlayer(dao.getOtherPlayer(viewer));
+    public static OtherSideDto createOtherFrom(Side entity) {
+        return modelMapper.map(entity, OtherSideDto.class);
+    }
 
-        GameDto dto = modelMapper.map(dao, GameDto.class);
+    public static GameDto createFrom(Game entity, User viewer) {
+        Side mySide = entity.getSideOfPlayer(viewer);
+        Side otherSide = entity.getSideOfPlayer(entity.getOtherPlayer(viewer));
+
+        GameDto dto = modelMapper.map(entity, GameDto.class);
         dto.setMySide(modelMapper.map(
                 mySide, SideDto.class));
         dto.setOtherSide(modelMapper.map(
                 otherSide, OtherSideDto.class));
-        dto.setMyTurn(Objects.equals(dao.getCurrPlayer().getId(), viewer.getId()));
+        dto.setMyTurn(Objects.equals(entity.getCurrPlayer().getId(), viewer.getId()));
 
         // If it's the viewer turn, then he sees the last completed challenge (if it exists) of his
         // adversary.
@@ -228,30 +196,31 @@ public class DaoDtoConverter {
         return dto;
     }
 
-    public GameSummaryDto toSummaryDto(Game dao, Player viewer) {
-        GameSummaryDto dto = modelMapper.map(dao, GameSummaryDto.class);
-        dto.setOtherPlayer(modelMapper.map(dao.getOtherPlayer(viewer), PlayerDto.class));
+    public static GameSummaryDto createSummaryFrom(Game entity, User viewer) {
+        GameSummaryDto dto = modelMapper.map(entity, GameSummaryDto.class);
+        dto.setOtherPlayer(modelMapper.map(entity.getOtherPlayer(viewer), PlayerDto.class));
+        return dto;
+    }
+    
+    public static MeDto createMeFrom(User entity) {
+        return modelMapper.map(entity, MeDto.class);
+    }
+
+    public static RelationDto createFrom(Relation entity) {
+        return modelMapper.map(entity, RelationDto.class);
+    }
+
+    public static RelatedUserSummaryDto createRelatedSummaryFrom(User entity, User viewer) {
+        RelatedUserSummaryDto dto = modelMapper.map(entity, RelatedUserSummaryDto.class);
+        dto.setRelation(createFrom(viewer.getRelation(entity)));
         return dto;
     }
 
-    public Tile fromDto(TileDto dto) {
-        // TODO: check with LangSet
-        return modelMapper.map(dto, Tile.class);
+    public static InvitationDto createFrom(Invitation entity) {
+        return modelMapper.map(entity, InvitationDto.class);
     }
 
-    public Slot fromDto(SlotDto dto) {
-        return modelMapper.map(dto, Slot.class);
-    }
-
-    public Rack fromDto(RackDto dto) {
-        return modelMapper.map(dto, Rack.class);
-    }
-
-    public Challenge fromDto(ChallengeDto dto) {
-        return modelMapper.map(dto, Challenge.class);
-    }
-
-    public ModelMapper getModelMapper() {
+    public static ModelMapper getModelMapper() {
         return modelMapper;
     }
 }

@@ -3,23 +3,20 @@ package ch.heigvd.wordoff.common.Dto;
 import ch.heigvd.wordoff.common.Dto.Endpoint.IResource;
 
 public class InvitationDto implements IResource<InvitationDto> {
-    private Long invitationId;
-
+    private String name;
     private InvitationStatus status;
+
     /**
      * Endpoint to update (PUT) the status of an invitation.
      */
     private String endpoint;
 
-    public Long getInvitationId() {
-        return invitationId;
+    public String getName() {
+        return name;
     }
 
-    public void setInvitationId(Long invitationId) {
-        this.invitationId = invitationId;
-        if(invitationId != null) {
-            setEndpoint("/me/invitations/" + invitationId);
-        }
+    public void setName(String name) {
+        this.name = name;
     }
 
     public InvitationStatus getStatus() {

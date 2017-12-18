@@ -18,16 +18,6 @@ import java.util.List;
  * Date : 24.10.17
  */
 public class WordAnalyzer {
-    private final Dictionary DICTIONARY;
-    private IChallenge challenge;
-    private IRack playerRack;
-
-    public WordAnalyzer(Dictionary dico, IChallenge challenge, IRack playerRack) {
-        DICTIONARY = dico;
-        this.challenge = challenge;
-        this.playerRack = playerRack;
-    }
-
     /*
      * Calcule les scores des mots possibles et renvoie les mots dans l'ordre croissant du score
      * qu'ils marqueraient sur ce Side. Prend en compte le SwapRack. La clé du la paire est le score.
@@ -35,7 +25,8 @@ public class WordAnalyzer {
      *
      * @return List<Pair<Integer (score), List<ITile> (mot)>>
      */
-    public List<Pair<Integer, List<ITile>>> getWordsByScore() {
+    public static List<Pair<Integer, List<ITile>>> getWordsByScore(Dictionary dico, IChallenge challenge,
+                                                                   IRack playerRack) {
         List<Pair<Integer, List<ITile>>> pairList = new ArrayList<>();
 
         // construit la String des lettres disponibles
@@ -49,7 +40,7 @@ public class WordAnalyzer {
         String letters = lettersBuilder.toString();
 
         // récupère les mots possibles
-        List<String> anagrams = DICTIONARY.getAnagrams(letters);
+        List<String> anagrams = dico.getAnagrams(letters);
 
         for (String str : anagrams) {
             // challenge et racks temporaires
@@ -67,10 +58,11 @@ public class WordAnalyzer {
                 // TODO: refactor to remove code duplication
                 // cherche la tile dans le tempSwap en premier
                 for (ITile tile : tempSwap.getTiles()) {
-                    if ((tile.isJoker() && str.charAt(i) == '#') || (tile.getValue() == str.charAt(i) && !tile.isJoker())) {
+                    if ((tile.isJoker() && str.charAt(i) == '#') || (tile.getValue() == str.charAt(i) && !tile
+                            .isJoker())) {
                         tileFound = true;
                         ITile dup = tile.duplicate();
-                        if(tile.isJoker()) {
+                        if (tile.isJoker()) {
                             dup.setValue(str.charAt(++i));
                         }
                         tempChall.addTile(dup);
@@ -82,9 +74,10 @@ public class WordAnalyzer {
                 if (!tileFound) {
                     // cherche la position du la Tile correspondante dans le playerRack
                     for (ITile tile : tempPlayerRack.getTiles()) {
-                        if ((tile.isJoker() && str.charAt(i) == '#') || (tile.getValue() == str.charAt(i) && !tile.isJoker())) {
+                        if ((tile.isJoker() && str.charAt(i) == '#') || (tile.getValue() == str.charAt(i) && !tile
+                                .isJoker())) {
                             ITile dup = tile.duplicate();
-                            if(tile.isJoker()) {
+                            if (tile.isJoker()) {
                                 dup.setValue(str.charAt(++i));
                             }
                             tempChall.addTile(dup);

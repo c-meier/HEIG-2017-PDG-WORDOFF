@@ -1,6 +1,7 @@
 package ch.heigvd.wordoff.client.Controller;
 
 import ch.heigvd.wordoff.client.Api.GameApi;
+import ch.heigvd.wordoff.client.Api.LetterApi;
 import ch.heigvd.wordoff.client.Exception.*;
 import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.client.Logic.Game;
@@ -53,6 +54,7 @@ public class MainMenuController implements Initializable {
 
         GameScreenController controller = loader.getController();
         controller.setGame(this.selectGame);
+        controller.setAlphabet(LetterApi.retrieveLetters(selectGame.getLang()));
 
         changeScene(scene);
     }

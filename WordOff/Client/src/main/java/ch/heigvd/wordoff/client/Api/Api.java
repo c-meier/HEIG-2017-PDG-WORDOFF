@@ -1,11 +1,16 @@
 package ch.heigvd.wordoff.client.Api;
 
 import ch.heigvd.wordoff.client.Exception.BadRequestException;
+import ch.heigvd.wordoff.client.Exception.TokenNotFoundException;
 import ch.heigvd.wordoff.client.Exception.UnauthorizedException;
 import ch.heigvd.wordoff.client.Exception.UnprocessableEntityException;
+import ch.heigvd.wordoff.client.Util.TokenManager;
+import ch.heigvd.wordoff.common.Dto.Endpoint.IResource;
 import ch.heigvd.wordoff.common.Dto.ErrorDto;
+import ch.heigvd.wordoff.common.Dto.Game.GameDto;
+import ch.heigvd.wordoff.common.Dto.User.MeDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
@@ -13,6 +18,9 @@ import org.springframework.web.client.RestTemplate;
 import javax.xml.ws.http.HTTPException;
 import java.io.IOException;
 import java.util.logging.Logger;
+
+import static ch.heigvd.wordoff.common.Constants.AUTHORIZATION_HEADER;
+import static ch.heigvd.wordoff.common.Constants.SERVER_URI;
 
 class Api {
     private final RestTemplate restTemplate;
@@ -58,5 +66,46 @@ class Api {
                 }
             }
         });
+    }
+
+    static public <T> T get(String endpoint, Class<T> dtoClass) throws TokenNotFoundException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());
+
+        ResponseEntity<T> responseEntity =
+                Api.getRestTemplate().exchange(endpoint,
+                        HttpMethod.GET,
+                        new HttpEntity<>(headers),
+                        dtoClass);
+
+        return responseEntity.getBody();
+    }
+
+    static public <T> T put(String endpoint, T dto, Class<T> dtoClass) throws TokenNotFoundException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        ResponseEntity<T> responseEntity =
+                Api.getRestTemplate().exchange(endpoint,
+                        HttpMethod.PUT,
+                        new HttpEntity<>(dto, headers),
+                        dtoClass);
+
+        return responseEntity.getBody();
+    }
+
+    static public <T> T post(String endpoint, T dto, Class<T> dtoClass) throws TokenNotFoundException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        ResponseEntity<T> responseEntity =
+                Api.getRestTemplate().exchange(endpoint,
+                        HttpMethod.POST,
+                        new HttpEntity<>(dto, headers),
+                        dtoClass);
+
+        return responseEntity.getBody();
     }
 }

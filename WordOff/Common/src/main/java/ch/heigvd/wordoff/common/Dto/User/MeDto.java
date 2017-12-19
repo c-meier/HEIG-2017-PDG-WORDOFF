@@ -4,29 +4,24 @@ import ch.heigvd.wordoff.common.Dto.Endpoint.IResource;
 import ch.heigvd.wordoff.common.Dto.Endpoint.ResourceList;
 import ch.heigvd.wordoff.common.Dto.Endpoint.ResourceWriteList;
 import ch.heigvd.wordoff.common.Dto.InvitationDto;
+import ch.heigvd.wordoff.common.Dto.Mode.CreateModeDto;
 import ch.heigvd.wordoff.common.Dto.Mode.ModeDto;
 import ch.heigvd.wordoff.common.Dto.NotificationDto;
 
 public class MeDto extends PlayerDto implements IResource<MeDto> {
-    public MeDto() {
-        String baseUrl = "/me";
-        setEndpoint(baseUrl);
-        this.notifications = new ResourceList<>(baseUrl + "/notifications");
-        this.invitations = new ResourceList<>(baseUrl + "/invitations");
-        this.adversaries = new ResourceList<>(baseUrl + "/adversaries");
-        this.relations = new ResourceList<>(baseUrl + "/relations");
-        this.modes = new ResourceWriteList<>("/modes");
-    }
+    /**
+     * Endpoint to get and put your current invitations to a mode (tournament, duel)
+     */
+    private ResourceWriteList<InvitationDto, InvitationDto> invitations;
 
     /**
      * Endpoint to get your current notifications (if its your turn to a game, ...)
      */
     private ResourceList<NotificationDto> notifications;
-
     /**
-     * Endpoint to get your current invitations to a mode (tournament, duel)
+     * Endpoint to get your modes (duels, randoms, tournaments, competitions)
      */
-    private ResourceList<InvitationDto> invitations;
+    private ResourceWriteList<ModeDto, CreateModeDto> modes;
 
     /**
      * Endpoint to get the users with whom you have recently been in a game.
@@ -38,10 +33,15 @@ public class MeDto extends PlayerDto implements IResource<MeDto> {
      */
     private ResourceList<RelatedUserSummaryDto> relations;
 
-    /**
-     * Endpoint to get your modes (duels, randoms, tournaments, competitions)
-     */
-    private ResourceWriteList<ModeDto, ModeDto> modes;
+    public MeDto() {
+        String baseUrl = "/me";
+        setEndpoint(baseUrl);
+        this.notifications = new ResourceList<>(baseUrl + "/notifications");
+        this.invitations = new ResourceWriteList<>(baseUrl + "/invitations");
+        this.adversaries = new ResourceList<>(baseUrl + "/adversaries");
+        this.relations = new ResourceList<>(baseUrl + "/relations");
+        this.modes = new ResourceWriteList<>("/modes");
+    }
 
     /**
      * Endpoint to update or modify this object.

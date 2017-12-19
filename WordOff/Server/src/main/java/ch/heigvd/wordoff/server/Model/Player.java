@@ -13,6 +13,7 @@ public class Player {
     @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
     private String name;
 
     protected Player() {}

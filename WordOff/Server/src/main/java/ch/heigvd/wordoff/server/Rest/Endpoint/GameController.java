@@ -90,17 +90,15 @@ public class GameController {
     public ResponseEntity<GameDto> getGame(
             @RequestAttribute("player") User player,
             @PathVariable("gameId") Long gameId) {
-        boolean gameExists = true;
-        if(!gameExists) {
+
+        if(!gameRepository.exists(gameId)) {
             throw new ErrorCodeException(Protocol.GAME_NOT_EXISTS, "The specified game does not exists!");
         }
 
-        boolean gameConcernPlayer = true;
-        if(!gameConcernPlayer) {
+        Game game = gameRepository.findOne(gameId);
+        if(!game.getCurrPlayer().getId().equals(player.getId()) && !game.getOtherPlayer(game.getCurrPlayer()).getId().equals(player.getId())) {
             throw new ErrorCodeException(Protocol.NOT_PLAYER_GAME, "The game does not belong to you!");
         }
-
-        Game game = gameRepository.findOne(gameId);
 //
 //        if (game.getCurrPlayer() instanceof Ai) {
 //            game = gameService.makeAiPLay(game, (User) player);

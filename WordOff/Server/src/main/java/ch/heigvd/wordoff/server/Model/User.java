@@ -19,6 +19,8 @@ public class User extends Player {
 
     private int level;
 
+    private int coins = 0;
+
     protected User() {
         this.relations = new TreeMap<>();
     }
@@ -65,5 +67,13 @@ public class User extends Player {
         } else {
             getRelations().put(target.getId(), new Relation(this, target, status));
         }
+    }
+
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
     }
 }

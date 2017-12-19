@@ -1,7 +1,9 @@
 package ch.heigvd.wordoff.server.Model.Modes;
 
+import ch.heigvd.wordoff.common.Dto.Mode.ModeType;
 import ch.heigvd.wordoff.server.Model.Game;
 import ch.heigvd.wordoff.server.Model.Invitation;
+import ch.heigvd.wordoff.server.Model.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -22,6 +24,8 @@ public abstract class Mode {
     private List<Game> games;
 
     private LocalDate startDate;
+
+    private ModeType type;
 
     public Mode() {
         this.invitations = new TreeMap<>();
@@ -62,5 +66,13 @@ public abstract class Mode {
 
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
+    }
+
+    public ModeType getType() {
+        return type;
+    }
+
+    public void setType(ModeType type) {
+        this.type = type;
     }
 }

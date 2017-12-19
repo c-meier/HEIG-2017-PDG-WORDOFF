@@ -1,0 +1,28 @@
+.button{
+    -fx-background-radius: 5em;
+    -fx-min-width:  25px;
+    -fx-min-height:   25px;
+    -fx-max-width:   25px;
+    -fx-max-height:  25px;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #78c739 0%, #4aae3e 100%),
+            #80c89e,
+            #64dfba,
+            radial-gradient(center 50% 50%, radius 100%, #80c89e, #64dfba);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.button:hover,
+.button:showing{
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #78c739 0%, #4aae3e 100%),
+            #c6c817,
+            #dfde22,
+            radial-gradient(center 50% 50%, radius 100%, #c6c817, #dfde22);
+}
+.button:pressed{
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.50) , 2,0,0,1 );
+}

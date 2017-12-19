@@ -14,7 +14,7 @@ import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ListGames {
+public class ListCustom {
 
     private VBox vBox;
     private ListView<String> listView;
@@ -23,7 +23,7 @@ public class ListGames {
 
     private final Image IMAGE_RUBY = new Image("https://upload.wikimedia.org/wikipedia/commons/f/f1/Ruby_logo_64x64.png");
 
-    public ListGames(VBox vbox){
+    public ListCustom(VBox vbox){
         this.vBox = vbox;
         this.listImages = new LinkedList<>();
         this.listView = new ListView<String>();

@@ -18,37 +18,24 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.client.Controller.MainMenuController">
    <top>
-      <GridPane styleClass="backgroundGame" stylesheets="@../styles/Styles.css" BorderPane.alignment="CENTER">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="20.0" vgrow="SOMETIMES" />
-         </rowConstraints>
+      <AnchorPane prefHeight="35.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuBar stylesheets="@../styles/Style_menu.css">
+            <MenuBar prefHeight="27.0" prefWidth="900.0" stylesheets="@../styles/Style_menu.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <menus>
-                <Menu mnemonicParsing="false" text="Username">
+                <Menu mnemonicParsing="false" text="Menu">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#handleGotoProfile" text="Mon profil" />
-                        <MenuItem mnemonicParsing="false" onAction="#handleGotoFriends" text="Liste d'amis" />
-                        <MenuItem mnemonicParsing="false" onAction="#handleGotoMessages" text="Messages" />
-                        <MenuItem mnemonicParsing="false" onAction="#handleGotoSettings" text="Paramètres" />
-                     </items>
-                  </Menu>
-              </menus>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </MenuBar>
-            <MenuBar nodeOrientation="RIGHT_TO_LEFT" stylesheets="@../styles/Style_menu.css" GridPane.columnIndex="2">
-              <menus>
-                <Menu mnemonicParsing="false" text="Notifications">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#handleGotoInvitations" text="Invitations" />
-                        <MenuItem mnemonicParsing="false" onAction="#handleGotoAlert" text="Alertes" />
+                        <Menu mnemonicParsing="false" text="Paramètres">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#handleGotoMessages" text="Messages" />
+                              <MenuItem mnemonicParsing="false" onAction="#handleGotoSettings" text="Paramètres" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Notifications">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#handleGotoInvitations" text="Invitations" />
+                              <MenuItem mnemonicParsing="false" onAction="#handleGotoAlert" text="Alertes" />
+                           </items>
+                        </Menu>
                      </items>
                   </Menu>
               </menus>
@@ -57,7 +44,7 @@
                </cursor>
             </MenuBar>
          </children>
-      </GridPane>
+      </AnchorPane>
    </top>
    <center>
       <SplitPane dividerPositions="0.5" BorderPane.alignment="CENTER">
@@ -75,7 +62,7 @@
                      <children>
                       <AnchorPane minHeight="40.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="171.0" layoutY="5.0" prefHeight="37.0" prefWidth="412.0" styleClass="titleMainMenu" stylesheets="@../styles/Styles.css" text="Parties" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="171.0" layoutY="5.0" prefWidth="412.0" styleClass="titleMainMenu" stylesheets="@../styles/Styles.css" text="Parties" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
@@ -97,13 +84,13 @@
                                        <children>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                              <children>
-                                                <Label alignment="CENTER" layoutX="117.0" layoutY="6.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="410.0" styleClass="backgroundGame_withoutShadow" stylesheets="@../styles/Styles.css" text="Votre tour!" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                <Button fx:id="newGameButton" layoutX="343.0" layoutY="8.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="28.0" prefWidth="84.0" styleClass="button_wood" stylesheets="@../styles/Styles.css" text="Nouveau" />
+                                                <Label alignment="CENTER" layoutX="117.0" layoutY="6.0" maxHeight="-Infinity" minHeight="-Infinity" prefWidth="410.0" styleClass="backgroundGame_withoutShadow" stylesheets="@../styles/Styles.css" text="Votre tour!" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <Button fx:id="newGameButton" layoutX="405.0" layoutY="6.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="28.0" prefWidth="50.0" stylesheets="@../styles/Style_buttonCircle.css" text="+" />
                                              </children>
                                           </AnchorPane>
                                         <AnchorPane prefHeight="140.0" prefWidth="435.0" GridPane.rowIndex="1">
                                              <children>
-                                                <VBox fx:id="vBoxgamesPlayer" layoutX="122.0" prefHeight="222.0" prefWidth="444.0" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <VBox fx:id="vBoxgamesPlayer" layoutX="122.0" prefHeight="222.0" prefWidth="444.0" style="-fx-background-color: lightgoldenrodyellow;" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -125,22 +112,22 @@
                                        <children>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                              <children>
-                                                <Label alignment="CENTER" layoutX="117.0" layoutY="6.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="410.0" styleClass="backgroundGame_withoutShadow" stylesheets="@../styles/Styles.css" text="En attente de votre adversaire" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <Label alignment="CENTER" layoutX="117.0" layoutY="6.0" maxHeight="-Infinity" minHeight="-Infinity" prefWidth="410.0" styleClass="backgroundGame_withoutShadow" stylesheets="@../styles/Styles.css" text="En attente de votre adversaire" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
                                           <AnchorPane GridPane.rowIndex="1">
                                              <children>
-                                                <VBox fx:id="vBoxgamesPlayerWait" layoutX="62.0" layoutY="-53.0" prefHeight="147.0" prefWidth="444.0" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <VBox fx:id="vBoxgamesPlayerWait" layoutX="62.0" layoutY="-53.0" prefHeight="147.0" prefWidth="444.0" style="-fx-background-color: lightgoldenrodyellow;" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
                                           <AnchorPane GridPane.rowIndex="2">
                                              <children>
-                                                <Label alignment="CENTER" layoutX="117.0" layoutY="6.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="410.0" styleClass="backgroundGame_withoutShadow" stylesheets="@../styles/Styles.css" text="Parties terminées" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <Label alignment="CENTER" layoutX="117.0" layoutY="6.0" maxHeight="-Infinity" minHeight="-Infinity" prefWidth="410.0" styleClass="backgroundGame_withoutShadow" stylesheets="@../styles/Styles.css" text="Parties terminées" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="gridPaneMainMenu" stylesheets="@../styles/Style_listView.css" GridPane.rowIndex="3">
                                              <children>
-                                                <VBox fx:id="vBoxgamesPlayerFinish" layoutX="162.0" layoutY="-38.0" prefHeight="87.0" prefWidth="444.0" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <VBox fx:id="vBoxgamesPlayerFinish" layoutX="162.0" layoutY="-38.0" prefHeight="87.0" prefWidth="444.0" style="-fx-background-color: lightgoldenrodyellow;" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -167,7 +154,7 @@
                      <children>
                       <AnchorPane prefHeight="108.0" prefWidth="444.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="5.0" prefHeight="37.0" prefWidth="411.0" styleClass="titleMainMenu" stylesheets="@../styles/Styles.css" text="Tournois" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="5.0" prefWidth="411.0" styleClass="titleMainMenu" stylesheets="@../styles/Styles.css" text="Tournois" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
@@ -185,7 +172,8 @@
                            <children>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <Label alignment="CENTER" layoutX="117.0" layoutY="6.0" prefHeight="34.0" prefWidth="410.0" styleClass="backgroundGame_withoutShadow" stylesheets="@../styles/Styles.css" text="Tournoi compétitif" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <Label alignment="CENTER" layoutX="117.0" layoutY="6.0" prefWidth="410.0" styleClass="backgroundGame_withoutShadow" stylesheets="@../styles/Styles.css" text="Tournoi compétitif" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <Button fx:id="newTournament" layoutX="407.0" layoutY="8.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="28.0" prefWidth="50.0" stylesheets="@../styles/Style_buttonCircle.css" text="+" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.rowIndex="1">
@@ -206,12 +194,13 @@
                            <children>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <Label alignment="CENTER" layoutX="117.0" layoutY="6.0" prefHeight="34.0" prefWidth="410.0" styleClass="backgroundGame_withoutShadow" stylesheets="@../styles/Styles.css" text="Tournoi amical" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <Label alignment="CENTER" layoutX="117.0" layoutY="6.0" prefWidth="410.0" styleClass="backgroundGame_withoutShadow" stylesheets="@../styles/Styles.css" text="Tournoi amical" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <Button fx:id="newTournamentFirends" layoutX="412.0" layoutY="8.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="28.0" prefWidth="50.0" stylesheets="@../styles/Style_buttonCircle.css" text="+" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.rowIndex="1">
                                  <children>
-                                    <VBox fx:id="vBoxgamesTurnamentFriend" layoutX="73.0" layoutY="25.0" prefHeight="225.0" prefWidth="446.0" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <VBox fx:id="vBoxgamesTurnamentFriend" layoutX="73.0" layoutY="25.0" prefHeight="225.0" prefWidth="446.0" style="-fx-background-color: lightgoldenrodyellow;" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </children>

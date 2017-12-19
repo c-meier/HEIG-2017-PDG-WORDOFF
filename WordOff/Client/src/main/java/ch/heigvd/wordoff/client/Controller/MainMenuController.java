@@ -5,7 +5,7 @@ import ch.heigvd.wordoff.client.Exception.*;
 import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.client.Logic.Game;
 import ch.heigvd.wordoff.client.Util.Dialog;
-import ch.heigvd.wordoff.client.Util.ListGames;
+import ch.heigvd.wordoff.client.Util.ListCustom;
 import ch.heigvd.wordoff.client.Util.UtilStringReference;
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
@@ -40,11 +40,11 @@ public class MainMenuController implements Initializable {
     private List<GameSummaryDto> gamesSummaryDto = new LinkedList<>();
     private long myId;
     // Listes des games triées
-    private ListGames listGamesDuel;
-    private ListGames listGamesDuelWait;
-    private ListGames listGamesDuelFinish;
-    private ListGames listGamesTournamentsFriends;
-    private ListGames listGamesTournamentCompetition;
+    private ListCustom listGamesDuel;
+    private ListCustom listGamesDuelWait;
+    private ListCustom listGamesDuelFinish;
+    private ListCustom listGamesTournamentsFriends;
+    private ListCustom listGamesTournamentCompetition;
 
     // Vbox pour afficher les différentes games
     @FXML
@@ -145,9 +145,9 @@ public class MainMenuController implements Initializable {
     public void setState() {
         // TODO Récupérer l'id joueur
         // Créations des listes et de leurs listener
-        listGamesDuel = new ListGames(vBoxgamesPlayer);
-        listGamesDuelWait = new ListGames(vBoxgamesPlayerWait);
-        listGamesDuelFinish = new ListGames(vBoxgamesPlayerFinish);
+        listGamesDuel = new ListCustom(vBoxgamesPlayer);
+        listGamesDuelWait = new ListCustom(vBoxgamesPlayerWait);
+        listGamesDuelFinish = new ListCustom(vBoxgamesPlayerFinish);
 
         listGamesDuel.getListView().setOnMouseClicked(eventGoToGame);
         listGamesDuelWait.getListView().setOnMouseClicked(eventGoToGame);
@@ -175,7 +175,7 @@ public class MainMenuController implements Initializable {
                 titledPane.setText(dto.getOtherPlayer().getName());
                 titledPane.setContent(vBox);
                 accordionTournament.getPanes().add(titledPane);
-                ListGames listGames = new ListGames(vBox);
+                ListCustom listGames = new ListCustom(vBox);
                 listGames.addGameAndUpdate(dto);
                 listGames.getListView().setOnMouseClicked(eventGoToGame);
             }

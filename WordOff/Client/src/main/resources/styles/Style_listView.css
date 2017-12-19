@@ -30,6 +30,10 @@
     -fx-cursor: hand;
 }
 
+.titled-pane:empty{
+    -fx-background-color: lightgoldenrodyellow;
+}
+
 .titled-pane > .title{
     -fx-font-weight: 900;
     -fx-font-size: 14px;

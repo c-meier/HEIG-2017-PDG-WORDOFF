@@ -13,7 +13,7 @@ public class User extends Player {
     @Embedded
     private Credentials credentials;
 
-    @OneToMany(mappedBy = "pk.owner")
+    @OneToMany(mappedBy = "pk.owner", cascade = CascadeType.ALL)
     @MapKey(name = "pk.target")
     private Map<Long, Relation> relations;
 

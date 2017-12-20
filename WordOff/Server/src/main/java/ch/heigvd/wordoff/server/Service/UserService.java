@@ -72,7 +72,7 @@ public class UserService {
      * @return The invitations with the status WAITING targeting the given user.
      */
     public List<Invitation> getUserWaitingInvitations(User user) {
-        return  invitationRepository.findAllByTargetAndStatus(user, InvitationStatus.WAITING);
+        return  invitationRepository.findAllByPkTargetAndStatus(user, InvitationStatus.WAITING);
     }
 
     public Relation setUsersRelation(User owner, Long targetId, RelationStatus status) {

@@ -10,6 +10,6 @@ public class DuelMode extends Mode {
 
     @Override
     public boolean isEnded() {
-        return getGame().isTerminated();
+        return getGame().isEnded();
     }
 }

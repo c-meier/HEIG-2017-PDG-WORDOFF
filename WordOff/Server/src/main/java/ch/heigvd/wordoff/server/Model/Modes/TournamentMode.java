@@ -5,11 +5,19 @@ import ch.heigvd.wordoff.server.Model.Invitation;
 import ch.heigvd.wordoff.server.Model.Player;
 import ch.heigvd.wordoff.server.Model.User;
 
-import java.time.LocalDate;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class TournamentMode extends Mode {
+    // The number of days of the tournament.
+    private final int TOURNAMENT_DURATION = 5;
+
+    @Override
+    public boolean isEnded() {
+        return Duration.between(getStartDate(), LocalDateTime.now()).toDays() < TOURNAMENT_DURATION;
+    }
 
     public List<Game> getGamesOfPlayer(Player player) {
         return getGames()
@@ -19,8 +27,8 @@ public class TournamentMode extends Mode {
     }
 
     public List<Game> getGamesOfDay(int day) {
-        LocalDate start = getStartDate().plusDays(day);
-        LocalDate end = getStartDate().plusDays(day + 1);
+        LocalDateTime start = getStartDate().plusDays(day);
+        LocalDateTime end = getStartDate().plusDays(day + 1);
         return getGames()
                 .stream()
                 .filter(game -> game.getStartDate().isAfter(start) && game.getStartDate().isBefore(end))

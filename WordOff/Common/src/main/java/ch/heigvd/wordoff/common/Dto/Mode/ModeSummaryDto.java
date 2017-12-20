@@ -29,6 +29,14 @@ public class ModeSummaryDto implements IResource<ModeSummaryDto> {
      */
     private String endpoint;
 
+    public ModeType getType() {
+        return type;
+    }
+
+    public void setType(ModeType type) {
+        this.type = type;
+    }
+
     public String getName() {
         return name;
     }

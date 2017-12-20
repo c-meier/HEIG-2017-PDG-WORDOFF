@@ -6,7 +6,7 @@ import ch.heigvd.wordoff.server.Model.Invitation;
 import ch.heigvd.wordoff.server.Model.User;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
@@ -16,14 +16,14 @@ public abstract class Mode {
     @Id
     private Long id;
 
-    @OneToMany(mappedBy = "pk.mode")
+    @OneToMany(mappedBy = "pk.mode", cascade = CascadeType.ALL)
     @MapKey(name = "pk.target")
     private Map<Long, Invitation> invitations;
 
     @OneToMany(mappedBy = "mode")
     private List<Game> games;
 
-    private LocalDate startDate;
+    private LocalDateTime startDate;
 
     private ModeType type;
 
@@ -44,6 +44,10 @@ public abstract class Mode {
         return invitations;
     }
 
+    public Invitation getInvitation(User user) {
+        return getInvitations().get(user.getId());
+    }
+
     public void setInvitations(Map<Long, Invitation> invitations) {
         this.invitations = invitations;
     }
@@ -56,15 +60,27 @@ public abstract class Mode {
         return games;
     }
 
+    public Optional<Game> getActiveGame(User user) {
+        return getGames().stream()
+                .filter(g -> g.concernPlayer(user))
+                .max(Comparator.comparing(Game::getStartDate));
+    }
+
     public void setGames(List<Game> games) {
         this.games = games;
     }
 
-    public LocalDate getStartDate() {
+    public void addGame(Game game) {
+        getGames().add(game);
+    }
+
+    public abstract boolean isEnded();
+
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 

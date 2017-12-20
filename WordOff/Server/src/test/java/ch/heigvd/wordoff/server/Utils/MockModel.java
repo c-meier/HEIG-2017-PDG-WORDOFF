@@ -1,6 +1,7 @@
 package ch.heigvd.wordoff.server.Utils;
 
 import ch.heigvd.wordoff.common.Dto.InvitationStatus;
+import ch.heigvd.wordoff.common.Dto.Mode.ModeType;
 import ch.heigvd.wordoff.common.Dto.User.RelationStatus;
 import ch.heigvd.wordoff.server.Model.*;
 import ch.heigvd.wordoff.server.Model.Modes.DuelMode;
@@ -10,7 +11,10 @@ import ch.heigvd.wordoff.server.Model.Slots.*;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 import ch.heigvd.wordoff.server.Model.Tiles.Tile;
 
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MockModel {
     private LangSet langSet;
@@ -26,6 +30,7 @@ public class MockModel {
     private TournamentMode tournamentMode;
     private Invitation invitation;
     private DuelMode duelMode;
+    private final String TOURNAMENT_NAME = "TestTournament";
 
     private int indexTile;
     private int indexSlot;
@@ -116,13 +121,22 @@ public class MockModel {
         duelGame.getSideInit().setId(3L);
         duelGame.getSideResp().setId(4L);
 
+        tournamentMode = new TournamentMode();
+        tournamentMode.setId(1L);
+        tournamentMode.setType(ModeType.FRIENDLY_TOURNAMENT);
+        tournamentMode.addGame(aiGame);
+        tournamentMode.putInvitation(new Invitation(tournamentMode, one, InvitationStatus.ORIGIN, TOURNAMENT_NAME));
+        tournamentMode.putInvitation(new Invitation(tournamentMode, two, InvitationStatus.ACCEPT, TOURNAMENT_NAME));
+        tournamentMode.setStartDate(LocalDateTime.MIN);
+
         duelMode = new DuelMode();
         duelMode.setId(2L);
-        duelMode.setGames(new ArrayList<>(Collections.singletonList(duelGame)));
+        duelMode.setType(ModeType.FRIEND_DUEL);
+        duelMode.addGame(duelGame);
         duelMode.putInvitation(new Invitation(duelMode, one, InvitationStatus.ORIGIN, two.getName()));
         invitation = new Invitation(duelMode, two, InvitationStatus.WAITING, one.getName());
         duelMode.putInvitation(invitation);
-        duelMode.setStartDate(new Date());
+        duelMode.setStartDate(LocalDateTime.MIN);
     }
 
     public LangSet getLangSet() {
@@ -181,5 +195,9 @@ public class MockModel {
 
     public DuelMode getDuelMode() {
         return duelMode;
+    }
+
+    public TournamentMode getTournamentMode() {
+        return tournamentMode;
     }
 }

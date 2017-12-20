@@ -6,10 +6,11 @@ import ch.heigvd.wordoff.client.Exception.UnauthorizedException;
 import ch.heigvd.wordoff.client.Exception.UnprocessableEntityException;
 import ch.heigvd.wordoff.client.Util.TokenManager;
 import ch.heigvd.wordoff.common.Dto.Endpoint.IResource;
+import ch.heigvd.wordoff.common.Dto.Endpoint.ResourceList;
+import ch.heigvd.wordoff.common.Dto.Endpoint.ResourceWriteList;
 import ch.heigvd.wordoff.common.Dto.ErrorDto;
-import ch.heigvd.wordoff.common.Dto.Game.GameDto;
-import ch.heigvd.wordoff.common.Dto.User.MeDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.ResponseErrorHandler;
@@ -17,10 +18,10 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.xml.ws.http.HTTPException;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
 
 import static ch.heigvd.wordoff.common.Constants.AUTHORIZATION_HEADER;
-import static ch.heigvd.wordoff.common.Constants.SERVER_URI;
 
 class Api {
     private final RestTemplate restTemplate;
@@ -68,43 +69,56 @@ class Api {
         });
     }
 
-    static public <T> T get(String endpoint, Class<T> dtoClass) throws TokenNotFoundException {
+    static public <T> T get(IResource<T> endpoint) throws TokenNotFoundException {
         HttpHeaders headers = new HttpHeaders();
         headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());
 
         ResponseEntity<T> responseEntity =
-                Api.getRestTemplate().exchange(endpoint,
+                Api.getRestTemplate().exchange(endpoint.getEndpoint(),
                         HttpMethod.GET,
                         new HttpEntity<>(headers),
-                        dtoClass);
+                        new ParameterizedTypeReference<T>() {});
 
         return responseEntity.getBody();
     }
 
-    static public <T> T put(String endpoint, T dto, Class<T> dtoClass) throws TokenNotFoundException {
+    static public <T> T put(IResource<T> endpoint) throws TokenNotFoundException {
         HttpHeaders headers = new HttpHeaders();
         headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         ResponseEntity<T> responseEntity =
-                Api.getRestTemplate().exchange(endpoint,
+                Api.getRestTemplate().exchange(endpoint.getEndpoint(),
                         HttpMethod.PUT,
-                        new HttpEntity<>(dto, headers),
-                        dtoClass);
+                        new HttpEntity<>((T)endpoint, headers),
+                        new ParameterizedTypeReference<T>() {});
 
         return responseEntity.getBody();
     }
 
-    static public <T> T post(String endpoint, T dto, Class<T> dtoClass) throws TokenNotFoundException {
+    static public <T> List<T> get(ResourceList<T> endpoint) throws TokenNotFoundException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());
+
+        ResponseEntity<List<T>> responseEntity =
+                Api.getRestTemplate().exchange(endpoint.getEndpoint(),
+                        HttpMethod.GET,
+                        new HttpEntity<>(headers),
+                        new ParameterizedTypeReference<List<T>>() {});
+
+        return responseEntity.getBody();
+    }
+
+    static public <T, U> T post(ResourceWriteList<T, U> endpoint, U dto) throws TokenNotFoundException {
         HttpHeaders headers = new HttpHeaders();
         headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         ResponseEntity<T> responseEntity =
-                Api.getRestTemplate().exchange(endpoint,
+                Api.getRestTemplate().exchange(endpoint.getEndpoint(),
                         HttpMethod.POST,
                         new HttpEntity<>(dto, headers),
-                        dtoClass);
+                        new ParameterizedTypeReference<T>() {});
 
         return responseEntity.getBody();
     }

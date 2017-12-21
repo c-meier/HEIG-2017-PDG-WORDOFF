@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -18,21 +19,21 @@
 
 <BorderPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.client.Controller.SettingsController">
    <center>
-      <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="mainFxmlClass">
+      <AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="mainFxmlClass">
           <stylesheets>
               <URL value="@/styles/Styles.css" />
           </stylesheets>
          <children>
             <GridPane prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints maxHeight="559.0" minHeight="10.0" prefHeight="379.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="282.0" minHeight="10.0" prefHeight="221.0" vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="200.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <GridPane prefHeight="381.0" prefWidth="900.0">
+                  <GridPane>
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" />
                     </columnConstraints>
@@ -41,7 +42,7 @@
                         <RowConstraints vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                      <AnchorPane>
                            <children>
                               <Label layoutX="386.0" layoutY="9.0" prefHeight="40.0" prefWidth="900.0" styleClass="titleMainMenu" stylesheets="@../styles/Styles.css" text="Paramètres d'utilisateur" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
@@ -63,8 +64,8 @@
                               </AnchorPane>
                               <GridPane GridPane.rowIndex="1">
                                 <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" />
+                                  <ColumnConstraints hgrow="SOMETIMES" />
                                 </columnConstraints>
                                 <rowConstraints>
                                   <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" vgrow="SOMETIMES" />
@@ -81,14 +82,14 @@
                         </GridPane>
                      </children>
                   </GridPane>
-                  <GridPane prefHeight="102.0" prefWidth="900.0" GridPane.rowIndex="1">
+                  <GridPane GridPane.rowIndex="1">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" />
+                      <ColumnConstraints hgrow="SOMETIMES" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="182.0" minHeight="10.0" prefHeight="178.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="160.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.columnIndex="1">
@@ -106,9 +107,18 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <TextArea prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="Commentaires&#10;Aide-nous à améliorer le jeu" />
-                              <TextArea prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="Mentions légales&#10;Licence et informations sur la société" GridPane.rowIndex="1" />
-                              <TextArea prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="WordOff (2.1.16 #1)" GridPane.rowIndex="2" />
+                              <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="Commentaires&#10;Aide-nous à améliorer le jeu">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></TextArea>
+                              <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="Mentions légales&#10;Licence et informations sur la société" GridPane.rowIndex="1">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></TextArea>
+                              <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="WordOff (2.1.16 #1)" GridPane.rowIndex="2">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></TextArea>
                            </children>
                         </GridPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">

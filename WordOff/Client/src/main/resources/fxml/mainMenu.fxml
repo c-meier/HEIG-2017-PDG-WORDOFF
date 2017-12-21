@@ -27,7 +27,7 @@
                         <Menu mnemonicParsing="false" text="Paramètres">
                            <items>
                               <MenuItem mnemonicParsing="false" onAction="#handleGotoMessages" text="Messages" />
-                              <MenuItem mnemonicParsing="false" onAction="#handleGotoSettings" text="Paramètres" />
+                              <MenuItem mnemonicParsing="false" onAction="#handleGotoSettings" text="Paramètres / Profil" />
                            </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Notifications">
@@ -85,7 +85,7 @@
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                              <children>
                                                 <Label alignment="CENTER" layoutX="117.0" layoutY="6.0" maxHeight="-Infinity" minHeight="-Infinity" prefWidth="410.0" styleClass="backgroundGame_withoutShadow" stylesheets="@../styles/Styles.css" text="Votre tour!" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                <Button fx:id="newGameButton" layoutX="405.0" layoutY="6.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="28.0" prefWidth="50.0" stylesheets="@../styles/Style_buttonCircle.css" text="+" />
+                                                <Button fx:id="newGamePlayer" layoutX="405.0" layoutY="6.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="28.0" prefWidth="50.0" stylesheets="@../styles/Style_buttonCircle.css" text="+" />
                                              </children>
                                           </AnchorPane>
                                         <AnchorPane prefHeight="140.0" prefWidth="435.0" GridPane.rowIndex="1">
@@ -195,7 +195,7 @@
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
                                     <Label alignment="CENTER" layoutX="117.0" layoutY="6.0" prefWidth="410.0" styleClass="backgroundGame_withoutShadow" stylesheets="@../styles/Styles.css" text="Tournoi amical" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <Button fx:id="newTournamentFirends" layoutX="412.0" layoutY="8.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="28.0" prefWidth="50.0" stylesheets="@../styles/Style_buttonCircle.css" text="+" />
+                                    <Button fx:id="newTournamentFriend" layoutX="412.0" layoutY="8.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="28.0" prefWidth="50.0" stylesheets="@../styles/Style_buttonCircle.css" text="+" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.rowIndex="1">

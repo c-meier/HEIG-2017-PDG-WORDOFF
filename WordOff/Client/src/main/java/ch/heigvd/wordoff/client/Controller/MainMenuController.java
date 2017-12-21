@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
@@ -46,17 +47,25 @@ public class MainMenuController implements Initializable {
     private ListCustom listGamesTournamentsFriends;
     private ListCustom listGamesTournamentCompetition;
 
-    // Vbox pour afficher les différentes games
+    // Vbox to display diff games
     @FXML
-    VBox vBoxgamesPlayer =  new VBox();
+    private VBox vBoxgamesPlayer =  new VBox();
     @FXML
-    VBox vBoxgamesPlayerWait = new VBox();
+    private VBox vBoxgamesPlayerWait = new VBox();
     @FXML
-    VBox vBoxgamesPlayerFinish = new VBox();
+    private VBox vBoxgamesPlayerFinish = new VBox();
     @FXML
-    VBox vBoxgamesTurnamentFriend =  new VBox();
+    private VBox vBoxgamesTurnamentFriend =  new VBox();
     @FXML
-    Accordion accordionTournament = new Accordion();
+    private Accordion accordionTournament = new Accordion();
+
+    /* Button to start new game */
+    @FXML
+    private Button newGamePlayer;
+    @FXML
+    private Button newTournament;
+    @FXML
+    private Button newTournamentFriend;
 
     // MouseEvent d'un double clique, appelle l'ouverture de la game.
     private EventHandler<MouseEvent> eventGoToGame = new EventHandler<MouseEvent>() {
@@ -77,18 +86,6 @@ public class MainMenuController implements Initializable {
         controller.setGame(this.selectGame);
 
         changeScene(scene);
-    }
-
-    @FXML
-    private void handleGotoProfile(ActionEvent event) {
-        FXMLLoader loader = getLoader("/fxml/profile.fxml");
-        changeScene(getScene(loader));
-    }
-
-    @FXML
-    private void handleGotoFriends(ActionEvent event) {
-        FXMLLoader loader = getLoader("/fxml/friends.fxml");
-        changeScene(getScene(loader));
     }
 
     @FXML
@@ -144,6 +141,7 @@ public class MainMenuController implements Initializable {
 
     public void setState() {
         // TODO Récupérer l'id joueur
+
         // Créations des listes et de leurs listener
         listGamesDuel = new ListCustom(vBoxgamesPlayer);
         listGamesDuelWait = new ListCustom(vBoxgamesPlayerWait);
@@ -161,23 +159,30 @@ public class MainMenuController implements Initializable {
             gamesSummaryDto = GameApi.retrieveGames();
             // TODO trier les différentes games pour les mettre dans les bonnes listes
             for (GameSummaryDto dto : gamesSummaryDto) {
+                // Ajoute les référence à la bonne liste (trie par le mode)
                 listGamesDuel.addGame(dto);
                 // TODO switch sur dto.getMode()
                 // cas duel : listGamesDuel.addGame(dto)
                 // cas duel en attente :  listGamesDuelWait.addGame(dto);
                 // cas duel fini : listGamesDuelFinish.addGame(dto);
-                // cas tournament
 
+                // cas tournament et tournamentFriend :
                 // Exemple pour construire les tournois
-                // Idée : remplacer le vbox de titlePane pour jouer entre les jours et les participants du jours
+
+                // Intérieur de l'accordéon (ouvert)
+                VBox vBox = new VBox();                                     // Layout
+                ListCustom listGames = new ListCustom(vBox);                // Mise en page du VBox
+
+                // Titre des tournois (menu pouvant être ouvert)
                 TitledPane titledPane = new TitledPane();
-                VBox vBox = new VBox();
-                titledPane.setText(dto.getOtherPlayer().getName());
-                titledPane.setContent(vBox);
-                accordionTournament.getPanes().add(titledPane);
-                ListCustom listGames = new ListCustom(vBox);
-                listGames.addGameAndUpdate(dto);
-                listGames.getListView().setOnMouseClicked(eventGoToGame);
+                titledPane.setText(dto.getOtherPlayer().getName());         // Nom du tournoi
+                titledPane.setContent(vBox);                                // Le détail du tournoi
+
+                accordionTournament.getPanes().add(titledPane);             // Accroche le tournoi à l'accordéon
+
+                // Partie logic de référence pour lancer un game sélectionné
+                listGames.addGameAndUpdate(dto);                            // Ajouter la game à la liste de référence dto
+                listGames.getListView().setOnMouseClicked(eventGoToGame);   // Ajouter le listener
             }
 
             // TODO update des listes
@@ -196,22 +201,23 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void newGame() {
-        final String Fr = "Français";
-        final String En = "English";
         String langSelect = "";
+        // TODO récupérer les bons ids
         long myId = 1;
         long otherId = 2;
 
         String choice = Dialog.getInstance().choicesBoxDialog("Démarrer une nouvelle partie",
                 UtilStringReference.INFOS_SELECT_LANGUAGE,
-                "Langue : ", Fr, En);
+                "Langue : ",
+                UtilStringReference.TEXT_PARAM_LANG.get(0),
+                UtilStringReference.TEXT_PARAM_LANG.get(1));
 
         if (null != choice) {
             switch (choice) {
-                case Fr:
+                case UtilStringReference.LANG_FR:
                     langSelect = "fr";
                     break;
-                case En:
+                case UtilStringReference.LANG_EN:
                     langSelect = "en";
                     break;
                 default:
@@ -223,19 +229,12 @@ public class MainMenuController implements Initializable {
             playersId.add(otherId);
 
             System.out.println("Demande de créer une nouvelle partie : " + langSelect);
-        // TODO demande de créer la nuvelle partie au serveur
-            /*
-       try {
-            GameSummaryDto newGame = GameApi.createGame(langSelect, playersId);
-            gamesSummaryDto.add(newGame);
-            gamesPlayer.getItems().add(newGame.getOtherPlayer().getName());
-        } catch (TokenNotFoundException e) {
-
-        }
-        */
+        // TODO demande de créer la nuvelle partie au serveur en fonction du mode => récupérer la source de l'event
 
         }
     }
+
+
 
 
     @FXML

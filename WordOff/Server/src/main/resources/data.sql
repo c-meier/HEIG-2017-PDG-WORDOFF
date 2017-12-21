@@ -136,6 +136,8 @@ INSERT INTO ai (id) VALUES
 
 -- Test users
 INSERT INTO player (id, name) VALUES
-  (2, 'one'), (3, 'two');
+  (2, 'one'), (3, 'two'), (4, 'three');
 INSERT INTO user (id, level, login, password) VALUES
-  (2, 1, 'one', 'pass'), (3, 1, 'two', 'pass');
+  (2, 1, 'one', 'pass'), (3, 1, 'two', 'pass'), (4, 1, 'three', 'pass');
+INSERT INTO relation (owner_id, target_id, status) VALUES
+  (2, 3, 0), (3, 2, 0), (2, 4, 1);

@@ -6,6 +6,7 @@ import ch.heigvd.wordoff.common.Dto.Game.Racks.SwapRackDto;
 import ch.heigvd.wordoff.common.Dto.Game.Slots.SlotDto;
 import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
 import ch.heigvd.wordoff.common.Dto.InvitationDto;
+import ch.heigvd.wordoff.common.Dto.MeDto;
 import ch.heigvd.wordoff.common.Dto.Mode.DuelModeDto;
 import ch.heigvd.wordoff.common.Dto.Mode.ModeDto;
 import ch.heigvd.wordoff.common.Dto.Mode.ModeSummaryDto;
@@ -129,8 +130,8 @@ public class EntityDtoConverterTest {
         User entity = model.getUserOne();
         MeDto dto = DtoFactory.createMeFrom(entity);
         assertEquals(MeDto.class, dto.getClass());
-        assertEquals(entity.getId(), dto.getId());
-        assertEquals(entity.getName(), dto.getName());
+        assertEquals(entity.getId(), dto.getSelf().getId());
+        assertEquals(entity.getName(), dto.getSelf().getName());
     }
 
     @Test
@@ -223,11 +224,12 @@ public class EntityDtoConverterTest {
     public void TournamentModeToDto() {
         TournamentMode entity = model.getTournamentMode();
 
-        ModeDto dto = DtoFactory.createFrom(entity, model.getUserTwo());
+        TournamentModeDto dto = (TournamentModeDto) DtoFactory.createFrom(entity, model.getUserTwo());
 
         assertEquals(TournamentModeDto.class, dto.getClass());
         assertEquals(entity.getType(), dto.getType());
         assertEquals(entity.getInvitation(model.getUserTwo()).getName(), dto.getName());
+        assertEquals(entity.getInvitations().size(), dto.getParticipants().size());
     }
 
     @Test

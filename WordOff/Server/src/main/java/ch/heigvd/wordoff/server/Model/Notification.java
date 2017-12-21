@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class Notification {
@@ -16,7 +16,7 @@ public class Notification {
     private User target;
 
     private String content;
-    private LocalDate date;
+    private LocalDateTime date;
 
     public Notification() {
     }
@@ -24,7 +24,7 @@ public class Notification {
     public Notification(User target, String content) {
         this.target = target;
         this.content = content;
-        this.date = LocalDate.now();
+        this.date = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -51,11 +51,11 @@ public class Notification {
         this.content = content;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 }

@@ -1,14 +1,19 @@
-package ch.heigvd.wordoff.common.Dto.User;
+package ch.heigvd.wordoff.common.Dto;
 
 import ch.heigvd.wordoff.common.Dto.Endpoint.IResource;
 import ch.heigvd.wordoff.common.Dto.Endpoint.ResourceList;
 import ch.heigvd.wordoff.common.Dto.Endpoint.ResourceWriteList;
-import ch.heigvd.wordoff.common.Dto.InvitationDto;
 import ch.heigvd.wordoff.common.Dto.Mode.CreateModeDto;
 import ch.heigvd.wordoff.common.Dto.Mode.ModeDto;
-import ch.heigvd.wordoff.common.Dto.NotificationDto;
+import ch.heigvd.wordoff.common.Dto.User.RelatedUserSummaryDto;
+import ch.heigvd.wordoff.common.Dto.User.UserSummaryDto;
 
-public class MeDto extends PlayerDto implements IResource<MeDto> {
+public class MeDto implements IResource<MeDto> {
+    /**
+     * The summary of the current user.
+     */
+    private UserSummaryDto self;
+
     /**
      * Endpoint to get and put your current invitations to a mode (tournament, duel)
      */
@@ -32,6 +37,10 @@ public class MeDto extends PlayerDto implements IResource<MeDto> {
      * Endpoint to get your friends and blacklisted users.
      */
     private ResourceList<RelatedUserSummaryDto> relations;
+    /**
+     * Endpoint to refresh this object.
+     */
+    private String endpoint;
 
     public MeDto() {
         String baseUrl = "/me";
@@ -43,12 +52,6 @@ public class MeDto extends PlayerDto implements IResource<MeDto> {
         this.modes = new ResourceWriteList<>("/modes");
     }
 
-    /**
-     * Endpoint to update or modify this object.
-     * TODO: check if its /me or /users/{myId} ?
-     */
-    private String endpoint;
-
     @Override
     public String getEndpoint() {
         return endpoint;
@@ -56,5 +59,53 @@ public class MeDto extends PlayerDto implements IResource<MeDto> {
 
     public void setEndpoint(String endpoint) {
         this.endpoint = endpoint;
+    }
+
+    public UserSummaryDto getSelf() {
+        return self;
+    }
+
+    public void setSelf(UserSummaryDto self) {
+        this.self = self;
+    }
+
+    public ResourceWriteList<InvitationDto, InvitationDto> getInvitations() {
+        return invitations;
+    }
+
+    public void setInvitations(ResourceWriteList<InvitationDto, InvitationDto> invitations) {
+        this.invitations = invitations;
+    }
+
+    public ResourceList<NotificationDto> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(ResourceList<NotificationDto> notifications) {
+        this.notifications = notifications;
+    }
+
+    public ResourceWriteList<ModeDto, CreateModeDto> getModes() {
+        return modes;
+    }
+
+    public void setModes(ResourceWriteList<ModeDto, CreateModeDto> modes) {
+        this.modes = modes;
+    }
+
+    public ResourceList<UserSummaryDto> getAdversaries() {
+        return adversaries;
+    }
+
+    public void setAdversaries(ResourceList<UserSummaryDto> adversaries) {
+        this.adversaries = adversaries;
+    }
+
+    public ResourceList<RelatedUserSummaryDto> getRelations() {
+        return relations;
+    }
+
+    public void setRelations(ResourceList<RelatedUserSummaryDto> relations) {
+        this.relations = relations;
     }
 }

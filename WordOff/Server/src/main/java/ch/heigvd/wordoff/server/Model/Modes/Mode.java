@@ -18,7 +18,7 @@ public abstract class Mode {
 
     @OneToMany(mappedBy = "pk.mode", cascade = CascadeType.ALL)
     @MapKey(name = "pk.target")
-    private Map<Long, Invitation> invitations;
+    private Map<User, Invitation> invitations;
 
     @OneToMany(mappedBy = "mode")
     private List<Game> games;
@@ -28,7 +28,7 @@ public abstract class Mode {
     private ModeType type;
 
     public Mode() {
-        this.invitations = new TreeMap<>();
+        this.invitations = new HashMap<>();
         this.games = new ArrayList<>();
     }
 
@@ -40,20 +40,20 @@ public abstract class Mode {
         this.id = id;
     }
 
-    public Map<Long, Invitation> getInvitations() {
+    public Map<User, Invitation> getInvitations() {
         return invitations;
     }
 
-    public Invitation getInvitation(User user) {
-        return getInvitations().get(user.getId());
-    }
-
-    public void setInvitations(Map<Long, Invitation> invitations) {
+    public void setInvitations(Map<User, Invitation> invitations) {
         this.invitations = invitations;
     }
 
+    public Invitation getInvitation(User user) {
+        return getInvitations().get(user);
+    }
+
     public void putInvitation(Invitation invit) {
-        invitations.put(invit.getTarget().getId(), invit);
+        invitations.put(invit.getTarget(), invit);
     }
 
     public List<Game> getGames() {

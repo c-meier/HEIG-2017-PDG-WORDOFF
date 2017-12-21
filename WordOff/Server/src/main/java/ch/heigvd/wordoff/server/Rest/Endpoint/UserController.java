@@ -1,10 +1,12 @@
 package ch.heigvd.wordoff.server.Rest.Endpoint;
 
+import ch.heigvd.wordoff.common.Dto.MeDto;
 import ch.heigvd.wordoff.common.Dto.User.LoginDto;
+import ch.heigvd.wordoff.server.Model.User;
 import ch.heigvd.wordoff.server.Repository.UserRepository;
 import ch.heigvd.wordoff.server.Security.SecurityConst;
 import ch.heigvd.wordoff.server.Service.UserService;
-import org.springframework.http.HttpEntity;
+import ch.heigvd.wordoff.server.Util.DtoFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,25 +37,25 @@ public class UserController {
     }
 
     @RequestMapping(value = "/sign-in", method = RequestMethod.POST)
-    public HttpEntity signIn(@RequestBody LoginDto login) {
+    public ResponseEntity<MeDto> signIn(@RequestBody LoginDto login) {
         if(!login.isWellformed()) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        String authHeader = userService.signIn(login);
+        User loggedUser = userService.signIn(login.getLogin(), login.getPassword());
+        String authHeader = userService.getUserToken(loggedUser);
         HttpHeaders headers = new HttpHeaders();
         headers.add(SecurityConst.AUTH_HEADER, authHeader);
-        return new ResponseEntity(
-                headers,HttpStatus.OK);
+        return new ResponseEntity<>(DtoFactory.createMeFrom(loggedUser), headers, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public HttpEntity signUp(@RequestBody LoginDto login) {
+    public ResponseEntity signUp(@RequestBody LoginDto login) {
         if(!login.isWellformed()) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
-        userService.signUp(login);
+        userService.createUser(login.getLogin(), login.getPassword());
         return new ResponseEntity(HttpStatus.CREATED);
     }
 }

@@ -7,10 +7,12 @@ import ch.heigvd.wordoff.common.Dto.Game.Racks.SwapRackDto;
 import ch.heigvd.wordoff.common.Dto.Game.Slots.*;
 import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
 import ch.heigvd.wordoff.common.Dto.InvitationDto;
+import ch.heigvd.wordoff.common.Dto.MeDto;
 import ch.heigvd.wordoff.common.Dto.Mode.DuelModeDto;
 import ch.heigvd.wordoff.common.Dto.Mode.ModeDto;
 import ch.heigvd.wordoff.common.Dto.Mode.ModeSummaryDto;
 import ch.heigvd.wordoff.common.Dto.Mode.TournamentModeDto;
+import ch.heigvd.wordoff.common.Dto.NotificationDto;
 import ch.heigvd.wordoff.common.Dto.User.*;
 import ch.heigvd.wordoff.common.IModel.IRack;
 import ch.heigvd.wordoff.common.IModel.ISlot;
@@ -267,7 +269,9 @@ public class DtoFactory {
     }
     
     public static MeDto createMeFrom(User entity) {
-        return modelMapper.map(entity, MeDto.class);
+        MeDto dto = new MeDto();
+        dto.setSelf(modelMapper.map(entity, UserSummaryDto.class));
+        return dto;
     }
 
     public static RelationDto createFrom(Relation entity) {
@@ -287,6 +291,10 @@ public class DtoFactory {
 
     public static InvitationDto createFrom(Invitation entity) {
         return modelMapper.map(entity, InvitationDto.class);
+    }
+
+    public static NotificationDto createFrom(Notification entity) {
+        return modelMapper.map(entity, NotificationDto.class);
     }
 
     public static ModelMapper getModelMapper() {

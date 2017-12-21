@@ -1,8 +1,8 @@
 package ch.heigvd.wordoff.server.Rest.Endpoint;
 
 import ch.heigvd.wordoff.common.Dto.InvitationDto;
+import ch.heigvd.wordoff.common.Dto.MeDto;
 import ch.heigvd.wordoff.common.Dto.NotificationDto;
-import ch.heigvd.wordoff.common.Dto.User.MeDto;
 import ch.heigvd.wordoff.common.Dto.User.RelatedUserSummaryDto;
 import ch.heigvd.wordoff.common.Dto.User.RelationDto;
 import ch.heigvd.wordoff.common.Dto.User.UserSummaryDto;
@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,34 +31,13 @@ public class MeController {
         return new ResponseEntity<>(DtoFactory.createMeFrom(player), HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<MeDto> putMe(
-            @RequestAttribute("player") User player,
-            @RequestBody MeDto me) {
-
-        if(false) {
-            // The new name or avatar can not be updated.
-
-            // TODO: integrate with service
-
-            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-
-        return new ResponseEntity<>(DtoFactory.createMeFrom(player), HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/notifications", method = RequestMethod.GET)
     public ResponseEntity<List<NotificationDto>> getNotifications(
             @RequestAttribute("player") User player) {
-        List<NotificationDto> notifications = new ArrayList<>();
-
-        // TODO: integrate with service
-        // TODO: what are notifications ???
-
-        NotificationDto notif = new NotificationDto();
-        notifications.add(notif);
-
-        return new ResponseEntity<>(notifications, HttpStatus.OK);
+        return new ResponseEntity<>(userService.getUserNotifications(player)
+                .stream()
+                .map(DtoFactory::createFrom)
+                .collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/invitations", method = RequestMethod.GET)
@@ -83,23 +61,19 @@ public class MeController {
     @RequestMapping(value = "/adversaries", method = RequestMethod.GET)
     public ResponseEntity<List<UserSummaryDto>> getAdversaries(
             @RequestAttribute("player") User player) {
-        List<UserSummaryDto> adversaries = new ArrayList<>();
-
-        // TODO: integrate with ModeService
-
-        return new ResponseEntity<>(adversaries, HttpStatus.OK);
+        return new ResponseEntity<>(userService.getAdversaries(player)
+                .stream()
+                .map(DtoFactory::createSummaryFrom)
+                .collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/relations", method = RequestMethod.GET)
     public ResponseEntity<List<RelatedUserSummaryDto>> getRelations(
             @RequestAttribute("player") User player) {
-
-        List<RelatedUserSummaryDto> relations = player.getRelations().values()
+        return new ResponseEntity<>(userService.getRelations(player)
                 .stream()
                 .map(DtoFactory::createRelatedSummaryFrom)
-                .collect(Collectors.toList());
-
-        return new ResponseEntity<>(relations, HttpStatus.OK);
+                .collect(Collectors.toList()), HttpStatus.OK);
 
     }
 
@@ -108,7 +82,6 @@ public class MeController {
             @RequestAttribute("player") User player,
             @PathVariable("userId") Long targetId,
             @RequestBody RelationDto relation) {
-
         RelationDto dtoReturn = DtoFactory.createFrom(userService.setUsersRelation(player, targetId, relation.getStatus()));
 
         return new ResponseEntity<>(dtoReturn, HttpStatus.OK);

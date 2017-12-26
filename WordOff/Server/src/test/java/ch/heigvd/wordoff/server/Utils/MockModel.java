@@ -10,6 +10,7 @@ import ch.heigvd.wordoff.server.Model.Slots.*;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 import ch.heigvd.wordoff.server.Model.Tiles.Tile;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class MockModel {
@@ -122,7 +123,7 @@ public class MockModel {
         duelMode.putInvitation(new Invitation(duelMode, one, InvitationStatus.ORIGIN, two.getName()));
         invitation = new Invitation(duelMode, two, InvitationStatus.WAITING, one.getName());
         duelMode.putInvitation(invitation);
-        duelMode.setStartDate(new Date());
+        duelMode.setStartDate(LocalDate.MIN);
     }
 
     public LangSet getLangSet() {

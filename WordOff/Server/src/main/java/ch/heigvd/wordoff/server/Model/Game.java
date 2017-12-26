@@ -37,7 +37,7 @@ public class Game {
     @ManyToOne
     private Player currPlayer;
 
-    private boolean terminated;
+    private boolean ended;
 
     public Game() {}
 
@@ -48,7 +48,7 @@ public class Game {
         currPlayer = p1;
         bag = new Bag(tileSet.getTiles());
         startDate = LocalDate.now();
-        terminated = false;
+        ended = false;
     }
 
     public Side getSideOfPlayer(Player player) {
@@ -125,11 +125,11 @@ public class Game {
         return startDate;
     }
 
-    public boolean isTerminated() {
-        return terminated;
+    public boolean isEnded() {
+        return ended;
     }
 
-    public void setTerminated(boolean terminated) {
-        this.terminated = terminated;
+    public void setEnded(boolean ended) {
+        this.ended = ended;
     }
 }

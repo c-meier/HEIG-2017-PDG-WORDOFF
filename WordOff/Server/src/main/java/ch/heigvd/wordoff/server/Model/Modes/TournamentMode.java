@@ -38,7 +38,7 @@ public class TournamentMode extends Mode {
     public Map<User, List<Integer>> getAllPlayerScores() {
         Map<User, List<Integer>> maps = new HashMap<>();
         getGames().stream()
-                .filter(Game::isTerminated)
+                .filter(Game::isEnded)
                 .sorted(Comparator.comparing(Game::getStartDate))
                 .forEachOrdered(g -> {
                     User u = (User) g.getSideInit().getPlayer();

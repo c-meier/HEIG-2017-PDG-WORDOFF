@@ -43,11 +43,12 @@ public class GameService {
         this.gameRepository = gameRepository;
         this.sideRepository = sideRepository;
 
-
+        // TODO -> Need to be removed
         Player ai = playerRepository.findOne(1L);
         Player one = playerRepository.findOne(2L);
         Player two = playerRepository.findOne(3L);
 
+        // TODO -> Need to be removed
         // create and convert the new games.
         initGame(one, ai, "fr");
         initGame(two, one, "fr");

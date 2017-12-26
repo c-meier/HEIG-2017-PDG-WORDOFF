@@ -77,7 +77,7 @@ public class GameServiceTest {
 
     @Test
     public void initGameWithAI() throws Exception {
-        assertThat(gameWithAi.getBag().getTiles().size()).isEqualTo(105);
+        assertThat(gameWithAi.getBag().getTiles().size()).isEqualTo(116);
 
         Side side1 = gameWithAi.getSideInit();
         Side side2 = gameWithAi.getSideResp();

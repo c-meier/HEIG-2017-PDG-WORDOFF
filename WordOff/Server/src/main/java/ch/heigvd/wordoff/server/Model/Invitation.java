@@ -117,7 +117,7 @@ public class Invitation {
 
         @Override
         public int hashCode() {
-            return Objects.hash(mode, target);
+            return Objects.hash(mode.getId(), target.getId());
         }
     }
 }

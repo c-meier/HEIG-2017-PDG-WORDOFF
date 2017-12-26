@@ -2,7 +2,6 @@ package ch.heigvd.wordoff.server.Rest;
 
 import ch.heigvd.wordoff.server.Repository.UserRepository;
 import ch.heigvd.wordoff.server.Rest.Inteceptor.AuthInterceptor;
-import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -24,7 +23,11 @@ public class RestConfig extends WebMvcConfigurerAdapter {
         registry.addInterceptor(authInterceptor())
                 .addPathPatterns("/users/test")
                 .addPathPatterns("/games")
-                .addPathPatterns("/games/**/*");
+                .addPathPatterns("/games/**/*")
+                .addPathPatterns("/me")
+                .addPathPatterns("/me/**/*")
+                .addPathPatterns("/modes")
+                .addPathPatterns("/modes/**/*");
         super.addInterceptors(registry);
     }
 }

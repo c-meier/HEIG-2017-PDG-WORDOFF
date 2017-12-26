@@ -1,9 +1,12 @@
 package ch.heigvd.wordoff.server.Service;
 
-import ch.heigvd.wordoff.common.Dto.User.LoginDto;
+import ch.heigvd.wordoff.common.Dto.InvitationStatus;
+import ch.heigvd.wordoff.common.Dto.Mode.ModeType;
+import ch.heigvd.wordoff.common.Dto.User.RelationStatus;
 import ch.heigvd.wordoff.common.Protocol;
-import ch.heigvd.wordoff.server.Model.Credentials;
-import ch.heigvd.wordoff.server.Model.User;
+import ch.heigvd.wordoff.server.Model.*;
+import ch.heigvd.wordoff.server.Repository.InvitationRepository;
+import ch.heigvd.wordoff.server.Repository.NotificationRepository;
 import ch.heigvd.wordoff.server.Repository.UserRepository;
 import ch.heigvd.wordoff.server.Rest.Exception.ErrorCodeException;
 import ch.heigvd.wordoff.server.Rest.Exception.UnauthorizedException;
@@ -12,46 +15,89 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class UserService {
 
     private UserRepository userRepository;
+    private InvitationRepository invitationRepository;
+    private NotificationRepository notificationRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, InvitationRepository invitationRepository, NotificationRepository notificationRepository) {
         this.userRepository = userRepository;
+        this.invitationRepository = invitationRepository;
+        this.notificationRepository = notificationRepository;
     }
 
-    public String signIn(LoginDto login) {
-        User user = userRepository.findByCredentialsLogin(login.getLogin());
+    public User signIn(String login, char[] password) {
+        User user = userRepository.findByCredentialsLogin(login);
         if(user != null) {
-            if(Arrays.equals(user.getCredentials().getPassword(),login.getPassword())) {
-                String token = getToken(user);
-                return SecurityConst.TOKEN_PREFIX + token;
+            if(Arrays.equals(user.getCredentials().getPassword(),password)) {
+                return user;
             }
         }
         throw new UnauthorizedException("Incorrect login or password.");
     }
 
-    public void signUp(LoginDto login) {
-        User user = userRepository.findByCredentialsLogin(login.getLogin());
+    public User createUser(String login, char[] password) {
+        User user = userRepository.findByCredentialsLogin(login);
         if(user == null) {
-            user = new User(login.getLogin());
-            user.setCredentials(new Credentials(login.getLogin(), login.getPassword()));
-            userRepository.save(user);
+            user = new User(login);
+            user.setCredentials(new Credentials(login, password));
+            return userRepository.save(user);
         } else {
             throw new ErrorCodeException(Protocol.USER_ALREADY_EXISTS, "The specified login already exists");
         }
     }
 
-    private String getToken(User user) {
+    public String getUserToken(User user) {
         Credentials cred = user.getCredentials();
-        return Jwts.builder()
+        return SecurityConst.TOKEN_PREFIX + Jwts.builder()
                 .setSubject(cred.getLogin())
                 .setExpiration(new Date(System.currentTimeMillis() + SecurityConst.TOKEN_LENGTH_LIFE))
                 .signWith(SignatureAlgorithm.HS512, SecurityConst.TOKEN_SECRET.getBytes())
                 .compact();
+    }
+
+    /**
+     * Get the invitations with the status WAITING targeting the given user.
+     * @param user The given user.
+     * @return The invitations with the status WAITING targeting the given user.
+     */
+    public List<Invitation> getUserWaitingInvitations(User user) {
+        return  invitationRepository.findAllByPkTargetAndStatus(user, InvitationStatus.WAITING);
+    }
+
+    public List<Notification> getUserNotifications(User user) {
+        return notificationRepository.findAllByTargetId(user.getId());
+    }
+
+    public Collection<Relation> getRelations(User owner) {
+        User o = userRepository.findOne(owner.getId());
+        return o.getRelations().values();
+    }
+
+    public List<User> getAdversaries(User owner) {
+        return Stream.of(invitationRepository.findAllByPkTargetAndStatus(owner, InvitationStatus.ACCEPT),
+                invitationRepository.findAllByPkTargetAndStatus(owner, InvitationStatus.ORIGIN))
+                .flatMap(Collection::stream)
+                .map(Invitation::getMode)
+                .filter(m -> m.getType() == ModeType.FRIEND_DUEL || m.getType() == ModeType.RANDOM_DUEL)
+                .flatMap(m -> m.getInvitations().values().stream()
+                        .map(Invitation::getTarget)
+                        .filter(u -> Objects.equals(u.getId(), owner.getId())))
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    public Relation setUsersRelation(User user, Long targetId, RelationStatus status) {
+        User target = userRepository.findOne(targetId);
+        User owner = userRepository.findOne(user.getId());
+        owner.setRelation(target, status);
+        userRepository.saveAndFlush(owner);
+        return owner.getRelation(target);
     }
 }

@@ -33,16 +33,21 @@ public class ModeService {
         switch (modeType) {
             case FRIEND_DUEL:
                 Mode mode = new DuelMode(participantsUsers);
+                break;
             case RANDOM_DUEL:
-                List<Mode> modeWithNullGame = modeRepository.findAllByTypeAndGamesIsNull(modeType);
+                List<Mode> modeWithNullGame = modeRepository.findAllByTypeAndGames_Empty(modeType);
                 if (modeWithNullGame
                         .stream()
                         .filter((DuelMode m) -> m.getInvitations().values()
                                 .forEach(invitation -> {
-                                    invitation.getTarget().getLevel() == user.getLevel()
+                                    invitation.getTarget().getLevel() == user.getLevel();
                                 }) {
 
                 }
+            case FRIENDLY_TOURNAMENT:
+            case COMPETITIVE_TOURNAMENT:
+            default:
+
 
         }
     }

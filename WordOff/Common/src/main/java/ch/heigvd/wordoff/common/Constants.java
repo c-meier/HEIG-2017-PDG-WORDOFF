@@ -20,4 +20,6 @@ public interface Constants {
     String AVERAGE = "AVERAGE";
     String HARD = "HARD";
     String YOU_RE_SCREWED = "YOU_RE_SCREWED";
+
+    String COMPETITION_TOURNAMENT_NAME = "Tournoi Compétitif";
 }

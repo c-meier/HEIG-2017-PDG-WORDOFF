@@ -1,5 +1,6 @@
 package ch.heigvd.wordoff.server.Model.Modes;
 
+import ch.heigvd.wordoff.common.Dto.InvitationStatus;
 import ch.heigvd.wordoff.common.Dto.Mode.ModeType;
 import ch.heigvd.wordoff.server.Model.Game;
 import ch.heigvd.wordoff.server.Model.Invitation;
@@ -90,5 +91,9 @@ public abstract class Mode {
 
     public void setType(ModeType type) {
         this.type = type;
+    }
+
+    public Invitation getOriginInvitation() {
+        return getInvitations().values().stream().filter(i -> i.getStatus() == InvitationStatus.ORIGIN).findFirst().get();
     }
 }

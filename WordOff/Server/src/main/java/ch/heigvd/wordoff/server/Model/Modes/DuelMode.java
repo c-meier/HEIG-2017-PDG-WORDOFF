@@ -8,6 +8,11 @@ import ch.heigvd.wordoff.server.Model.User;
 import java.util.List;
 
 public class DuelMode extends Mode {
+
+    public DuelMode(User participant) {
+        putInvitation(new Invitation(this, participant, InvitationStatus.ORIGIN, "NO ADVERSARY YET"));
+    }
+
     public DuelMode(List<User> participants) {
         User origin = participants.get(0);
         User adversary = participants.get(1);

@@ -69,7 +69,6 @@ public class ModeController {
         ModeDto modeDto = null;
 
         return new ResponseEntity<>(modeDto, HttpStatus.OK);
-
     }
 
     @RequestMapping(value = "/{modeId}/messages",method = RequestMethod.GET)

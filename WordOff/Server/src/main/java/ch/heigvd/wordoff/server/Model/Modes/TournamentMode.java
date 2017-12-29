@@ -18,6 +18,21 @@ import java.util.stream.IntStream;
 public class TournamentMode extends Mode {
     // The number of days of the tournament.
     private final int TOURNAMENT_DURATION = 5;
+    public static final int MAX_USER_IN_TOURNAMENT = 20;
+
+    public TournamentMode(User participant, String name) {
+        putInvitation(new Invitation(this, participant, InvitationStatus.ORIGIN, name));
+    }
+
+    public TournamentMode(List<User> participants, String name) {
+        for (User u : participants) {
+            if (u.equals(participants.get(0))) {
+                putInvitation(new Invitation(this, u, InvitationStatus.ORIGIN, name));
+            } else {
+                putInvitation(new Invitation(this, u, InvitationStatus.WAITING, name));
+            }
+        }
+    }
 
     @Override
     public boolean isEnded() {

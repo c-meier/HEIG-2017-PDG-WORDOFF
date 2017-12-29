@@ -1,8 +1,26 @@
 package ch.heigvd.wordoff.common.Dto.Game;
 
-import ch.heigvd.wordoff.common.Dto.Endpoint.IResource;
-import ch.heigvd.wordoff.common.Dto.Game.GameDto;
+public enum PowerDto {
+    PASS(0, "Passe le tour"),
+    PEEK(10, "Aperçu"),
+    HINT(10, "Indice"),
+    WORDANALYZER(10, "Word Analyzer"),
+    DISCARD_2(0, "Jeter 2 tuiles"),
+    DISCARD_ALL(10, "Tout jeter");
 
-public class PowerDto {
-    private String name;
+    private final int COST;
+    private final String NAME;
+
+    PowerDto(int cost, String name) {
+        this.COST = cost;
+        this.NAME = name;
+    }
+
+    public String getName() {
+        return NAME;
+    }
+
+    public int getCost() {
+        return COST;
+    }
 }

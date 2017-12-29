@@ -3,6 +3,8 @@ package ch.heigvd.wordoff.server.Rest.Endpoint;
 import ch.heigvd.wordoff.common.Dto.Game.ChallengeDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
+import ch.heigvd.wordoff.common.Dto.Game.PowerDto;
+import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
 import ch.heigvd.wordoff.common.Protocol;
 import ch.heigvd.wordoff.server.Model.Challenge;
 import ch.heigvd.wordoff.server.Model.Game;
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(value = "/games", produces = "application/json")
 public class GameController {
+
     private GameRepository gameRepository;
     private LangSetRepository langSetRepository;
     private GameService gameService;
@@ -139,5 +142,27 @@ public class GameController {
 
         // Send update of the game
         return new ResponseEntity<>(gameDto, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{gameId}/powers", method = RequestMethod.POST, consumes = "application/json")
+    public void hint(@RequestAttribute("player") User player,
+                               @PathVariable("gameId") Long gameId,
+                               @RequestBody PowerDto powerDto) {
+
+        if(powerDto.equals(PowerDto.HINT)) {
+            // HINT
+        } else if (powerDto.equals(PowerDto.PASS)) {
+            gameService.pass(gameRepository.findOne(gameId), player);
+        } else if (powerDto.equals(PowerDto.PEEK)) {
+            // PEEK
+        } else if (powerDto.equals(PowerDto.DISCARD_2)) {
+            // DISCARD 2
+        } else if (powerDto.equals(PowerDto.DISCARD_ALL)) {
+            // DISCARD ALL
+        } else if (powerDto.equals(PowerDto.WORDANALYZER)) {
+            // WORDANALYZER
+        } else {
+            throw new ErrorCodeException(Protocol.CHEATING, "Requested power does not exist");
+        }
     }
 }

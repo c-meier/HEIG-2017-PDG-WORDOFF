@@ -9,7 +9,6 @@ import ch.heigvd.wordoff.server.Model.*;
 import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
-import ch.heigvd.wordoff.server.Model.Tiles.Tile;
 import ch.heigvd.wordoff.server.Repository.GameRepository;
 import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Repository.PlayerRepository;
@@ -36,7 +35,8 @@ public class GameService {
     private GameRepository gameRepository;
     private SideRepository sideRepository;
 
-    public GameService(DictionaryLoader dictionaryLoader, LangSetRepository langSetRepository, PlayerRepository playerRepository, GameRepository gameRepository, SideRepository sideRepository) {
+    public GameService(DictionaryLoader dictionaryLoader, LangSetRepository langSetRepository,
+                       PlayerRepository playerRepository, GameRepository gameRepository, SideRepository sideRepository) {
         this.dictionaryLoader = dictionaryLoader;
         this.langSetRepository = langSetRepository;
         this.playerRepository = playerRepository;
@@ -57,8 +57,6 @@ public class GameService {
         // Load the dico
         dictionaryLoader.loadDictionary(game.getLang());
 
-        Side side = null;
-
         // Check if it's the right player who try to play
         if (Objects.equals(game.getCurrPlayer().getId(), player.getId())) {
             String wordChallenge = challenge.getWord();
@@ -69,16 +67,14 @@ public class GameService {
             }
 
             // get side of player
-            side = game.getSideOfPlayer(player);
+            Side side = game.getSideOfPlayer(player);
 
             // check if the challenge is possible with tiles that the player have
             int i = 0;
-            boolean tileIsNotInSwapRacks = false;
-            boolean tileIsNotInPlayerRacks = false;
-            List<ITile> tempRackPlayer = new ArrayList<>();
-            List<ITile> tempSwapRack = new ArrayList<>();
-            tempSwapRack.addAll(side.getChallenge().getSwapRack().getTiles());
-            tempRackPlayer.addAll(side.getPlayerRack().getTiles());
+            boolean tileIsNotInSwapRacks;
+            boolean tileIsNotInPlayerRacks;
+            List<ITile> tempSwapRack = new ArrayList<>(side.getChallenge().getSwapRack().getTiles());
+            List<ITile> tempRackPlayer = new ArrayList<>(side.getPlayerRack().getTiles());
             while (challenge.getWord().length() != side.getChallenge().getWord().length()) {
                 ITile currTile = challenge.getSlots().get(i).getTile();
                 if (!tempSwapRack.contains(currTile)) {
@@ -264,6 +260,35 @@ public class GameService {
     }
 
     /**
+     * Passe le tour du joueur "player"
+     *
+     * @param game partie concernée
+     * @param player joueur qui passe son tour
+     */
+    public void pass(Game game, Player player) {
+        if(!game.getCurrPlayer().getId().equals(player.getId())) {
+            throw new ErrorCodeException(Protocol.NOT_YOUR_TURN, "Ce n'est pas à votre tour de jouer");
+        }
+        // get a list of the tile taken from the bag of the game
+        List<ITile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE -
+                game.getSideOfPlayer(player).getPlayerRack().getTiles().size());
+
+        // ajoute la réponse vide à l'historique
+        game.getSideOfPlayer(player).addAnswer(game.getSideOfPlayer(player).getChallenge());
+
+        // switch player
+        game.setCurrPlayer(game.getOtherPlayer(player));
+
+        // Si l'adversaire a aussi passé son tour (sa dernière réponse est vide) => fin du jeu
+        List<Answer> opponentAnswers = game.getSideOfPlayer(game.getOtherPlayer(player)).getAnswers();
+        if(opponentAnswers.get(opponentAnswers.size() - 1).getChallenge().getSlots().get(0).isEmpty()) {
+            end(game);
+        } else {
+            gameRepository.save(game);
+        }
+    }
+
+    /**
      * @brief Update the player side
      * @param side Side of the player
      * @param challenge Challenge in the player side
@@ -275,7 +300,6 @@ public class GameService {
      */
     private void updatePlayerSide(Side side, Challenge challenge, List<ITile> newTiles) {
         // Update the score of the side of the player
-        int score = challenge.getScore();
         side.updateScore(challenge.getScore());
 
         // Create the answer for the history
@@ -286,5 +310,12 @@ public class GameService {
 
         // Create new challenge
         side.setChallenge(new ChallengeFactory(side).createRandomSlotPos().create());
+    }
+
+    private void end(Game game) {
+        // TODO calculer scores, définir un gagnant
+
+        game.setEnd();
+        gameRepository.save(game);
     }
 }

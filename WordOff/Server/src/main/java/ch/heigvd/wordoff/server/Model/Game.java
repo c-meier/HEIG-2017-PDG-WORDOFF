@@ -36,12 +36,15 @@ public class Game {
     @ManyToOne
     private Player currPlayer;
 
+    private boolean ended;
+
     public Game() {}
 
     public Game(Player p1, Player p2, LangSet tileSet) {
         this.sideInit = new Side(p1);
         this.sideResp = new Side(p2);
         this.lang = tileSet.getName();
+        this.ended = false;
         currPlayer = p1;
         bag = new Bag(tileSet.getTiles());
     }
@@ -114,5 +117,9 @@ public class Game {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setEnd() {
+        this.ended = true;
     }
 }

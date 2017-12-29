@@ -27,6 +27,23 @@ public class GameDto implements IResource<GameDto> {
 
     private int bagSize;
 
+    /**
+     * Endpoint to POST challenges.
+     * Is used to play a word.
+     */
+    private ResourceWriteList<GameDto, ChallengeDto> challenges;
+
+    /**
+     * Endpoint to POST powers.
+     * Is used to activate a power.
+     */
+    private ResourceWriteList<GameDto, PowerDto> powers;
+
+    /**
+     * Endpoint to refresh (GET) the game
+     */
+    private String endpoint;
+
     /* TODO -> create GameSummaryDto */
 
     // Necessary for Jackson deserialization
@@ -99,7 +116,7 @@ public class GameDto implements IResource<GameDto> {
             String url = "/games/" + id;
             setEndpoint(url);
             setChallenges(new ResourceWriteList<>(url + "/challenges"));
-            setChallenges(new ResourceWriteList<>(url + "/powers"));
+            setPowers(new ResourceWriteList<>(url + "/powers"));
         }
     }
 
@@ -118,22 +135,6 @@ public class GameDto implements IResource<GameDto> {
                 Objects.equals(lang, c.lang);
     }
 
-    /**
-     * Endpoint to POST challenges.
-     * Is used to play a word.
-     */
-    private ResourceWriteList<GameDto, ChallengeDto> challenges;
-
-    /**
-     * Endpoint to POST powers.
-     * Is used to activate a power.
-     */
-    private ResourceWriteList<GameDto, PowerDto> powers;
-
-    /**
-     * Endpoint to refresh (GET) the game
-     */
-    private String endpoint;
 
     @Override
     public String getEndpoint() {

@@ -1,6 +1,7 @@
 package ch.heigvd.wordoff.server.Service;
 
 import ch.heigvd.wordoff.common.Constants;
+import ch.heigvd.wordoff.common.Dto.Game.SideDto;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.common.Protocol;
@@ -16,7 +17,9 @@ import ch.heigvd.wordoff.server.Repository.SideRepository;
 import ch.heigvd.wordoff.server.Rest.Exception.ErrorCodeException;
 import ch.heigvd.wordoff.server.Util.ChallengeFactory;
 import ch.heigvd.wordoff.common.DictionaryLoader;
+import ch.heigvd.wordoff.server.Util.DtoFactory;
 import javafx.util.Pair;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -313,9 +316,20 @@ public class GameService {
     }
 
     private void end(Game game) {
-        // TODO calculer scores, définir un gagnant
+        // TODO ajuster les classements des joueurs, donner une récompense en pièces ?
 
         game.setEnd();
         gameRepository.save(game);
+    }
+
+    /**
+     * Retourne le side de l'adversaire
+     *
+     * @param game
+     * @param player le joueur qui demande le side de l'adversaire
+     * @return SideDto
+     */
+    public SideDto peek(Game game, User player) {
+        return DtoFactory.createFrom(game.getSideOfPlayer(game.getOtherPlayer(player)));
     }
 }

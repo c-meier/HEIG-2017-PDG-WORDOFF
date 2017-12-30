@@ -1,9 +1,6 @@
 package ch.heigvd.wordoff.server.Rest.Endpoint;
 
-import ch.heigvd.wordoff.common.Dto.Game.ChallengeDto;
-import ch.heigvd.wordoff.common.Dto.Game.GameDto;
-import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
-import ch.heigvd.wordoff.common.Dto.Game.PowerDto;
+import ch.heigvd.wordoff.common.Dto.Game.*;
 import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
 import ch.heigvd.wordoff.common.Protocol;
 import ch.heigvd.wordoff.server.Model.Challenge;
@@ -145,16 +142,22 @@ public class GameController {
     }
 
     @RequestMapping(value = "/{gameId}/powers", method = RequestMethod.POST, consumes = "application/json")
-    public void hint(@RequestAttribute("player") User player,
+    public ResponseEntity hint(@RequestAttribute("player") User player,
                                @PathVariable("gameId") Long gameId,
                                @RequestBody PowerDto powerDto) {
+        ResponseEntity responseEntity = null;
+
+        // vérifie la quantité de pièces disponibles
+        if(powerDto.getCost() > player.getCoins()) {
+            throw new ErrorCodeException(Protocol.NOT_ENOUGH_COINS, "You do not have enough coins to use this power");
+        }
 
         if(powerDto.equals(PowerDto.HINT)) {
-            // HINT
+            // rien de plus à faire
         } else if (powerDto.equals(PowerDto.PASS)) {
             gameService.pass(gameRepository.findOne(gameId), player);
         } else if (powerDto.equals(PowerDto.PEEK)) {
-            // PEEK
+            responseEntity = new ResponseEntity<>(gameService.peek(gameRepository.findOne(gameId), player), HttpStatus.OK);
         } else if (powerDto.equals(PowerDto.DISCARD_2)) {
             // DISCARD 2
         } else if (powerDto.equals(PowerDto.DISCARD_ALL)) {
@@ -164,5 +167,11 @@ public class GameController {
         } else {
             throw new ErrorCodeException(Protocol.CHEATING, "Requested power does not exist");
         }
+
+        // consomme les pièces
+        player.setCoins(player.getCoins() - powerDto.getCost());
+        playerRepository.save(player);
+
+        return responseEntity;
     }
 }

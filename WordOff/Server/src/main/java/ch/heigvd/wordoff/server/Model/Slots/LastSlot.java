@@ -1,7 +1,5 @@
 package ch.heigvd.wordoff.server.Model.Slots;
 
-import ch.heigvd.wordoff.server.Model.Side;
-
 public class LastSlot extends Slot {
 
     private final int bonus = 10;

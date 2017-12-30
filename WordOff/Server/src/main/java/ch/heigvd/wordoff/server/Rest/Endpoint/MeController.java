@@ -7,6 +7,7 @@ import ch.heigvd.wordoff.common.Dto.User.RelatedUserSummaryDto;
 import ch.heigvd.wordoff.common.Dto.User.RelationDto;
 import ch.heigvd.wordoff.common.Dto.User.UserSummaryDto;
 import ch.heigvd.wordoff.server.Model.User;
+import ch.heigvd.wordoff.server.Service.ModeService;
 import ch.heigvd.wordoff.server.Service.UserService;
 import ch.heigvd.wordoff.server.Util.DtoFactory;
 import org.springframework.http.HttpStatus;
@@ -20,9 +21,11 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/me", produces = "application/json")
 public class MeController {
     private UserService userService;
+    private ModeService modeService;
 
-    public MeController(UserService userService) {
+    public MeController(UserService userService, ModeService modeService) {
         this.userService = userService;
+        this.modeService = modeService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -54,7 +57,9 @@ public class MeController {
             @RequestAttribute("player") User player,
             @PathVariable("modeId") Long modeId,
             @RequestBody InvitationDto invitation) {
-        // TODO: integrate with ModeService
+
+        modeService.changeInvitationStatus(modeId, player, invitation.getStatus());
+
         return new ResponseEntity(HttpStatus.OK);
     }
 

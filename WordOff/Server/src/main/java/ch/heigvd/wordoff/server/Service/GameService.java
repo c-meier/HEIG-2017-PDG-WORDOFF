@@ -1,22 +1,22 @@
 package ch.heigvd.wordoff.server.Service;
 
 import ch.heigvd.wordoff.common.Constants;
+import ch.heigvd.wordoff.common.DictionaryLoader;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.common.Protocol;
 import ch.heigvd.wordoff.common.WordAnalyzer;
 import ch.heigvd.wordoff.server.Model.*;
+import ch.heigvd.wordoff.server.Model.Modes.Mode;
 import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
-import ch.heigvd.wordoff.server.Model.Tiles.Tile;
 import ch.heigvd.wordoff.server.Repository.GameRepository;
 import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
 import ch.heigvd.wordoff.server.Rest.Exception.ErrorCodeException;
 import ch.heigvd.wordoff.server.Util.ChallengeFactory;
-import ch.heigvd.wordoff.common.DictionaryLoader;
 import javafx.util.Pair;
 import org.springframework.stereotype.Service;
 
@@ -50,8 +50,8 @@ public class GameService {
 
         // TODO -> Need to be removed
         // create and convert the new games.
-        initGame(one, ai, "fr");
-        initGame(two, one, "fr");
+        // initGame( , one, ai, "fr");
+        // initGame( , two, one, "fr");
     }
 
     public Game play(Game game, Player player, Challenge challenge) {
@@ -217,19 +217,18 @@ public class GameService {
     /**
      * @brief Initialize a new game
      * @param p1 Player 1
-     * @param p2 Player 2 (can be null and will be initialize as an AI)
-     * @param lang language of the game
+     * @param p2 Player 2 (can be null and will be initialize as an AI
      * @return A new initialize game
      */
-    public Game initGame(Player p1, Player p2, String lang) {
-        LangSet langSet = langSetRepository.findByName(lang);
+    public Game initGame(Mode mode, Player p1, Player p2) {
+        LangSet langSet = langSetRepository.findByName(mode.getLang());
         Game game = null;
 
         // Initialize game with or without Ai
         if (p2 == null) {
-            game = new Game(p1, playerRepository.findOne(1L), langSet);
+            game = new Game(mode, p1, playerRepository.findOne(1L), langSet);
         } else {
-            game = new Game(p1, p2, langSet);
+            game = new Game(mode, p1, p2, langSet);
         }
 
         Side sideInit = game.getSideInit();
@@ -261,6 +260,9 @@ public class GameService {
 
         // save the game
         gameRepository.save(game);
+
+        // add the game in the list of the mode
+        mode.getGames().add(game);
 
         return game;
     }

@@ -1,7 +1,8 @@
 package ch.heigvd.wordoff.client.Controller;
 
 import ch.heigvd.wordoff.client.Api.GameApi;
-import ch.heigvd.wordoff.client.Exception.*;
+import ch.heigvd.wordoff.client.Exception.TokenNotFoundException;
+import ch.heigvd.wordoff.client.Exception.UnprocessableEntityException;
 import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.client.Util.Dialog;
 import ch.heigvd.wordoff.client.Util.UtilChangeScene;
@@ -16,9 +17,6 @@ import ch.heigvd.wordoff.common.Dto.Game.Slots.LastSlotDto;
 import ch.heigvd.wordoff.common.Dto.Game.Slots.SwapSlotDto;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
-
-import java.io.IOException;
-
 import ch.heigvd.wordoff.common.WordAnalyzer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -34,17 +32,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javafx.scene.layout.BorderPane;
 
 /**
  * @author Gabriel Luthier

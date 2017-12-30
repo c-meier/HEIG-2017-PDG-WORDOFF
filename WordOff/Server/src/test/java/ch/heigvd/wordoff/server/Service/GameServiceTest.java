@@ -1,5 +1,6 @@
 package ch.heigvd.wordoff.server.Service;
 
+import ch.heigvd.wordoff.common.DictionaryLoader;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.server.Model.*;
 import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
@@ -11,7 +12,6 @@ import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
 import ch.heigvd.wordoff.server.Util.ChallengeFactory;
-import ch.heigvd.wordoff.common.DictionaryLoader;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;

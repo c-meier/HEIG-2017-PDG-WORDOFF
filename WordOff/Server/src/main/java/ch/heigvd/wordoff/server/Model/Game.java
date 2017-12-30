@@ -31,8 +31,6 @@ public class Game {
 
     private LocalDateTime startDate;
 
-    private String lang;
-
     @ManyToOne
     private Player currPlayer;
 
@@ -42,10 +40,11 @@ public class Game {
 
     public Game() {}
 
-    public Game(Player p1, Player p2, LangSet tileSet) {
+    public Game(Mode mode, Player p1, Player p2, LangSet tileSet) {
+        this.mode = mode;
         this.sideInit = new Side(p1);
         this.sideResp = new Side(p2);
-        this.lang = tileSet.getName();
+        mode.setLang(tileSet.getName());
         currPlayer = p1;
         bag = new Bag(tileSet.getTiles());
         startDate = LocalDateTime.now();
@@ -88,11 +87,11 @@ public class Game {
     }
 
     public String getLang() {
-        return lang;
+        return mode.getLang();
     }
 
     public void setLang(String lang) {
-        this.lang = lang;
+        mode.setLang(lang);
     }
 
     public Side getSideInit() {

@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface InvitationRepository extends JpaRepository<Invitation, Invitation.InvitationId> {
     List<Invitation> findAllByPkTargetAndStatus(User target, InvitationStatus status);
+    Invitation findByPkTargetIdAndPkModeId(Long targetId, Long modeId);
 }

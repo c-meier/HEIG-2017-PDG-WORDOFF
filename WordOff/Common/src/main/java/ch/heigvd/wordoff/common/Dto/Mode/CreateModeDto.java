@@ -23,6 +23,11 @@ public class CreateModeDto {
      */
     private List<String> participants;
 
+    /**
+     * The language of the mode.
+     */
+    private String lang;
+
     public CreateModeDto() {
     }
 
@@ -52,5 +57,13 @@ public class CreateModeDto {
 
     public boolean addParticpant(String s) {
         return getParticipants().add(s);
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 }

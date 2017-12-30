@@ -1,6 +1,6 @@
 package ch.heigvd.wordoff.server;
 
-import ch.heigvd.wordoff.common.Dto.*;
+import ch.heigvd.wordoff.common.Dto.ErrorDto;
 import ch.heigvd.wordoff.common.Dto.Game.*;
 import ch.heigvd.wordoff.common.Dto.Game.Racks.PlayerRackDto;
 import ch.heigvd.wordoff.common.Dto.Game.Racks.SwapRackDto;

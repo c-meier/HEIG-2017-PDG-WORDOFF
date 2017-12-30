@@ -11,15 +11,14 @@ import ch.heigvd.wordoff.server.Model.Slots.*;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 import ch.heigvd.wordoff.server.Model.Tiles.Tile;
 
-<<<<<<< HEAD
-import java.time.LocalDate;
-import java.util.*;
-=======
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
->>>>>>> f6d1de6a6c363b63b5d4760c43b276066af96693
+
+<<<<<<<HEAD
+        =======
+        >>>>>>>f6d1de6a6c363b63b5d4760c43b276066af96693
 
 public class MockModel {
     private LangSet langSet;

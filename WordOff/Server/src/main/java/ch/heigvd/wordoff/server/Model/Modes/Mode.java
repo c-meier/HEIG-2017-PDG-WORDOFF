@@ -28,6 +28,8 @@ public abstract class Mode {
 
     private ModeType type;
 
+    private String lang;
+
     public Mode() {
         this.invitations = new HashMap<>();
         this.games = new ArrayList<>();
@@ -95,5 +97,13 @@ public abstract class Mode {
 
     public Invitation getOriginInvitation() {
         return getInvitations().values().stream().filter(i -> i.getStatus() == InvitationStatus.ORIGIN).findFirst().get();
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 }

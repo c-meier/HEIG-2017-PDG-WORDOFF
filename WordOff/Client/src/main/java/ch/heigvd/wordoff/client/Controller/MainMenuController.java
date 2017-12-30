@@ -1,9 +1,10 @@
 package ch.heigvd.wordoff.client.Controller;
 
 import ch.heigvd.wordoff.client.Api.GameApi;
-import ch.heigvd.wordoff.client.Exception.*;
-import ch.heigvd.wordoff.client.MainApp;
+import ch.heigvd.wordoff.client.Exception.TokenNotFoundException;
+import ch.heigvd.wordoff.client.Exception.UnauthorizedException;
 import ch.heigvd.wordoff.client.Logic.Game;
+import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.client.Util.Dialog;
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;

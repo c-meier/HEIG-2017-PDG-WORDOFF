@@ -4,10 +4,9 @@ import ch.heigvd.wordoff.common.Dto.Game.ChallengeDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
 import ch.heigvd.wordoff.common.Protocol;
+import ch.heigvd.wordoff.server.Model.Ai;
 import ch.heigvd.wordoff.server.Model.Challenge;
 import ch.heigvd.wordoff.server.Model.Game;
-import ch.heigvd.wordoff.server.Model.Player;
-import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 import ch.heigvd.wordoff.server.Model.User;
 import ch.heigvd.wordoff.server.Repository.GameRepository;
 import ch.heigvd.wordoff.server.Repository.LangSetRepository;
@@ -28,15 +27,11 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/games", produces = "application/json")
 public class GameController {
     private GameRepository gameRepository;
-    private LangSetRepository langSetRepository;
     private GameService gameService;
-    private PlayerRepository playerRepository;
 
-    public GameController(GameRepository gameRepository, GameService gameService, LangSetRepository langSetRepository, PlayerRepository playerRepository) {
+    public GameController(GameRepository gameRepository, GameService gameService) {
         this.gameRepository = gameRepository;
         this.gameService = gameService;
-        this.langSetRepository = langSetRepository;
-        this.playerRepository = playerRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -49,35 +44,6 @@ public class GameController {
                 .collect(Collectors.toCollection(ArrayList::new));
 
         return new ResponseEntity<>(gamesDto, HttpStatus.OK);
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<GameSummaryDto> newGame(
-            @RequestAttribute("player") User player,
-            @RequestParam("lang") String lang,
-            @RequestBody List<Long> playersId) {
-
-        if(playersId.size() != 2) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        LangSet langSet = langSetRepository.findByName(lang);
-        if(langSet == null) {
-            throw new ErrorCodeException(Protocol.LANG_NOT_EXISTS, "The language " + lang + " does not exist!");
-        }
-
-        Player init = playerRepository.findOne(playersId.get(0));
-        Player resp = playerRepository.findOne(playersId.get(1));
-
-        if(init == null || resp == null) {
-            throw new ErrorCodeException(Protocol.PLAYER_NOT_EXISTS, "One of the player does not exists");
-        }
-
-        // create and convert the new games.
-        Game game = gameService.initGame(init, resp, lang);
-        GameSummaryDto gameSummaryDto = DtoFactory.createSummaryFrom(game, player);
-
-        return new ResponseEntity<>(gameSummaryDto, HttpStatus.CREATED);
     }
 
     /**
@@ -101,10 +67,10 @@ public class GameController {
         }
 
         Game game = gameRepository.findOne(gameId);
-//
-//        if (game.getCurrPlayer() instanceof Ai) {
-//            game = gameService.makeAiPLay(game, (User) player);
-//        }
+
+        if (game.getCurrPlayer() instanceof Ai) {
+            game = gameService.makeAiPLay(game, player);
+        }
 
         // Converter new game to dto
         GameDto gameDto = DtoFactory.createFrom(game, player);

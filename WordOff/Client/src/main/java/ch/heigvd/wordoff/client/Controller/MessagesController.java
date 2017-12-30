@@ -1,12 +1,12 @@
 package ch.heigvd.wordoff.client.Controller;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import ch.heigvd.wordoff.client.Util.UtilChangeScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class

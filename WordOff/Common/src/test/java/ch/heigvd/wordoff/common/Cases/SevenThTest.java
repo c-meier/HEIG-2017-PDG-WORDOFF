@@ -1,7 +1,7 @@
 package ch.heigvd.wordoff.common.Cases;
 
 import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
-import org.junit.*;
+import org.junit.BeforeClass;
 
 public class SevenThTest {
     static TileDto tile;

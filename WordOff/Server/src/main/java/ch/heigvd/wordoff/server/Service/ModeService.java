@@ -103,6 +103,7 @@ public class ModeService {
                 if (participantsUsers.size() < Constants.MAX_USER_IN_TOURNAMENT) {
                     mode = new TournamentMode(participantsUsers, name);
                     mode.setType(modeType);
+                    mode.setStartDate(LocalDateTime.now());
                 } else {
                     throw new ErrorCodeException(Protocol.TOO_MANY_PARTICIPANTS, "Too many participants for the tournament (Max. 20).");
                 }
@@ -113,13 +114,14 @@ public class ModeService {
                 oMode = modeCTournament
                         .stream()
                         .filter(m -> m.getOriginInvitation().getTarget().getLevel() == user.getLevel() &&
-                                     m.getInvitations().values().size() < Constants.MAX_USER_IN_TOURNAMENT &&
+                                     m.getInvitations().size() < Constants.MAX_USER_IN_TOURNAMENT &&
                                      m.getLang().equals(lang))
                         .findFirst();
 
                 if(!oMode.isPresent()) {
                     mode = new TournamentMode(user, Constants.COMPETITION_TOURNAMENT_NAME);
                     mode.setType(modeType);
+                    mode.setStartDate(LocalDateTime.now());
                 } else {
                     mode = oMode.get();
                     mode.putInvitation(new Invitation(mode, user, InvitationStatus.ACCEPT, Constants.COMPETITION_TOURNAMENT_NAME));
@@ -177,7 +179,7 @@ public class ModeService {
         switch (mode.getType()) {
             case FRIEND_DUEL:
                 User origin = mode.getOriginInvitation().getTarget();
-                User adversary = mode.getInvitations().values()
+                User adversary = mode.getInvitations()
                         .stream()
                         .filter(i -> i.getStatus() == InvitationStatus.ACCEPT)
                         .findFirst()
@@ -192,7 +194,6 @@ public class ModeService {
             case COMPETITIVE_TOURNAMENT:
                 Player ai = playerRepository.findOne(1L);
                 game = gameService.initGame(mode, player, ai);
-                mode.setStartDate(LocalDateTime.now());
                 break;
         }
 

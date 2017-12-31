@@ -63,7 +63,7 @@ public class ModeSummaryDto implements IResource<ModeSummaryDto> {
 
     @Override
     public String getEndpoint() {
-        return null;
+        return endpoint;
     }
 
     public void setEndpoint(String endpoint) {

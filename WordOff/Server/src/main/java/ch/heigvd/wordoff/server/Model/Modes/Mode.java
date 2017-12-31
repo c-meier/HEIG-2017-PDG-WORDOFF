@@ -19,8 +19,7 @@ public abstract class Mode {
     private Long id;
 
     @OneToMany(mappedBy = "pk.mode", cascade = CascadeType.ALL)
-    @MapKey(name = "pk.target")
-    private Map<User, Invitation> invitations;
+    private List<Invitation> invitations;
 
     @OneToMany(mappedBy = "mode")
     private List<Game> games;
@@ -32,7 +31,7 @@ public abstract class Mode {
     private String lang;
 
     public Mode() {
-        this.invitations = new HashMap<>();
+        this.invitations = new ArrayList<>();
         this.games = new ArrayList<>();
     }
 
@@ -44,20 +43,33 @@ public abstract class Mode {
         this.id = id;
     }
 
-    public Map<User, Invitation> getInvitations() {
+    public List<Invitation> getInvitations() {
         return invitations;
     }
 
-    public void setInvitations(Map<User, Invitation> invitations) {
+    public void setInvitations(List<Invitation> invitations) {
         this.invitations = invitations;
     }
 
     public Invitation getInvitation(User user) {
-        return getInvitations().get(user);
+        return getInvitations()
+                .stream()
+                .filter(i -> Objects.equals(i.getTarget().getId(), user.getId()))
+                .findFirst()
+                .orElse(null);
     }
 
     public void putInvitation(Invitation invit) {
-        invitations.put(invit.getTarget(), invit);
+        Optional<Invitation> optInvitation = getInvitations()
+                .stream()
+                .filter(i -> Objects.equals(i.getTarget().getId(), invit.getTarget().getId()))
+                .findFirst();
+        if(optInvitation.isPresent()) {
+            optInvitation.get().setName(invit.getName());
+            optInvitation.get().setStatus(invit.getStatus());
+        } else {
+            invitations.add(invit);
+        }
     }
 
     public List<Game> getGames() {
@@ -97,7 +109,7 @@ public abstract class Mode {
     }
 
     public Invitation getOriginInvitation() {
-        return getInvitations().values().stream().filter(i -> i.getStatus() == InvitationStatus.ORIGIN).findFirst().get();
+        return getInvitations().stream().filter(i -> i.getStatus() == InvitationStatus.ORIGIN).findFirst().get();
     }
 
     public String getLang() {

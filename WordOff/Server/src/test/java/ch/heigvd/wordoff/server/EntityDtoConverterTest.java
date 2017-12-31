@@ -224,7 +224,7 @@ public class EntityDtoConverterTest {
     public void TournamentModeToDto() {
         TournamentMode entity = model.getTournamentMode();
 
-        TournamentModeDto dto = (TournamentModeDto) DtoFactory.createFrom(entity, model.getUserTwo());
+        TournamentModeDto dto = (TournamentModeDto) DtoFactory.createFrom(entity, model.getUserOne());
 
         assertEquals(TournamentModeDto.class, dto.getClass());
         assertEquals(entity.getType(), dto.getType());

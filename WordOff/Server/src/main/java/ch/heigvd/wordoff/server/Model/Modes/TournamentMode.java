@@ -34,12 +34,12 @@ public class TournamentMode extends Mode {
     }
 
     private Long getCurrentDay() {
-        return Duration.between(getStartDate(), LocalDateTime.now()).toDays();
+        return getStartDate() == null ? -1 : Duration.between(getStartDate(), LocalDateTime.now()).toDays();
     }
 
     @Override
     public boolean isEnded() {
-        return getCurrentDay()  < Constants.TOURNAMENT_DURATION;
+        return getCurrentDay() >= Constants.TOURNAMENT_DURATION;
     }
 
     @Override
@@ -75,13 +75,12 @@ public class TournamentMode extends Mode {
 
     public List<Player> getAllPLayers() {
         return getInvitations()
-                .values()
                 .stream()
                 .map(Invitation::getTarget)
                 .collect(Collectors.toList());
     }
 
-    public Map<Long, List<Integer>> getAllPlayerScores() {
+    public Map<User, List<Integer>> getAllPlayerScores() {
         // Group the games by day.
         Map<Long, List<Game>> days = getGames().stream()
                 .filter(Game::isEnded)
@@ -98,13 +97,13 @@ public class TournamentMode extends Mode {
                                 .collect(Collectors.groupingBy(g -> g.getSideInit().getPlayer().getId()))
                 ));
 
-        return getInvitations().values()
+        return getInvitations()
                 .stream()
                 .filter(i -> i.getStatus() == InvitationStatus.ACCEPT || i.getStatus() == InvitationStatus.ORIGIN)
                 .map(Invitation::getTarget)
-                .collect(Collectors.toMap(User::getId, user -> IntStream
+                .collect(Collectors.toMap(u -> u, user -> IntStream
                         .range(0, Integer.min( // The number of effective days of the tournament.
-                                (int)Duration.between(getStartDate(), LocalDateTime.now()).toDays(),
+                                (int)Duration.between(getStartDate(), LocalDateTime.now()).toDays() + 1,
                                 Constants.TOURNAMENT_DURATION))
                         .map(i -> { // The score of the game corresponding to the day and the user.
                             if(daysAndUser.containsKey(i) && daysAndUser.get(i).containsKey(user.getId())) {

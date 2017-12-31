@@ -51,7 +51,7 @@ public abstract class ModeDto implements IResource<ModeDto> {
 
     @Override
     public String getEndpoint() {
-        return null;
+        return endpoint;
     }
 
     public ModeType getType() {
@@ -101,5 +101,10 @@ public abstract class ModeDto implements IResource<ModeDto> {
     public void setEndpoint(String endpoint) {
         this.endpoint = endpoint;
         this.messages = new ResourceWriteList<>(endpoint + "/messages");
+        this.games = new ResourceWriteList<>(endpoint + "/games");
+    }
+
+    public ResourceWriteList<GameDto, Void> getGames() {
+        return games;
     }
 }

@@ -33,8 +33,10 @@ import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class DtoFactory {
@@ -155,9 +157,17 @@ public class DtoFactory {
         modeMap.include(TournamentMode.class, TournamentModeDto.class)
                 .include(DuelMode.class, DuelModeDto.class);
 
+        Converter<Map<User, List<Integer>>, List<TournamentModeDto.UserScores>> toUsersScores =
+                ctx -> ctx.getSource().entrySet()
+                        .stream()
+                        .map(e -> new TournamentModeDto.UserScores(DtoFactory.createSummaryFrom(e.getKey()), e.getValue()))
+                        .collect(Collectors.toList());
+
         modelMapper.typeMap(TournamentMode.class, TournamentModeDto.class)
                 .setProvider(req -> new TournamentModeDto())
-                .addMappings(mapper -> mapper.map(TournamentMode::getAllPlayerScores, TournamentModeDto::setParticipants));
+                .addMappings(mapper -> mapper
+                        .using(toUsersScores)
+                        .map(TournamentMode::getAllPlayerScores, TournamentModeDto::setParticipants));
         modelMapper.typeMap(DuelMode.class, DuelModeDto.class).setProvider(req -> new DuelModeDto());
 
 

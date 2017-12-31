@@ -80,9 +80,14 @@ public class ModeController {
     public ResponseEntity<ModeDto> getMode(
             @RequestAttribute("player") User player,
             @PathVariable("modeId") Long modeId) {
-        ModeDto modeDto = DtoFactory.createFrom(modeService.getMode(modeId), player);
+        Mode mode = modeService.getMode(modeId);
+        if(mode == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            ModeDto modeDto = DtoFactory.createFrom(mode, player);
 
-        return new ResponseEntity<>(modeDto, HttpStatus.OK);
+            return new ResponseEntity<>(modeDto, HttpStatus.OK);
+        }
     }
 
     /**

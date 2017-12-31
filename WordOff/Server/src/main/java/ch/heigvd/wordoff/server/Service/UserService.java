@@ -86,7 +86,7 @@ public class UserService {
                 .flatMap(Collection::stream)
                 .map(Invitation::getMode)
                 .filter(m -> m.getType() == ModeType.FRIEND_DUEL || m.getType() == ModeType.RANDOM_DUEL)
-                .flatMap(m -> m.getInvitations().values().stream()
+                .flatMap(m -> m.getInvitations().stream()
                         .map(Invitation::getTarget)
                         .filter(u -> Objects.equals(u.getId(), owner.getId())))
                 .distinct()

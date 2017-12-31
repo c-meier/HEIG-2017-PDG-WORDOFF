@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TournamentModeDto extends ModeDto {
@@ -19,7 +18,7 @@ public class TournamentModeDto extends ModeDto {
      * The participants in the tournament. Represented as a map, the key is the summary of the user
      * and the value is a list containing the score for each day.
      */
-    private Map<UserSummaryDto, List<Integer>> participants;
+    private List<UserScores> participants;
 
     public int getNbGameRemaining() {
         return nbGameRemaining;
@@ -29,34 +28,37 @@ public class TournamentModeDto extends ModeDto {
         this.nbGameRemaining = nbGameRemaining;
     }
 
-    public Map<UserSummaryDto, List<Integer>> getParticipants() {
+    public List<UserScores> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(Map<UserSummaryDto, List<Integer>> participants) {
+    public void setParticipants(List<UserScores> participants) {
         this.participants = participants;
     }
 
     @JsonIgnore
     public List<UserScore> getPlayerScoreForGlobal() {
-        return participants.entrySet()
+        return participants
                 .stream()
                 .map(p -> new UserScore(
-                        p.getKey(),
-                        p.getValue().stream().mapToInt(Integer::intValue).sum()))
+                        p.getUser(),
+                        p.getScores().stream().mapToInt(Integer::intValue).sum()))
                 .sorted(Comparator.comparing(UserScore::getScore).reversed())
                 .collect(Collectors.toList());
     }
 
     @JsonIgnore
     public List<UserScore> getPlayerScoreForDay(int day) {
-        return participants.entrySet()
+        return participants
                 .stream()
-                .map(p -> new UserScore(p.getKey(), p.getValue().get(day)))
+                .map(p -> new UserScore(p.getUser(), p.getDayScore(day)))
                 .sorted(Comparator.comparing(UserScore::getScore).reversed())
                 .collect(Collectors.toList());
     }
 
+    /**
+     * A class pairing a User with a score.
+     */
     public static class UserScore {
         private UserSummaryDto user;
         private int score;
@@ -72,6 +74,31 @@ public class TournamentModeDto extends ModeDto {
 
         public int getScore() {
             return score;
+        }
+    }
+
+    /**
+     * A class pairing a User with the scores for each day.
+     */
+    public static class UserScores {
+        private UserSummaryDto user;
+        private List<Integer> scores;
+
+        public UserScores(UserSummaryDto user, List<Integer> scores) {
+            this.user = user;
+            this.scores = scores;
+        }
+
+        public UserSummaryDto getUser() {
+            return user;
+        }
+
+        public List<Integer> getScores() {
+            return scores;
+        }
+
+        public int getDayScore(int day) {
+            return day < scores.size() ? scores.get(day) : 0;
         }
     }
 }

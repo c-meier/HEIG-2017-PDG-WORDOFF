@@ -15,6 +15,7 @@ import java.util.*;
 @DiscriminatorColumn(name = "dtype")
 public abstract class Mode {
     @Id
+    @GeneratedValue
     private Long id;
 
     @OneToMany(mappedBy = "pk.mode", cascade = CascadeType.ALL)

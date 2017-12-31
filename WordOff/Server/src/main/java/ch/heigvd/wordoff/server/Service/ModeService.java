@@ -27,6 +27,8 @@ import java.util.Optional;
 public class ModeService {
     private UserRepository userRepository;
     private ModeRepository modeRepository;
+
+
     private GameService gameService;
     private InvitationRepository invitationRepository;
     private PlayerRepository playerRepository;
@@ -59,9 +61,11 @@ public class ModeService {
         Optional<Mode> oMode;
 
         // add the user asking for a mode
-        participantsUsers.add(user);
-        for (String str : participants) {
-            participantsUsers.add(userRepository.findByName(str));
+        if (participants != null) {
+            participantsUsers.add(user);
+            for (String str : participants) {
+                participantsUsers.add(userRepository.findByName(str));
+            }
         }
 
         // Create mode
@@ -158,7 +162,6 @@ public class ModeService {
                 modeRepository.delete(modeId);
             }
         }
-
     }
 
     /**

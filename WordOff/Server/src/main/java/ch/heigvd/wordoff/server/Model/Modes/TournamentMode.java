@@ -7,12 +7,14 @@ import ch.heigvd.wordoff.server.Model.Invitation;
 import ch.heigvd.wordoff.server.Model.Player;
 import ch.heigvd.wordoff.server.Model.User;
 
+import javax.persistence.Entity;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+@Entity
 public class TournamentMode extends Mode {
 
     public TournamentMode() {}

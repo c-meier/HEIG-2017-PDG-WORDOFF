@@ -5,8 +5,11 @@ import ch.heigvd.wordoff.server.Model.Game;
 import ch.heigvd.wordoff.server.Model.Invitation;
 import ch.heigvd.wordoff.server.Model.User;
 
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import java.util.List;
 
+@Entity
 public class DuelMode extends Mode {
 
     public DuelMode() {}
@@ -25,7 +28,6 @@ public class DuelMode extends Mode {
     public Game getGame() {
         return getGames().get(0);
     }
-
 
     @Override
     public boolean isEnded() {

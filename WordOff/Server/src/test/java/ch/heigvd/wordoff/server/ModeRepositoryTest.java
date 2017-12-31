@@ -47,7 +47,7 @@ public class ModeRepositoryTest {
     @Before
     public void setUp() {
         one = userRepository.save(new User("testModeRep1"));
-        two = userRepository.save(new User("testModeRep1"));
+        two = userRepository.save(new User("testModeRep2"));
         users = new ArrayList<>();
         users.add(one);
         users.add(two);

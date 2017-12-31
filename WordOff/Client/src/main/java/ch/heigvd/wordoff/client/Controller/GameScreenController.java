@@ -52,6 +52,7 @@ import javafx.scene.layout.BorderPane;
 public class GameScreenController implements Initializable {
 
     private GameDto game;
+    private List<Character> alphabet;
     @FXML
     private Label p1Name, p2Name;
     @FXML
@@ -90,7 +91,6 @@ public class GameScreenController implements Initializable {
     private List<StackPane> p2SlotsSr = new ArrayList<>();
     private List<StackPane> p2SlotsPr = new ArrayList<>();
 
-    private WordAnalyzer wordAnalyzer;
     private Dictionary dico;
 
     // PLAYER 1
@@ -160,14 +160,16 @@ public class GameScreenController implements Initializable {
         setNumberOfTiles();
         setLang();
         setState(this.game);
-        // TODO set le wordAnalyzer
         DictionaryLoader dicoLoad = new DictionaryLoader();
         this.dico = dicoLoad.getDico(this.game.getLang());
-        this.wordAnalyzer = new WordAnalyzer(dicoLoad.getDico(this.game.getLang()), this.game.getMySide().getChallenge(), this.game.getMySide().getPlayerRack());
     }
 
     private void setLang() {
         this.flag.setImage(new Image(getClass().getResource("/images/" + game.getLang() + ".png").toExternalForm()));
+    }
+
+    protected void setAlphabet(List<Character> alphabet){
+        this.alphabet = alphabet;
     }
 
     private void setNumberOfTiles() {
@@ -638,9 +640,10 @@ public class GameScreenController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass()
                 .getResource("/fxml/characterSelect.fxml"));
         BorderPane c;
+        CharacterSelectController controller = new CharacterSelectController(alphabet);
         try {
+            loader.setController(controller);
             c = loader.load();
-            CharacterSelectController controller = loader.<CharacterSelectController>getController();
             Scene testScene = new Scene(c);
             popUp.setScene(testScene);
 

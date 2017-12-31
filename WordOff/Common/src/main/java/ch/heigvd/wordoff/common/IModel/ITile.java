@@ -16,5 +16,4 @@ public interface ITile {
     default boolean isJoker() {
         return getScore() == 0;
     }
-
 }

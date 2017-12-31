@@ -1,6 +1,7 @@
 package ch.heigvd.wordoff.client.Api;
 
 import ch.heigvd.wordoff.client.Exception.BadRequestException;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -26,11 +27,11 @@ public class LetterApi {
 
         HttpHeaders headers = new HttpHeaders();
 
-        ResponseEntity responseEntity =
+        ResponseEntity<List<Character>> responseEntity =
                 restTemplate.exchange(uri,
                         HttpMethod.GET,
                         new HttpEntity<>(headers),
-                        ResponseEntity.class,
+                        new ParameterizedTypeReference<List<Character>>() {},
                         params);
 
         switch (responseEntity.getStatusCode()) {

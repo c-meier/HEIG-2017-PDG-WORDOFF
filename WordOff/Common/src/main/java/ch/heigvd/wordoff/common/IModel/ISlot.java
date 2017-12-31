@@ -30,4 +30,6 @@ public interface ISlot {
         setTile(null);
         return temp;
     }
+
+    ISlot duplicate();
 }

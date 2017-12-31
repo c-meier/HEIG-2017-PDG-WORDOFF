@@ -16,10 +16,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-<<<<<<<HEAD
-        =======
-        >>>>>>>f6d1de6a6c363b63b5d4760c43b276066af96693
-
 public class MockModel {
     private LangSet langSet;
     private List<Slot> slots;
@@ -115,20 +111,9 @@ public class MockModel {
         two.setId(3L);
         two.setRelation(one, RelationStatus.FRIEND);
 
-        aiGame = new Game(one, ai, langSet);
-        aiGame.setId(1L);
-        aiGame.getSideInit().setId(1L);
-        aiGame.getSideResp().setId(2L);
-
-        duelGame = new Game(one, two, langSet);
-        duelGame.setId(2L);
-        duelGame.getSideInit().setId(3L);
-        duelGame.getSideResp().setId(4L);
-
         tournamentMode = new TournamentMode();
         tournamentMode.setId(1L);
         tournamentMode.setType(ModeType.FRIENDLY_TOURNAMENT);
-        tournamentMode.addGame(aiGame);
         tournamentMode.putInvitation(new Invitation(tournamentMode, one, InvitationStatus.ORIGIN, TOURNAMENT_NAME));
         tournamentMode.putInvitation(new Invitation(tournamentMode, two, InvitationStatus.ACCEPT, TOURNAMENT_NAME));
         tournamentMode.setStartDate(LocalDateTime.MIN);
@@ -136,11 +121,22 @@ public class MockModel {
         duelMode = new DuelMode();
         duelMode.setId(2L);
         duelMode.setType(ModeType.FRIEND_DUEL);
-        duelMode.addGame(duelGame);
         duelMode.putInvitation(new Invitation(duelMode, one, InvitationStatus.ORIGIN, two.getName()));
         invitation = new Invitation(duelMode, two, InvitationStatus.WAITING, one.getName());
         duelMode.putInvitation(invitation);
         duelMode.setStartDate(LocalDateTime.MIN);
+
+        aiGame = new Game(tournamentMode, one, ai, langSet);
+        aiGame.setId(1L);
+        aiGame.getSideInit().setId(1L);
+        aiGame.getSideResp().setId(2L);
+        tournamentMode.addGame(aiGame);
+
+        duelGame = new Game(duelMode, one, two, langSet);
+        duelGame.setId(2L);
+        duelGame.getSideInit().setId(3L);
+        duelGame.getSideResp().setId(4L);
+        duelMode.addGame(duelGame);
     }
 
     public LangSet getLangSet() {

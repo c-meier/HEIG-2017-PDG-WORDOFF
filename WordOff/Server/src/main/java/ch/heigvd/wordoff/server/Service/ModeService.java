@@ -96,7 +96,7 @@ public class ModeService {
                 }
                 break;
             case FRIENDLY_TOURNAMENT:
-                if (participantsUsers.size() < TournamentMode.MAX_USER_IN_TOURNAMENT) {
+                if (participantsUsers.size() < Constants.MAX_USER_IN_TOURNAMENT) {
                     mode = new TournamentMode(participantsUsers, name);
                     mode.setType(modeType);
                 } else {
@@ -109,7 +109,7 @@ public class ModeService {
                 oMode = modeCTournament
                         .stream()
                         .filter(m -> m.getOriginInvitation().getTarget().getLevel() == user.getLevel() &&
-                                     m.getInvitations().values().size() < TournamentMode.MAX_USER_IN_TOURNAMENT &&
+                                     m.getInvitations().values().size() < Constants.MAX_USER_IN_TOURNAMENT &&
                                      m.getLang().equals(lang))
                         .findFirst();
 

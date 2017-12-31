@@ -11,10 +11,23 @@ import java.util.stream.Collectors;
 public class TournamentModeDto extends ModeDto {
 
     /**
+     * The number of game that that can be played for the current day.
+     */
+    private int nbGameRemaining;
+
+    /**
      * The participants in the tournament. Represented as a map, the key is the summary of the user
      * and the value is a list containing the score for each day.
      */
     private Map<UserSummaryDto, List<Integer>> participants;
+
+    public int getNbGameRemaining() {
+        return nbGameRemaining;
+    }
+
+    public void setNbGameRemaining(int nbGameRemaining) {
+        this.nbGameRemaining = nbGameRemaining;
+    }
 
     public Map<UserSummaryDto, List<Integer>> getParticipants() {
         return participants;

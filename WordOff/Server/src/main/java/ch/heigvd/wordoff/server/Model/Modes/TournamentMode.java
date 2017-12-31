@@ -1,5 +1,6 @@
 package ch.heigvd.wordoff.server.Model.Modes;
 
+import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dto.InvitationStatus;
 import ch.heigvd.wordoff.server.Model.Game;
 import ch.heigvd.wordoff.server.Model.Invitation;
@@ -8,17 +9,13 @@ import ch.heigvd.wordoff.server.Model.User;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class TournamentMode extends Mode {
-    // The number of days of the tournament.
-    private final int TOURNAMENT_DURATION = 5;
-    public static final int MAX_USER_IN_TOURNAMENT = 20;
+
+    public TournamentMode() {}
 
     public TournamentMode(User participant, String name) {
         putInvitation(new Invitation(this, participant, InvitationStatus.ORIGIN, name));
@@ -34,15 +31,34 @@ public class TournamentMode extends Mode {
         }
     }
 
+    private Long getCurrentDay() {
+        return Duration.between(getStartDate(), LocalDateTime.now()).toDays();
+    }
+
     @Override
     public boolean isEnded() {
-        return Duration.between(getStartDate(), LocalDateTime.now()).toDays() < TOURNAMENT_DURATION;
+        return getCurrentDay()  < Constants.TOURNAMENT_DURATION;
+    }
+
+    @Override
+    public Optional<Game> getActiveGame(User user) {
+        return super.getActiveGame(user)
+                .filter(g -> getCurrentDay() == Duration.between(getStartDate(), g.getStartDate()).toDays());
     }
 
     public List<Game> getGamesOfPlayer(Player player) {
         return getGames()
                 .stream()
                 .filter(game -> Objects.equals(game.getSideInit().getPlayer().getId(), player.getId()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Game> getGamesOfCurrentDayAndPlayer(Player player) {
+        Long currentDay = getCurrentDay();
+        return getGames()
+                .stream()
+                .filter(game -> Objects.equals(game.getSideInit().getPlayer().getId(), player.getId()))
+                .filter(game -> currentDay == Duration.between(getStartDate(), game.getStartDate()).toDays())
                 .collect(Collectors.toList());
     }
 
@@ -87,7 +103,7 @@ public class TournamentMode extends Mode {
                 .collect(Collectors.toMap(User::getId, user -> IntStream
                         .range(0, Integer.min( // The number of effective days of the tournament.
                                 (int)Duration.between(getStartDate(), LocalDateTime.now()).toDays(),
-                                TOURNAMENT_DURATION))
+                                Constants.TOURNAMENT_DURATION))
                         .map(i -> { // The score of the game corresponding to the day and the user.
                             if(daysAndUser.containsKey(i) && daysAndUser.get(i).containsKey(user.getId())) {
                                 return daysAndUser

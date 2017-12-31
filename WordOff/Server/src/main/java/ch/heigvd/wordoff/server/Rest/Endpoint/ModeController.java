@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,15 +42,14 @@ public class ModeController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<ModeSummaryDto>> getModes(
             @RequestAttribute("player") User player) {
-            List<ModeSummaryDto> modesDTO = Stream.of(invitationRepository.findAllByPkTargetAndStatus(player, InvitationStatus.ACCEPT),
-                invitationRepository.findAllByPkTargetAndStatus(player, InvitationStatus.ORIGIN))
-                    .flatMap(Collection::stream)
-                    .map(Invitation::getMode)
-                    .map(m -> DtoFactory.createSummaryFrom(m, player))
-                    .collect(Collectors.toList());
+        List<ModeSummaryDto> modesDTO = Stream.of(invitationRepository.findAllByPkTargetAndStatus(player, InvitationStatus.ACCEPT),
+            invitationRepository.findAllByPkTargetAndStatus(player, InvitationStatus.ORIGIN))
+                .flatMap(Collection::stream)
+                .map(Invitation::getMode)
+                .map(m -> DtoFactory.createSummaryFrom(m, player))
+                .collect(Collectors.toList());
 
         return new ResponseEntity<>(modesDTO, HttpStatus.OK);
-
     }
 
     /**
@@ -62,8 +62,8 @@ public class ModeController {
     public ResponseEntity<ModeSummaryDto> newMode(
             @RequestAttribute("player") User player,
             @RequestBody CreateModeDto modeDto) {
-
         Mode mode = modeService.initMode(player, modeDto.getName(), modeDto.getParticipants(), modeDto.getType(), modeDto.getLang());
+
         ModeSummaryDto modeSummaryDto = DtoFactory.createSummaryFrom(mode, player);
 
         // TODO -> discussion, le mode n'est pas tjrs créer, parfois ou plutôt souvent, l'utilisateur rejoindra un mode. Laissons-nous le status CREATED ?
@@ -80,7 +80,6 @@ public class ModeController {
     public ResponseEntity<ModeDto> getMode(
             @RequestAttribute("player") User player,
             @PathVariable("modeId") Long modeId) {
-
         ModeDto modeDto = DtoFactory.createFrom(modeService.getMode(modeId), player);
 
         return new ResponseEntity<>(modeDto, HttpStatus.OK);
@@ -110,8 +109,8 @@ public class ModeController {
     public ResponseEntity<List<MessageDto>> getMessages(
             @RequestAttribute("player") User player,
             @PathVariable("modeId") Long modeId) {
-
-        return new ResponseEntity<>(HttpStatus.OK);
+        List<MessageDto> messages = new ArrayList<>();
+        return new ResponseEntity<>(messages, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{modeId}/messages",method = RequestMethod.POST)
@@ -119,7 +118,6 @@ public class ModeController {
             @RequestAttribute("player") User player,
             @PathVariable("modeId") Long modeId,
             @RequestBody MessageDto message) {
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

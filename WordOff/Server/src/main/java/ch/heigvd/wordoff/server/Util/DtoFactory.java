@@ -1,5 +1,6 @@
 package ch.heigvd.wordoff.server.Util;
 
+import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dto.Game.*;
 import ch.heigvd.wordoff.common.Dto.Game.Racks.PlayerRackDto;
 import ch.heigvd.wordoff.common.Dto.Game.Racks.RackDto;
@@ -254,6 +255,7 @@ public class DtoFactory {
             case COMPETITIVE_TOURNAMENT:
             case FRIENDLY_TOURNAMENT:
                 dto = modelMapper.map(entity, TournamentModeDto.class);
+                ((TournamentModeDto) dto).setNbGameRemaining(Constants.MAX_GAMES_PER_DAY - ((TournamentMode) entity).getGamesOfCurrentDayAndPlayer(viewer).size());
                 break;
         }
 

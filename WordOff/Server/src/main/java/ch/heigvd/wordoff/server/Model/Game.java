@@ -130,6 +130,10 @@ public class Game {
         return startDate;
     }
 
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
     public boolean isEnded() {
         return ended;
     }

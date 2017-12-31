@@ -2,6 +2,7 @@ package ch.heigvd.wordoff.common.Dto.Mode;
 
 import ch.heigvd.wordoff.common.Dto.Endpoint.IResource;
 import ch.heigvd.wordoff.common.Dto.Endpoint.ResourceWriteList;
+import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
 import ch.heigvd.wordoff.common.Dto.MessageDto;
 
@@ -32,6 +33,11 @@ public abstract class ModeDto implements IResource<ModeDto> {
      * Flag indicating if the mode has ended (you can never play again)
      */
     private boolean ended;
+
+    /**
+     * Endpoint to POST a game, so that a new game can be created.
+     */
+    private ResourceWriteList<GameDto, Void> games;
 
     /**
      * Endpoint to GET and POST messages (chat).

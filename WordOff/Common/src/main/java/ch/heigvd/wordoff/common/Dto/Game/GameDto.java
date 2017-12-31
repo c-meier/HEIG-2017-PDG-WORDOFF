@@ -27,8 +27,6 @@ public class GameDto implements IResource<GameDto> {
 
     private int bagSize;
 
-    /* TODO -> create GameSummaryDto */
-
     // Necessary for Jackson deserialization
     protected GameDto() {}
 

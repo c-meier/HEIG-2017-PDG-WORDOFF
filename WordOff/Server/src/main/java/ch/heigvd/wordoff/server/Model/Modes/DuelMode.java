@@ -9,6 +9,8 @@ import java.util.List;
 
 public class DuelMode extends Mode {
 
+    public DuelMode() {}
+
     public DuelMode(User participant) {
         putInvitation(new Invitation(this, participant, InvitationStatus.ORIGIN, "NO ADVERSARY YET"));
     }

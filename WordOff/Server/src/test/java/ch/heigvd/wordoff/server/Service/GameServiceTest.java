@@ -3,6 +3,7 @@ package ch.heigvd.wordoff.server.Service;
 import ch.heigvd.wordoff.common.DictionaryLoader;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.server.Model.*;
+import ch.heigvd.wordoff.server.Model.Modes.TournamentMode;
 import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
@@ -62,7 +63,7 @@ public class GameServiceTest {
         p2 = playerRepository.save(new User("p2"));
         ai = playerRepository.findOne(1L);
         set = langSetRepository.findByName("fr");
-        gameWithAi = new Game(p1, ai, set);
+        gameWithAi = new Game(new TournamentMode(), p1, ai, set);
     }
 
     @Test
@@ -77,7 +78,7 @@ public class GameServiceTest {
 
     @Test
     public void initGameWithAI() throws Exception {
-        assertThat(gameWithAi.getBag().getTiles().size()).isEqualTo(116);
+        assertThat(gameWithAi.getBag().getTiles().size()).isEqualTo(119);
 
         Side side1 = gameWithAi.getSideInit();
         Side side2 = gameWithAi.getSideResp();

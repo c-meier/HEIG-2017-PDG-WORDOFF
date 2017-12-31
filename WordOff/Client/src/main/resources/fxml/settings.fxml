@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -9,6 +10,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -44,7 +46,11 @@
                      <children>
                       <AnchorPane>
                            <children>
-                              <Label layoutX="386.0" layoutY="9.0" prefHeight="40.0" prefWidth="900.0" styleClass="titleMainMenu" stylesheets="@../styles/Styles.css" text="Paramètres d'utilisateur" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <Label layoutX="386.0" layoutY="9.0" prefHeight="40.0" prefWidth="900.0" stylesheets="@../styles/Styles.css" text="Paramètres d'utilisateur" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <styleClass>
+                                    <String fx:value="titleMainMenu" />
+                                    <String fx:value="titleMainMenu_Background" />
+                                 </styleClass></Label>
                            </children>
                         </AnchorPane>
                         <GridPane prefHeight="145.0" prefWidth="896.0" styleClass="backgroundBasic" stylesheets="@../styles/Styles.css" GridPane.rowIndex="1">
@@ -58,8 +64,11 @@
                            <children>
                               <AnchorPane>
                                  <children>
-                                    <ImageView fx:id="playerAvatar" fitHeight="60.0" fitWidth="60.0" layoutX="5.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label fx:id="playerName" layoutX="82.0" layoutY="14.0" text="Joueur NAme" />
+                                    <ImageView fx:id="playerAvatar" fitHeight="67.0" fitWidth="71.0" layoutX="14.0" layoutY="12.0" onMouseClicked="#changeAvatar" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/icon.png" />
+                                       </image></ImageView>
+                                    <Label fx:id="playerName" layoutX="100.0" layoutY="36.0" text="Joueur Name" />
                                  </children>
                               </AnchorPane>
                               <GridPane GridPane.rowIndex="1">
@@ -72,10 +81,38 @@
                                   <RowConstraints vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label prefHeight="40.0" prefWidth="900.0" styleClass="titleMainMenu" stylesheets="@../styles/Styles.css" text="Liste d'amis" />
-                                    <Label prefHeight="40.0" prefWidth="900.0" styleClass="titleMainMenu" stylesheets="@../styles/Styles.css" text="Liste noires" GridPane.columnIndex="1" />
                                     <VBox fx:id="friendsList" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
                                     <VBox fx:id="blackList" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <GridPane styleClass="titleMainMenu_Background" stylesheets="@../styles/Styles.css">
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Button mnemonicParsing="false" styleClass="green" stylesheets="@../styles/Style_buttonCircle.css" text="+" GridPane.columnIndex="1" />
+                                          <Button mnemonicParsing="false" styleClass="red" stylesheets="@../styles/Style_buttonCircle.css" text="-" GridPane.columnIndex="2" />
+                                          <Label styleClass="titleMainMenu" stylesheets="@../styles/Styles.css" text="Liste d'amis" />
+                                       </children>
+                                    </GridPane>
+                                    <GridPane styleClass="titleMainMenu_Background" stylesheets="@../styles/Styles.css" GridPane.columnIndex="1">
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label styleClass="titleMainMenu" stylesheets="@../styles/Styles.css" text="Liste noire" />
+                                          <Button mnemonicParsing="false" styleClass="green" stylesheets="@../styles/Style_buttonCircle.css" text="+" GridPane.columnIndex="1" />
+                                          <Button mnemonicParsing="false" styleClass="red" stylesheets="@../styles/Style_buttonCircle.css" text="-" GridPane.columnIndex="2" />
+                                       </children>
+                                    </GridPane>
                                  </children>
                               </GridPane>
                            </children>
@@ -92,14 +129,18 @@
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="160.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.columnIndex="1">
+                      <AnchorPane GridPane.columnIndex="1">
                            <children>
-                              <Label layoutX="402.0" layoutY="6.0" prefHeight="40.0" prefWidth="900.0" styleClass="titleMainMenu" stylesheets="@../styles/Styles.css" text="Aide et assistance" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <Label layoutX="402.0" layoutY="6.0" prefHeight="40.0" prefWidth="900.0" stylesheets="@../styles/Styles.css" text="Aide et assistance" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <styleClass>
+                                    <String fx:value="titleMainMenu" />
+                                    <String fx:value="titleMainMenu_Background" />
+                                 </styleClass></Label>
                            </children>
                         </AnchorPane>
-                        <GridPane prefHeight="144.0" prefWidth="896.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <GridPane prefHeight="144.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -107,15 +148,15 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="Commentaires&#10;Aide-nous à améliorer le jeu">
+                              <TextArea accessibleRole="MENU_BUTTON" cacheShape="false" centerShape="false" depthTest="DISABLE" editable="false" focusTraversable="false" mouseTransparent="true" scaleShape="false" stylesheets="@../styles/Styles.css" text="Commentaires&#10;Aide-nous à améliorer le jeu">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></TextArea>
-                              <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="Mentions légales&#10;Licence et informations sur la société" GridPane.rowIndex="1">
+                              <TextArea accessibleRole="MENU_BUTTON" cacheShape="false" centerShape="false" editable="false" focusTraversable="false" mouseTransparent="true" scaleShape="false" stylesheets="@../styles/Styles.css" text="Mentions légales&#10;Licence et informations sur la société" GridPane.rowIndex="1">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></TextArea>
-                              <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Styles.css" text="WordOff (2.1.16 #1)" GridPane.rowIndex="2">
+                              <TextArea accessibleRole="MENU_BUTTON" cacheShape="false" centerShape="false" editable="false" focusTraversable="false" mouseTransparent="true" scaleShape="false" stylesheets="@../styles/Styles.css" text="WordOff (2.1.16 #1)" GridPane.rowIndex="2">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></TextArea>
@@ -123,12 +164,16 @@
                         </GridPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <Label layoutX="400.0" layoutY="9.0" prefHeight="40.0" prefWidth="900.0" styleClass="titleMainMenu" stylesheets="@../styles/Styles.css" text="Paramètres du jeu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <Label layoutX="400.0" layoutY="9.0" prefHeight="40.0" prefWidth="900.0" stylesheets="@../styles/Styles.css" text="Paramètres du jeu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <styleClass>
+                                    <String fx:value="titleMainMenu" />
+                                    <String fx:value="titleMainMenu_Background" />
+                                 </styleClass></Label>
                            </children>
                         </AnchorPane>
                         <GridPane prefHeight="144.0" prefWidth="896.0" styleClass="backgroundBasic" GridPane.rowIndex="1">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />

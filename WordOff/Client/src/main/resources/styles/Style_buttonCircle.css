@@ -1,28 +1,61 @@
 .button{
     -fx-background-radius: 5em;
     -fx-min-width:  25px;
-    -fx-min-height:   25px;
-    -fx-max-width:   25px;
-    -fx-max-height:  25px;
-    -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #78c739 0%, #4aae3e 100%),
-            #80c89e,
-            #64dfba,
-            radial-gradient(center 50% 50%, radius 100%, #80c89e, #64dfba);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-    -fx-cursor: hand;
+    -fx-min-height: 25px;
+    -fx-max-width: 25px;
+    -fx-max-height: 25px;
 }
 
-.button:hover,
-.button:showing{
+.green:hover,
+.green:showing{
     -fx-background-color:
             linear-gradient(from 0% 93% to 0% 100%, #78c739 0%, #4aae3e 100%),
             #c6c817,
             #dfde22,
             radial-gradient(center 50% 50%, radius 100%, #c6c817, #dfde22);
 }
-.button:pressed{
+.green:pressed{
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.70) , 2,0,0,1 );
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+
+.green {
+    -fx-background-color:
+            linear-gradient(#f0ff35, #a9ff00),
+            radial-gradient(center 50% -40%, radius 200%, #abe237 45%, #80c800 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.5em;
+    -fx-cursor: hand;
+    -fx-padding: 0 0 0 0;
+}
+
+.red {
+    -fx-background-color:
+            linear-gradient(#ffe43a, #ff6729),
+            radial-gradient(center 50% -40%, radius 200%, #e27718 45%, #c80f00 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #fdffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.5em;
+    -fx-cursor: hand;
+    -fx-padding: 0 0 0 0;
+}
+
+.red:hover,
+.red:showing{
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #ffe43a 0%, #ff6729 100%),
+            #d79f20,
+            #ff8e0b,
+            radial-gradient(center 50% 50%, radius 100%, #ff8e0b, #ff5412);
+}
+.red:pressed{
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.50) , 2,0,0,1 );
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
 }

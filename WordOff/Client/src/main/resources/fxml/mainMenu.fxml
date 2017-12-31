@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
@@ -62,10 +63,14 @@
                      <children>
                       <AnchorPane minHeight="40.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="171.0" layoutY="5.0" prefWidth="412.0" styleClass="titleMainMenu" stylesheets="@../styles/Styles.css" text="Parties" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="171.0" layoutY="5.0" prefWidth="412.0" stylesheets="@../styles/Styles.css" text="Parties" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
+                                 <styleClass>
+                                    <String fx:value="titleMainMenu" />
+                                    <String fx:value="titleMainMenu_Background" />
+                                 </styleClass>
                               </Label>
                            </children>
                         </AnchorPane>
@@ -94,7 +99,7 @@
                                                    </rowConstraints>
                                                    <children>
                                                       <Label alignment="CENTER" text="Votre tour!" />
-                                                      <Button fx:id="newGamePlayer" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="28.0" prefWidth="50.0" stylesheets="@../styles/Style_buttonCircle.css" text="+" GridPane.columnIndex="1" />
+                                                      <Button fx:id="newGamePlayer" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="28.0" prefWidth="50.0" styleClass="green" stylesheets="@../styles/Style_buttonCircle.css" text="+" GridPane.columnIndex="1" />
                                                    </children>
                                                 </GridPane>
                                              </children>
@@ -165,10 +170,14 @@
                      <children>
                       <AnchorPane prefHeight="108.0" prefWidth="444.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="5.0" prefWidth="412.0" styleClass="titleMainMenu" stylesheets="@../styles/Styles.css" text="Tournois" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="5.0" prefWidth="412.0" stylesheets="@../styles/Styles.css" text="Tournois" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
+                                 <styleClass>
+                                    <String fx:value="titleMainMenu" />
+                                    <String fx:value="titleMainMenu_Background" />
+                                 </styleClass>
                               </Label>
                            </children>
                         </AnchorPane>
@@ -193,14 +202,14 @@
                                        </rowConstraints>
                                        <children>
                                           <Label alignment="CENTER" prefWidth="410.0" text="Tournoi compétitif" />
-                                          <Button fx:id="newTournament" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="28.0" prefWidth="50.0" stylesheets="@../styles/Style_buttonCircle.css" text="+" GridPane.columnIndex="1" />
+                                          <Button fx:id="newTournament" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="28.0" prefWidth="50.0" styleClass="green" stylesheets="@../styles/Style_buttonCircle.css" text="+" GridPane.columnIndex="1" />
                                        </children>
                                     </GridPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.rowIndex="1">
                                  <children>
-                                    <Accordion fx:id="accordionTournament" layoutY="29.0" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <Accordion fx:id="accordionTournament" layoutY="29.0" styleClass="green" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -226,7 +235,7 @@
                                        </rowConstraints>
                                        <children>
                                           <Label alignment="CENTER" prefWidth="410.0" text="Tournoi amical" />
-                                          <Button fx:id="newTournamentFriend" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="28.0" prefWidth="50.0" stylesheets="@../styles/Style_buttonCircle.css" text="+" GridPane.columnIndex="1" />
+                                          <Button fx:id="newTournamentFriend" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="28.0" prefWidth="50.0" styleClass="green" stylesheets="@../styles/Style_buttonCircle.css" text="+" GridPane.columnIndex="1" />
                                        </children>
                                     </GridPane>
                                  </children>

@@ -60,6 +60,14 @@ public class SettingsController implements Initializable {
         playerName.setText("Player name");
         // TODO set l'image
         // TODO set les listes d'amis / ennemis, utiliser ListCustom
+
+        // TODO créer le listener pour retirer des listes les amis/ennemies
     }
-    
+
+    @FXML
+    private void changeAvatar(){
+        // TODO Charger un nouvel avatar (playerAvatar)
+
+    }
+
 }

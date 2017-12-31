@@ -1,0 +1,31 @@
+.choice-box{
+    -fx-background-color: rgb(200.0, 200.0, 200.0);
+    -fx-background-radius: 100; /* Full round corner */
+    -fx-background-insets: 2.5;
+    -fx-padding:0;
+    -fx-cursor: hand;
+    -fx-background-color: derive(grey, 0.54);
+    -fx-mark-color: black;
+}
+
+
+.choice-box .context-menu {
+    -fx-background-color: derive(grey, 0.54);
+}
+
+.choice-box .menu-item:focused {
+    -fx-border-color: #79df8f;
+    -fx-background-color:  #79df8f;
+}
+
+.choice-box .menu-item > .label {
+    -fx-text-fill: white;
+}
+
+.choice-box .menu-item:focused > .label {
+    -fx-text-fill: black;
+}
+
+.choice-box > .label {
+    -fx-text-fill: black;
+}

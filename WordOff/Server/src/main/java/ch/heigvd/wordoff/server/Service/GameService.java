@@ -138,10 +138,9 @@ public class GameService {
     public Game makeAiPLay(Game game, User player) {
         List<ITile> word = new ArrayList<>();
 
-        WordAnalyzer wa = new WordAnalyzer(dictionaryLoader.getDico(game.getLang()), game.getSideResp().getChallenge(), game.getSideResp().getPlayerRack());
-
         // get the words by score
-        List<Pair<Integer, List<ITile>>> wordsByScore = wa.getWordsByScore();
+        List<Pair<Integer, List<ITile>>> wordsByScore = WordAnalyzer.getWordsByScore(dictionaryLoader.getDico(game.getLang()),
+                game.getSideResp().getChallenge(), game.getSideResp().getPlayerRack());
 
         // Get the size of the treemap
         int sizeWordsByScore = wordsByScore.size();

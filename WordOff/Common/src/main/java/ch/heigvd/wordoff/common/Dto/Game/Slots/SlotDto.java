@@ -42,6 +42,13 @@ public class SlotDto implements ISlot, IDto {
         return null == tile ? 0 : tile.getScore();
     }
 
+    @Override
+    public ISlot duplicate() {
+        SlotDto copy = new SlotDto(new Short(pos.shortValue()));
+        copy.setTile(tile.duplicate());
+        return copy;
+    }
+
     public Short getPos() {
         return pos;
     }

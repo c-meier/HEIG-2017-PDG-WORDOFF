@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 public class CharacterSelectController extends BorderPane implements Initializable{
     private static final int GRID_WIDTH = 9;
@@ -32,11 +31,11 @@ public class CharacterSelectController extends BorderPane implements Initializab
 
     private Character selectedChar = null;
 
-    String alphabetString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    List<Character> alphabet = alphabetString
-            .chars()
-            .mapToObj(e->(char)e)
-            .collect(Collectors.toList());
+    private List<Character> alphabet;
+
+    public CharacterSelectController(List<Character> alphabet){
+        this.alphabet = alphabet;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

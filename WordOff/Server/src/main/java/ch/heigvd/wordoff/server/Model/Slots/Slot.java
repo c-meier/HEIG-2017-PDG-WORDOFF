@@ -43,6 +43,13 @@ public class Slot implements ISlot, Serializable {
         return null == tile ? 0 : tile.getScore();
     }
 
+    @Override
+    public ISlot duplicate() {
+        Slot copy = new Slot(new Short(pos.shortValue()));
+        copy.setTile(tile.duplicate());
+        return copy;
+    }
+
     public Short getPos() {
         return pos;
     }

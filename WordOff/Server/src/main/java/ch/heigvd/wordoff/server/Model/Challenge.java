@@ -55,6 +55,15 @@ public class Challenge implements IChallenge, Serializable {
         return slots;
     }
 
+    @Override
+    public IChallenge duplicate() {
+        List<ISlot> newSlots = new ArrayList<>();
+        slots.forEach((elem) -> newSlots.add(elem.duplicate()));
+        Challenge copy = new Challenge(newSlots);
+        copy.setSwapRack((SwapRack) swapRack.duplicate());
+        return copy;
+    }
+
     public void setSlots(List<ISlot> slots) {
         this.slots = slots;
     }

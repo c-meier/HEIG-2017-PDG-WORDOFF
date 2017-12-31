@@ -3,25 +3,63 @@
 .list-cell:filled:hover{
     -fx-background-color: linear-gradient(#8c683f 0%, #c59358 25%, #e0a764 75%, #f3b56c 100%);
     -fx-text-fill: #FFFFFF;
-
 }
 .list-cell{
     -fx-font-weight: 900;
     -fx-font-size: 14px;
     -fx-display: inline-block;
     -fx-alignment: center;
+    -fx-cursor: hand;
 }
 
 .list-cell:odd {
-    -fx-cell-hover-color: #c7a880;
-    -fx-background-color: #c7a880;
+    -fx-cell-hover-color: #ffeeba;
+    -fx-background-color: #ffeeba;
 }
 
 .list-cell:empty{
-    -fx-background-color: #ffeeba;
+    -fx-background-color: lightgoldenrodyellow;
 }
 
 .list-view{
-    -fx-background-color: #ffeeba;
+    -fx-background-color: lightgoldenrodyellow;
+    -fx-border-width: 1px;
+    -fx-border-color: #d8a877;
 }
 
+.accordion{
+    -fx-background-color: lightgoldenrodyellow;
+    -fx-cursor: hand;
+}
+
+.titled-pane:empty{
+    -fx-background-color: lightgoldenrodyellow;
+}
+
+.titled-pane > .title{
+    -fx-font-weight: 900;
+    -fx-font-size: 14px;
+    -fx-display: inline-block;
+    -fx-alignment: center;
+    -fx-background-color: #FFFFFF;
+}
+/*Actuellement ne marche pas...*/
+.titled-pane:odd > .title{
+    -fx-background-color: #ffeeba;
+    -fx-border-color: #ffeeba;
+}
+
+.titled-pane:focused > .title,
+.titled-pane:selected > .title,
+.titled-pane:hover > .title{
+    -fx-background-color: linear-gradient(#8c683f 0%, #c59358 25%, #e0a764 75%, #f3b56c 100%);
+    -fx-text-fill: #FFFFFF;
+}
+
+.titled-pane:hover >.title >.arrow-button .arrow,
+.titled-pane:focused > .title > .arrow-button .arrow {
+    -fx-background-color: white;
+}
+.titled-pane > .content > * {
+    -fx-padding: 0px;
+}

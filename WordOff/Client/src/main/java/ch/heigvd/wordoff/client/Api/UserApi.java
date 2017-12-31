@@ -5,6 +5,7 @@ import ch.heigvd.wordoff.client.Exception.UnauthorizedException;
 import ch.heigvd.wordoff.client.Exception.UnprocessableEntityException;
 import ch.heigvd.wordoff.client.Util.TokenManager;
 import ch.heigvd.wordoff.common.Dto.ErrorDto;
+import ch.heigvd.wordoff.common.Dto.MeDto;
 import ch.heigvd.wordoff.common.Dto.User.LoginDto;
 import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
@@ -53,13 +54,13 @@ public class UserApi {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        ResponseEntity responseEntity = null;
+        ResponseEntity<MeDto> responseEntity = null;
         try {
             responseEntity =
                     restTemplate.exchange(uri,
                             HttpMethod.POST,
                             new HttpEntity<>(loginDto, headers),
-                            ResponseEntity.class);
+                            MeDto.class);
         } catch (HttpClientErrorException e) {
             switch (e.getStatusCode()) {
                 case BAD_REQUEST: // 400

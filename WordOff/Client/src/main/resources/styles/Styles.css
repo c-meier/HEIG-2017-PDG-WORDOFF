@@ -50,13 +50,16 @@
 
 
 .titleMainMenu{
-	-fx-background-color:#ae814e;
-	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);
 	-fx-font-family: 'Open Sans';
 	-fx-text-fill: white;
 	-fx-alignment:center,center;
 	-fx-font-size:14pt;
 	-fx-font-weight:bold;
+}
+
+.titleMainMenu_Background{
+	-fx-background-color:#ae814e;
+	-fx-effect: innershadow(three-pass-box, black, 10, 0, 0, 0);
 }
 
 .title_Menu{
@@ -68,6 +71,8 @@
 	-fx-font-size:14pt;
 	-fx-font-weight:bold;
 }
+
+
 
 .login{
 	-fx-background-color:#ae814e;

@@ -8,12 +8,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
+import javafx.scene.control.ListView;
+
 /**
  * FXML Controller class
  *
  * @author Gabriel Luthier
  */
 public class MessagesController implements Initializable {
+
+    @FXML
+    ListView listNewMessage;
+    @FXML
+    ListView listHistMessage;
 
     @FXML
     private void handleGotoMenu(ActionEvent event) {
@@ -24,7 +31,8 @@ public class MessagesController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        listNewMessage.getItems().addAll("Aucun message");
+        listHistMessage.getItems().addAll("Aucun message");
     }    
     
 }

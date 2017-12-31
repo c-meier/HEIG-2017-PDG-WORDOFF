@@ -58,17 +58,18 @@
                             <ColumnConstraints hgrow="SOMETIMES" />
                           </columnConstraints>
                           <rowConstraints>
-                            <RowConstraints vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="90.0" vgrow="SOMETIMES" />
                               <RowConstraints prefHeight="262.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
                               <AnchorPane>
                                  <children>
-                                    <ImageView fx:id="playerAvatar" fitHeight="67.0" fitWidth="71.0" layoutX="14.0" layoutY="12.0" onMouseClicked="#changeAvatar" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="playerAvatar" fitHeight="67.0" fitWidth="71.0" layoutX="39.0" layoutY="12.0" onMouseClicked="#changeAvatar" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/icon.png" />
                                        </image></ImageView>
-                                    <Label fx:id="playerName" layoutX="100.0" layoutY="36.0" text="Joueur Name" />
+                                    <Label fx:id="playerName" layoutX="120.0" layoutY="36.0" text="Joueur Name" />
+                                    <Button layoutX="27.0" layoutY="53.0" mnemonicParsing="false" onMouseClicked="#changeAvatar" styleClass="green" stylesheets="@../styles/Style_buttonCircle.css" text="+" />
                                  </children>
                               </AnchorPane>
                               <GridPane GridPane.rowIndex="1">
@@ -93,8 +94,8 @@
                                           <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Button mnemonicParsing="false" styleClass="green" stylesheets="@../styles/Style_buttonCircle.css" text="+" GridPane.columnIndex="1" />
-                                          <Button mnemonicParsing="false" styleClass="red" stylesheets="@../styles/Style_buttonCircle.css" text="-" GridPane.columnIndex="2" />
+                                          <Button mnemonicParsing="false" onMouseClicked="#addNewFriend" styleClass="green" stylesheets="@../styles/Style_buttonCircle.css" text="+" GridPane.columnIndex="1" />
+                                          <Button mnemonicParsing="false" onMouseClicked="#removeFriend" styleClass="red" stylesheets="@../styles/Style_buttonCircle.css" text="-" GridPane.columnIndex="2" />
                                           <Label styleClass="titleMainMenu" stylesheets="@../styles/Styles.css" text="Liste d'amis" />
                                        </children>
                                     </GridPane>
@@ -109,8 +110,8 @@
                                        </rowConstraints>
                                        <children>
                                           <Label styleClass="titleMainMenu" stylesheets="@../styles/Styles.css" text="Liste noire" />
-                                          <Button mnemonicParsing="false" styleClass="green" stylesheets="@../styles/Style_buttonCircle.css" text="+" GridPane.columnIndex="1" />
-                                          <Button mnemonicParsing="false" styleClass="red" stylesheets="@../styles/Style_buttonCircle.css" text="-" GridPane.columnIndex="2" />
+                                          <Button mnemonicParsing="false" onMouseClicked="#addBlackList" styleClass="green" stylesheets="@../styles/Style_buttonCircle.css" text="+" GridPane.columnIndex="1" />
+                                          <Button mnemonicParsing="false" onMouseClicked="#removeBlackList" styleClass="red" stylesheets="@../styles/Style_buttonCircle.css" text="-" GridPane.columnIndex="2" />
                                        </children>
                                     </GridPane>
                                  </children>

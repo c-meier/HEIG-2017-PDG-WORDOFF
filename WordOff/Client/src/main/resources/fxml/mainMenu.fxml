@@ -27,12 +27,12 @@
                      <items>
                         <Menu mnemonicParsing="false" text="Paramètres">
                            <items>
-                              <MenuItem mnemonicParsing="false" onAction="#handleGotoMessages" text="Messages" />
                               <MenuItem mnemonicParsing="false" onAction="#handleGotoSettings" text="Paramètres / Profil" />
                            </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Notifications">
                            <items>
+                              <MenuItem mnemonicParsing="false" onAction="#handleGotoMessages" text="Messages" />
                               <MenuItem mnemonicParsing="false" onAction="#handleGotoInvitations" text="Invitations" />
                               <MenuItem mnemonicParsing="false" onAction="#handleGotoAlert" text="Alertes" />
                            </items>

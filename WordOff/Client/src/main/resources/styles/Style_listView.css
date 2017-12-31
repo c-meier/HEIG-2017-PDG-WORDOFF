@@ -23,6 +23,8 @@
 
 .list-view{
     -fx-background-color: lightgoldenrodyellow;
+    -fx-border-width: 1px;
+    -fx-border-color: #d8a877;
 }
 
 .accordion{

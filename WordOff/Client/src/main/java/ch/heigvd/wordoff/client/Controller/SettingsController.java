@@ -60,8 +60,7 @@ public class SettingsController implements Initializable {
         playerName.setText("Player name");
         // TODO set l'image
         // TODO set les listes d'amis / ennemis, utiliser ListCustom
-
-        // TODO créer le listener pour retirer des listes les amis/ennemies
+        // TODO check la config, à save localement ?!
     }
 
     @FXML
@@ -70,4 +69,23 @@ public class SettingsController implements Initializable {
 
     }
 
+    @FXML
+    private void addNewFriend(){
+        // TODO dialog pour ajouter un ami
+    }
+
+    @FXML
+    private void addBlackList(){
+        // TODO dialog pour ajouter dans la blacklist
+    }
+
+    @FXML
+    private void removeFriend(){
+        // TODO supprimer l'ami de la liste
+    }
+
+    @FXML
+    private void removeBlackList(){
+        // TODO supprimer de la blacklist
+    }
 }

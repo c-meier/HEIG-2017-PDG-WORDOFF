@@ -9,8 +9,6 @@ import ch.heigvd.wordoff.server.Model.Challenge;
 import ch.heigvd.wordoff.server.Model.Game;
 import ch.heigvd.wordoff.server.Model.User;
 import ch.heigvd.wordoff.server.Repository.GameRepository;
-import ch.heigvd.wordoff.server.Repository.LangSetRepository;
-import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Rest.Exception.ErrorCodeException;
 import ch.heigvd.wordoff.server.Service.GameService;
 import ch.heigvd.wordoff.server.Util.DtoFactory;
@@ -23,6 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Controller to act upon games.
+ */
 @RestController
 @RequestMapping(value = "/games", produces = "application/json")
 public class GameController {
@@ -34,6 +35,12 @@ public class GameController {
         this.gameService = gameService;
     }
 
+    /**
+     * GET the list of game of a given player.
+     * @deprecated
+     * @param player The current player.
+     * @return The list of game, each as a summary.
+     */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<GameSummaryDto>> listGames(
             @RequestAttribute("player") User player) {
@@ -47,26 +54,24 @@ public class GameController {
     }
 
     /**
-     *
-     * @param player
-     * @param gameId
-     * @return The challenge of the adversary
+     * GET the information about the game specified by the given id.
+     * @param player The current player.
+     * @param gameId The game id.
+     * @return The game linked to the id.
      */
     @RequestMapping(value = "/{gameId}", method = RequestMethod.GET)
     public ResponseEntity<GameDto> getGame(
             @RequestAttribute("player") User player,
             @PathVariable("gameId") Long gameId) {
-        boolean gameExists = true;
-        if(!gameExists) {
-            throw new ErrorCodeException(Protocol.GAME_NOT_EXISTS, "The specified game does not exists!");
-        }
-
-        boolean gameConcernPlayer = true;
-        if(!gameConcernPlayer) {
-            throw new ErrorCodeException(Protocol.NOT_PLAYER_GAME, "The game does not belong to you!");
-        }
-
         Game game = gameRepository.findOne(gameId);
+
+        if(game == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        if(!game.concernPlayer(player)) {
+            throw new ErrorCodeException(Protocol.NOT_PLAYER_GAME, "The game does not concern you!");
+        }
 
         if (game.getCurrPlayer() instanceof Ai) {
             game = gameService.makeAiPLay(game, player);
@@ -80,11 +85,11 @@ public class GameController {
     }
 
     /**
-     *
-     * @param player The player who send the request
-     * @param gameId The gameId
-     * @param challengeDto the challenge with the word choosed by the player
-     * @return The side of the player that is change
+     * Play a word in response to a challenge.
+     * @param player The player who send the request.
+     * @param gameId The gameId.
+     * @param challengeDto the challenge with the word chosen by the player.
+     * @return The game that is changed.
      */
     @RequestMapping(value = "/{gameId}/challenge", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<GameDto> play(

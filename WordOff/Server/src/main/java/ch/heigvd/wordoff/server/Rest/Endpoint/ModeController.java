@@ -23,6 +23,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Controller to act upon modes.
+ */
 @RestController
 @RequestMapping(value = "/modes", produces = "application/json")
 public class ModeController {
@@ -35,9 +38,9 @@ public class ModeController {
     }
 
     /**
-     * Method called by the client when he wants to get the list of all the modes associated to him
-     * @param player The user
-     * @return The list of mode associated to the user
+     * Method called by the client when he wants to get the list of all the modes associated with him.
+     * @param player The current user.
+     * @return The list of mode associated with the user.
      */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<ModeSummaryDto>> getModes(
@@ -53,10 +56,10 @@ public class ModeController {
     }
 
     /**
-     * Method called by the client when he wants to create a new mode or join a mode
-     * @param player The user
-     * @param modeDto The mode he wants to create
-     * @return the new mode or a mode that he will join
+     * Method called by the client when he wants to create a new mode or join a mode.
+     * @param player The current user.
+     * @param modeDto The information about the mode he wants to create.
+     * @return The new mode or a mode that he will join.
      */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<ModeSummaryDto> newMode(
@@ -71,10 +74,10 @@ public class ModeController {
     }
 
     /**
-     *
-     * @param player
-     * @param modeId
-     * @return
+     * GET the mode associated with the given id.
+     * @param player The current user.
+     * @param modeId The id of the mode.
+     * @return The mode associated with the given id.
      */
     @RequestMapping(value = "/{modeId}",method = RequestMethod.GET)
     public ResponseEntity<ModeDto> getMode(
@@ -91,10 +94,10 @@ public class ModeController {
     }
 
     /**
-     * Create a new game (to be used only in Tournament mode when the player wants to play a day with a ticket)
-     * @param player The user
-     * @param modeId The id of the mode
-     * @return a HTTP response with the game as a DTO
+     * Create a new game (to be used only in Tournament mode when the player wants to play a day with a ticket).
+     * @param player The current user.
+     * @param modeId The id of the mode.
+     * @return a HTTP response with the game as a DTO.
      */
     @RequestMapping(value = "/{modeId}/games", method = RequestMethod.POST)
     public ResponseEntity<GameDto> getNewGame(
@@ -110,6 +113,12 @@ public class ModeController {
         return new ResponseEntity<>(gameDto, HttpStatus.OK);
     }
 
+    /**
+     * GET the list of messages associated with the given mode id.
+     * @param player The current user.
+     * @param modeId The id of the mode.
+     * @return The list of messages.
+     */
     @RequestMapping(value = "/{modeId}/messages",method = RequestMethod.GET)
     public ResponseEntity<List<MessageDto>> getMessages(
             @RequestAttribute("player") User player,
@@ -118,6 +127,13 @@ public class ModeController {
         return new ResponseEntity<>(messages, HttpStatus.OK);
     }
 
+    /**
+     * POST a new message for the given mode id.
+     * @param player The current user.
+     * @param modeId The id of the mode.
+     * @param message The message to be posted.
+     * @return The message posted.
+     */
     @RequestMapping(value = "/{modeId}/messages",method = RequestMethod.POST)
     public ResponseEntity<MessageDto> postMessages(
             @RequestAttribute("player") User player,

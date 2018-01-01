@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class representation of a duel between 2 person.
+ */
 @Entity
 public class DuelMode extends Mode {
 
@@ -25,6 +28,10 @@ public class DuelMode extends Mode {
         putInvitation(new Invitation(this, adversary, InvitationStatus.WAITING, origin.getName()));
     }
 
+    /**
+     * Methods to get the first game of the list (and the only one)
+     * @return An optional
+     */
     public Optional<Game> getGame() {
         return getGames().isEmpty() ? Optional.empty() : Optional.of(getGames().get(0));
     }

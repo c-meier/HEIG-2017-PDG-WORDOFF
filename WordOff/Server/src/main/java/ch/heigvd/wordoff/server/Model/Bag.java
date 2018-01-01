@@ -39,14 +39,6 @@ public class Bag implements Serializable {
         for (int i = 0; i < nbTiles && !getTiles().isEmpty(); i++) {
             newTiles.add(pop());
         }
-        return newTiles;
-    }
-
-    public List<ITile> getSevenTiles() {
-        List<ITile> newTiles = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
-            newTiles.add(getTiles().get(i));
-        }
         shuffle();
         return newTiles;
     }

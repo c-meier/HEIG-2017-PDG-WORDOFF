@@ -86,8 +86,8 @@ public class GameServiceTest {
         // Set players Racks
         PlayerRack p1R = side1.getPlayerRack();
         PlayerRack p2R = side2.getPlayerRack();
-        p1R.setTiles(gameWithAi.getBag().getSevenTiles());
-        p2R.setTiles(gameWithAi.getBag().getSevenTiles());
+        p1R.setTiles(gameWithAi.getBag().getXTile(7));
+        p2R.setTiles(gameWithAi.getBag().getXTile(7));
         side1.setChallenge(new ChallengeFactory(side1).createRandomSlotPos().create());
         side2.setChallenge(new ChallengeFactory(side2).createRandomSlotPos().create());
 

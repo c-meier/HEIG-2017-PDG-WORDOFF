@@ -100,4 +100,13 @@ public class UserService {
         userRepository.saveAndFlush(owner);
         return owner.getRelation(target);
     }
+
+    /**
+     * Get the User in the database.
+     * @param userId Id of the user.
+     * @return The user.
+     */
+    public User getUser(Long userId) {
+        return userRepository.findOne(userId);
+    }
 }

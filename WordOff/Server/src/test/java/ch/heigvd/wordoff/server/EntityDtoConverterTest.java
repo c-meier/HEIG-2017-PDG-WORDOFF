@@ -159,7 +159,7 @@ public class EntityDtoConverterTest {
     @Test
     public void UserToDto() throws Exception {
         User entity = model.getUserOne();
-        UserDto dto = DtoFactory.createFrom(entity);
+        UserDto dto = DtoFactory.createFrom(entity, model.getUserTwo());
         assertEquals(UserDto.class, dto.getClass());
         assertEquals(entity.getId(), dto.getId());
         assertEquals(entity.getName(), dto.getName());

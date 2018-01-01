@@ -198,8 +198,11 @@ public class DtoFactory {
         return modelMapper.map(entity, UserSummaryDto.class);
     }
 
-    public static UserDto createFrom(User entity) {
-        return modelMapper.map(entity, UserDto.class);
+    public static UserDto createFrom(User entity, User viewer) {
+        UserDto dto = modelMapper.map(entity, UserDto.class);
+
+        dto.setRelation(createFrom(viewer.getRelation(entity)));
+        return dto;
     }
 
     public static PlayerDto createFrom(Player entity) {

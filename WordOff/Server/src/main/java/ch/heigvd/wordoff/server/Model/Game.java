@@ -8,8 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * Project : WordOff
- * Date : 10.10.17
+ * Class that represents a game in the application.
  */
 @Entity
 public class Game {

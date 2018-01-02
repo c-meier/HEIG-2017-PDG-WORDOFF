@@ -1,5 +1,8 @@
 package ch.heigvd.wordoff.server.Model.Slots;
 
+/**
+ * Abstract class that represent a slot that multiply the score of a tile.
+ */
 public abstract class LxSlot extends Slot {
     private int bonus;
 

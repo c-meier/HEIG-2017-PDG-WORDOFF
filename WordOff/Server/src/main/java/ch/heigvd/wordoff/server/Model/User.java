@@ -7,6 +7,9 @@ import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class that represents a user in the application.
+ */
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
 public class User extends Player {

@@ -8,6 +8,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.io.Serializable;
 
+/**
+ * Class that represent a simple (without bonus or malus) slot.
+ */
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.MINIMAL_CLASS,
         include = JsonTypeInfo.As.PROPERTY,

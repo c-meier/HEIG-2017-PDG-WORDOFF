@@ -36,6 +36,10 @@ public class DuelMode extends Mode {
         return getGames().isEmpty() ? Optional.empty() : Optional.of(getGames().get(0));
     }
 
+    /**
+     * Check if the game is finished
+     * @return true if the game has ended, else false
+     */
     @Override
     public boolean isEnded() {
         return getGame().map(Game::isEnded).orElse(false);

@@ -10,6 +10,9 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * Abstract class that represent a mode. Every mode will extends this class
+ */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")

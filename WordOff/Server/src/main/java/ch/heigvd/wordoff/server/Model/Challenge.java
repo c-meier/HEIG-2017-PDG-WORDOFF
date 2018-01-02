@@ -14,7 +14,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Class that represents the challenge where the player will put together
+ * the tiles he choose to create a word.
+ */
 public class Challenge implements IChallenge, Serializable {
     private SwapRack swapRack;
 

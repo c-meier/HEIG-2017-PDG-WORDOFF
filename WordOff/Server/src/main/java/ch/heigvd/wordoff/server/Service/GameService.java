@@ -26,7 +26,7 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- * Service used to s
+ * Service used as an intermediary between the database and the game controller
  */
 @Service
 public class GameService {
@@ -54,6 +54,13 @@ public class GameService {
         // initGame( , two, one, "fr");
     }
 
+    /**
+     * Play the word, if accpeted, given by the player
+     * @param game The game to update
+     * @param player The player that play the word
+     * @param challenge The challenge sended by the player
+     * @return The updated game if the word is accepted or the game with an error if the word is not accepted
+     */
     public Game play(Game game, Player player, Challenge challenge) {
         // Load the dico
         dictionaryLoader.loadDictionary(game.getLang());
@@ -135,6 +142,12 @@ public class GameService {
         return game;
     }
 
+    /**
+     * Make the Ai play a word
+     * @param game The game to update
+     * @param player The Ai
+     * @return The updated game
+     */
     public Game makeAiPLay(Game game, User player) {
         List<ITile> word = new ArrayList<>();
 
@@ -208,13 +221,13 @@ public class GameService {
         // switch player
         game.setCurrPlayer(game.getOtherPlayer(player));
 
-//        gameRepository.save(game);
+        //gameRepository.save(game);
 
         return game;
     }
 
     /**
-     * @brief Initialize a new game
+     * Initialize a new game
      * @param p1 Player 1
      * @param p2 Player 2 (can be null and will be initialize as an AI
      * @return A new initialize game

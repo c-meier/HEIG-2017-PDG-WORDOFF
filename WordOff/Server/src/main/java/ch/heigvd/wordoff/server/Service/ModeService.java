@@ -23,12 +23,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class that represents the service for the modes
+ */
 @Service
 public class ModeService {
     private UserRepository userRepository;
     private ModeRepository modeRepository;
-
-
     private GameService gameService;
     private InvitationRepository invitationRepository;
     private PlayerRepository playerRepository;

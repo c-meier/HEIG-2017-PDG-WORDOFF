@@ -9,6 +9,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
+/**
+ * Class that create challenges
+ */
 public class ChallengeFactory {
     List<ISlot> slots;
 
@@ -19,6 +22,11 @@ public class ChallengeFactory {
         this.slots = new ArrayList<>();
     }
 
+    /**
+     * Add all slots to the list (parameter of the class)
+     * @param slotClass The list of slots to add to the list
+     * @return A ChallengeFactory
+     */
     public ChallengeFactory add(Class<? extends Slot> slotClass) {
         try {
             Constructor<? extends Slot> ctor = slotClass.getConstructor(Short.class);
@@ -31,6 +39,11 @@ public class ChallengeFactory {
         return this;
     }
 
+    /**
+     * Add all slots to the list (parameter of the class)
+     * @param slotsClass The list of slots to add to the list
+     * @return A ChallengeFactory
+     */
     public ChallengeFactory addAll(List<Class<? extends Slot>> slotsClass) {
         for(Class<? extends Slot> slotClass : slotsClass) {
             add(slotClass);
@@ -38,6 +51,10 @@ public class ChallengeFactory {
         return this;
     }
 
+    /**
+     * Create a challenge with random position for the slots in the challenge
+     * @return a ChallengeFactory that contains the list of slots in a random order
+     */
     public ChallengeFactory createRandomSlotPos() {
         // List of the slots without the last slots and the bonus slots
         List<Class<? extends Slot>> slots = new ArrayList<>(Arrays.asList(Slot.class, Slot.class, Slot.class, SwapSlot.class, SwapSlot.class));

@@ -10,8 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Project : WordOff
- * Date : 10.10.17
+ * Class that represents an Bag object that will contains the tiles in a game
  */
 public class Bag implements Serializable {
 

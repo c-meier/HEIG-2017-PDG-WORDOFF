@@ -14,6 +14,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * Class representation of a tournament.
+ */
 @Entity
 public class TournamentMode extends Mode {
 
@@ -48,6 +51,11 @@ public class TournamentMode extends Mode {
                 .filter(g -> getCurrentDay() == Duration.between(getStartDate(), g.getStartDate()).toDays());
     }
 
+    /**
+     * Get the list of game for a given player
+     * @param player the player
+     * @return the list of games play(ed) by the player
+     */
     public List<Game> getGamesOfPlayer(Player player) {
         return getGames()
                 .stream()
@@ -55,6 +63,11 @@ public class TournamentMode extends Mode {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Get the list of games of a player that as the same day as today
+     * @param player The player
+     * @return The list of games
+     */
     public List<Game> getGamesOfCurrentDayAndPlayer(Player player) {
         Long currentDay = getCurrentDay();
         return getGames()
@@ -64,6 +77,11 @@ public class TournamentMode extends Mode {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Get the list of games of a specific day
+     * @param day The day
+     * @return The list of games
+     */
     public List<Game> getGamesOfDay(int day) {
         LocalDateTime start = getStartDate().plusDays(day);
         LocalDateTime end = getStartDate().plusDays(day + 1);
@@ -80,6 +98,10 @@ public class TournamentMode extends Mode {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Get The list of all scores of all days for all players
+     * @return A map with the user as the key and a list of score, each entry corresponding to th score of the day
+     */
     public Map<User, List<Integer>> getAllPlayerScores() {
         // Group the games by day.
         Map<Long, List<Game>> days = getGames().stream()

@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Project : WordOff
- * Date : 10.10.17
+ * Class that represents a side in the game (Player side or opponent side)
  */
 @Entity
 public class Side {

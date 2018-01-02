@@ -7,12 +7,11 @@ import ch.heigvd.wordoff.common.IModel.ITile;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class representation of a rack that will contains the tiles sent by the adversary
+ */
 public class SwapRack extends Rack {
-    /**
-     * Retourne la taille du rack
-     *
-     * @return
-     */
+
     public SwapRack() {
         super();
     }

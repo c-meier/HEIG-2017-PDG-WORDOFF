@@ -137,5 +137,5 @@ INSERT INTO ai (id) VALUES
 -- Test users
 INSERT INTO player (id, name) VALUES
   (2, 'one'), (3, 'two');
-INSERT INTO user (id, level, login, password) VALUES
-  (2, 1, 'one', 'pass'), (3, 1, 'two', 'pass');
+INSERT INTO user (id, level, login, password, coins) VALUES
+  (2, 1, 'one', 'pass', 0), (3, 1, 'two', 'pass', 0);

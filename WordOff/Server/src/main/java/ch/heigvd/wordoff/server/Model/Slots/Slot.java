@@ -46,7 +46,7 @@ public class Slot implements ISlot, Serializable {
     @Override
     public ISlot duplicate() {
         Slot copy = new Slot(new Short(pos.shortValue()));
-        copy.setTile(tile.duplicate());
+        copy.setTile(tile == null ? null : tile.duplicate());
         return copy;
     }
 

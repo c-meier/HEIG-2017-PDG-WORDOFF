@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * Class that represents a Tile object.
+ */
 @Entity
 public class Tile implements ITile, Serializable {
     @Id

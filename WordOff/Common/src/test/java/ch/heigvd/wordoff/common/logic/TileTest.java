@@ -1,8 +1,10 @@
 package ch.heigvd.wordoff.common.logic;
 
 import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class TileTest {
     static TileDto tile1;

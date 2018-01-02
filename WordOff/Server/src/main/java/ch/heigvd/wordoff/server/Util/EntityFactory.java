@@ -1,28 +1,24 @@
 package ch.heigvd.wordoff.server.Util;
 
-import ch.heigvd.wordoff.common.Dto.Game.*;
+import ch.heigvd.wordoff.common.Dto.Game.ChallengeDto;
 import ch.heigvd.wordoff.common.Dto.Game.Racks.PlayerRackDto;
 import ch.heigvd.wordoff.common.Dto.Game.Racks.RackDto;
 import ch.heigvd.wordoff.common.Dto.Game.Racks.SwapRackDto;
 import ch.heigvd.wordoff.common.Dto.Game.Slots.*;
 import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
-import ch.heigvd.wordoff.common.Dto.User.PlayerDto;
-import ch.heigvd.wordoff.common.Dto.User.UserDto;
-import ch.heigvd.wordoff.common.Dto.User.UserSummaryDto;
 import ch.heigvd.wordoff.common.IModel.IRack;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
-import ch.heigvd.wordoff.server.Model.*;
+import ch.heigvd.wordoff.server.Model.Challenge;
 import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.server.Model.Racks.Rack;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.server.Model.Slots.*;
 import ch.heigvd.wordoff.server.Model.Tiles.Tile;
-import org.modelmapper.*;
+import org.modelmapper.Converter;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Objects;
 
 @Component
 public class EntityFactory {

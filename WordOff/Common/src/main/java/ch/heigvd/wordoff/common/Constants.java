@@ -20,4 +20,12 @@ public interface Constants {
     String AVERAGE = "AVERAGE";
     String HARD = "HARD";
     String YOU_RE_SCREWED = "YOU_RE_SCREWED";
+
+    String COMPETITION_TOURNAMENT_NAME = "Tournoi Compétitif";
+
+    // The number of days of the tournament.
+    int TOURNAMENT_DURATION = 5;
+    int MAX_USER_IN_TOURNAMENT = 20;
+    int MAX_GAMES_PER_DAY = 2;
+
 }

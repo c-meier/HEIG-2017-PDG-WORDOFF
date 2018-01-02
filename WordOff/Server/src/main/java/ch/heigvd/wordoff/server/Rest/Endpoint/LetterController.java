@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller to recuperate the letters associated with a language.
+ */
 @RestController
 @RequestMapping(value = "/letters", produces = "application/json")
 public class LetterController {
@@ -26,6 +29,11 @@ public class LetterController {
         this.langSetRepository = langSetRepository;
     }
 
+    /**
+     * GET the letters associated with a given language.
+     * @param lang The language.
+     * @return The letters associated.
+     */
     @RequestMapping(value = "/{lang}", method = RequestMethod.GET)
     public HttpEntity<List<Character>> getLetters(@PathVariable("lang") String lang) {
         LangSet langSet = langSetRepository.findByName(lang);

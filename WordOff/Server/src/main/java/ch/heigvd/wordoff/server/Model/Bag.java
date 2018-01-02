@@ -10,8 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Project : WordOff
- * Date : 10.10.17
+ * Class that represents an Bag object that will contains the tiles in a game
  */
 public class Bag implements Serializable {
 
@@ -38,14 +37,6 @@ public class Bag implements Serializable {
         List<ITile> newTiles = new ArrayList<>();
         for (int i = 0; i < nbTiles && !getTiles().isEmpty(); i++) {
             newTiles.add(pop());
-        }
-        return newTiles;
-    }
-
-    public List<ITile> getSevenTiles() {
-        List<ITile> newTiles = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
-            newTiles.add(getTiles().get(i));
         }
         shuffle();
         return newTiles;

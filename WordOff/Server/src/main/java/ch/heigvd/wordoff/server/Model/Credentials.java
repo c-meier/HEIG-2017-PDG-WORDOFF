@@ -4,6 +4,9 @@ package ch.heigvd.wordoff.server.Model;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+/**
+ * Class that represents the credentials of a user for the connection to the server
+ */
 @Embeddable
 public class Credentials {
     @Column(unique = true)

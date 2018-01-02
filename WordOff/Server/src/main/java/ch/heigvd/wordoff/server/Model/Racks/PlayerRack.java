@@ -7,13 +7,11 @@ import ch.heigvd.wordoff.common.IModel.ITile;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class representation of the rack of a player
+ */
 public class PlayerRack extends Rack {
 
-    /**
-     * Retourne la taille du rack
-     *
-     * @return
-     */
     public PlayerRack() {
         super();
     }

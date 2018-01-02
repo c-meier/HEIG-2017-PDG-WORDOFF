@@ -1,7 +1,8 @@
 package ch.heigvd.wordoff.server.Model.Slots;
 
-import ch.heigvd.wordoff.server.Model.Side;
-
+/**
+ * Class that represent a slot that can triple the score of a letter .
+ */
 public class L3Slot extends LxSlot {
 
     private static int bonus = 3;

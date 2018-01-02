@@ -4,7 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 /**
- * Created by Daniel on 21.10.2017.
+ * Class that represents an Ai. The application will only have one Ai in the database
+ * that will play all the games associated to an Ai.
  */
 @Entity
 @PrimaryKeyJoinColumn(name = "id")

@@ -112,12 +112,6 @@ public class GameDto implements IResource<GameDto> {
 
     public void setId(Long id) {
         this.id = id;
-        if(id != null) {
-            String url = "/games/" + id;
-            setEndpoint(url);
-            setChallenges(new ResourceWriteList<>(url + "/challenges"));
-            setPowers(new ResourceWriteList<>(url + "/powers"));
-        }
     }
 
     @Override
@@ -143,14 +137,12 @@ public class GameDto implements IResource<GameDto> {
 
     public void setEndpoint(String endpoint) {
         this.endpoint = endpoint;
+        this.challenges = new ResourceWriteList<>(endpoint + "/challenges");
+        this.powers = new ResourceWriteList<>(endpoint + "/powers");
     }
 
     public ResourceWriteList<GameDto, ChallengeDto> getChallenges() {
         return challenges;
-    }
-
-    public void setChallenges(ResourceWriteList<GameDto, ChallengeDto> challenges) {
-        this.challenges = challenges;
     }
 
     public ResourceWriteList<GameDto, PowerDto> getPowers() {

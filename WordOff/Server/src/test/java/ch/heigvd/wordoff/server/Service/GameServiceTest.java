@@ -1,7 +1,9 @@
 package ch.heigvd.wordoff.server.Service;
 
+import ch.heigvd.wordoff.common.DictionaryLoader;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.server.Model.*;
+import ch.heigvd.wordoff.server.Model.Modes.TournamentMode;
 import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
@@ -11,7 +13,6 @@ import ch.heigvd.wordoff.server.Repository.LangSetRepository;
 import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
 import ch.heigvd.wordoff.server.Util.ChallengeFactory;
-import ch.heigvd.wordoff.common.DictionaryLoader;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,7 +63,7 @@ public class GameServiceTest {
         p2 = playerRepository.save(new User("p2"));
         ai = playerRepository.findOne(1L);
         set = langSetRepository.findByName("fr");
-        gameWithAi = new Game(p1, ai, set);
+        gameWithAi = new Game(new TournamentMode(), p1, ai, set);
     }
 
     @Test
@@ -77,7 +78,7 @@ public class GameServiceTest {
 
     @Test
     public void initGameWithAI() throws Exception {
-        assertThat(gameWithAi.getBag().getTiles().size()).isEqualTo(105);
+        assertThat(gameWithAi.getBag().getTiles().size()).isEqualTo(119);
 
         Side side1 = gameWithAi.getSideInit();
         Side side2 = gameWithAi.getSideResp();
@@ -85,8 +86,8 @@ public class GameServiceTest {
         // Set players Racks
         PlayerRack p1R = side1.getPlayerRack();
         PlayerRack p2R = side2.getPlayerRack();
-        p1R.setTiles(gameWithAi.getBag().getSevenTiles());
-        p2R.setTiles(gameWithAi.getBag().getSevenTiles());
+        p1R.setTiles(gameWithAi.getBag().getXTile(7));
+        p2R.setTiles(gameWithAi.getBag().getXTile(7));
         side1.setChallenge(new ChallengeFactory(side1).createRandomSlotPos().create());
         side2.setChallenge(new ChallengeFactory(side2).createRandomSlotPos().create());
 

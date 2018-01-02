@@ -3,8 +3,7 @@ package ch.heigvd.wordoff.server.Model;
 import javax.persistence.*;
 
 /**
- * Project : WordOff
- * Date : 10.10.17
+ * Class that represents a player (User with less information)
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -13,6 +12,7 @@ public class Player {
     @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
     private String name;
 
     protected Player() {}

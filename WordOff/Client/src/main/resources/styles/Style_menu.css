@@ -1,10 +1,10 @@
 /* VARIABLE DEFINITIONS: Only these 4 variables have to be adjusted, the rest is copy-paste */
 * {
-	-fx-color-darkBrown: #df9c5d;
+	-fx-color-darkBrown: #f0bd86;
 	-fx-color-lightBrown: #c7a880;
-	-fx-color-brown:#ae814e;
+	-fx-color-brown: #cd985c;
 	-fx-color-beige: #c8813e;
-    -fx-my-menu-color: -fx-color-brown;                
+    -fx-my-menu-color: -fx-color-brown;
     -fx-my-menu-color-highlighted: -fx-color-lightBrown ;      
     -fx-my-menu-font-color: #FFFFFF;            
     -fx-my-menu-font-color-highlighted: #FFFFFF; 
@@ -18,7 +18,7 @@
     -fx-background-color: -fx-my-menu-color;
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
-    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; 
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em;
     -fx-opacity: 0.9;
 }
 

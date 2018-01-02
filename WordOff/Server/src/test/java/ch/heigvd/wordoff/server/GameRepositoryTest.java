@@ -22,6 +22,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -58,8 +59,15 @@ public class GameRepositoryTest {
 
     @Test
     public void testCanCreateAndSaveAGame() throws Exception {
+
         LangSet set = tilesRepository.findByName("fr");
-        Game game = new Game(one, two, set);
+        Game game = new Game();
+        game.setSideInit(new Side(one));
+        game.setSideResp(new Side(two));
+        game.setCurrPlayer(one);
+        game.setBag(new Bag(set.getTiles()));;
+        game.setStartDate(LocalDateTime.now());
+        game.setEnded(false);
 
         Game savedGame = repository.save(game);
         assertThat(savedGame).isNotNull();

@@ -1,5 +1,6 @@
 package ch.heigvd.wordoff.server.Util;
 
+import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dto.Game.*;
 import ch.heigvd.wordoff.common.Dto.Game.Racks.PlayerRackDto;
 import ch.heigvd.wordoff.common.Dto.Game.Racks.RackDto;
@@ -7,11 +8,20 @@ import ch.heigvd.wordoff.common.Dto.Game.Racks.SwapRackDto;
 import ch.heigvd.wordoff.common.Dto.Game.Slots.*;
 import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
 import ch.heigvd.wordoff.common.Dto.InvitationDto;
+import ch.heigvd.wordoff.common.Dto.MeDto;
+import ch.heigvd.wordoff.common.Dto.Mode.DuelModeDto;
+import ch.heigvd.wordoff.common.Dto.Mode.ModeDto;
+import ch.heigvd.wordoff.common.Dto.Mode.ModeSummaryDto;
+import ch.heigvd.wordoff.common.Dto.Mode.TournamentModeDto;
+import ch.heigvd.wordoff.common.Dto.NotificationDto;
 import ch.heigvd.wordoff.common.Dto.User.*;
 import ch.heigvd.wordoff.common.IModel.IRack;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.server.Model.*;
+import ch.heigvd.wordoff.server.Model.Modes.DuelMode;
+import ch.heigvd.wordoff.server.Model.Modes.Mode;
+import ch.heigvd.wordoff.server.Model.Modes.TournamentMode;
 import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.server.Model.Racks.Rack;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
@@ -23,7 +33,10 @@ import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class DtoFactory {
@@ -131,6 +144,33 @@ public class DtoFactory {
                 .using(getUrlConverter("/me/invitations"))
                 .map(i -> i.getMode().getId(), InvitationDto::setEndpoint));
 
+        //
+        // Mode
+        //
+        TypeMap<Mode, ModeSummaryDto> modeSummaryMap = modelMapper.createTypeMap(Mode.class, ModeSummaryDto.class);
+        modeSummaryMap.addMappings(mapper -> mapper.using(getUrlConverter("/modes")).map(Mode::getId, ModeSummaryDto::setEndpoint));
+        modeSummaryMap.include(TournamentMode.class, ModeSummaryDto.class)
+                .include(DuelMode.class, ModeSummaryDto.class);
+
+        TypeMap<Mode, ModeDto> modeMap = modelMapper.createTypeMap(Mode.class, ModeDto.class);
+        modeMap.addMappings(mapper -> mapper.using(getUrlConverter("/modes")).map(Mode::getId, ModeDto::setEndpoint));
+        modeMap.include(TournamentMode.class, TournamentModeDto.class)
+                .include(DuelMode.class, DuelModeDto.class);
+
+        Converter<Map<User, List<Integer>>, List<TournamentModeDto.UserScores>> toUsersScores =
+                ctx -> ctx.getSource().entrySet()
+                        .stream()
+                        .map(e -> new TournamentModeDto.UserScores(DtoFactory.createSummaryFrom(e.getKey()), e.getValue()))
+                        .collect(Collectors.toList());
+
+        modelMapper.typeMap(TournamentMode.class, TournamentModeDto.class)
+                .setProvider(req -> new TournamentModeDto())
+                .addMappings(mapper -> mapper
+                        .using(toUsersScores)
+                        .map(TournamentMode::getAllPlayerScores, TournamentModeDto::setParticipants));
+        modelMapper.typeMap(DuelMode.class, DuelModeDto.class).setProvider(req -> new DuelModeDto());
+
+
         return modelMapper;
     }
 
@@ -158,8 +198,11 @@ public class DtoFactory {
         return modelMapper.map(entity, UserSummaryDto.class);
     }
 
-    public static UserDto createFrom(User entity) {
-        return modelMapper.map(entity, UserDto.class);
+    public static UserDto createFrom(User entity, User viewer) {
+        UserDto dto = modelMapper.map(entity, UserDto.class);
+
+        dto.setRelation(createFrom(viewer.getRelation(entity)));
+        return dto;
     }
 
     public static PlayerDto createFrom(Player entity) {
@@ -201,23 +244,72 @@ public class DtoFactory {
         dto.setOtherPlayer(modelMapper.map(entity.getOtherPlayer(viewer), PlayerDto.class));
         return dto;
     }
+
+    public static ModeSummaryDto createSummaryFrom(Mode entity, User viewer) {
+        ModeSummaryDto dto = modelMapper.map(entity, ModeSummaryDto.class);
+
+        // Name for the viewer.
+        dto.setName(entity.getInvitation(viewer).getName());
+
+        // Check if mode is active.
+        Optional<Game> optGame = entity.getActiveGame(viewer);
+        dto.setActive(optGame.isPresent() && Objects.equals(optGame.get().getCurrPlayer(), viewer));
+
+        return dto;
+    }
+
+    public static ModeDto createFrom(Mode entity, User viewer) {
+        ModeDto dto = null;
+        switch (entity.getType()) {
+            case FRIEND_DUEL:
+            case RANDOM_DUEL:
+                dto = modelMapper.map(entity, DuelModeDto.class);
+                break;
+            case COMPETITIVE_TOURNAMENT:
+            case FRIENDLY_TOURNAMENT:
+                dto = modelMapper.map(entity, TournamentModeDto.class);
+                ((TournamentModeDto) dto).setNbGameRemaining(Constants.MAX_GAMES_PER_DAY - ((TournamentMode) entity).getGamesOfCurrentDayAndPlayer(viewer).size());
+                break;
+        }
+
+        // Name for the viewer.
+        dto.setName(entity.getInvitation(viewer).getName());
+
+        Optional<Game> optGame = entity.getActiveGame(viewer);
+        if(optGame.isPresent()) {
+            dto.setGame(createSummaryFrom(optGame.get(), viewer));
+        }
+        
+        return dto;
+    }
     
     public static MeDto createMeFrom(User entity) {
-        return modelMapper.map(entity, MeDto.class);
+        MeDto dto = new MeDto();
+        dto.setSelf(modelMapper.map(entity, UserSummaryDto.class));
+        return dto;
     }
 
     public static RelationDto createFrom(Relation entity) {
         return modelMapper.map(entity, RelationDto.class);
     }
 
-    public static RelatedUserSummaryDto createRelatedSummaryFrom(User entity, User viewer) {
-        RelatedUserSummaryDto dto = modelMapper.map(entity, RelatedUserSummaryDto.class);
-        dto.setRelation(createFrom(viewer.getRelation(entity)));
+    /**
+     * Create a summary of user with the status of the relation from a Relation
+     * @param entity The relation from which the summary is created.
+     * @return A user summary with relation status.
+     */
+    public static RelatedUserSummaryDto createRelatedSummaryFrom(Relation entity) {
+        RelatedUserSummaryDto dto = modelMapper.map(entity.getTarget(), RelatedUserSummaryDto.class);
+        dto.setRelation(createFrom(entity));
         return dto;
     }
 
     public static InvitationDto createFrom(Invitation entity) {
         return modelMapper.map(entity, InvitationDto.class);
+    }
+
+    public static NotificationDto createFrom(Notification entity) {
+        return modelMapper.map(entity, NotificationDto.class);
     }
 
     public static ModelMapper getModelMapper() {

@@ -4,12 +4,11 @@ import ch.heigvd.wordoff.server.Model.Modes.Mode;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * Project : WordOff
- * Date : 10.10.17
+ * Class that represents a game in the application.
  */
 @Entity
 public class Game {
@@ -29,24 +28,26 @@ public class Game {
     @Lob
     private Bag bag;
 
-    private Date startDate;
-
-    private String lang;
+    private LocalDateTime startDate;
 
     @ManyToOne
     private Player currPlayer;
 
     private boolean ended;
 
+    private int gameStatus;
+
     public Game() {}
 
-    public Game(Player p1, Player p2, LangSet tileSet) {
+    public Game(Mode mode, Player p1, Player p2, LangSet tileSet) {
+        this.mode = mode;
         this.sideInit = new Side(p1);
         this.sideResp = new Side(p2);
-        this.lang = tileSet.getName();
-        this.ended = false;
+        mode.setLang(tileSet.getName());
         currPlayer = p1;
         bag = new Bag(tileSet.getTiles());
+        startDate = LocalDateTime.now();
+        ended = false;
     }
 
     public Side getSideOfPlayer(Player player) {
@@ -71,6 +72,11 @@ public class Game {
         }
     }
 
+    public boolean concernPlayer(Player player) {
+        return Objects.equals(player.getId(), sideInit.getPlayer().getId())
+                || Objects.equals(player.getId(), sideResp.getPlayer().getId());
+    }
+
     public Bag getBag() {
         return bag;
     }
@@ -80,11 +86,11 @@ public class Game {
     }
 
     public String getLang() {
-        return lang;
+        return mode.getLang();
     }
 
     public void setLang(String lang) {
-        this.lang = lang;
+        mode.setLang(lang);
     }
 
     public Side getSideInit() {
@@ -119,7 +125,19 @@ public class Game {
         this.id = id;
     }
 
-    public void setEnd() {
-        this.ended = true;
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public boolean isEnded() {
+        return ended;
+    }
+
+    public void setEnded(boolean ended) {
+        this.ended = ended;
     }
 }

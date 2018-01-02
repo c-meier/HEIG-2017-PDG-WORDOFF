@@ -4,6 +4,7 @@ import ch.heigvd.wordoff.client.Util.UtilChangeScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,6 +17,11 @@ import java.util.ResourceBundle;
 public class AlertController implements Initializable {
 
     @FXML
+    ListView listNewAlert;
+    @FXML
+    ListView listHistAlert;
+
+    @FXML
     private void handleGotoMenu(ActionEvent event) {
         UtilChangeScene.getInstance().handleGotoMenu();
     }
@@ -25,7 +31,8 @@ public class AlertController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        listNewAlert.getItems().addAll("Aucune alerte");
+        listHistAlert.getItems().addAll("Aucune alerte");
     }    
     
 }

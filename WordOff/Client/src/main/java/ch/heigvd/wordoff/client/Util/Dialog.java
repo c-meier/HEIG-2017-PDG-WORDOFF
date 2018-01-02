@@ -1,16 +1,11 @@
 package ch.heigvd.wordoff.client.Util;
 
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
-import javax.swing.text.LabelView;
 
 public class Dialog {
 

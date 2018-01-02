@@ -3,9 +3,7 @@ package ch.heigvd.wordoff.server.Rest.Inteceptor;
 import ch.heigvd.wordoff.server.Model.User;
 import ch.heigvd.wordoff.server.Repository.UserRepository;
 import ch.heigvd.wordoff.server.Security.SecurityConst;
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.impl.TextCodec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 

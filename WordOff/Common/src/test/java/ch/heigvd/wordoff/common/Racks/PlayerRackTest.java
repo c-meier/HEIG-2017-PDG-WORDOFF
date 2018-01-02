@@ -1,9 +1,10 @@
 package ch.heigvd.wordoff.common.Racks;
 
-import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.common.Dto.Game.Racks.PlayerRackDto;
 import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
-import org.junit.*;
+import ch.heigvd.wordoff.common.IModel.ITile;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import java.util.ArrayList;
 

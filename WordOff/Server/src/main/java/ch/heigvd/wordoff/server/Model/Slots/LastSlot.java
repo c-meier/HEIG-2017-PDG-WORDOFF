@@ -1,7 +1,9 @@
 package ch.heigvd.wordoff.server.Model.Slots;
 
-import ch.heigvd.wordoff.server.Model.Side;
-
+/**
+ * Class that represent the last slot in the challenge.
+ * Give 10 points as a bonus at the final score
+ */
 public class LastSlot extends Slot {
 
     private final int bonus = 10;

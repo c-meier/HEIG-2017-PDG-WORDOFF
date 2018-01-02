@@ -1,7 +1,7 @@
 package ch.heigvd.wordoff.common.Dto.Game.Racks;
 
-import ch.heigvd.wordoff.common.Dto.IDto;
 import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
+import ch.heigvd.wordoff.common.Dto.IDto;
 import ch.heigvd.wordoff.common.IModel.IRack;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

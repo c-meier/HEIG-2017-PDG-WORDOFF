@@ -1,12 +1,14 @@
 package ch.heigvd.wordoff.server.Service;
 
 import ch.heigvd.wordoff.common.Constants;
+import ch.heigvd.wordoff.common.DictionaryLoader;
 import ch.heigvd.wordoff.common.Dto.Game.SideDto;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.common.Protocol;
 import ch.heigvd.wordoff.common.WordAnalyzer;
 import ch.heigvd.wordoff.server.Model.*;
+import ch.heigvd.wordoff.server.Model.Modes.Mode;
 import ch.heigvd.wordoff.server.Model.Racks.PlayerRack;
 import ch.heigvd.wordoff.server.Model.Racks.SwapRack;
 import ch.heigvd.wordoff.server.Model.Tiles.LangSet;
@@ -29,7 +31,7 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- * Service used to s
+ * Service used as an intermediary between the database and the game controller
  */
 @Service
 public class GameService {
@@ -39,24 +41,31 @@ public class GameService {
     private GameRepository gameRepository;
     private SideRepository sideRepository;
 
-    public GameService(DictionaryLoader dictionaryLoader, LangSetRepository langSetRepository,
-                       PlayerRepository playerRepository, GameRepository gameRepository, SideRepository sideRepository) {
+    public GameService(DictionaryLoader dictionaryLoader, LangSetRepository langSetRepository, PlayerRepository playerRepository, GameRepository gameRepository, SideRepository sideRepository) {
         this.dictionaryLoader = dictionaryLoader;
         this.langSetRepository = langSetRepository;
         this.playerRepository = playerRepository;
         this.gameRepository = gameRepository;
         this.sideRepository = sideRepository;
 
-
+        // TODO -> Need to be removed
         Player ai = playerRepository.findOne(1L);
         Player one = playerRepository.findOne(2L);
         Player two = playerRepository.findOne(3L);
 
+        // TODO -> Need to be removed
         // create and convert the new games.
-        initGame(one, ai, "fr");
-        initGame(two, one, "fr");
+        // initGame( , one, ai, "fr");
+        // initGame( , two, one, "fr");
     }
 
+    /**
+     * Play the word, if accpeted, given by the player
+     * @param game The game to update
+     * @param player The player that play the word
+     * @param challenge The challenge sended by the player
+     * @return The updated game if the word is accepted or the game with an error if the word is not accepted
+     */
     public Game play(Game game, Player player, Challenge challenge) {
         // Load the dico
         dictionaryLoader.loadDictionary(game.getLang());
@@ -134,6 +143,12 @@ public class GameService {
         return game;
     }
 
+    /**
+     * Make the Ai play a word
+     * @param game The game to update
+     * @param player The Ai
+     * @return The updated game
+     */
     public Game makeAiPLay(Game game, User player) {
         List<ITile> word = new ArrayList<>();
 
@@ -207,27 +222,26 @@ public class GameService {
         // switch player
         game.setCurrPlayer(game.getOtherPlayer(player));
 
-//        gameRepository.save(game);
+        gameRepository.save(game);
 
         return game;
     }
 
     /**
-     * @brief Initialize a new game
+     * Initialize a new game
      * @param p1 Player 1
-     * @param p2 Player 2 (can be null and will be initialize as an AI)
-     * @param lang language of the game
+     * @param p2 Player 2 (can be null and will be initialize as an AI
      * @return A new initialize game
      */
-    public Game initGame(Player p1, Player p2, String lang) {
-        LangSet langSet = langSetRepository.findByName(lang);
+    public Game initGame(Mode mode, Player p1, Player p2) {
+        LangSet langSet = langSetRepository.findByName(mode.getLang());
         Game game = null;
 
         // Initialize game with or without Ai
         if (p2 == null) {
-            game = new Game(p1, playerRepository.findOne(1L), langSet);
+            game = new Game(mode, p1, playerRepository.findOne(1L), langSet);
         } else {
-            game = new Game(p1, p2, langSet);
+            game = new Game(mode, p1, p2, langSet);
         }
 
         Side sideInit = game.getSideInit();
@@ -259,6 +273,9 @@ public class GameService {
 
         // save the game
         gameRepository.save(game);
+
+        // add the game in the list of the mode
+        mode.getGames().add(game);
 
         return game;
     }
@@ -297,7 +314,7 @@ public class GameService {
 
             // TODO ajuster les classements des joueurs, donner une récompense en pièces ?
 
-            game.setEnd();
+            game.setEnded(true);
         }
 
         gameRepository.save(game);

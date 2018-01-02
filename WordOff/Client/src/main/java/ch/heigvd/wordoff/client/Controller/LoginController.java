@@ -46,7 +46,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private void signIn(ActionEvent event){
-        if(nameAndPasswordIsEmpty() == false){
+        if (!nameAndPasswordIsEmpty()){
             try {
                 String name = userName.getText();
                 char[] pass = passWord.getText().toCharArray();
@@ -68,7 +68,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private void signUp(ActionEvent event){
-        if(nameAndPasswordIsEmpty() == false){
+        if(!nameAndPasswordIsEmpty()){
             try {
                 String name = userName.getText();
                 char[] pass = passWord.getText().toCharArray();
@@ -88,7 +88,6 @@ public class LoginController implements Initializable {
             }
         }
     }
-
 
     private boolean nameAndPasswordIsEmpty(){
         if(userName.getText().isEmpty() || passWord.getText().isEmpty()) {

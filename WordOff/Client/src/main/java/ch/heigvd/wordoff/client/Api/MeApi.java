@@ -2,10 +2,13 @@ package ch.heigvd.wordoff.client.Api;
 
 import ch.heigvd.wordoff.client.Exception.TokenNotFoundException;
 import ch.heigvd.wordoff.client.Util.TokenManager;
-import ch.heigvd.wordoff.common.Dto.Game.ChallengeDto;
-import ch.heigvd.wordoff.common.Dto.Game.GameDto;
-import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
-import ch.heigvd.wordoff.common.Dto.Game.PowerDto;
+import ch.heigvd.wordoff.common.Dto.Endpoint.IResource;
+import ch.heigvd.wordoff.common.Dto.InvitationDto;
+import ch.heigvd.wordoff.common.Dto.NotificationDto;
+import ch.heigvd.wordoff.common.Dto.User.MeDto;
+import ch.heigvd.wordoff.common.Dto.User.RelatedUserSummaryDto;
+import ch.heigvd.wordoff.common.Dto.User.RelationDto;
+import ch.heigvd.wordoff.common.Dto.User.UserSummaryDto;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -17,29 +20,25 @@ import java.util.Map;
 import static ch.heigvd.wordoff.common.Constants.AUTHORIZATION_HEADER;
 import static ch.heigvd.wordoff.common.Constants.SERVER_URI;
 
-public class GameApi {
+public class MeApi {
 
-    private static final RestTemplate restTemplate = Api.getRestTemplate();
+    private final static RestTemplate restTemplate = Api.getRestTemplate();
 
-    public static GameDto getGame(Long gameId) throws TokenNotFoundException {
-        return getGame(TokenManager.loadToken(), gameId);
+    public static MeDto getCurrentUser() throws TokenNotFoundException {
+        return getCurrentUser(TokenManager.loadToken());
     }
 
-    private static GameDto getGame(String token, Long gameId) {
-        final String uri = SERVER_URI + "/games/{gameId}";
-
-        Map<String, String> params = new HashMap<>();
-        params.put("gameId", gameId.toString());
+    private static MeDto getCurrentUser(String token) {
+        final String uri = SERVER_URI + "/me";
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(AUTHORIZATION_HEADER, token);
 
-        ResponseEntity<GameDto> responseEntity =
+        ResponseEntity<MeDto> responseEntity =
                 restTemplate.exchange(uri,
                         HttpMethod.GET,
                         new HttpEntity<>(headers),
-                        GameDto.class,
-                        params);
+                        MeDto.class);
 
         return responseEntity.getBody();
     }

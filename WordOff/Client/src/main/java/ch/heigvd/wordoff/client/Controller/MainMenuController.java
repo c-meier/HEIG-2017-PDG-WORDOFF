@@ -1,6 +1,7 @@
 package ch.heigvd.wordoff.client.Controller;
 
 import ch.heigvd.wordoff.client.Api.GameApi;
+import ch.heigvd.wordoff.client.Api.ModeApi;
 import ch.heigvd.wordoff.client.Exception.TokenNotFoundException;
 import ch.heigvd.wordoff.client.Exception.UnauthorizedException;
 import ch.heigvd.wordoff.client.Api.LetterApi;
@@ -162,7 +163,7 @@ public class MainMenuController implements Initializable {
 
     private void sortGames(){
         try {
-            modeSummaryDtos = GameApi.retrieveGames();
+            modeSummaryDtos = ModeApi.retrieveModes();
             // TODO trier les différentes games pour les mettre dans les bonnes listes
             for (ModeSummaryDto dto : modeSummaryDtos) {
                 switch(dto.getType()){

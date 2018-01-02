@@ -1,7 +1,7 @@
 package ch.heigvd.wordoff.common.Dto.Game;
 
 public enum PowerDto {
-    //PASS(0, "Passe le tour"), // remplacé par DISCARD_2
+    PASS(0, "Passe le tour"),
     PEEK(10, "Aperçu"),
     HINT(10, "Indice"),
     WORDANALYZER(10, "Word Analyzer"),

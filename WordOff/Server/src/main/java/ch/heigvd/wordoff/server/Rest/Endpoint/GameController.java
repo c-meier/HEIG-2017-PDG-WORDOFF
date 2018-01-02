@@ -129,8 +129,8 @@ public class GameController {
 
         if(powerDto.equals(PowerDto.HINT)) {
             // rien de plus à faire
-        //} else if (powerDto.equals(PowerDto.PASS)) {
-        //    gameService.pass(gameRepository.findOne(gameId), player);
+        } else if (powerDto.equals(PowerDto.PASS)) {
+            gameService.pass(gameRepository.findOne(gameId), player);
         } else if (powerDto.equals(PowerDto.PEEK)) {
             responseEntity = new ResponseEntity<>(gameService.peek(gameRepository.findOne(gameId), player), HttpStatus.OK);
         } else if (powerDto.equals(PowerDto.DISCARD_2)) {

@@ -307,16 +307,6 @@ public class GameService {
         // switch player
         game.setCurrPlayer(game.getOtherPlayer(player));
 
-        // Si l'adversaire a aussi passé son tour (sa dernière réponse est vide) et qu'il n'y a plus de pièces à ajouter
-        // => fin du jeu
-        List<Answer> opponentAnswers = game.getSideOfPlayer(game.getOtherPlayer(player)).getAnswers();
-        if(newTiles.isEmpty() && opponentAnswers.get(opponentAnswers.size() - 1).getChallenge().getSlots().get(0).isEmpty()) {
-
-            // TODO ajuster les classements des joueurs, donner une récompense en pièces ?
-
-            game.setEnded(true);
-        }
-
         gameRepository.save(game);
 
         return DtoFactory.createFrom(game.getSideOfPlayer(player));
@@ -380,5 +370,29 @@ public class GameService {
         gameRepository.save(game);
 
         return DtoFactory.createFrom(game.getSideOfPlayer(player));
+    }
+
+    public void pass(Game game, Player player) {
+        if(!game.getCurrPlayer().getId().equals(player.getId())) {
+            throw new ErrorCodeException(Protocol.NOT_YOUR_TURN, "Ce n'est pas à votre tour de jouer");
+        }
+
+        // update
+        updatePlayerSide(game.getSideOfPlayer(player), game.getSideOfPlayer(player).getChallenge(), new ArrayList<>());
+
+        // switch player
+        game.setCurrPlayer(game.getOtherPlayer(player));
+
+        // Si l'adversaire a aussi passé son tour (sa dernière réponse est vide) et qu'il n'y a plus de pièces à ajouter
+        // => fin du jeu
+        List<Answer> opponentAnswers = game.getSideOfPlayer(game.getOtherPlayer(player)).getAnswers();
+        if(game.getBag().getTiles().isEmpty() && opponentAnswers.get(opponentAnswers.size() - 1).getChallenge().getSlots().get(0).isEmpty()) {
+
+            // TODO ajuster les classements des joueurs, donner une récompense en pièces ?
+
+            game.setEnded(true);
+        }
+
+        gameRepository.save(game);
     }
 }

@@ -340,6 +340,12 @@ public class GameService {
         return DtoFactory.createFrom(game.getSideOfPlayer(game.getOtherPlayer(player)));
     }
 
+    /**
+     * jette toutes les tuiles et en pioches des nouvelles
+     * @param game partie concernée
+     * @param player joueur qui jette les tuiles
+     * @return le side du joueur "player"
+     */
     public SideDto discardAll(Game game, Player player) {
         if(!game.getCurrPlayer().getId().equals(player.getId())) {
             throw new ErrorCodeException(Protocol.NOT_YOUR_TURN, "Ce n'est pas à votre tour de jouer");

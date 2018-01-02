@@ -19,6 +19,7 @@ import ch.heigvd.wordoff.server.Util.ChallengeFactory;
 import ch.heigvd.wordoff.common.DictionaryLoader;
 import ch.heigvd.wordoff.server.Util.DtoFactory;
 import javafx.util.Pair;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -144,7 +145,7 @@ public class GameService {
         int sizeWordsByScore = wordsByScore.size();
 
         if (sizeWordsByScore == 0) {
-            /* TODO -> The AI can't create a word, it pass */
+            discard2(game, player);
         } else if (sizeWordsByScore == 1) {
             // The AI play the only best possible word
             word = new ArrayList<>(wordsByScore.get(0).getValue());
@@ -263,32 +264,45 @@ public class GameService {
     }
 
     /**
-     * Passe le tour du joueur "player"
+     * Passe le tour du joueur "player" après avoir remplacé 2 tuiles
      *
      * @param game partie concernée
      * @param player joueur qui passe son tour
      */
-    public void pass(Game game, Player player) {
+    public SideDto discard2(Game game, Player player) {
         if(!game.getCurrPlayer().getId().equals(player.getId())) {
             throw new ErrorCodeException(Protocol.NOT_YOUR_TURN, "Ce n'est pas à votre tour de jouer");
         }
-        // get a list of the tile taken from the bag of the game
-        List<ITile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE -
-                game.getSideOfPlayer(player).getPlayerRack().getTiles().size());
 
-        // ajoute la réponse vide à l'historique
-        game.getSideOfPlayer(player).addAnswer(game.getSideOfPlayer(player).getChallenge());
+        Random rand = new Random();
+        PlayerRack rack =  game.getSideOfPlayer(player).getPlayerRack();
+
+        // retire 2 tiles du rack
+        rack.getTiles().remove(rand.nextInt(rack.getTiles().size()));
+        rack.getTiles().remove(rand.nextInt(rack.getTiles().size()));
+
+        // choisit 2 nouvelles tuiles
+        List<ITile> newTiles = game.getBag().getXTile(2);
+
+        // update
+        updatePlayerSide(game.getSideOfPlayer(player), game.getSideOfPlayer(player).getChallenge(), newTiles);
 
         // switch player
         game.setCurrPlayer(game.getOtherPlayer(player));
 
-        // Si l'adversaire a aussi passé son tour (sa dernière réponse est vide) => fin du jeu
+        // Si l'adversaire a aussi passé son tour (sa dernière réponse est vide) et qu'il n'y a plus de pièces à ajouter
+        // => fin du jeu
         List<Answer> opponentAnswers = game.getSideOfPlayer(game.getOtherPlayer(player)).getAnswers();
-        if(opponentAnswers.get(opponentAnswers.size() - 1).getChallenge().getSlots().get(0).isEmpty()) {
-            end(game);
-        } else {
-            gameRepository.save(game);
+        if(newTiles.isEmpty() && opponentAnswers.get(opponentAnswers.size() - 1).getChallenge().getSlots().get(0).isEmpty()) {
+
+            // TODO ajuster les classements des joueurs, donner une récompense en pièces ?
+
+            game.setEnd();
         }
+
+        gameRepository.save(game);
+
+        return DtoFactory.createFrom(game.getSideOfPlayer(player));
     }
 
     /**
@@ -315,13 +329,6 @@ public class GameService {
         side.setChallenge(new ChallengeFactory(side).createRandomSlotPos().create());
     }
 
-    private void end(Game game) {
-        // TODO ajuster les classements des joueurs, donner une récompense en pièces ?
-
-        game.setEnd();
-        gameRepository.save(game);
-    }
-
     /**
      * Retourne le side de l'adversaire
      *
@@ -331,5 +338,24 @@ public class GameService {
      */
     public SideDto peek(Game game, User player) {
         return DtoFactory.createFrom(game.getSideOfPlayer(game.getOtherPlayer(player)));
+    }
+
+    public SideDto discardAll(Game game, Player player) {
+        if(!game.getCurrPlayer().getId().equals(player.getId())) {
+            throw new ErrorCodeException(Protocol.NOT_YOUR_TURN, "Ce n'est pas à votre tour de jouer");
+        }
+
+        PlayerRack rack =  game.getSideOfPlayer(player).getPlayerRack();
+
+        // retire toutes les tuiles du rack
+        rack.getTiles().clear();
+
+        // remplit le rack avec de nouvelles tuiles
+        List<ITile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE);
+        game.getSideOfPlayer(player).addTilesToPlayerRack(newTiles);
+
+        gameRepository.save(game);
+
+        return DtoFactory.createFrom(game.getSideOfPlayer(player));
     }
 }

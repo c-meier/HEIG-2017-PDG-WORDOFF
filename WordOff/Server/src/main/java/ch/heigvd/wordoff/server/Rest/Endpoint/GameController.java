@@ -142,7 +142,7 @@ public class GameController {
     }
 
     @RequestMapping(value = "/{gameId}/powers", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity hint(@RequestAttribute("player") User player,
+    public ResponseEntity<SideDto> hint(@RequestAttribute("player") User player,
                                @PathVariable("gameId") Long gameId,
                                @RequestBody PowerDto powerDto) {
         ResponseEntity responseEntity = null;
@@ -154,16 +154,16 @@ public class GameController {
 
         if(powerDto.equals(PowerDto.HINT)) {
             // rien de plus à faire
-        } else if (powerDto.equals(PowerDto.PASS)) {
-            gameService.pass(gameRepository.findOne(gameId), player);
+        //} else if (powerDto.equals(PowerDto.PASS)) {
+        //    gameService.pass(gameRepository.findOne(gameId), player);
         } else if (powerDto.equals(PowerDto.PEEK)) {
             responseEntity = new ResponseEntity<>(gameService.peek(gameRepository.findOne(gameId), player), HttpStatus.OK);
         } else if (powerDto.equals(PowerDto.DISCARD_2)) {
-            // DISCARD 2
+            responseEntity = new ResponseEntity<>(gameService.discard2(gameRepository.findOne(gameId), player), HttpStatus.OK);
         } else if (powerDto.equals(PowerDto.DISCARD_ALL)) {
-            // DISCARD ALL
+            responseEntity = new ResponseEntity<>(gameService.discardAll(gameRepository.findOne(gameId), player), HttpStatus.OK);
         } else if (powerDto.equals(PowerDto.WORDANALYZER)) {
-            // WORDANALYZER
+            // rien de plus à faire
         } else {
             throw new ErrorCodeException(Protocol.CHEATING, "Requested power does not exist");
         }

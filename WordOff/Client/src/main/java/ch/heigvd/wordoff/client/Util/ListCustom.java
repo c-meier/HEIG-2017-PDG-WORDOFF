@@ -1,6 +1,6 @@
 package ch.heigvd.wordoff.client.Util;
 
-import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
+import ch.heigvd.wordoff.common.Dto.Mode.ModeSummaryDto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -32,27 +32,27 @@ public class ListCustom {
         this.vBox.getChildren().add(listView);
         this.vBox.setAlignment(Pos.CENTER);
     }
-    public void addGamesList(List<GameSummaryDto> listGames) {
-        for (GameSummaryDto game : listGames) {
+    public void addGamesList(List<ModeSummaryDto> listGames) {
+        for (ModeSummaryDto game : listGames) {
             // TODO récupérer l'image de l'adversaire
             //listImagesGames.add(game.getOtherPlayer().getImage());
             listImages.add(IMAGE_RUBY);
-            items.add(game.getOtherPlayer().getName().toUpperCase());
+            items.add(game.getName().toUpperCase());
         }
     }
 
-    public void addGamesListAndUpdate(List<GameSummaryDto> listGames){
+    public void addGamesListAndUpdate(List<ModeSummaryDto> listGames){
         addGamesList(listGames);
         updateView();
     }
 
-    public void addGame(GameSummaryDto game){
-        items.add(game.getOtherPlayer().getName());
+    public void addGame(ModeSummaryDto game){
+        items.add(game.getName());
         // TODO récupérer l'image de l'adversaire
         //listImages.add(game.getOtherPlayer().getImage());
         listImages.add(IMAGE_RUBY);
     }
-    public void addGameAndUpdate(GameSummaryDto game){
+    public void addGameAndUpdate(ModeSummaryDto game){
         addGame(game);
         updateView();
     }

@@ -13,6 +13,7 @@ import ch.heigvd.wordoff.client.Util.ListCustom;
 import ch.heigvd.wordoff.client.Util.UtilStringReference;
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
+import ch.heigvd.wordoff.common.Dto.Mode.ModeSummaryDto;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -42,7 +43,7 @@ public class MainMenuController implements Initializable {
     // GameDto selected to list
     private GameDto selectGame = null;
     // list de GameSummaryDto
-    private List<GameSummaryDto> gamesSummaryDto = new LinkedList<>();
+    private List<ModeSummaryDto> modeSummaryDtos = new LinkedList<>();
     private long myId;
     // Listes des games triées
     private ListCustom listGamesDuel;
@@ -61,7 +62,7 @@ public class MainMenuController implements Initializable {
     @FXML
     private VBox vBoxgamesTurnamentFriend =  new VBox();
     @FXML
-    private Accordion accordionTournament = new Accordion();
+    private Accordion friendTournamentAccordion = new Accordion();
 
     /* Button to start new game */
     @FXML
@@ -161,15 +162,27 @@ public class MainMenuController implements Initializable {
 
     private void sortGames(){
         try {
-            gamesSummaryDto = GameApi.retrieveGames();
+            modeSummaryDtos = GameApi.retrieveGames();
             // TODO trier les différentes games pour les mettre dans les bonnes listes
-            for (GameSummaryDto dto : gamesSummaryDto) {
-                // Ajoute les référence à la bonne liste (trie par le mode)
-                listGamesDuel.addGame(dto);
-                // TODO switch sur dto.getMode()
-                // cas duel : listGamesDuel.addGame(dto)
-                // cas duel en attente :  listGamesDuelWait.addGame(dto);
-                // cas duel fini : listGamesDuelFinish.addGame(dto);
+            for (ModeSummaryDto dto : modeSummaryDtos) {
+                switch(dto.getType()){
+                    case FRIEND_DUEL:
+                    case RANDOM_DUEL:
+                        if(dto.isEnded()){
+                            listGamesDuelFinish.addGame(dto);
+                        }else if (dto.isActive()){
+                            listGamesDuel.addGame(dto);
+                        }else{
+                            listGamesDuelWait.addGame(dto);
+                        }
+                        break;
+                    case FRIENDLY_TOURNAMENT:
+                        listGamesTournamentsFriends.addGame(dto);
+                        break;
+                    case COMPETITIVE_TOURNAMENT:
+                        listGamesTournamentCompetition.addGame(dto);
+                        break;
+                }
 
                 // cas tournament et tournamentFriend :
                 // Exemple pour construire les tournois
@@ -180,10 +193,10 @@ public class MainMenuController implements Initializable {
 
                 // Titre des tournois (menu pouvant être ouvert)
                 TitledPane titledPane = new TitledPane();
-                titledPane.setText(dto.getOtherPlayer().getName());         // Nom du tournoi
+                titledPane.setText(dto.getName());         // Nom du tournoi
                 titledPane.setContent(vBox);                                // Le détail du tournoi
 
-                accordionTournament.getPanes().add(titledPane);             // Accroche le tournoi à l'accordéon
+                friendTournamentAccordion.getPanes().add(titledPane);             // Accroche le tournoi à l'accordéon
 
                 // Partie logic de référence pour lancer un game sélectionné
                 listGames.addGameAndUpdate(dto);                            // Ajouter la game à la liste de référence dto
@@ -191,7 +204,7 @@ public class MainMenuController implements Initializable {
             }
 
             // TODO update des listes
-            listGamesDuel.addGameAndUpdate(this.gameTest.getGameSummaryDtoList().get(0));
+            //listGamesDuel.addGameAndUpdate(this.gameTest.getGameSummaryDtoList().get(0));
 
 
         } catch (TokenNotFoundException e) {
@@ -250,10 +263,10 @@ public class MainMenuController implements Initializable {
             handleGotoGame();
         } else {
             // Partie venant du serveur
-            Long selectId = gamesSummaryDto.get(games.getSelectionModel().getSelectedIndex()).getId();
+            String endpoint = modeSummaryDtos.get(games.getSelectionModel().getSelectedIndex()).getEndpoint();
             try {
-                selectGame = GameApi.getGame(selectId);
-                System.out.println(selectId);
+                selectGame = GameApi.getGame(endpoint);
+                System.out.println(endpoint);
                 handleGotoGame();
             } catch (TokenNotFoundException e) {
                 //e.printStackTrace();

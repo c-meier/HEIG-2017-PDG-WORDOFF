@@ -292,7 +292,13 @@ public class MainMenuController implements Initializable {
                         if (result.isPresent()){
                             dto.addParticpant(result.get());
                             dto.setName(result.get());
-                            ModeApi.createMode(dto);
+                            ModeSummaryDto modeSummaryDto = ModeApi.createMode(dto);
+                            if(modeSummaryDto.isActive()){
+                                listGamesDuel.addGameAndUpdate(modeSummaryDto);
+                            } else {
+                                listGamesDuelWait.addGameAndUpdate(modeSummaryDto);
+                            }
+
                         }
 
                     } catch (TokenNotFoundException e1) {
@@ -301,7 +307,12 @@ public class MainMenuController implements Initializable {
                 } else {
                     try {
                         dto.setType(ModeType.RANDOM_DUEL);
-                        ModeApi.createMode(dto);
+                        ModeSummaryDto modeSummaryDto = ModeApi.createMode(dto);
+                        if(modeSummaryDto.isActive()){
+                            listGamesDuel.addGameAndUpdate(modeSummaryDto);
+                        } else {
+                            listGamesDuelWait.addGameAndUpdate(modeSummaryDto);
+                        }
                     } catch (TokenNotFoundException e1) {
                         e1.printStackTrace();
                     }

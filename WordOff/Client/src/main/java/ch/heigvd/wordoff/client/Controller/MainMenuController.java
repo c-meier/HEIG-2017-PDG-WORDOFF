@@ -271,7 +271,6 @@ public class MainMenuController implements Initializable {
             dto.setParticipants(new LinkedList<>());
 
             if(e.getSource().equals(newGamePlayer)){
-                dto.addParticpant(LoginController.currentUser);
                 if(type != null && type.equals("Contre un ami")){
                     try {
                         dto.setType(ModeType.FRIEND_DUEL);

@@ -17,62 +17,69 @@ public class ListCustom {
 
     private VBox vBox;
     private ListView<String> listView;
-    private ObservableList<String> items;
-    private List<Image> listImages;
+    private ObservableList<String> listGames; // list of games
+    private List<Image> listImages; // list of avatar
 
+    // Default image for the avatar
     private String url = "images/vs_logo.png";
     private final Image IMG = new Image(url);
 
-
-    public ListCustom(VBox vbox){
+    /**
+     * Constructor
+     * @param vbox vbox associated with the game list
+     */
+    public ListCustom(VBox vbox) {
         this.vBox = vbox;
         this.listImages = new LinkedList<>();
         this.listView = new ListView<String>();
-        this.items = FXCollections.observableArrayList();
-        this.listView.setItems(items);
+        this.listGames = FXCollections.observableArrayList();
+        this.listView.setItems(listGames);
 
         this.vBox.getChildren().add(listView);
         this.vBox.setAlignment(Pos.CENTER);
+        updateView();
     }
 
-    public void addGamesList(List<ModeSummaryDto> listGames) {
-        for (ModeSummaryDto game : listGames) {
-            // TODO récupérer l'image de l'adversaire
-            //listImagesGames.add(game.getOtherPlayer().getImage());
-            listImages.add(IMG);
-            items.add(game.getName().toUpperCase());
+    /**
+     * Add a list of games with a default image of the player's avatar
+     * @param list list of games
+     */
+    public void addGamesList(List<ModeSummaryDto> list) {
+        for (ModeSummaryDto game : list) {
+            listImages.add(IMG); // default image
+            listGames.add(game.getName().toUpperCase());
         }
     }
 
-    public void addGamesListAndUpdate(List<ModeSummaryDto> listGames){
-        addGamesList(listGames);
-        updateView();
-    }
-
-    public void addGame(ModeSummaryDto game){
-        items.add(game.getName());
-        // TODO récupérer l'image de l'adversaire
-        //listImages.add(game.getOtherPlayer().getImage())
+    /**
+     * Add a game with a default image of the player's avatar
+     * @param game game to add
+     */
+    public void addGame(ModeSummaryDto game) {
         listImages.add(IMG);
-    }
-    public void addGameAndUpdate(ModeSummaryDto game){
-        addGame(game);
-        updateView();
+        listGames.add(game.getName());
     }
 
+    /**
+     * Return the vBox associated with the game list
+     * @return vBox
+     */
     public VBox getvBox() {
         return vBox;
     }
 
-    public void setState(int index, String game) {
-        items.set(index, game);
-    }
-
+    /**
+     * Return the ListView of the games
+     * @return listView of the games
+     */
     public ListView<String> getListView() {
         return listView;
     }
 
-    public void updateView() {
+    /**
+     * Initialization of the format of the cells for the list of games.
+     */
+    private void updateView() {
         listView.setCellFactory(param -> new ListCell<String>() {
             private ImageView imageView = new ImageView();
 

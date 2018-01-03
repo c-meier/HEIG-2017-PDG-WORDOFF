@@ -48,10 +48,9 @@ public class ModeApi {
     }
 
     private static ModeDto getMode(String token, String endpoint) {
-        final String uri = SERVER_URI + "{endpoint}";
+        final String uri = SERVER_URI + endpoint;
 
         Map<String, String> params = new HashMap<>();
-        params.put("endpoint", endpoint);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(AUTHORIZATION_HEADER, token);

@@ -171,9 +171,10 @@ public class MainMenuController implements Initializable {
     private void sortGames(){
         try {
             modeSummaryDtos = ModeApi.retrieveModes();
-            List<ModeSummaryDto> mode  = gameTest.getModeSummaryDtosList();
+            //For testing:
+            //List<ModeSummaryDto> mode  = gameTest.getModeSummaryDtosList();
             // TODO trier les différentes games pour les mettre dans les bonnes listes
-            for (ModeSummaryDto dto : mode) {
+            for (ModeSummaryDto dto : modeSummaryDtos) {
                 switch(dto.getType()){
                     case FRIEND_DUEL:
                     case RANDOM_DUEL:
@@ -307,8 +308,28 @@ public class MainMenuController implements Initializable {
                 }
             }else if (e.getSource().equals(newTournament)){ //new competitive
                 dto.setType(ModeType.COMPETITIVE_TOURNAMENT);
+                dto.setLang(langSelect);
+
             }else { // new friendly tournament
                 dto.setType(ModeType.FRIENDLY_TOURNAMENT);
+                TextInputDialog dialog = new TextInputDialog();
+                dialog.setTitle("Entrez le nom du tournoi");
+                dialog.setContentText("Nom:");
+
+                DialogPane dialogPane = dialog.getDialogPane();
+                ObservableList<String> st = dialogPane.getStylesheets();
+                dialogPane.getStylesheets().add(
+                        getClass().getResource("/styles/Style_alert.css").toExternalForm());
+                dialogPane.getStyleClass().add("myDialog");
+
+                Optional<String> result = dialog.showAndWait();
+                if (result.isPresent()){
+                    dto.setName(result.get());
+                }else{
+                    dto.setName("Tournoi amical");
+                }
+                //TODO: fenetre avec choix parmis liste d'amis + entrée quelquconque d'utilisateur
+
             }
 
         // TODO demande de créer la nuvelle partie au serveur en fonction du mode => récupérer la source de l'event

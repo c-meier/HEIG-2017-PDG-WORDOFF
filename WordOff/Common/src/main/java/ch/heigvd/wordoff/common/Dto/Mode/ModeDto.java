@@ -5,9 +5,15 @@ import ch.heigvd.wordoff.common.Dto.Endpoint.ResourceWriteList;
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
 import ch.heigvd.wordoff.common.Dto.MessageDto;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.time.LocalDateTime;
 
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.MINIMAL_CLASS,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "dtype"
+)
 public abstract class ModeDto implements IResource<ModeDto> {
     /**
      * The type of the mode.

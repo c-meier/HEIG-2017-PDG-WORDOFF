@@ -35,17 +35,14 @@ public class Game {
             modeSummaryDtosList.add(modeSummaryDto);
         }
         modeSummaryDtosList.get(0).setActive(true);
-        modeSummaryDtosList.get(0).setActive(true);
         modeSummaryDtosList.get(0).setEnded(false);
         modeSummaryDtosList.get(0).setType(ModeType.FRIEND_DUEL);
 
-        modeSummaryDtosList.get(1).setActive(true);
-        modeSummaryDtosList.get(1).setActive(true);
-        modeSummaryDtosList.get(1).setEnded(false);
+        modeSummaryDtosList.get(1).setActive(false);
+        modeSummaryDtosList.get(1).setEnded(true);
         modeSummaryDtosList.get(1).setType(ModeType.RANDOM_DUEL);
 
-        modeSummaryDtosList.get(2).setActive(true);
-        modeSummaryDtosList.get(2).setActive(true);
+        modeSummaryDtosList.get(2).setActive(false);
         modeSummaryDtosList.get(2).setEnded(false);
         modeSummaryDtosList.get(2).setType(ModeType.FRIEND_DUEL);
 

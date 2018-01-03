@@ -31,10 +31,7 @@ import javafx.stage.Stage;
 import javax.xml.ws.http.HTTPException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MainMenuController implements Initializable {
     // Classe de test
@@ -161,13 +158,6 @@ public class MainMenuController implements Initializable {
         listGamesTournamentCompetition.getListView().setOnMouseClicked(eventGoToGame);
 
         sortGames();
-        listGamesDuelFinish.updateView();
-        listGamesDuel.updateView();
-        listGamesDuelWait.updateView();
-
-       // listGamesTournamentCompetition.updateView();
-      //  listGamesTournamentCompetition.updateView();
-       // listGamesTournamentsFriends.updateView();
     }
 
     private void sortGames(){
@@ -293,9 +283,9 @@ public class MainMenuController implements Initializable {
                             dto.setName(result.get());
                             ModeSummaryDto modeSummaryDto = ModeApi.createMode(dto);
                             if(modeSummaryDto.isActive()){
-                                listGamesDuel.addGameAndUpdate(modeSummaryDto);
+                                listGamesDuel.addGame(modeSummaryDto);
                             } else {
-                                listGamesDuelWait.addGameAndUpdate(modeSummaryDto);
+                                listGamesDuelWait.addGame(modeSummaryDto);
                             }
 
                         }
@@ -308,12 +298,16 @@ public class MainMenuController implements Initializable {
                         dto.setType(ModeType.RANDOM_DUEL);
                         ModeSummaryDto modeSummaryDto = ModeApi.createMode(dto);
                         if(modeSummaryDto.isActive()){
-                            listGamesDuel.addGameAndUpdate(modeSummaryDto);
+                            listGamesDuel.addGame(modeSummaryDto);
                         } else {
-                            listGamesDuelWait.addGameAndUpdate(modeSummaryDto);
+                            listGamesDuelWait.addGame(modeSummaryDto);
                         }
                     } catch (TokenNotFoundException e1) {
                         e1.printStackTrace();
+                    } catch (NoSuchElementException ex){
+                        Dialog.getInstance().signalError(ex.getMessage());
+                    }catch(Exception exep){
+                        Dialog.getInstance().signalError(exep.getMessage());
                     }
                 }
             }else if (e.getSource().equals(newTournament)){ //new competitive

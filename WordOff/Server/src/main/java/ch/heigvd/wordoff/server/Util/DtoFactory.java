@@ -253,7 +253,7 @@ public class DtoFactory {
 
         // Check if mode is active.
         Optional<Game> optGame = entity.getActiveGame(viewer);
-        dto.setActive(optGame.isPresent() && Objects.equals(optGame.get().getCurrPlayer(), viewer));
+        dto.setActive(optGame.isPresent() && Objects.equals(optGame.get().getCurrPlayer().getId(), viewer.getId()));
 
         return dto;
     }

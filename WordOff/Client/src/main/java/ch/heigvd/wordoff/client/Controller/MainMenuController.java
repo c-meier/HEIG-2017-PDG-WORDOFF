@@ -228,59 +228,44 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void newGame(MouseEvent e) {
-        String langSelect = "";
+        String lang = "";
         String type = null;
 
+        List<String> choice = null;
         if(e.getSource().equals(newGamePlayer)){
-            type = Dialog.getInstance().choicesBoxDialog("Démarrer une nouvelle partie",
-                    "Quel type de partie?",
-                    "Type :",
-                    "Adversaire aléatoire",
-                    "Contre un ami");
+            choice = Dialog.getInstance().newGame();
         }
 
-        String choice = Dialog.getInstance().choicesBoxDialog("Démarrer une nouvelle partie",
-                UtilStringReference.INFOS_SELECT_LANGUAGE,
-                "Langue : ",
-                UtilStringReference.TEXT_PARAM_LANG.get(0),
-                UtilStringReference.TEXT_PARAM_LANG.get(1));
-
         if (null != choice) {
-            switch (choice) {
+            lang = choice.get(0);
+            type = choice.get(1);
+
+            switch (choice.get(0)) {
                 case UtilStringReference.LANG_FR:
-                    langSelect = "fr";
+                    lang = "fr";
                     break;
                 case UtilStringReference.LANG_EN:
-                    langSelect = "en";
+                    lang = "en";
                     break;
-                default:
-                    return;
             }
 
-            System.out.println("Demande de créer une nouvelle partie : " + langSelect);
+            System.out.println("Demande de créer une nouvelle partie : " + lang);
 
             CreateModeDto dto = new CreateModeDto();
-            dto.setLang(langSelect);
+            dto.setLang(lang);
             dto.setParticipants(new LinkedList<>());
 
             if(e.getSource().equals(newGamePlayer)){
                 if(type != null && type.equals("Contre un ami")){
                     try {
                         dto.setType(ModeType.FRIEND_DUEL);
-                        TextInputDialog dialog = new TextInputDialog();
-                        dialog.setTitle("Entrez le nom de l'adversaire");
-                        dialog.setContentText("Nom de l'adversaire:");
 
-                        DialogPane dialogPane = dialog.getDialogPane();
-                        ObservableList<String> st = dialogPane.getStylesheets();
-                        dialogPane.getStylesheets().add(
-                                getClass().getResource("/styles/Style_alert.css").toExternalForm());
-                        dialogPane.getStyleClass().add("myDialog");
+                        // Dialog to select the opponent
+                        String result = Dialog.getInstance().choiceNameOpponent();
 
-                        Optional<String> result = dialog.showAndWait();
-                        if (result.isPresent()){
-                            dto.addParticpant(result.get());
-                            dto.setName(result.get());
+                        if (!result.isEmpty()){
+                            dto.addParticpant(result);
+                            dto.setName(result);
                             ModeSummaryDto modeSummaryDto = ModeApi.createMode(dto);
                             if(modeSummaryDto.isActive()){
                                 listGamesDuel.addGame(modeSummaryDto);
@@ -312,7 +297,7 @@ public class MainMenuController implements Initializable {
                 }
             }else if (e.getSource().equals(newTournament)){ //new competitive
                 dto.setType(ModeType.COMPETITIVE_TOURNAMENT);
-                dto.setLang(langSelect);
+                dto.setLang(lang);
 
             }else { // new friendly tournament
                 dto.setType(ModeType.FRIENDLY_TOURNAMENT);
@@ -337,7 +322,7 @@ public class MainMenuController implements Initializable {
             }
 
         // TODO demande de créer la nuvelle partie au serveur en fonction du mode => récupérer la source de l'event
-            
+
         }
     }
 

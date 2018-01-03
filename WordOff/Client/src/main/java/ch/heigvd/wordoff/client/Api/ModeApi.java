@@ -8,7 +8,9 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static ch.heigvd.wordoff.common.Constants.AUTHORIZATION_HEADER;
 import static ch.heigvd.wordoff.common.Constants.SERVER_URI;
@@ -25,6 +27,10 @@ public class ModeApi {
         return createMode(TokenManager.loadToken(), modeDto);
     }
 
+    public static ModeDto getMode(Long modeId) throws TokenNotFoundException {
+        return getMode(TokenManager.loadToken(), modeId);
+    }
+
     private static List<ModeSummaryDto> retrieveModes(String token) {
         final String uri = SERVER_URI + "/modes";
 
@@ -36,6 +42,25 @@ public class ModeApi {
                         HttpMethod.GET,
                         new HttpEntity<>(headers),
                         new ParameterizedTypeReference<List<ModeSummaryDto>>() {});
+
+        return responseEntity.getBody();
+    }
+
+    private static ModeDto getMode(String token, Long modeId) {
+        final String uri = SERVER_URI + "/modes/{modeId}";
+
+        Map<String, String> params = new HashMap<>();
+        params.put("modeId", modeId.toString());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(AUTHORIZATION_HEADER, token);
+
+        ResponseEntity<ModeDto> responseEntity =
+                restTemplate.exchange(uri,
+                        HttpMethod.GET,
+                        new HttpEntity<>(headers),
+                        ModeDto.class,
+                        params);
 
         return responseEntity.getBody();
     }

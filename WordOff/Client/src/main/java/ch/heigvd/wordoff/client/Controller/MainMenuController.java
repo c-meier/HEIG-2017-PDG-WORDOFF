@@ -15,6 +15,7 @@ import ch.heigvd.wordoff.client.Util.UtilStringReference;
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
 import ch.heigvd.wordoff.common.Dto.Mode.*;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,6 +26,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import javax.xml.ws.http.HTTPException;
 import java.io.IOException;
@@ -238,6 +240,7 @@ public class MainMenuController implements Initializable {
     private void newGame(MouseEvent e) {
         String langSelect = "";
         String type = null;
+
         if(e.getSource().equals(newGamePlayer)){
             type = Dialog.getInstance().choicesBoxDialog("Démarrer une nouvelle partie",
                     "Quel type de partie?",
@@ -278,6 +281,12 @@ public class MainMenuController implements Initializable {
                         TextInputDialog dialog = new TextInputDialog();
                         dialog.setTitle("Entrez le nom de l'adversaire");
                         dialog.setContentText("Nom de l'adversaire:");
+
+                        DialogPane dialogPane = dialog.getDialogPane();
+                        ObservableList<String> st = dialogPane.getStylesheets();
+                        dialogPane.getStylesheets().add(
+                                getClass().getResource("/styles/Style_alert.css").toExternalForm());
+                        dialogPane.getStyleClass().add("myDialog");
 
                         Optional<String> result = dialog.showAndWait();
                         if (result.isPresent()){

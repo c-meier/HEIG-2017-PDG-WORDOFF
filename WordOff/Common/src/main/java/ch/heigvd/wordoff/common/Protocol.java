@@ -15,6 +15,8 @@ public interface Protocol {
     int CHEATING = 304;
     int NON_EXISTANT_PLAYER_LVL = 305;
     int NOT_YOUR_TURN = 306;
+    int NOT_ENOUGH_COINS = 307;
+    int GAME_IS_OVER = 308;
     int TOO_MANY_PARTICIPANTS = 421;
     int INVALID_INVITATION_STATUS = 407;
 }

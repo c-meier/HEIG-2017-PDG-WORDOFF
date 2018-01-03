@@ -23,6 +23,8 @@ public class User extends Player {
 
     private int level;
 
+    private int coins = 0;
+
     protected User() {
         this.relations = new HashMap<>();
     }
@@ -74,5 +76,13 @@ public class User extends Player {
         } else {
             getRelations().put(target, new Relation(this, target, status));
         }
+    }
+
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
     }
 }

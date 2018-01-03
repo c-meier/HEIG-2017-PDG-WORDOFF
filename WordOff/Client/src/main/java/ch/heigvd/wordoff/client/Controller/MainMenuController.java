@@ -14,7 +14,7 @@ import ch.heigvd.wordoff.client.Util.ListCustom;
 import ch.heigvd.wordoff.client.Util.UtilStringReference;
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
-import ch.heigvd.wordoff.common.Dto.Mode.ModeSummaryDto;
+import ch.heigvd.wordoff.common.Dto.ModeSummaryDto;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

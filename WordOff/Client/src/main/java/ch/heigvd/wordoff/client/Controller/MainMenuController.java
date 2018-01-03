@@ -164,6 +164,8 @@ public class MainMenuController implements Initializable {
         listGamesDuelFinish.updateView();
         listGamesDuel.updateView();
         listGamesDuelWait.updateView();
+
+       // listGamesTournamentCompetition.updateView();
       //  listGamesTournamentCompetition.updateView();
        // listGamesTournamentsFriends.updateView();
     }
@@ -197,10 +199,7 @@ public class MainMenuController implements Initializable {
                         titledPane.setContent(competitiveTournamentVbox);
                         break;
                 }
-                listGamesDuel.updateView();
-                listGamesDuelWait.updateView();
-                listGamesDuelFinish.updateView();
-                listGamesTournamentCompetition.updateView();
+
                 //listGamesTournamentsFriends.updateView();
 /*
                 // cas tournament et tournamentFriend :

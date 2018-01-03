@@ -32,6 +32,8 @@ import java.util.ResourceBundle;
  */
 public class LoginController implements Initializable {
 
+    public static String currentUser = null;
+
     @FXML
     private TextField userName;
     @FXML
@@ -52,6 +54,7 @@ public class LoginController implements Initializable {
                 char[] pass = passWord.getText().toCharArray();
 
                 UserApi.signIn(new LoginDto(name, pass));
+                currentUser = name;
                 handleGoToMainMenu();
             }catch(BadRequestException e){
                 e.printStackTrace();

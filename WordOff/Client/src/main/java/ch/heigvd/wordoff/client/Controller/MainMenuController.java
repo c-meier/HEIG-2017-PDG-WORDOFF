@@ -14,8 +14,7 @@ import ch.heigvd.wordoff.client.Util.ListCustom;
 import ch.heigvd.wordoff.client.Util.UtilStringReference;
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
-import ch.heigvd.wordoff.common.Dto.Mode.ModeDto;
-import ch.heigvd.wordoff.common.Dto.Mode.ModeSummaryDto;
+import ch.heigvd.wordoff.common.Dto.Mode.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,10 +22,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
@@ -35,9 +31,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
-
-import static ch.heigvd.wordoff.common.Dto.Mode.ModeType.FRIEND_DUEL;
 
 public class MainMenuController implements Initializable {
     // Classe de test
@@ -197,9 +192,13 @@ public class MainMenuController implements Initializable {
                         TitledPane titledPane = new TitledPane();
                         titledPane.setText(dto.getName());
                         titledPane.setContent(competitiveTournamentVbox);
-
                         break;
                 }
+                listGamesDuel.updateView();
+                listGamesDuelWait.updateView();
+                listGamesDuelFinish.updateView();
+                listGamesTournamentCompetition.updateView();
+                //listGamesTournamentsFriends.updateView();
 /*
                 // cas tournament et tournamentFriend :
                 // Exemple pour construire les tournois
@@ -236,11 +235,16 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    private void newGame() {
+    private void newGame(MouseEvent e) {
         String langSelect = "";
-        // TODO récupérer les bons ids
-        long myId = 1;
-        long otherId = 2;
+        String type = null;
+        if(e.getSource().equals(newGamePlayer)){
+            type = Dialog.getInstance().choicesBoxDialog("Démarrer une nouvelle partie",
+                    "Quel type de partie?",
+                    "Type :",
+                    "Adversaire aléatoire",
+                    "Contre un ami");
+        }
 
         String choice = Dialog.getInstance().choicesBoxDialog("Démarrer une nouvelle partie",
                 UtilStringReference.INFOS_SELECT_LANGUAGE,
@@ -260,11 +264,45 @@ public class MainMenuController implements Initializable {
                     return;
             }
 
-            List<Long> playersId = new LinkedList();
-            playersId.add(myId);
-            playersId.add(otherId);
-
             System.out.println("Demande de créer une nouvelle partie : " + langSelect);
+
+            CreateModeDto dto = new CreateModeDto();
+            dto.setLang(langSelect);
+            dto.setParticipants(new LinkedList<>());
+
+            if(e.getSource().equals(newGamePlayer)){
+                dto.addParticpant(LoginController.currentUser);
+                if(type != null && type.equals("Contre un ami")){
+                    try {
+                        dto.setType(ModeType.FRIEND_DUEL);
+                        TextInputDialog dialog = new TextInputDialog();
+                        dialog.setTitle("Entrez le nom de l'adversaire");
+                        dialog.setContentText("Nom de l'adversaire:");
+
+                        Optional<String> result = dialog.showAndWait();
+                        if (result.isPresent()){
+                            dto.addParticpant(result.get());
+                            dto.setName(result.get());
+                            ModeApi.createMode(dto);
+                        }
+
+                    } catch (TokenNotFoundException e1) {
+                        e1.printStackTrace();
+                    }
+                } else {
+                    try {
+                        dto.setType(ModeType.RANDOM_DUEL);
+                        ModeApi.createMode(dto);
+                    } catch (TokenNotFoundException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }else if (e.getSource().equals(newTournament)){ //new competitive
+                dto.setType(ModeType.COMPETITIVE_TOURNAMENT);
+            }else { // new friendly tournament
+                dto.setType(ModeType.FRIENDLY_TOURNAMENT);
+            }
+
         // TODO demande de créer la nuvelle partie au serveur en fonction du mode => récupérer la source de l'event
 
         }

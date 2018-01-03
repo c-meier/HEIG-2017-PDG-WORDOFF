@@ -162,6 +162,7 @@ public class GameScreenController implements Initializable {
         setState(this.game);
         DictionaryLoader dicoLoad = new DictionaryLoader();
         this.dico = dicoLoad.getDico(this.game.getLang());
+
     }
 
     private void setLang() {

@@ -19,7 +19,7 @@ public class ListCustom {
     private ListView<String> listView;
     private ObservableList<String> items;
     private List<Image> listImages;
-    
+
     private String url = "images/vs_logo.png";
     private final Image IMG = new Image(url);
 

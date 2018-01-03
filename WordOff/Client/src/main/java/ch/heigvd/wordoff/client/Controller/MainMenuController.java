@@ -14,7 +14,8 @@ import ch.heigvd.wordoff.client.Util.ListCustom;
 import ch.heigvd.wordoff.client.Util.UtilStringReference;
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
-import ch.heigvd.wordoff.common.Dto.ModeSummaryDto;
+import ch.heigvd.wordoff.common.Dto.Mode.ModeDto;
+import ch.heigvd.wordoff.common.Dto.Mode.ModeSummaryDto;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -35,6 +36,8 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static ch.heigvd.wordoff.common.Dto.Mode.ModeType.FRIEND_DUEL;
 
 public class MainMenuController implements Initializable {
     // Classe de test
@@ -61,7 +64,7 @@ public class MainMenuController implements Initializable {
     @FXML
     private VBox vBoxgamesPlayerFinish = new VBox();
     @FXML
-    private VBox vBoxgamesTurnamentFriend =  new VBox();
+    private VBox competitiveTournamentVbox =  new VBox();
     @FXML
     private Accordion friendTournamentAccordion = new Accordion();
 
@@ -153,10 +156,12 @@ public class MainMenuController implements Initializable {
         listGamesDuel = new ListCustom(vBoxgamesPlayer);
         listGamesDuelWait = new ListCustom(vBoxgamesPlayerWait);
         listGamesDuelFinish = new ListCustom(vBoxgamesPlayerFinish);
+        listGamesTournamentCompetition = new ListCustom(competitiveTournamentVbox);
 
         listGamesDuel.getListView().setOnMouseClicked(eventGoToGame);
         listGamesDuelWait.getListView().setOnMouseClicked(eventGoToGame);
         listGamesDuelFinish.getListView().setOnMouseClicked(eventGoToGame);
+        listGamesTournamentCompetition.getListView().setOnMouseClicked(eventGoToGame);
 
         sortGames();
     }
@@ -179,12 +184,17 @@ public class MainMenuController implements Initializable {
                         break;
                     case FRIENDLY_TOURNAMENT:
                         listGamesTournamentsFriends.addGame(dto);
+
                         break;
                     case COMPETITIVE_TOURNAMENT:
                         listGamesTournamentCompetition.addGame(dto);
+                        TitledPane titledPane = new TitledPane();
+                        titledPane.setText(dto.getName());
+                        titledPane.setContent(competitiveTournamentVbox);
+
                         break;
                 }
-
+/*
                 // cas tournament et tournamentFriend :
                 // Exemple pour construire les tournois
 
@@ -202,6 +212,7 @@ public class MainMenuController implements Initializable {
                 // Partie logic de référence pour lancer un game sélectionné
                 listGames.addGameAndUpdate(dto);                            // Ajouter la game à la liste de référence dto
                 listGames.getListView().setOnMouseClicked(eventGoToGame);   // Ajouter le listener
+*/
             }
 
             // TODO update des listes
@@ -266,7 +277,8 @@ public class MainMenuController implements Initializable {
             // Partie venant du serveur
             String endpoint = modeSummaryDtos.get(games.getSelectionModel().getSelectedIndex()).getEndpoint();
             try {
-                selectGame = GameApi.getGame(endpoint);
+                ModeDto mode = ModeApi.getMode(endpoint);
+                selectGame = GameApi.getGame(mode.getGame().getId());
                 System.out.println(endpoint);
                 handleGotoGame();
             } catch (TokenNotFoundException e) {

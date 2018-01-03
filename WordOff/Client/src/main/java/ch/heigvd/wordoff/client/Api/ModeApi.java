@@ -27,8 +27,8 @@ public class ModeApi {
         return createMode(TokenManager.loadToken(), modeDto);
     }
 
-    public static ModeDto getMode(Long modeId) throws TokenNotFoundException {
-        return getMode(TokenManager.loadToken(), modeId);
+    public static ModeDto getMode(String endpoint) throws TokenNotFoundException {
+        return getMode(TokenManager.loadToken(), endpoint);
     }
 
     private static List<ModeSummaryDto> retrieveModes(String token) {
@@ -46,11 +46,11 @@ public class ModeApi {
         return responseEntity.getBody();
     }
 
-    private static ModeDto getMode(String token, Long modeId) {
-        final String uri = SERVER_URI + "/modes/{modeId}";
+    private static ModeDto getMode(String token, String endpoint) {
+        final String uri = SERVER_URI + "{endpoint}";
 
         Map<String, String> params = new HashMap<>();
-        params.put("modeId", modeId.toString());
+        params.put("endpoint", endpoint);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(AUTHORIZATION_HEADER, token);

@@ -266,7 +266,7 @@ public class MainMenuController implements Initializable {
 
             System.out.println("Demande de créer une nouvelle partie : " + langSelect);
         // TODO demande de créer la nuvelle partie au serveur en fonction du mode => récupérer la source de l'event
-
+            
         }
     }
 

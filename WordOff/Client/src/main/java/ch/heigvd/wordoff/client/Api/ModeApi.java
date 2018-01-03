@@ -2,6 +2,7 @@ package ch.heigvd.wordoff.client.Api;
 
 import ch.heigvd.wordoff.client.Exception.TokenNotFoundException;
 import ch.heigvd.wordoff.client.Util.TokenManager;
+import ch.heigvd.wordoff.common.Dto.Mode.CreateModeDto;
 import ch.heigvd.wordoff.common.Dto.Mode.ModeDto;
 import ch.heigvd.wordoff.common.Dto.Mode.ModeSummaryDto;
 import org.springframework.core.ParameterizedTypeReference;
@@ -23,7 +24,7 @@ public class ModeApi {
         return retrieveModes(TokenManager.loadToken());
     }
 
-    public static ModeSummaryDto createMode(ModeDto modeDto) throws TokenNotFoundException {
+    public static ModeSummaryDto createMode(CreateModeDto modeDto) throws TokenNotFoundException {
         return createMode(TokenManager.loadToken(), modeDto);
     }
 
@@ -65,7 +66,7 @@ public class ModeApi {
         return responseEntity.getBody();
     }
 
-    private static ModeSummaryDto createMode(String token, ModeDto modeDto) {
+    private static ModeSummaryDto createMode(String token, CreateModeDto modeDto) {
         final String uri = SERVER_URI + "/modes";
 
         HttpHeaders headers = new HttpHeaders();

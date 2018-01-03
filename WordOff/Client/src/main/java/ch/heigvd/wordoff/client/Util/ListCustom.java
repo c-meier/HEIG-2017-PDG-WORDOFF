@@ -19,8 +19,10 @@ public class ListCustom {
     private ListView<String> listView;
     private ObservableList<String> items;
     private List<Image> listImages;
+    
+    private String url = "images/vs_logo.png";
+    private final Image IMG = new Image(url);
 
-    private final Image IMAGE_RUBY = new Image("https://upload.wikimedia.org/wikipedia/commons/f/f1/Ruby_logo_64x64.png");
 
     public ListCustom(VBox vbox){
         this.vBox = vbox;
@@ -37,7 +39,7 @@ public class ListCustom {
         for (ModeSummaryDto game : listGames) {
             // TODO récupérer l'image de l'adversaire
             //listImagesGames.add(game.getOtherPlayer().getImage());
-            listImages.add(IMAGE_RUBY);
+            listImages.add(IMG);
             items.add(game.getName().toUpperCase());
         }
     }
@@ -50,8 +52,8 @@ public class ListCustom {
     public void addGame(ModeSummaryDto game){
         items.add(game.getName());
         // TODO récupérer l'image de l'adversaire
-        //listImages.add(game.getOtherPlayer().getImage());
-        listImages.add(IMAGE_RUBY);
+        //listImages.add(game.getOtherPlayer().getImage())
+        listImages.add(IMG);
     }
     public void addGameAndUpdate(ModeSummaryDto game){
         addGame(game);
@@ -82,6 +84,8 @@ public class ListCustom {
                     setGraphic(null);
                 } else {
                     imageView.setImage(listImages.get(getIndex()));
+                    imageView.setFitHeight(50);
+                    imageView.setFitWidth(50);
                     setText(name);
                     setGraphic(imageView);
                 }

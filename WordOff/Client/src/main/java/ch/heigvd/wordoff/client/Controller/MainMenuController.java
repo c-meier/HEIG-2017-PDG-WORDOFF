@@ -58,15 +58,15 @@ public class MainMenuController implements Initializable {
 
     // Vbox to display diff games
     @FXML
-    private VBox vBoxgamesPlayer =  new VBox();
+    private VBox vBoxgamesPlayer;
     @FXML
-    private VBox vBoxgamesPlayerWait = new VBox();
+    private VBox vBoxgamesPlayerWait;
     @FXML
-    private VBox vBoxgamesPlayerFinish = new VBox();
+    private VBox vBoxgamesPlayerFinish;
     @FXML
-    private VBox competitiveTournamentVbox =  new VBox();
+    private VBox competitiveTournamentVbox;
     @FXML
-    private Accordion friendTournamentAccordion = new Accordion();
+    private Accordion friendTournamentAccordion;
 
     /* Button to start new game */
     @FXML
@@ -146,7 +146,7 @@ public class MainMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        setState();
+
     }
 
     public void setState() {
@@ -164,13 +164,19 @@ public class MainMenuController implements Initializable {
         listGamesTournamentCompetition.getListView().setOnMouseClicked(eventGoToGame);
 
         sortGames();
+        listGamesDuelFinish.updateView();
+        listGamesDuel.updateView();
+        listGamesDuelWait.updateView();
+      //  listGamesTournamentCompetition.updateView();
+       // listGamesTournamentsFriends.updateView();
     }
 
     private void sortGames(){
         try {
             modeSummaryDtos = ModeApi.retrieveModes();
+            List<ModeSummaryDto> mode  = gameTest.getModeSummaryDtosList();
             // TODO trier les différentes games pour les mettre dans les bonnes listes
-            for (ModeSummaryDto dto : modeSummaryDtos) {
+            for (ModeSummaryDto dto : mode) {
                 switch(dto.getType()){
                     case FRIEND_DUEL:
                     case RANDOM_DUEL:

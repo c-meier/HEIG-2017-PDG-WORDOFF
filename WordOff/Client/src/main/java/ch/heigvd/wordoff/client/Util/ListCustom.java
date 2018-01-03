@@ -32,6 +32,7 @@ public class ListCustom {
         this.vBox.getChildren().add(listView);
         this.vBox.setAlignment(Pos.CENTER);
     }
+
     public void addGamesList(List<ModeSummaryDto> listGames) {
         for (ModeSummaryDto game : listGames) {
             // TODO récupérer l'image de l'adversaire

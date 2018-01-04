@@ -333,6 +333,11 @@ public class MainMenuController implements Initializable {
             }else if (e.getSource().equals(newTournament)){ //new competitive
                 dto.setType(ModeType.COMPETITIVE_TOURNAMENT);
                 dto.setLang(lang);
+                try {
+                    ModeSummaryDto modeSummaryDto = ModeApi.createMode(dto);
+                } catch (TokenNotFoundException e1) {
+                    e1.printStackTrace();
+                }
 
             }else { // new friendly tournament
                 dto.setType(ModeType.FRIENDLY_TOURNAMENT);
@@ -352,7 +357,22 @@ public class MainMenuController implements Initializable {
                 }else{
                     dto.setName("Tournoi amical");
                 }
+
                 //TODO: fenetre avec choix parmis liste d'amis + entrée quelquconque d'utilisateur
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Creation du tournoi amical");
+                alert.setHeaderText(null);
+                alert.setContentText("Placeholder. Lorsque les méthodes de l'api seront disponibles, on pourra ici choisir " +
+                        "parmi les amis et joueurs récents. Pour l'instant, one et two sont hardcodés dans ce tournoi.");
+
+                alert.showAndWait();
+                dto.addParticpant("one");
+                dto.addParticpant("two");
+                try {
+                    ModeSummaryDto modeSummaryDto = ModeApi.createMode(dto);
+                } catch (TokenNotFoundException e1) {
+                    e1.printStackTrace();
+                }
 
             }
 

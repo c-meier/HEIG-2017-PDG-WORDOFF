@@ -15,6 +15,7 @@ import ch.heigvd.wordoff.client.Util.UtilStringReference;
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
 import ch.heigvd.wordoff.common.Dto.Mode.*;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,9 +26,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import javax.xml.ws.http.HTTPException;
 import java.io.IOException;
 import java.net.URL;
@@ -62,6 +67,7 @@ public class MainMenuController implements Initializable {
     @FXML
     private Accordion friendTournamentAccordion;
 
+
     /* Button to start new game */
     @FXML
     private Button newGamePlayer;
@@ -69,6 +75,16 @@ public class MainMenuController implements Initializable {
     private Button newTournament;
     @FXML
     private Button newTournamentFriend;
+    //@FXML
+   // private HBox resultTournamentComp;
+    @FXML
+    private Label labelScore, labelClassement, labelNumber, labelChance;
+    @FXML
+    private Accordion showDetailsComp;
+    @FXML
+    private GridPane paneTournamentComp;
+    @FXML
+    private AnchorPane parentPaneTournamentComp;
 
     // MouseEvent d'un double clique, appelle l'ouverture de la game.
     private EventHandler<MouseEvent> eventGoToGame = new EventHandler<MouseEvent>() {
@@ -80,6 +96,25 @@ public class MainMenuController implements Initializable {
             }
         }
     };
+
+    private EventHandler<MouseEvent>  eventShowDetails = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent click) {
+            if (click.getClickCount() == 2) {
+                showDetailsTournamentComp();
+            }
+        }
+    };/*
+
+    private EventHandler<MouseEvent>  eventShowDetailsDay = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent click) {
+            TitledPane pane = (TitledPane) click.getSource(); // Source du clique
+            showDetailsDay(pane);
+
+        }
+    };
+*/
 
     private void handleGotoGame() {
         FXMLLoader loader = getLoader("/fxml/gameScreen.fxml");
@@ -155,7 +190,9 @@ public class MainMenuController implements Initializable {
         listGamesDuel.getListView().setOnMouseClicked(eventGoToGame);
         listGamesDuelWait.getListView().setOnMouseClicked(eventGoToGame);
         listGamesDuelFinish.getListView().setOnMouseClicked(eventGoToGame);
-        listGamesTournamentCompetition.getListView().setOnMouseClicked(eventGoToGame);
+       // showTournamentComp();
+        listGamesTournamentCompetition.getListView().setOnMouseClicked(eventShowDetails);
+        //listGamesTournamentCompetition.getListView().setOnMouseClicked(eventGoToGame);
 
         sortGames();
     }
@@ -184,9 +221,9 @@ public class MainMenuController implements Initializable {
                         break;
                     case COMPETITIVE_TOURNAMENT:
                         listGamesTournamentCompetition.addGame(dto);
-                        TitledPane titledPane = new TitledPane();
+                     /*   TitledPane titledPane = new TitledPane();
                         titledPane.setText(dto.getName());
-                        titledPane.setContent(competitiveTournamentVbox);
+                        titledPane.setContent(competitiveTournamentVbox);*/
                         break;
                 }
 
@@ -212,9 +249,7 @@ public class MainMenuController implements Initializable {
 */
             }
 
-            // TODO update des listes
-            //listGamesDuel.addGameAndUpdate(this.gameTest.getGameSummaryDtoList().get(0));
-
+            listGamesTournamentCompetition.addGame(gameTest.getModeSummaryDtosList().get(0));
 
         } catch (TokenNotFoundException e) {
             Dialog.getInstance().signalInformation(UtilStringReference.ERROR + " " + e.getMessage());
@@ -350,4 +385,36 @@ public class MainMenuController implements Initializable {
         }
     }
 
+    public void showDetailsTournamentComp(){
+        boolean hasTournamentComp = true;
+        if(hasTournamentComp){
+            paneTournamentComp.setVisible(true);
+            competitiveTournamentVbox.setVisible(false);
+            // TODO récupérer les infos et remplir les listes au format
+            // Position Joeur Score   =>   1. Marcel 320 pt
+
+            for(TitledPane titledPane : showDetailsComp.getPanes()){
+                AnchorPane pane = (AnchorPane) titledPane.getContent();
+                System.out.println(titledPane.getText());
+                ListView<String> test = (ListView<String>) pane.getChildren().get(0);
+                test.getItems().add("Test 1");
+                test.getItems().add("Test 2");
+                test.getItems().add("Test 3");
+                test.getItems().add("Test 1");
+                test.getItems().add("Test 2");
+                test.getItems().add("Test 3");
+                test.getItems().add("Test 1");
+                test.getItems().add("Test 2");
+                test.getItems().add("Test 3");
+            }
+        }else{
+            paneTournamentComp.setVisible(false);
+            competitiveTournamentVbox.setVisible(true);
+        }
+    }
+
+    @FXML
+    private void playTournamentComp(){
+        // TODO lancer la partie du tournoi compétitif
+    }
 }

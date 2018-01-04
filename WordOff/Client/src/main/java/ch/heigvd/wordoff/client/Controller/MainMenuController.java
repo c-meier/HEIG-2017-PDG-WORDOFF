@@ -1,5 +1,6 @@
 package ch.heigvd.wordoff.client.Controller;
 
+import ch.heigvd.wordoff.client.Api.Api;
 import ch.heigvd.wordoff.client.Api.GameApi;
 import ch.heigvd.wordoff.client.Api.ModeApi;
 import ch.heigvd.wordoff.client.Exception.TokenNotFoundException;
@@ -79,6 +80,8 @@ public class MainMenuController implements Initializable {
    // private HBox resultTournamentComp;
     @FXML
     private Label labelScore, labelClassement, labelNumber, labelChance;
+    @FXML
+    private Label labelNumberFriend, labelScoreFriend, labelClassementFriend, labelChanceFriend;
     @FXML
     private Accordion showDetailsComp;
     @FXML
@@ -231,32 +234,7 @@ public class MainMenuController implements Initializable {
                         titledPane.setContent(competitiveTournamentVbox);*/
                         break;
                 }
-
-                //listGamesTournamentsFriends.updateView();
-/*
-                // cas tournament et tournamentFriend :
-                // Exemple pour construire les tournois
-
-                // Intérieur de l'accordéon (ouvert)
-                VBox vBox = new VBox();                                     // Layout
-                ListCustom listGames = new ListCustom(vBox);                // Mise en page du VBox
-
-                // Titre des tournois (menu pouvant être ouvert)
-                TitledPane titledPane = new TitledPane();
-                titledPane.setText(dto.getName());         // Nom du tournoi
-                titledPane.setContent(vBox);                                // Le détail du tournoi
-
-                friendTournamentAccordion.getPanes().add(titledPane);             // Accroche le tournoi à l'accordéon
-
-                // Partie logic de référence pour lancer un game sélectionné
-                listGames.addGameAndUpdate(dto);                            // Ajouter la game à la liste de référence dto
-                listGames.getListView().setOnMouseClicked(eventGoToGame);   // Ajouter le listener
-*/
             }
-
-            listGamesTournamentCompetition.addGame(gameTest.getModeSummaryDtosList().get(0));
-            listGamesTournamentsFriends.addGame(gameTest.getModeSummaryDtosList().get(0));
-            listGamesTournamentsFriends.addGame(gameTest.getModeSummaryDtosList().get(2));
 
         } catch (TokenNotFoundException e) {
             Dialog.getInstance().signalInformation(UtilStringReference.ERROR + " " + e.getMessage());
@@ -429,8 +407,6 @@ public class MainMenuController implements Initializable {
         if(!listGamesTournamentCompetition.getListView().getItems().isEmpty()){
             paneTournamentComp.setVisible(true);
             competitiveTournamentVbox.setVisible(false);
-            // TODO récupérer les infos et remplir les listes au format
-            // Position Joeur Score   =>   1. Marcel 320 pt
             ModeSummaryDto modeSummaryDto = listGamesTournamentCompetition.getDtos().get(0);
             TournamentModeDto tmDto = null;
             try {
@@ -518,27 +494,11 @@ public class MainMenuController implements Initializable {
             TournamentModeDto tmDto = null;
             try {
                 tmDto = (TournamentModeDto) ModeApi.getMode(modeSummaryDto.getEndpoint());
-                //setupGraphicalTournament(tmDto, labe, labelScore, labelClassement, labelChance, showDetailsComp);
+                setupGraphicalTournament(tmDto, labelNumberFriend, labelScoreFriend, labelClassementFriend, labelChanceFriend, showDetailsFriend);
             } catch (TokenNotFoundException e) {
                 e.printStackTrace();
             }
 
-
-            // TODO avec les données serveur
-            for(TitledPane titledPane : showDetailsFriend.getPanes()){
-                AnchorPane pane = (AnchorPane) titledPane.getContent();
-                System.out.println(titledPane.getText());
-                ListView<String> test = (ListView<String>) pane.getChildren().get(0);
-                test.getItems().add("Test 1");
-                test.getItems().add("Test 2");
-                test.getItems().add("Test 3");
-                test.getItems().add("Test 1");
-                test.getItems().add("Test 2");
-                test.getItems().add("Test 3");
-                test.getItems().add("Test 1");
-                test.getItems().add("Test 2");
-                test.getItems().add("Test 3");
-            }
         }else{
             paneTournamentFriends.setVisible(false);
             friendsTournamentVbox.setVisible(true);
@@ -548,7 +508,19 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void playTournamentComp(){
-        // TODO lancer la partie du tournoi compétitif
+        if(!listGamesTournamentCompetition.getListView().getItems().isEmpty()){
+            ModeSummaryDto modeSummaryDto = listGamesTournamentCompetition.getDtos().get(0);
+            try {
+                TournamentModeDto tmDto = (TournamentModeDto)ModeApi.getMode(modeSummaryDto.getEndpoint());
+                if(tmDto.getGame() == null){
+                    Api.post(tmDto.getGames());
+                }
+                this.selectGame = GameApi.getGame(tmDto.getGame().getId());
+                handleGotoGame();
+            } catch (TokenNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML

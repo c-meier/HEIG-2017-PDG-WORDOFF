@@ -413,8 +413,7 @@ public class MainMenuController implements Initializable {
     }
 
     public void showDetailsTournamentComp(){
-        boolean hasTournamentComp = true;
-        if(hasTournamentComp){
+        if(!listGamesTournamentCompetition.getListView().getItems().isEmpty()){
             paneTournamentComp.setVisible(true);
             competitiveTournamentVbox.setVisible(false);
             // TODO récupérer les infos et remplir les listes au format
@@ -445,8 +444,7 @@ public class MainMenuController implements Initializable {
         String nameTournament = (String) list.getSelectionModel().getSelectedItem();
         System.out.println(nameTournament);
 
-        boolean hasTournamentComp = true;
-        if(hasTournamentComp) {
+        if(!listGamesTournamentsFriends.getListView().getItems().isEmpty()) {
             paneTournamentFriends.setVisible(true);
             friendsTournamentVbox.setVisible(false);
 

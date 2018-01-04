@@ -74,4 +74,11 @@ public class GameSummaryDto implements ISummaryDto, IResource<GameDto> {
                 Objects.equals(endpoint, c.endpoint) &&
                 Objects.equals(otherPlayer, c.otherPlayer);
     }
+
+    private static Class<GameDto> resourceType = GameDto.class;
+
+    @Override
+    public Class<GameDto> getResourceType() {
+        return resourceType;
+    }
 }

@@ -18,10 +18,13 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.xml.ws.http.HTTPException;
 import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.logging.Logger;
 
 import static ch.heigvd.wordoff.common.Constants.AUTHORIZATION_HEADER;
+import static ch.heigvd.wordoff.common.Constants.SERVER_URI;
 
 class Api {
     private final RestTemplate restTemplate;
@@ -74,10 +77,10 @@ class Api {
         headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());
 
         ResponseEntity<T> responseEntity =
-                Api.getRestTemplate().exchange(endpoint.getEndpoint(),
+                Api.getRestTemplate().exchange(SERVER_URI + endpoint.getEndpoint(),
                         HttpMethod.GET,
                         new HttpEntity<>(headers),
-                        new ParameterizedTypeReference<T>() {});
+                        endpoint.getResourceType());
 
         return responseEntity.getBody();
     }
@@ -88,10 +91,10 @@ class Api {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         ResponseEntity<T> responseEntity =
-                Api.getRestTemplate().exchange(endpoint.getEndpoint(),
+                Api.getRestTemplate().exchange(SERVER_URI + endpoint.getEndpoint(),
                         HttpMethod.PUT,
                         new HttpEntity<>((T)endpoint, headers),
-                        new ParameterizedTypeReference<T>() {});
+                        endpoint.getResourceType());
 
         return responseEntity.getBody();
     }
@@ -100,11 +103,28 @@ class Api {
         HttpHeaders headers = new HttpHeaders();
         headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());
 
+        ParameterizedType parameterizedType = new ParameterizedType() {
+            @Override
+            public Type[] getActualTypeArguments() {
+                return new Type[]{endpoint.getResponseType()};
+            }
+
+            @Override
+            public Type getRawType() {
+                return List.class;
+            }
+
+            @Override
+            public Type getOwnerType() {
+                return null;
+            }
+        };
+
         ResponseEntity<List<T>> responseEntity =
-                Api.getRestTemplate().exchange(endpoint.getEndpoint(),
+                Api.getRestTemplate().exchange(SERVER_URI + endpoint.getEndpoint(),
                         HttpMethod.GET,
                         new HttpEntity<>(headers),
-                        new ParameterizedTypeReference<List<T>>() {});
+                        ParameterizedTypeReference.forType(parameterizedType));
 
         return responseEntity.getBody();
     }
@@ -115,10 +135,10 @@ class Api {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         ResponseEntity<T> responseEntity =
-                Api.getRestTemplate().exchange(endpoint.getEndpoint(),
+                Api.getRestTemplate().exchange(SERVER_URI + endpoint.getEndpoint(),
                         HttpMethod.POST,
                         new HttpEntity<>(dto, headers),
-                        new ParameterizedTypeReference<T>() {});
+                        endpoint.getResponseType());
 
         return responseEntity.getBody();
     }

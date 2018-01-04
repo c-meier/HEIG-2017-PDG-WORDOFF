@@ -39,6 +39,12 @@ public class UserDto extends PlayerDto implements IResource<UserDto> {
         this.profilImage = profilImage;
     }
 
+    private static Class<UserDto> resourceType = UserDto.class;
+
+    @Override
+    public Class<UserDto> getResourceType() {
+        return resourceType;
+    }
 
     @Override
     public boolean equals(Object o) {

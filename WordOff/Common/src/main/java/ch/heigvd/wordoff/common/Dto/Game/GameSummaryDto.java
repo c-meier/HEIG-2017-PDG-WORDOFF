@@ -35,15 +35,16 @@ public class GameSummaryDto implements ISummaryDto, IResource<GameDto> {
         return endpoint;
     }
 
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-        if(id != null) {
-            this.endpoint = "/games/" + id;
-        }
     }
 
     public PlayerDto getOtherPlayer() {

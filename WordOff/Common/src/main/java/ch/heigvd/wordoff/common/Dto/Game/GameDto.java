@@ -27,6 +27,8 @@ public class GameDto implements IResource<GameDto> {
 
     private int bagSize;
 
+    private boolean ended;
+
     /**
      * Endpoint to POST challenges.
      * Is used to play a word.
@@ -112,6 +114,14 @@ public class GameDto implements IResource<GameDto> {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isEnded() {
+        return ended;
+    }
+
+    public void setEnded(boolean ended) {
+        this.ended = ended;
     }
 
     @Override

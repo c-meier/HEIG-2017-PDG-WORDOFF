@@ -14,6 +14,8 @@ public class GameSummaryDto implements ISummaryDto, IResource<GameDto> {
 
     private PlayerDto otherPlayer;
 
+    private boolean ended;
+
     /**
      * Endpoint to GET the full game information.
      */
@@ -50,6 +52,14 @@ public class GameSummaryDto implements ISummaryDto, IResource<GameDto> {
 
     public void setOtherPlayer(PlayerDto otherPlayer) {
         this.otherPlayer = otherPlayer;
+    }
+
+    public boolean isEnded() {
+        return ended;
+    }
+
+    public void setEnded(boolean ended) {
+        this.ended = ended;
     }
 
     @Override

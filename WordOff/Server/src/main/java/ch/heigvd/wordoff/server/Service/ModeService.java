@@ -118,7 +118,7 @@ public class ModeService {
                         .filter(m -> m.getOriginInvitation().getTarget().getLevel() == user.getLevel() &&
                                      m.getInvitations().size() < Constants.MAX_USER_IN_TOURNAMENT &&
                                      m.getLang().equals(lang) &&
-                                     Duration.between(LocalDateTime.now(), m.getStartDate()).toHours() >= Constants.MAX_HOURS_ELAPSED_IN_TOURNAMENT_FOR_PLAYER_TO_JOIN_MODE)
+                                     Duration.between(LocalDateTime.now(), m.getStartDate()).toHours() <= Constants.MAX_HOURS_ELAPSED_IN_TOURNAMENT_FOR_PLAYER_TO_JOIN_MODE)
                         .findFirst();
 
                 if(!oMode.isPresent()) {

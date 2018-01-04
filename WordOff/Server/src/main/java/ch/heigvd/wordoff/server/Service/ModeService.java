@@ -18,6 +18,7 @@ import ch.heigvd.wordoff.server.Repository.UserRepository;
 import ch.heigvd.wordoff.server.Rest.Exception.ErrorCodeException;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +117,8 @@ public class ModeService {
                         .stream()
                         .filter(m -> m.getOriginInvitation().getTarget().getLevel() == user.getLevel() &&
                                      m.getInvitations().size() < Constants.MAX_USER_IN_TOURNAMENT &&
-                                     m.getLang().equals(lang))
+                                     m.getLang().equals(lang) &&
+                                     Duration.between(LocalDateTime.now(), m.getStartDate()).toHours() >= Constants.MAX_HOURS_ELAPSED_IN_TOURNAMENT_FOR_PLAYER_TO_JOIN_MODE)
                         .findFirst();
 
                 if(!oMode.isPresent()) {

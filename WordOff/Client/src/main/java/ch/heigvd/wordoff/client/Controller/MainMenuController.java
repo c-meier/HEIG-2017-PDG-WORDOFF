@@ -272,24 +272,32 @@ public class MainMenuController implements Initializable {
     private void newGame(MouseEvent e) {
         String lang = "";
         String type = null;
-
+        Object source = e.getSource();
         List<String> choice = null;
-        if(e.getSource().equals(newGamePlayer)){
+        if(source.equals(newGamePlayer)){
             choice = Dialog.getInstance().newGame();
+        }else if(source.equals(newTournament)){
+            //TODO dialog
+            choice = new LinkedList<>();
         }
 
         if (null != choice) {
-            lang = choice.get(0);
-            type = choice.get(1);
+            if(source.equals(newGamePlayer)){
+                lang = choice.get(0);
+                type = choice.get(1);
+                switch (choice.get(0)) {
+                    case UtilStringReference.LANG_FR:
+                        lang = "fr";
+                        break;
+                    case UtilStringReference.LANG_EN:
+                        lang = "en";
+                        break;
+                }
 
-            switch (choice.get(0)) {
-                case UtilStringReference.LANG_FR:
-                    lang = "fr";
-                    break;
-                case UtilStringReference.LANG_EN:
-                    lang = "en";
-                    break;
+            }else if(source.equals(newTournament)){
+                lang = "fr";
             }
+
 
             CreateModeDto dto = new CreateModeDto();
             dto.setLang(lang);
@@ -337,9 +345,9 @@ public class MainMenuController implements Initializable {
                 }
             }else if (e.getSource().equals(newTournament)){ //new competitive
                 dto.setType(ModeType.COMPETITIVE_TOURNAMENT);
-                dto.setLang(lang);
                 try {
                     ModeSummaryDto modeSummaryDto = ModeApi.createMode(dto);
+                    System.out.println("Tournoi envoyé au serv");
                 } catch (TokenNotFoundException e1) {
                     e1.printStackTrace();
                 }
@@ -397,7 +405,14 @@ public class MainMenuController implements Initializable {
             handleGotoGame();
         } else {
             // Partie venant du serveur
-            String endpoint = modeSummaryDtos.get(games.getSelectionModel().getSelectedIndex()).getEndpoint();
+            String endpoint = null;
+            if(listGamesDuel.getListView().equals(games)){
+                endpoint = listGamesDuel.getDtos().get(games.getSelectionModel().getSelectedIndex()).getEndpoint();
+            }else if(listGamesDuelWait.getListView().equals(games)){
+                endpoint = listGamesDuelWait.getDtos().get(games.getSelectionModel().getSelectedIndex()).getEndpoint();
+            }else{
+                endpoint = listGamesDuelFinish.getDtos().get(games.getSelectionModel().getSelectedIndex()).getEndpoint();
+            }
             try {
                 ModeDto mode = ModeApi.getMode(endpoint);
                 selectGame = GameApi.getGame(mode.getGame().getId());
@@ -416,25 +431,76 @@ public class MainMenuController implements Initializable {
             competitiveTournamentVbox.setVisible(false);
             // TODO récupérer les infos et remplir les listes au format
             // Position Joeur Score   =>   1. Marcel 320 pt
-
-            for(TitledPane titledPane : showDetailsComp.getPanes()){
-                AnchorPane pane = (AnchorPane) titledPane.getContent();
-                System.out.println(titledPane.getText());
-                ListView<String> test = (ListView<String>) pane.getChildren().get(0);
-                test.getItems().add("Test 1");
-                test.getItems().add("Test 2");
-                test.getItems().add("Test 3");
-                test.getItems().add("Test 1");
-                test.getItems().add("Test 2");
-                test.getItems().add("Test 3");
-                test.getItems().add("Test 1");
-                test.getItems().add("Test 2");
-                test.getItems().add("Test 3");
+            ModeSummaryDto modeSummaryDto = listGamesTournamentCompetition.getDtos().get(0);
+            TournamentModeDto tmDto = null;
+            try {
+                tmDto = (TournamentModeDto) ModeApi.getMode(modeSummaryDto.getEndpoint());
+                setupGraphicalTournament(tmDto, labelNumber, labelScore, labelClassement, labelChance, showDetailsComp);
+            } catch (TokenNotFoundException e) {
+                e.printStackTrace();
             }
+
         }else{
             paneTournamentComp.setVisible(false);
             competitiveTournamentVbox.setVisible(true);
         }
+    }
+
+    private void setupGraphicalTournament(TournamentModeDto tmDto, Label labelNumber, Label labelScore, Label labelClassement, Label labelChance, Accordion accordion) {
+        labelNumber.setText("Participants : " + tmDto.getParticipants().size() + "/20");
+        List<TournamentModeDto.UserScore> globalScores = tmDto.getPlayerScoreForGlobal();
+        int myScore = 0;
+        //Find my score in global scores
+        for(TournamentModeDto.UserScore us : globalScores){
+            if(us.getUser().getName().equals(LoginController.currentUser)){
+                myScore = us.getScore();
+                break;
+            }
+        }
+        labelScore.setText("Score : " + myScore);
+        int myRank = 1;
+        //Find players with higher scores than mine
+        for(TournamentModeDto.UserScore us : globalScores){
+            if(!(us.getUser().getName().equals(LoginController.currentUser))){
+                if(us.getScore() > myScore){
+                    myRank++;
+                }
+            }
+        }
+
+        labelClassement.setText("Classement : " + myRank);
+        labelChance.setText(tmDto.getNbGameRemaining() + "/2");
+        ObservableList<TitledPane> panes = accordion.getPanes();
+
+        //Add ranking
+        AnchorPane rankPane = (AnchorPane) panes.get(0).getContent();
+        ListView<String> rankListView = (ListView<String>) rankPane.getChildren().get(0);
+        for(int i = 0; i < globalScores.size(); ++i) {
+            rankListView.getItems().add(i + 1 + ": " + globalScores.get(i).getUser().getName() +
+                    " " + globalScores.get(i).getScore() + " pts.");
+        }
+
+        //Add days
+        for(int i = 1; i < accordion.getPanes().size(); ++i){
+            List<TournamentModeDto.UserScore> dailyScores = tmDto.getPlayerScoreForDay(i - 1);
+            TitledPane dayTitlePane = accordion.getPanes().get(i);
+            int myCurrentDayScore = 0;
+            for(TournamentModeDto.UserScore us : dailyScores){
+                if(us.getUser().getName().equals(LoginController.currentUser)){
+                    myCurrentDayScore = us.getScore();
+                    break;
+                }
+            }
+            dayTitlePane.setText("Jour " + i + " - " + " Score " + myCurrentDayScore);
+            AnchorPane dayPane = (AnchorPane)dayTitlePane.getContent();
+            ListView<String> dailyRankListView = (ListView<String>) dayPane.getChildren().get(0);
+            for(int j = 0; j < dailyScores.size(); ++j) {
+                dailyRankListView.getItems().add(j + 1 + ": " + dailyScores.get(j).getUser().getName() +
+                        " " + dailyScores.get(j).getScore() + " pts.");
+            }
+        }
+
+
     }
 
     private void showDetailsTournamentFriends(ListView list){
@@ -445,6 +511,18 @@ public class MainMenuController implements Initializable {
         if(!listGamesTournamentsFriends.getListView().getItems().isEmpty()) {
             paneTournamentFriends.setVisible(true);
             friendsTournamentVbox.setVisible(false);
+
+            ModeSummaryDto modeSummaryDto = listGamesTournamentsFriends.getDtos().get(
+                    listGamesTournamentsFriends.getListView().getSelectionModel().getSelectedIndex()
+            );
+            TournamentModeDto tmDto = null;
+            try {
+                tmDto = (TournamentModeDto) ModeApi.getMode(modeSummaryDto.getEndpoint());
+                //setupGraphicalTournament(tmDto, labe, labelScore, labelClassement, labelChance, showDetailsComp);
+            } catch (TokenNotFoundException e) {
+                e.printStackTrace();
+            }
+
 
             // TODO avec les données serveur
             for(TitledPane titledPane : showDetailsFriend.getPanes()){

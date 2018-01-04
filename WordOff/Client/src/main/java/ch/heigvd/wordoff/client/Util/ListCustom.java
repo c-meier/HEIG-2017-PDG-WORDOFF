@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class ListCustom {
     private ListView<String> listView;
     private ObservableList<String> listGames; // list of games
     private List<Image> listImages; // list of avatar
+    private List<ModeSummaryDto> listDto;
 
     // Default image for the avatar
     private String url = "images/vs_logo.png";
@@ -34,6 +36,7 @@ public class ListCustom {
         this.listView = new ListView<String>();
         this.listGames = FXCollections.observableArrayList();
         this.listView.setItems(listGames);
+        this.listDto = new ArrayList<>();
 
         this.vBox.getChildren().add(listView);
         this.vBox.setAlignment(Pos.CENTER);
@@ -58,6 +61,15 @@ public class ListCustom {
     public void addGame(ModeSummaryDto game) {
         listImages.add(IMG);
         listGames.add(game.getName());
+        listDto.add(game);
+    }
+
+    /**
+     * Returns list of DTOs associated with this list
+     * @return
+     */
+    public List<ModeSummaryDto> getDtos(){
+        return listDto;
     }
 
     /**

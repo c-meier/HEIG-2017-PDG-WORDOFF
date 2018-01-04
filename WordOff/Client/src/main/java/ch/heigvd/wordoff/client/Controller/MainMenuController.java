@@ -291,8 +291,6 @@ public class MainMenuController implements Initializable {
                     break;
             }
 
-            System.out.println("Demande de créer une nouvelle partie : " + lang);
-
             CreateModeDto dto = new CreateModeDto();
             dto.setLang(lang);
             dto.setParticipants(new LinkedList<>());
@@ -305,7 +303,7 @@ public class MainMenuController implements Initializable {
                         // Dialog to select the opponent
                         String result = Dialog.getInstance().choiceNameOpponent();
 
-                        if (!result.isEmpty()){
+                        if (result != null){
                             dto.addParticpant(result);
                             dto.setName(result);
                             ModeSummaryDto modeSummaryDto = ModeApi.createMode(dto);

@@ -65,7 +65,7 @@ public class MainMenuController implements Initializable {
     @FXML
     private VBox competitiveTournamentVbox;
     @FXML
-    private Accordion friendTournamentAccordion;
+    private VBox friendsTournamentVbox;
 
 
     /* Button to start new game */
@@ -82,9 +82,15 @@ public class MainMenuController implements Initializable {
     @FXML
     private Accordion showDetailsComp;
     @FXML
+    private Accordion showDetailsFriend;
+    @FXML
     private GridPane paneTournamentComp;
     @FXML
+    private GridPane paneTournamentFriends;
+    @FXML
     private AnchorPane parentPaneTournamentComp;
+    @FXML
+    private AnchorPane parentPaneTournamentFriends;
 
     // MouseEvent d'un double clique, appelle l'ouverture de la game.
     private EventHandler<MouseEvent> eventGoToGame = new EventHandler<MouseEvent>() {
@@ -104,17 +110,16 @@ public class MainMenuController implements Initializable {
                 showDetailsTournamentComp();
             }
         }
-    };/*
-
-    private EventHandler<MouseEvent>  eventShowDetailsDay = new EventHandler<MouseEvent>() {
+    };
+    private EventHandler<MouseEvent>  eventShowDetailsFriends = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent click) {
-            TitledPane pane = (TitledPane) click.getSource(); // Source du clique
-            showDetailsDay(pane);
-
+            ListView list = (ListView) click.getSource(); // Source du clique
+            if (click.getClickCount() == 2) {
+                showDetailsTournamentFriends(list);
+            }
         }
     };
-*/
 
     private void handleGotoGame() {
         FXMLLoader loader = getLoader("/fxml/gameScreen.fxml");
@@ -186,14 +191,14 @@ public class MainMenuController implements Initializable {
         listGamesDuelWait = new ListCustom(vBoxgamesPlayerWait);
         listGamesDuelFinish = new ListCustom(vBoxgamesPlayerFinish);
         listGamesTournamentCompetition = new ListCustom(competitiveTournamentVbox);
+        listGamesTournamentsFriends = new ListCustom(friendsTournamentVbox);
 
         listGamesDuel.getListView().setOnMouseClicked(eventGoToGame);
         listGamesDuelWait.getListView().setOnMouseClicked(eventGoToGame);
         listGamesDuelFinish.getListView().setOnMouseClicked(eventGoToGame);
-       // showTournamentComp();
-        listGamesTournamentCompetition.getListView().setOnMouseClicked(eventShowDetails);
-        //listGamesTournamentCompetition.getListView().setOnMouseClicked(eventGoToGame);
 
+        listGamesTournamentCompetition.getListView().setOnMouseClicked(eventShowDetails);
+        listGamesTournamentsFriends.getListView().setOnMouseClicked(eventShowDetailsFriends);
         sortGames();
     }
 
@@ -250,6 +255,8 @@ public class MainMenuController implements Initializable {
             }
 
             listGamesTournamentCompetition.addGame(gameTest.getModeSummaryDtosList().get(0));
+            listGamesTournamentsFriends.addGame(gameTest.getModeSummaryDtosList().get(0));
+            listGamesTournamentsFriends.addGame(gameTest.getModeSummaryDtosList().get(2));
 
         } catch (TokenNotFoundException e) {
             Dialog.getInstance().signalInformation(UtilStringReference.ERROR + " " + e.getMessage());
@@ -433,8 +440,51 @@ public class MainMenuController implements Initializable {
         }
     }
 
+    private void showDetailsTournamentFriends(ListView list){
+        // Utilisé pour récupérer les infos relative au tournoi sélectionné
+        String nameTournament = (String) list.getSelectionModel().getSelectedItem();
+        System.out.println(nameTournament);
+
+        boolean hasTournamentComp = true;
+        if(hasTournamentComp) {
+            paneTournamentFriends.setVisible(true);
+            friendsTournamentVbox.setVisible(false);
+
+            // TODO avec les données serveur
+            for(TitledPane titledPane : showDetailsFriend.getPanes()){
+                AnchorPane pane = (AnchorPane) titledPane.getContent();
+                System.out.println(titledPane.getText());
+                ListView<String> test = (ListView<String>) pane.getChildren().get(0);
+                test.getItems().add("Test 1");
+                test.getItems().add("Test 2");
+                test.getItems().add("Test 3");
+                test.getItems().add("Test 1");
+                test.getItems().add("Test 2");
+                test.getItems().add("Test 3");
+                test.getItems().add("Test 1");
+                test.getItems().add("Test 2");
+                test.getItems().add("Test 3");
+            }
+        }else{
+            paneTournamentFriends.setVisible(false);
+            friendsTournamentVbox.setVisible(true);
+        }
+
+    }
+
     @FXML
     private void playTournamentComp(){
         // TODO lancer la partie du tournoi compétitif
+    }
+
+    @FXML
+    private void backTournamentFriend(){
+        paneTournamentFriends.setVisible(false);
+        friendsTournamentVbox.setVisible(true);
+    }
+
+    @FXML
+    private void playTournamentFriend(){
+        // TODO lancer la partie du tournoi amical ouvert
     }
 }

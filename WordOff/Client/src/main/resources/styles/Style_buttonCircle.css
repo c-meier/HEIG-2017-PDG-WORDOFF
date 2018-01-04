@@ -91,3 +91,31 @@
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.70) , 2,0,0,1 );
     -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
 }
+
+
+.back {
+    -fx-background-color:
+            linear-gradient(#2bd3ff, #6091ff),
+            radial-gradient(center 50% -40%, radius 200%, #42bee2 45%, #749fc8 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #fdffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.5em;
+    -fx-cursor: hand;
+    -fx-padding: 0 0 0 0;
+}
+
+.back:hover,
+.back:showing{
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #2bd3ff 0%, #6091ff 100%),
+            #2bd3ff,
+            #6091ff,
+            radial-gradient(center 50% 50%, radius 100%, #42bee2, #749fc8);
+}
+.back:pressed{
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.50) , 2,0,0,1 );
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+}

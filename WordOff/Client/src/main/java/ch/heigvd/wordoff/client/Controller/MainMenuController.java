@@ -323,6 +323,19 @@ public class MainMenuController implements Initializable {
                 }
             }else if (e.getSource().equals(newTournament)){ //new competitive
                 dto.setType(ModeType.COMPETITIVE_TOURNAMENT);
+                String selection = Dialog.getInstance().choicesBoxDialog("Choix de langue",
+                        "Veuillez choisir la langue du tournoi", "Langue",
+                        UtilStringReference.LANG_FR, UtilStringReference.LANG_EN);
+
+                switch (selection) {
+                    case UtilStringReference.LANG_FR:
+                        lang = "fr";
+                        break;
+                    case UtilStringReference.LANG_EN:
+                        lang = "en";
+                        break;
+                }
+
                 try {
                     ModeSummaryDto modeSummaryDto = ModeApi.createMode(dto);
                     System.out.println("Tournoi envoyé au serv");
@@ -515,7 +528,6 @@ public class MainMenuController implements Initializable {
                 if(tmDto.getGame() == null){
                     Object o = Api.post(tmDto.getGames(), null, GameDto.class);
                     this.selectGame = (GameDto) o;
-                    System.out.println("stop here");
                 }else{
                     this.selectGame = GameApi.getGame(tmDto.getGame().getId());
                 }
@@ -534,6 +546,20 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void playTournamentFriend(){
-        // TODO lancer la partie du tournoi amical ouvert
+        if(!listGamesTournamentsFriends.getListView().getItems().isEmpty()){
+            ModeSummaryDto modeSummaryDto = listGamesTournamentCompetition.getDtos().get(listGamesTournamentsFriends.getListView().getSelectionModel().getSelectedIndex());
+            try {
+                TournamentModeDto tmDto = (TournamentModeDto)ModeApi.getMode(modeSummaryDto.getEndpoint());
+                if(tmDto.getGame() == null){
+                    Object o = Api.post(tmDto.getGames(), null, GameDto.class);
+                    this.selectGame = (GameDto) o;
+                }else{
+                    this.selectGame = GameApi.getGame(tmDto.getGame().getId());
+                }
+                handleGotoGame();
+            } catch (TokenNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

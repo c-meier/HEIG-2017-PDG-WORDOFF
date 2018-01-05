@@ -1,17 +1,23 @@
 package ch.heigvd.wordoff.client.Util;
 
+import ch.heigvd.wordoff.client.Controller.FriendlyTournamentSettingsController;
+import ch.heigvd.wordoff.client.MainApp;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.awt.geom.Line2D;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -224,4 +230,31 @@ public class Dialog {
     }
 
 
+    public List<String> getFriendlyTournamentParticipants() {
+        final Stage popUp = new Stage();
+        popUp.initOwner(MainApp.getStage());
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/fxml/friendlyTournamentSettings.fxml"));
+        BorderPane c;
+        FriendlyTournamentSettingsController controller = new FriendlyTournamentSettingsController();
+        try {
+            loader.setController(controller);
+            c = loader.load();
+            Scene testScene = new Scene(c);
+            popUp.setScene(testScene);
+
+            popUp.setTitle("Tournoi amical");
+            popUp.sizeToScene();
+            popUp.setResizable(false);
+
+            popUp.initModality(Modality.APPLICATION_MODAL);
+            popUp.showAndWait();
+            return controller.getParticipants();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+
+
+    }
 }

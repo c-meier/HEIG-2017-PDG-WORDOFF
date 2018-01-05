@@ -254,9 +254,20 @@ public class MainMenuController implements Initializable {
         List<String> choice = null;
         if(source.equals(newGamePlayer)){
             choice = Dialog.getInstance().newGame();
-        }else if(source.equals(newTournament)){
-            //TODO dialog
+        }else {
             choice = new LinkedList<>();
+            String selection = Dialog.getInstance().choicesBoxDialog("Choix de langue",
+                    "Veuillez choisir la langue du tournoi", "Langue",
+                    UtilStringReference.LANG_FR, UtilStringReference.LANG_EN);
+
+            switch (selection) {
+                case UtilStringReference.LANG_FR:
+                    lang = "fr";
+                    break;
+                case UtilStringReference.LANG_EN:
+                    lang = "en";
+                    break;
+            }
         }
 
         if (null != choice) {
@@ -272,8 +283,6 @@ public class MainMenuController implements Initializable {
                         break;
                 }
 
-            }else if(source.equals(newTournament)){
-                lang = "fr";
             }
 
 
@@ -323,22 +332,10 @@ public class MainMenuController implements Initializable {
                 }
             }else if (e.getSource().equals(newTournament)){ //new competitive
                 dto.setType(ModeType.COMPETITIVE_TOURNAMENT);
-                String selection = Dialog.getInstance().choicesBoxDialog("Choix de langue",
-                        "Veuillez choisir la langue du tournoi", "Langue",
-                        UtilStringReference.LANG_FR, UtilStringReference.LANG_EN);
-
-                switch (selection) {
-                    case UtilStringReference.LANG_FR:
-                        lang = "fr";
-                        break;
-                    case UtilStringReference.LANG_EN:
-                        lang = "en";
-                        break;
-                }
 
                 try {
                     ModeSummaryDto modeSummaryDto = ModeApi.createMode(dto);
-                    System.out.println("Tournoi envoyé au serv");
+                    System.out.println("Tournoi envoyé au serveur");
                 } catch (TokenNotFoundException e1) {
                     e1.printStackTrace();
                 }
@@ -362,21 +359,18 @@ public class MainMenuController implements Initializable {
                     dto.setName("Tournoi amical");
                 }
 
-                //TODO: fenetre avec choix parmis liste d'amis + entrée quelquconque d'utilisateur
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Creation du tournoi amical");
-                alert.setHeaderText(null);
-                alert.setContentText("Placeholder. Lorsque les méthodes de l'api seront disponibles, on pourra ici choisir " +
-                        "parmi les amis et joueurs récents. Pour l'instant, one et two sont hardcodés dans ce tournoi.");
-
-                alert.showAndWait();
-                dto.addParticpant("one");
-                dto.addParticpant("two");
-                try {
-                    ModeSummaryDto modeSummaryDto = ModeApi.createMode(dto);
-                } catch (TokenNotFoundException e1) {
-                    e1.printStackTrace();
+                List<String> participants = Dialog.getInstance().getFriendlyTournamentParticipants();
+                if(!participants.isEmpty()){
+                    dto.setParticipants(participants);
+                    try {
+                        ModeSummaryDto modeSummaryDto = ModeApi.createMode(dto);
+                    } catch (TokenNotFoundException e1) {
+                        e1.printStackTrace();
+                    }
+                }else{
+                    System.out.println("Le tournoi n'a pas été créé.");
                 }
+
 
             }
 
@@ -436,6 +430,10 @@ public class MainMenuController implements Initializable {
     }
 
     private void setupGraphicalTournament(TournamentModeDto tmDto, Label labelNumber, Label labelScore, Label labelClassement, Label labelChance, Accordion accordion) {
+        //Clear current view
+        for(TitledPane tp : accordion.getPanes()){
+            ((ListView)((AnchorPane)tp.getContent()).getChildren().get(0)).getItems().clear();
+        }
         labelNumber.setText("Participants : " + tmDto.getParticipants().size() + "/20");
         List<TournamentModeDto.UserScore> globalScores = tmDto.getPlayerScoreForGlobal();
         int myScore = 0;

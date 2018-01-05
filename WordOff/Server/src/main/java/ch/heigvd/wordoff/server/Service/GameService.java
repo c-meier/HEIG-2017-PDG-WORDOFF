@@ -160,7 +160,7 @@ public class GameService {
         int sizeWordsByScore = wordsByScore.size();
 
         if (sizeWordsByScore == 0) {
-            discard2(game, player);
+            discard2(game, game.getCurrPlayer());
         } else if (sizeWordsByScore == 1) {
             // The AI play the only best possible word
             word = new ArrayList<>(wordsByScore.get(0).getValue());
@@ -199,20 +199,20 @@ public class GameService {
 
         // get a list of the tile taken from the bag of the game
         List<ITile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE -
-                game.getSideOfPlayer(player).getPlayerRack().getTiles().size());
+                game.getSideResp().getPlayerRack().getTiles().size());
 
         // reset jokers' values
-        for(ISlot slot : game.getSideOfPlayer(player).getChallenge().getSlots()) {
+        for(ISlot slot : game.getSideResp().getChallenge().getSlots()) {
             if(slot.getTile() != null && slot.getTile().isJoker()) {
                 slot.getTile().setValue('#');
             }
         }
 
         // Send swap tiles to other player
-        game.getSideOfPlayer(game.getOtherPlayer(player)).getChallenge().setSwapRack(new SwapRack());
+        game.getSideInit().getChallenge().setSwapRack(new SwapRack());
         for (ITile tile : game.getSideResp().getChallenge().getTilesToSwap()) {
             if (tile != null) {
-                game.getSideOfPlayer(game.getOtherPlayer(player)).getChallenge().getSwapRack().addTile(tile);
+                game.getSideInit().getChallenge().getSwapRack().addTile(tile);
             }
         }
 
@@ -220,7 +220,7 @@ public class GameService {
         updatePlayerSide(game.getSideResp(), game.getSideResp().getChallenge(), newTiles);
 
         // switch player
-        game.setCurrPlayer(game.getOtherPlayer(player));
+        game.setCurrPlayer(game.getSideInit().getPlayer());
 
         gameRepository.save(game);
 

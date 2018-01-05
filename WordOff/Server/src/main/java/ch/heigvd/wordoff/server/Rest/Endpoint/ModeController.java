@@ -11,6 +11,7 @@ import ch.heigvd.wordoff.server.Model.Invitation;
 import ch.heigvd.wordoff.server.Model.Modes.Mode;
 import ch.heigvd.wordoff.server.Model.User;
 import ch.heigvd.wordoff.server.Repository.InvitationRepository;
+import ch.heigvd.wordoff.server.Rest.Exception.ErrorCodeException;
 import ch.heigvd.wordoff.server.Service.ModeService;
 import ch.heigvd.wordoff.server.Util.DtoFactory;
 import org.springframework.http.HttpStatus;
@@ -106,7 +107,7 @@ public class ModeController {
 
         // Create the new game
         Game game = modeService.initModeGame(modeId, player);
-
+        
         // Convert the new game in dto
         GameDto gameDto = DtoFactory.createFrom(game, player);
 

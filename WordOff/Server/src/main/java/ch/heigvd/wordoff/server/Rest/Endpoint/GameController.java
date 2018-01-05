@@ -1,14 +1,14 @@
 package ch.heigvd.wordoff.server.Rest.Endpoint;
 
-import ch.heigvd.wordoff.common.Dto.Game.ChallengeDto;
-import ch.heigvd.wordoff.common.Dto.Game.GameDto;
-import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
+import ch.heigvd.wordoff.common.Dto.Game.*;
+import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
 import ch.heigvd.wordoff.common.Protocol;
 import ch.heigvd.wordoff.server.Model.Ai;
 import ch.heigvd.wordoff.server.Model.Challenge;
 import ch.heigvd.wordoff.server.Model.Game;
 import ch.heigvd.wordoff.server.Model.User;
 import ch.heigvd.wordoff.server.Repository.GameRepository;
+import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Rest.Exception.ErrorCodeException;
 import ch.heigvd.wordoff.server.Service.GameService;
 import ch.heigvd.wordoff.server.Util.DtoFactory;
@@ -29,10 +29,12 @@ import java.util.stream.Collectors;
 public class GameController {
     private GameRepository gameRepository;
     private GameService gameService;
+    private PlayerRepository playerRepository;
 
-    public GameController(GameRepository gameRepository, GameService gameService) {
+    public GameController(GameRepository gameRepository, GameService gameService, PlayerRepository playerRepository) {
         this.gameRepository = gameRepository;
         this.gameService = gameService;
+        this.playerRepository = playerRepository;
     }
 
     /**
@@ -112,5 +114,39 @@ public class GameController {
 
         // Send update of the game
         return new ResponseEntity<>(gameDto, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{gameId}/powers", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<SideDto> hint(@RequestAttribute("player") User player,
+                               @PathVariable("gameId") Long gameId,
+                               @RequestBody PowerDto powerDto) {
+        ResponseEntity responseEntity = null;
+
+        // vérifie la quantité de pièces disponibles
+        if(powerDto.getCost() > player.getCoins()) {
+            throw new ErrorCodeException(Protocol.NOT_ENOUGH_COINS, "You do not have enough coins to use this power");
+        }
+
+        if(powerDto.equals(PowerDto.HINT)) {
+            // rien de plus à faire
+        } else if (powerDto.equals(PowerDto.PASS)) {
+            gameService.pass(gameRepository.findOne(gameId), player);
+        } else if (powerDto.equals(PowerDto.PEEK)) {
+            responseEntity = new ResponseEntity<>(gameService.peek(gameRepository.findOne(gameId), player), HttpStatus.OK);
+        } else if (powerDto.equals(PowerDto.DISCARD_2)) {
+            responseEntity = new ResponseEntity<>(gameService.discard2(gameRepository.findOne(gameId), player), HttpStatus.OK);
+        } else if (powerDto.equals(PowerDto.DISCARD_ALL)) {
+            responseEntity = new ResponseEntity<>(gameService.discardAll(gameRepository.findOne(gameId), player), HttpStatus.OK);
+        } else if (powerDto.equals(PowerDto.WORDANALYZER)) {
+            // rien de plus à faire
+        } else {
+            throw new ErrorCodeException(Protocol.CHEATING, "Requested power does not exist");
+        }
+
+        // consomme les pièces
+        player.setCoins(player.getCoins() - powerDto.getCost());
+        playerRepository.save(player);
+
+        return responseEntity;
     }
 }

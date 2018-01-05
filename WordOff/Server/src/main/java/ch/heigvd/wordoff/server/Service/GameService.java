@@ -2,6 +2,8 @@ package ch.heigvd.wordoff.server.Service;
 
 import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.DictionaryLoader;
+import ch.heigvd.wordoff.common.Dto.Game.SideDto;
+import ch.heigvd.wordoff.common.Dto.Mode.ModeType;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.common.Protocol;
@@ -17,7 +19,11 @@ import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
 import ch.heigvd.wordoff.server.Rest.Exception.ErrorCodeException;
 import ch.heigvd.wordoff.server.Util.ChallengeFactory;
+import ch.heigvd.wordoff.common.DictionaryLoader;
+import ch.heigvd.wordoff.server.Util.DtoFactory;
 import javafx.util.Pair;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -65,8 +71,6 @@ public class GameService {
         // Load the dico
         dictionaryLoader.loadDictionary(game.getLang());
 
-        Side side = null;
-
         // Check if it's the right player who try to play
         if (Objects.equals(game.getCurrPlayer().getId(), player.getId())) {
             String wordChallenge = challenge.getWord();
@@ -77,16 +81,14 @@ public class GameService {
             }
 
             // get side of player
-            side = game.getSideOfPlayer(player);
+            Side side = game.getSideOfPlayer(player);
 
             // check if the challenge is possible with tiles that the player have
             int i = 0;
-            boolean tileIsNotInSwapRacks = false;
-            boolean tileIsNotInPlayerRacks = false;
-            List<ITile> tempRackPlayer = new ArrayList<>();
-            List<ITile> tempSwapRack = new ArrayList<>();
-            tempSwapRack.addAll(side.getChallenge().getSwapRack().getTiles());
-            tempRackPlayer.addAll(side.getPlayerRack().getTiles());
+            boolean tileIsNotInSwapRacks;
+            boolean tileIsNotInPlayerRacks;
+            List<ITile> tempSwapRack = new ArrayList<>(side.getChallenge().getSwapRack().getTiles());
+            List<ITile> tempRackPlayer = new ArrayList<>(side.getPlayerRack().getTiles());
             while (challenge.getWord().length() != side.getChallenge().getWord().length()) {
                 ITile currTile = challenge.getSlots().get(i).getTile();
                 if (!tempSwapRack.contains(currTile)) {
@@ -159,7 +161,7 @@ public class GameService {
         int sizeWordsByScore = wordsByScore.size();
 
         if (sizeWordsByScore == 0) {
-            /* TODO -> The AI can't create a word, it pass */
+            discard2(game, player);
         } else if (sizeWordsByScore == 1) {
             // The AI play the only best possible word
             word = new ArrayList<>(wordsByScore.get(0).getValue());
@@ -221,7 +223,7 @@ public class GameService {
         // switch player
         game.setCurrPlayer(game.getOtherPlayer(player));
 
-        //gameRepository.save(game);
+        gameRepository.save(game);
 
         return game;
     }
@@ -280,6 +282,38 @@ public class GameService {
     }
 
     /**
+     * Passe le tour du joueur "player" après avoir remplacé 2 tuiles
+     *
+     * @param game partie concernée
+     * @param player joueur qui passe son tour
+     */
+    public SideDto discard2(Game game, Player player) {
+        if(!game.getCurrPlayer().getId().equals(player.getId())) {
+            throw new ErrorCodeException(Protocol.NOT_YOUR_TURN, "Ce n'est pas à votre tour de jouer");
+        }
+
+        Random rand = new Random();
+        PlayerRack rack =  game.getSideOfPlayer(player).getPlayerRack();
+
+        // retire 2 tiles du rack
+        rack.getTiles().remove(rand.nextInt(rack.getTiles().size()));
+        rack.getTiles().remove(rand.nextInt(rack.getTiles().size()));
+
+        // choisit 2 nouvelles tuiles
+        List<ITile> newTiles = game.getBag().getXTile(2);
+
+        // update
+        updatePlayerSide(game.getSideOfPlayer(player), game.getSideOfPlayer(player).getChallenge(), newTiles);
+
+        // switch player
+        game.setCurrPlayer(game.getOtherPlayer(player));
+
+        gameRepository.save(game);
+
+        return DtoFactory.createFrom(game.getSideOfPlayer(player));
+    }
+
+    /**
      * @brief Update the player side
      * @param side Side of the player
      * @param challenge Challenge in the player side
@@ -291,7 +325,6 @@ public class GameService {
      */
     private void updatePlayerSide(Side side, Challenge challenge, List<ITile> newTiles) {
         // Update the score of the side of the player
-        int score = challenge.getScore();
         side.updateScore(challenge.getScore());
 
         // Create the answer for the history
@@ -302,5 +335,73 @@ public class GameService {
 
         // Create new challenge
         side.setChallenge(new ChallengeFactory(side).createRandomSlotPos().create());
+    }
+
+    /**
+     * Retourne le side de l'adversaire
+     *
+     * @param game
+     * @param player le joueur qui demande le side de l'adversaire
+     * @return SideDto
+     */
+    public SideDto peek(Game game, User player) {
+        return DtoFactory.createFrom(game.getSideOfPlayer(game.getOtherPlayer(player)));
+    }
+
+    /**
+     * jette toutes les tuiles et en pioches des nouvelles
+     * @param game partie concernée
+     * @param player joueur qui jette les tuiles
+     * @return le side du joueur "player"
+     */
+    public SideDto discardAll(Game game, Player player) {
+        if(!game.getCurrPlayer().getId().equals(player.getId())) {
+            throw new ErrorCodeException(Protocol.NOT_YOUR_TURN, "Ce n'est pas à votre tour de jouer");
+        }
+
+        PlayerRack rack =  game.getSideOfPlayer(player).getPlayerRack();
+
+        // retire toutes les tuiles du rack
+        rack.getTiles().clear();
+
+        // remplit le rack avec de nouvelles tuiles
+        List<ITile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE);
+        game.getSideOfPlayer(player).addTilesToPlayerRack(newTiles);
+
+        gameRepository.save(game);
+
+        return DtoFactory.createFrom(game.getSideOfPlayer(player));
+    }
+
+    public void pass(Game game, Player player) {
+        if(!game.getCurrPlayer().getId().equals(player.getId())) {
+            throw new ErrorCodeException(Protocol.NOT_YOUR_TURN, "Ce n'est pas à votre tour de jouer");
+        }
+
+        // update
+        updatePlayerSide(game.getSideOfPlayer(player), game.getSideOfPlayer(player).getChallenge(), new ArrayList<>());
+
+        // switch player
+        game.setCurrPlayer(game.getOtherPlayer(player));
+
+        // Si l'adversaire a aussi passé son tour (sa dernière réponse est vide) et qu'il n'y a plus de pièces à ajouter
+        // => fin du jeu
+        List<Answer> opponentAnswers = game.getSideOfPlayer(game.getOtherPlayer(player)).getAnswers();
+        if(game.getBag().getTiles().isEmpty() && opponentAnswers.get(opponentAnswers.size() - 1).getChallenge().getSlots().get(0).isEmpty()) {
+
+            // TODO ajuster les classements des joueurs, donner une récompense en pièces ?
+
+            // If the player beats the AI in a tournament mode, + 50 points to his score
+            int playerScore = game.getSideInit().getScore();
+            if ((game.getMode().getType() == ModeType.FRIEND_DUEL ||
+                    game.getMode().getType() == ModeType.COMPETITIVE_TOURNAMENT) &&
+                    playerScore > game.getSideResp().getScore()) {
+                game.getSideInit().setScore(playerScore + 50);
+            }
+
+            game.setEnded(true);
+        }
+
+        gameRepository.save(game);
     }
 }

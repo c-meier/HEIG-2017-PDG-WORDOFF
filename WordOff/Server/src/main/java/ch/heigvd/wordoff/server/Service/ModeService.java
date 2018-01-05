@@ -18,6 +18,7 @@ import ch.heigvd.wordoff.server.Repository.UserRepository;
 import ch.heigvd.wordoff.server.Rest.Exception.ErrorCodeException;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,10 @@ public class ModeService {
         if (participants != null) {
             participantsUsers.add(user);
             for (String str : participants) {
-                participantsUsers.add(userRepository.findByName(str));
+                User participant = userRepository.findByName(str);
+                if (participant != null) {
+                    participantsUsers.add(userRepository.findByName(str));
+                }
             }
         }
 
@@ -116,7 +120,8 @@ public class ModeService {
                         .stream()
                         .filter(m -> m.getOriginInvitation().getTarget().getLevel() == user.getLevel() &&
                                      m.getInvitations().size() < Constants.MAX_USER_IN_TOURNAMENT &&
-                                     m.getLang().equals(lang))
+                                     m.getLang().equals(lang) &&
+                                     Duration.between(LocalDateTime.now(), m.getStartDate()).toHours() <= Constants.MAX_HOURS_ELAPSED_IN_TOURNAMENT_FOR_PLAYER_TO_JOIN_MODE)
                         .findFirst();
 
                 if(!oMode.isPresent()) {
@@ -176,6 +181,17 @@ public class ModeService {
     public Game initModeGame(Long modeId, User player) {
         Mode mode = modeRepository.findOne(modeId);
         Game game = null;
+
+        int nbGameDoneForCurrDay = (int) mode.getGames().stream()
+                .filter(g -> g.getSideInit().getPlayer().getName().equals(player.getName()))
+                .filter(Game::isEnded)
+                .filter(g -> Duration.between(g.getStartDate(), mode.getStartDate()).toDays() ==
+                             Duration.between(LocalDateTime.now(), mode.getStartDate()).toDays())
+                .count();
+
+        if (nbGameDoneForCurrDay >= 2) {
+            throw new ErrorCodeException(Protocol.TOO_MUCH_GAMES_FOR_DAY_X, "The player have already done 2 games for the current day.");
+        }
 
         switch (mode.getType()) {
             case FRIEND_DUEL:

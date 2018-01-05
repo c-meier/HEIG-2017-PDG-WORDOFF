@@ -74,7 +74,7 @@
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints maxHeight="165.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="311.0" minHeight="10.0" prefHeight="254.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="317.0" minHeight="10.0" prefHeight="267.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
                               <StackPane prefHeight="30.0" prefWidth="200.0">
@@ -119,7 +119,7 @@
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints maxHeight="165.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="311.0" minHeight="10.0" prefHeight="282.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="317.0" minHeight="10.0" prefHeight="267.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
                               <StackPane prefHeight="150.0" prefWidth="200.0">

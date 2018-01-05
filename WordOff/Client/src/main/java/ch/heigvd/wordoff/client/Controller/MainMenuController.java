@@ -343,7 +343,8 @@ public class MainMenuController implements Initializable {
             }else { // new friendly tournament
                 dto.setType(ModeType.FRIENDLY_TOURNAMENT);
                 TextInputDialog dialog = new TextInputDialog();
-                dialog.setTitle("Entrez le nom du tournoi");
+                dialog.setTitle("Nouveau tournoi amical");
+                dialog.setHeaderText("Entrez le nom du tournoi");
                 dialog.setContentText("Nom:");
 
                 DialogPane dialogPane = dialog.getDialogPane();
@@ -545,7 +546,7 @@ public class MainMenuController implements Initializable {
     @FXML
     private void playTournamentFriend(){
         if(!listGamesTournamentsFriends.getListView().getItems().isEmpty()){
-            ModeSummaryDto modeSummaryDto = listGamesTournamentCompetition.getDtos().get(listGamesTournamentsFriends.getListView().getSelectionModel().getSelectedIndex());
+            ModeSummaryDto modeSummaryDto = listGamesTournamentsFriends.getDtos().get(listGamesTournamentsFriends.getListView().getSelectionModel().getSelectedIndex());
             try {
                 TournamentModeDto tmDto = (TournamentModeDto)ModeApi.getMode(modeSummaryDto.getEndpoint());
                 if(tmDto.getGame() == null){

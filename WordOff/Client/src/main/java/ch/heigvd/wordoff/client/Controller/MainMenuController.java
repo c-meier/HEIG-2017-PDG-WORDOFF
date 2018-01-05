@@ -513,9 +513,12 @@ public class MainMenuController implements Initializable {
             try {
                 TournamentModeDto tmDto = (TournamentModeDto)ModeApi.getMode(modeSummaryDto.getEndpoint());
                 if(tmDto.getGame() == null){
-                    Api.post(tmDto.getGames());
+                    Object o = Api.post(tmDto.getGames(), null, GameDto.class);
+                    this.selectGame = (GameDto) o;
+                    System.out.println("stop here");
+                }else{
+                    this.selectGame = GameApi.getGame(tmDto.getGame().getId());
                 }
-                this.selectGame = GameApi.getGame(tmDto.getGame().getId());
                 handleGotoGame();
             } catch (TokenNotFoundException e) {
                 e.printStackTrace();

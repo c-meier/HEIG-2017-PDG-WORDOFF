@@ -22,8 +22,10 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import static ch.heigvd.wordoff.common.Constants.AUTHORIZATION_HEADER;
+import static ch.heigvd.wordoff.common.Constants.SERVER_URI;
 
-class Api {
+
+public class Api {
     private final RestTemplate restTemplate;
     private final ObjectMapper mapper = new ObjectMapper();
     private final static Logger LOG = Logger.getLogger(Api.class.getSimpleName());
@@ -74,7 +76,7 @@ class Api {
         headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());
 
         ResponseEntity<T> responseEntity =
-                Api.getRestTemplate().exchange(endpoint.getEndpoint(),
+                Api.getRestTemplate().exchange(SERVER_URI + endpoint.getEndpoint(),
                         HttpMethod.GET,
                         new HttpEntity<>(headers),
                         new ParameterizedTypeReference<T>() {});
@@ -88,7 +90,7 @@ class Api {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         ResponseEntity<T> responseEntity =
-                Api.getRestTemplate().exchange(endpoint.getEndpoint(),
+                Api.getRestTemplate().exchange(SERVER_URI + endpoint.getEndpoint(),
                         HttpMethod.PUT,
                         new HttpEntity<>((T)endpoint, headers),
                         new ParameterizedTypeReference<T>() {});
@@ -101,24 +103,38 @@ class Api {
         headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());
 
         ResponseEntity<List<T>> responseEntity =
-                Api.getRestTemplate().exchange(endpoint.getEndpoint(),
+                Api.getRestTemplate().exchange(SERVER_URI + endpoint.getEndpoint(),
                         HttpMethod.GET,
                         new HttpEntity<>(headers),
                         new ParameterizedTypeReference<List<T>>() {});
 
         return responseEntity.getBody();
     }
-
+/*
     static public <T, U> T post(ResourceWriteList<T, U> endpoint, U dto) throws TokenNotFoundException {
         HttpHeaders headers = new HttpHeaders();
         headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         ResponseEntity<T> responseEntity =
-                Api.getRestTemplate().exchange(endpoint.getEndpoint(),
+                Api.getRestTemplate().exchange(SERVER_URI + endpoint.getEndpoint(),
                         HttpMethod.POST,
                         new HttpEntity<>(dto, headers),
                         new ParameterizedTypeReference<T>() {});
+
+        return responseEntity.getBody();
+    }
+    */
+    static public <T, U> T post(ResourceWriteList<T, U> endpoint, U dto, Class<T> respType) throws TokenNotFoundException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        ResponseEntity<T> responseEntity =
+                Api.getRestTemplate().exchange(SERVER_URI + endpoint.getEndpoint(),
+                        HttpMethod.POST,
+                        new HttpEntity<>(dto, headers),
+                        respType);
 
         return responseEntity.getBody();
     }

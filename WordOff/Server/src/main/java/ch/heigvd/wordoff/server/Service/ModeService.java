@@ -66,7 +66,10 @@ public class ModeService {
         if (participants != null) {
             participantsUsers.add(user);
             for (String str : participants) {
-                participantsUsers.add(userRepository.findByName(str));
+                User participant = userRepository.findByName(str);
+                if (participant != null) {
+                    participantsUsers.add(userRepository.findByName(str));
+                }
             }
         }
 
@@ -178,6 +181,17 @@ public class ModeService {
     public Game initModeGame(Long modeId, User player) {
         Mode mode = modeRepository.findOne(modeId);
         Game game = null;
+
+        int nbGameDoneForCurrDay = (int) mode.getGames().stream()
+                .filter(g -> g.getSideInit().getPlayer().getName().equals(player.getName()))
+                .filter(Game::isEnded)
+                .filter(g -> Duration.between(g.getStartDate(), mode.getStartDate()).toDays() ==
+                             Duration.between(LocalDateTime.now(), mode.getStartDate()).toDays())
+                .count();
+
+        if (nbGameDoneForCurrDay >= 2) {
+            throw new ErrorCodeException(Protocol.TOO_MUCH_GAMES_FOR_DAY_X, "The player have already done 2 games for the current day.");
+        }
 
         switch (mode.getType()) {
             case FRIEND_DUEL:

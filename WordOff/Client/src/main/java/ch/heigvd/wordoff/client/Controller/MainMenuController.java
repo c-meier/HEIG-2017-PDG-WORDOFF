@@ -255,18 +255,23 @@ public class MainMenuController implements Initializable {
         if(source.equals(newGamePlayer)){
             choice = Dialog.getInstance().newGame();
         }else {
-            choice = new LinkedList<>();
-            String selection = Dialog.getInstance().choicesBoxDialog("Choix de langue",
-                    "Veuillez choisir la langue du tournoi", "Langue",
-                    UtilStringReference.LANG_FR, UtilStringReference.LANG_EN);
+            if(!source.equals(newTournament) || listGamesTournamentCompetition
+                    .getListView().getItems().isEmpty()){ //Check if competitive tournament already exists
+                choice = new LinkedList<>();
+                String selection = Dialog.getInstance().choicesBoxDialog("Choix de langue",
+                        "Veuillez choisir la langue du tournoi", "Langue",
+                        UtilStringReference.LANG_FR, UtilStringReference.LANG_EN);
 
-            switch (selection) {
-                case UtilStringReference.LANG_FR:
-                    lang = "fr";
-                    break;
-                case UtilStringReference.LANG_EN:
-                    lang = "en";
-                    break;
+                switch (selection) {
+                    case UtilStringReference.LANG_FR:
+                        lang = "fr";
+                        break;
+                    case UtilStringReference.LANG_EN:
+                        lang = "en";
+                        break;
+                }
+            } else{
+                Dialog.getInstance().signalError("Un tournoi est deja en cours");
             }
         }
 
@@ -457,7 +462,7 @@ public class MainMenuController implements Initializable {
         }
 
         labelClassement.setText("Classement : " + myRank);
-        labelChance.setText(tmDto.getNbGameRemaining() + "/2");
+        labelChance.setText("Tentatives restantes : " + tmDto.getNbGameRemaining() + "/2");
         ObservableList<TitledPane> panes = accordion.getPanes();
 
         //Add ranking

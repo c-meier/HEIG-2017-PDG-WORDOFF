@@ -29,17 +29,12 @@ public class GameDto implements IResource<GameDto> {
 
     private boolean ended;
 
+    private static Class<GameDto> resourceType = GameDto.class;
     /**
      * Endpoint to POST challenges.
      * Is used to play a word.
      */
-    private ResourceWriteList<GameDto, ChallengeDto> challenges;
-
-    /**
-     * Endpoint to POST powers.
-     * Is used to activate a power.
-     */
-    private ResourceWriteList<GameDto, PowerDto> powers;
+    private ResourceWriteList<GameDto, ChallengeDto> challenges = new ResourceWriteList<>(GameDto.class, ChallengeDto.class);
 
     /**
      * Endpoint to refresh (GET) the game
@@ -144,12 +139,11 @@ public class GameDto implements IResource<GameDto> {
     public String getEndpoint() {
         return endpoint;
     }
-
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
-        this.challenges = new ResourceWriteList<>(endpoint + "/challenges");
-        this.powers = new ResourceWriteList<>(endpoint + "/powers");
-    }
+    /**
+     * Endpoint to POST powers.
+     * Is used to activate a power.
+     */
+    private ResourceWriteList<GameDto, PowerDto> powers = new ResourceWriteList<>(GameDto.class, PowerDto.class);
 
     public ResourceWriteList<GameDto, ChallengeDto> getChallenges() {
         return challenges;
@@ -161,5 +155,16 @@ public class GameDto implements IResource<GameDto> {
 
     public void setPowers(ResourceWriteList<GameDto, PowerDto> powers) {
         this.powers = powers;
+    }
+
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
+        this.challenges.setEndpoint(endpoint + "/challenges");
+        this.powers.setEndpoint(endpoint + "/powers");
+    }
+
+    @Override
+    public Class<GameDto> getResourceType() {
+        return resourceType;
     }
 }

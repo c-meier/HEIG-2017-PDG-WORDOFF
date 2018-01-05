@@ -49,7 +49,7 @@ public class UserApi {
         }
     }
 
-    public static void signIn(LoginDto loginDto) {
+    public static MeDto signIn(LoginDto loginDto) {
         final String uri = SERVER_URI + "/users/sign-in";
 
         HttpHeaders headers = new HttpHeaders();
@@ -78,6 +78,8 @@ public class UserApi {
         String token = listHeaders.get(0);
         // save token to filesystem
         TokenManager.saveToken(token);
+
+        return responseEntity.getBody();
     }
 
 }

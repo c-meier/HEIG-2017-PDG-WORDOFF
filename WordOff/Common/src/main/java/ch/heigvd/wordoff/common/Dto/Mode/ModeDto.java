@@ -40,15 +40,11 @@ public abstract class ModeDto implements IResource<ModeDto> {
      */
     private boolean ended;
 
+    private static Class<ModeDto> resourceType = ModeDto.class;
     /**
      * Endpoint to POST a game, so that a new game can be created.
      */
-    private ResourceWriteList<GameDto, Void> games;
-
-    /**
-     * Endpoint to GET and POST messages (chat).
-     */
-    private ResourceWriteList<MessageDto, MessageDto> messages;
+    private ResourceWriteList<GameDto, Void> games = new ResourceWriteList<>(GameDto.class, Void.class);
 
     /**
      * Endpoint to refresh (GET) informations.
@@ -103,14 +99,23 @@ public abstract class ModeDto implements IResource<ModeDto> {
     public ResourceWriteList<MessageDto, MessageDto> getMessages() {
         return messages;
     }
-
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
-        this.messages = new ResourceWriteList<>(endpoint + "/messages");
-        this.games = new ResourceWriteList<>(endpoint + "/games");
-    }
+    /**
+     * Endpoint to GET and POST messages (chat).
+     */
+    private ResourceWriteList<MessageDto, MessageDto> messages = new ResourceWriteList<>(MessageDto.class, MessageDto.class);
 
     public ResourceWriteList<GameDto, Void> getGames() {
         return games;
+    }
+
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
+        this.messages.setEndpoint(endpoint + "/messages");
+        this.games.setEndpoint(endpoint + "/games");
+    }
+
+    @Override
+    public Class<ModeDto> getResourceType() {
+        return resourceType;
     }
 }

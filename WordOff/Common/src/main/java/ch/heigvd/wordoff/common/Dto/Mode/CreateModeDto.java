@@ -1,5 +1,6 @@
 package ch.heigvd.wordoff.common.Dto.Mode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,6 +57,9 @@ public class CreateModeDto {
     }
 
     public boolean addParticpant(String s) {
+        if(getParticipants() == null) {
+            participants = new ArrayList<>();
+        }
         return getParticipants().add(s);
     }
 

@@ -126,7 +126,15 @@ public class DtoFactory {
         Converter<Bag, Integer> bagConverter = ctx -> ctx.getSource().getTiles().size();
 
         TypeMap<Game, GameDto> gameMap = modelMapper.createTypeMap(Game.class, GameDto.class);
-        gameMap.addMappings(mapper -> mapper.using(bagConverter).map(Game::getBag, GameDto::setBagSize));
+        gameMap.addMappings(mapper -> {
+            mapper.using(bagConverter).map(Game::getBag, GameDto::setBagSize);
+            mapper.using(getUrlConverter("/games")).map(Game::getId, GameDto::setEndpoint);
+        });
+
+        TypeMap<Game, GameSummaryDto> gameSummaryMap = modelMapper.createTypeMap(Game.class, GameSummaryDto.class);
+        gameSummaryMap.addMappings(mapper -> {
+            mapper.using(getUrlConverter("/games")).map(Game::getId, GameSummaryDto::setEndpoint);
+        });
 
         //
         // Relations

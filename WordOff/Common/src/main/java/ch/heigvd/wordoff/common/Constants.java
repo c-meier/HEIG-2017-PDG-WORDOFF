@@ -27,5 +27,6 @@ public interface Constants {
     int TOURNAMENT_DURATION = 5;
     int MAX_USER_IN_TOURNAMENT = 20;
     int MAX_GAMES_PER_DAY = 2;
+    int MAX_HOURS_ELAPSED_IN_TOURNAMENT_FOR_PLAYER_TO_JOIN_MODE = 23;
 
 }

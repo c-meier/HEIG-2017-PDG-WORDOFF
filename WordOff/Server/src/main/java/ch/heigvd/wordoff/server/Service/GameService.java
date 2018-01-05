@@ -3,6 +3,7 @@ package ch.heigvd.wordoff.server.Service;
 import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.DictionaryLoader;
 import ch.heigvd.wordoff.common.Dto.Game.SideDto;
+import ch.heigvd.wordoff.common.Dto.Mode.ModeType;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.common.Protocol;
@@ -389,6 +390,14 @@ public class GameService {
         if(game.getBag().getTiles().isEmpty() && opponentAnswers.get(opponentAnswers.size() - 1).getChallenge().getSlots().get(0).isEmpty()) {
 
             // TODO ajuster les classements des joueurs, donner une récompense en pièces ?
+
+            // If the player beats the AI in a tournament mode, + 50 points to his score
+            int playerScore = game.getSideInit().getScore();
+            if ((game.getMode().getType() == ModeType.FRIEND_DUEL ||
+                    game.getMode().getType() == ModeType.COMPETITIVE_TOURNAMENT) &&
+                    playerScore > game.getSideResp().getScore()) {
+                game.getSideInit().setScore(playerScore + 50);
+            }
 
             game.setEnded(true);
         }

@@ -14,8 +14,14 @@ public class MeDto implements IResource<MeDto> {
      * The summary of the current user.
      */
     private UserSummaryDto self;
-
+    /**
+     * Used to infer type in the API.
+     */
     private static Class<MeDto> resourceType = MeDto.class;
+    /**
+     * The number of coins available to the current user to activate a non-free power.
+     */
+    private int coins;
     /**
      * Endpoint to get and put your current invitations to a mode (tournament, duel)
      */
@@ -107,6 +113,14 @@ public class MeDto implements IResource<MeDto> {
 
     public void setModes(ResourceWriteList<ModeSummaryDto, CreateModeDto> modes) {
         this.modes = modes;
+    }
+
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
     }
 
     @Override

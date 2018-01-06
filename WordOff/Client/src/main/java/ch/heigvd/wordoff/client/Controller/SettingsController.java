@@ -8,7 +8,9 @@ import ch.heigvd.wordoff.client.Util.UtilChangeScene;
 import ch.heigvd.wordoff.client.Util.UtilStringReference;
 import ch.heigvd.wordoff.common.Dto.Endpoint.ResourceList;
 import ch.heigvd.wordoff.common.Dto.MeDto;
+import ch.heigvd.wordoff.common.Dto.User.CreateRelationDto;
 import ch.heigvd.wordoff.common.Dto.User.RelatedUserSummaryDto;
+import ch.heigvd.wordoff.common.Dto.User.RelationStatus;
 import ch.heigvd.wordoff.common.Dto.User.UserSummaryDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -78,9 +80,17 @@ public class SettingsController implements Initializable {
         choiceBoxLang.getItems().addAll(UtilStringReference.TEXT_PARAM_LANG);
         choiceBoxLang.setValue(UtilStringReference.TEXT_PARAM_LANG.get(0));
         playerName.setText(user.getName());
-        // TODO set l'image
-        // TODO set les listes d'amis / ennemis, utiliser ListCustom
-        // TODO check la config, à save localement ?!
+        for(RelatedUserSummaryDto rusDto : relatedUsers){
+            switch(rusDto.getRelation().getStatus()){
+                case FRIEND:
+                    friendsList.getItems().add(rusDto.getName());
+                    break;
+                case BLOCKED:
+                    blackList.getItems().add(rusDto.getName());
+                    break;
+
+            }
+        }
     }
 
     @FXML
@@ -94,8 +104,14 @@ public class SettingsController implements Initializable {
         String friend = null;
         friend = Dialog.getInstance().choiceNameOpponent("Entrez le nom de votre ami");
         if(friend != null && !friendsList.getItems().contains(friend)){
-            //Ajouter ami a ListView et au serv distant
-            //Api.put(meDto.setRelations());
+            CreateRelationDto newRelation = new CreateRelationDto(friend, RelationStatus.FRIEND);
+            try {
+                RelatedUserSummaryDto rusDto = Api.post(meDto.getRelations(), newRelation);
+                friendsList.getItems().add(rusDto.getName());
+                blackList.getItems().remove(friend);
+            } catch (TokenNotFoundException e) {
+                e.printStackTrace();
+            }
         }
 
 
@@ -105,29 +121,43 @@ public class SettingsController implements Initializable {
     private void addBlackList(){
         String friend = null;
         friend = Dialog.getInstance().choiceNameOpponent("Entrez le nom du joueur à bloquer");
-        if(friend != null && !friendsList.getItems().contains(friend)){
-            //Ajouter bloqué a ListView et au serv distant
-            //Api.put(meDto.getEndpoint(), );
+        if(friend != null && !blackList.getItems().contains(friend)){
+            CreateRelationDto newRelation = new CreateRelationDto(friend, RelationStatus.BLOCKED);
+            try {
+                RelatedUserSummaryDto rusDto = Api.post(meDto.getRelations(), newRelation);
+                blackList.getItems().add(rusDto.getName());
+                friendsList.getItems().remove(friend);
+            } catch (TokenNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @FXML
     private void removeFriend(){
         String selectedFriend = friendsList.getSelectionModel().getSelectedItem();
-        if(!( selectedFriend== null)){
-            //Remove from list
-            //Remove from relations
-            //Update server
+        if(!(selectedFriend == null)){
+            CreateRelationDto newRelation = new CreateRelationDto(selectedFriend, RelationStatus.NONE);
+            try {
+                RelatedUserSummaryDto rusDto = Api.post(meDto.getRelations(), newRelation);
+                friendsList.getItems().remove(selectedFriend);
+            } catch (TokenNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @FXML
     private void removeBlackList(){
         String selectedFriend = blackList.getSelectionModel().getSelectedItem();
-        if(!( selectedFriend== null)){
-            //Remove from list
-            //Remove from relations
-            //Update server
+        if(!(selectedFriend == null)){
+            CreateRelationDto newRelation = new CreateRelationDto(selectedFriend, RelationStatus.NONE);
+            try {
+                RelatedUserSummaryDto rusDto = Api.post(meDto.getRelations(), newRelation);
+                blackList.getItems().remove(selectedFriend);
+            } catch (TokenNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

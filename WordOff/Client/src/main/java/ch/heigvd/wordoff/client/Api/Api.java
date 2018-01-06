@@ -129,7 +129,7 @@ public class Api {
 
         return responseEntity.getBody();
     }
-/*
+
     static public <T, U> T post(ResourceWriteList<T, U> endpoint, U dto) throws TokenNotFoundException {
         HttpHeaders headers = new HttpHeaders();
         headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());
@@ -143,7 +143,7 @@ public class Api {
 
         return responseEntity.getBody();
     }
-    */
+
     static public <T, U> T post(ResourceWriteList<T, U> endpoint, U dto, Class<T> respType) throws TokenNotFoundException {
         HttpHeaders headers = new HttpHeaders();
         headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());

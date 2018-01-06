@@ -7,6 +7,7 @@ import ch.heigvd.wordoff.common.Dto.MeDto;
 import ch.heigvd.wordoff.common.Dto.User.RelatedUserSummaryDto;
 import ch.heigvd.wordoff.common.Dto.User.RelationDto;
 import ch.heigvd.wordoff.common.Dto.User.RelationStatus;
+import ch.heigvd.wordoff.common.Dto.User.UserSummaryDto;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,6 +21,7 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class FriendlyTournamentSettingsController implements Initializable {
 
@@ -104,11 +106,13 @@ public class FriendlyTournamentSettingsController implements Initializable {
         try {
             MeDto meDto = MeApi.getCurrentUser();
             List<RelatedUserSummaryDto> rusDtos = Api.get(meDto.getRelations());
+            List<UserSummaryDto> recentOpponents = Api.get(meDto.getAdversaries());
             for(RelatedUserSummaryDto r : rusDtos){
                 if(r.getRelation().getStatus().equals(RelationStatus.FRIEND)){
                     friendsList.getItems().add(r.getName());
                 }
             }
+            recentList.getItems().addAll(recentOpponents.stream().map(p -> p.getName()).collect(Collectors.toList()));
         } catch (TokenNotFoundException e) {
             e.printStackTrace();
         }

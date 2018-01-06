@@ -112,8 +112,8 @@
                                           <Button mnemonicParsing="false" onMouseClicked="#removeBlackList" styleClass="red" stylesheets="@../styles/Style_buttonCircle.css" text="-" GridPane.columnIndex="2" />
                                        </children>
                                     </GridPane>
-                                    <ListView fx:id="friendsList" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
-                                    <ListView fx:id="blackList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <ListView fx:id="friendsList" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Style_listView.css" GridPane.rowIndex="1" />
+                                    <ListView fx:id="blackList" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Style_listView.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                  </children>
                               </GridPane>
                            </children>

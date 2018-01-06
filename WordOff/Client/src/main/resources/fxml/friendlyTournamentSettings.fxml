@@ -82,7 +82,7 @@
                                     <Label text="Participants" />
                                  </children>
                               </StackPane>
-                              <ListView fx:id="participantsList" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                              <ListView fx:id="participantsList" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Style_listView.css" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                      </children>
@@ -103,7 +103,7 @@
                                     <Label text="Amis" />
                                  </children>
                               </StackPane>
-                              <ListView fx:id="friendsList" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                              <ListView fx:id="friendsList" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Style_listView.css" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                      </children>
@@ -127,7 +127,7 @@
                                     <Label text="Adversaires récents" />
                                  </children>
                               </StackPane>
-                              <ListView fx:id="recentList" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                              <ListView fx:id="recentList" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Style_listView.css" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                      </children>

@@ -3,9 +3,11 @@ package ch.heigvd.wordoff.server.Rest.Endpoint;
 import ch.heigvd.wordoff.common.Dto.InvitationDto;
 import ch.heigvd.wordoff.common.Dto.MeDto;
 import ch.heigvd.wordoff.common.Dto.NotificationDto;
+import ch.heigvd.wordoff.common.Dto.User.CreateRelationDto;
 import ch.heigvd.wordoff.common.Dto.User.RelatedUserSummaryDto;
 import ch.heigvd.wordoff.common.Dto.User.RelationDto;
 import ch.heigvd.wordoff.common.Dto.User.UserSummaryDto;
+import ch.heigvd.wordoff.server.Model.Relation;
 import ch.heigvd.wordoff.server.Model.User;
 import ch.heigvd.wordoff.server.Service.ModeService;
 import ch.heigvd.wordoff.server.Service.UserService;
@@ -116,6 +118,27 @@ public class MeController {
                 .map(DtoFactory::createRelatedSummaryFrom)
                 .collect(Collectors.toList()), HttpStatus.OK);
 
+    }
+
+    /**
+     * POST a new relation (FRIENDS and BLACKLISTED user) for the given player.
+     * @param player The current player.
+     * @param relation The information about the new relation
+     * @return The summary with relation information of the new target of the relation.
+     */
+    @RequestMapping(value = "/relations", method = RequestMethod.POST)
+    public ResponseEntity<RelatedUserSummaryDto> newRelation(
+            @RequestAttribute("player") User player,
+            @RequestBody CreateRelationDto relation) {
+
+        User target = userService.getUser(relation.getTargetUsername());
+        if(target == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        Relation createdRelation = userService.setUsersRelation(player, target.getId(), relation.getStatus());
+
+        return new ResponseEntity<>(DtoFactory.createRelatedSummaryFrom(createdRelation), HttpStatus.CREATED);
     }
 
     /**

@@ -313,7 +313,18 @@ public class DtoFactory {
     }
 
     public static InvitationDto createFrom(Invitation entity) {
-        return modelMapper.map(entity, InvitationDto.class);
+        InvitationDto dto = modelMapper.map(entity, InvitationDto.class);
+        switch (entity.getMode().getType()) {
+            case FRIEND_DUEL:
+            case RANDOM_DUEL:
+                dto.setName("Duel: " + dto.getName());
+                break;
+            case COMPETITIVE_TOURNAMENT:
+            case FRIENDLY_TOURNAMENT:
+                dto.setName("Tournoi: " + dto.getName());
+                break;
+        }
+        return dto;
     }
 
     public static NotificationDto createFrom(Notification entity) {

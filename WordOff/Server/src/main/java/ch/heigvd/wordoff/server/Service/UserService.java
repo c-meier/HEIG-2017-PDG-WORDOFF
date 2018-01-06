@@ -109,4 +109,13 @@ public class UserService {
     public User getUser(Long userId) {
         return userRepository.findOne(userId);
     }
+
+    /**
+     * Get the User in the database.
+     * @param username Username of the user.
+     * @return The user.
+     */
+    public User getUser(String username) {
+        return userRepository.findByName(username);
+    }
 }

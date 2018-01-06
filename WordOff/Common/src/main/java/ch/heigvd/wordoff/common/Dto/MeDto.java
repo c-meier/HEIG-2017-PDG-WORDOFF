@@ -5,6 +5,7 @@ import ch.heigvd.wordoff.common.Dto.Endpoint.ResourceList;
 import ch.heigvd.wordoff.common.Dto.Endpoint.ResourceWriteList;
 import ch.heigvd.wordoff.common.Dto.Mode.CreateModeDto;
 import ch.heigvd.wordoff.common.Dto.Mode.ModeSummaryDto;
+import ch.heigvd.wordoff.common.Dto.User.CreateRelationDto;
 import ch.heigvd.wordoff.common.Dto.User.RelatedUserSummaryDto;
 import ch.heigvd.wordoff.common.Dto.User.UserSummaryDto;
 
@@ -35,10 +36,11 @@ public class MeDto implements IResource<MeDto> {
      * Endpoint to refresh this object.
      */
     private String endpoint;
+
     /**
-     * Endpoint to get your friends and blacklisted users.
+     * Endpoint to get your friends and blacklisted users and to add a new relation.
      */
-    private ResourceList<RelatedUserSummaryDto> relations = new ResourceList<>(RelatedUserSummaryDto.class);
+    private ResourceWriteList<RelatedUserSummaryDto, CreateRelationDto> relations = new ResourceWriteList<>(RelatedUserSummaryDto.class, CreateRelationDto.class);
 
     @Override
     public String getEndpoint() {
@@ -95,11 +97,11 @@ public class MeDto implements IResource<MeDto> {
         this.adversaries = adversaries;
     }
 
-    public ResourceList<RelatedUserSummaryDto> getRelations() {
+    public ResourceWriteList<RelatedUserSummaryDto, CreateRelationDto> getRelations() {
         return relations;
     }
 
-    public void setRelations(ResourceList<RelatedUserSummaryDto> relations) {
+    public void setRelations(ResourceWriteList<RelatedUserSummaryDto, CreateRelationDto> relations) {
         this.relations = relations;
     }
 

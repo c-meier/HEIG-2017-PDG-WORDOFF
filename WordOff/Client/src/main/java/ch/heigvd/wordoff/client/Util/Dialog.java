@@ -198,14 +198,14 @@ public class Dialog {
      * Dialog to choice the opponent duel
      * @return opponent
      */
-    public String choiceNameOpponent(){
+    public String choiceNameOpponent(String header){
         String opponent = null;
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         applyStyleSheet(alert);
-        alert.setHeaderText("Entrez le nom de votre adversaire");
+        alert.setHeaderText(header);
 
         Label label = new Label();
-        label.setText("Nom de l'adversaire: : ");
+        label.setText("Nom : ");
 
         TextField input = new TextField();
 

@@ -301,7 +301,7 @@ public class MainMenuController implements Initializable {
                         dto.setType(ModeType.FRIEND_DUEL);
 
                         // Dialog to select the opponent
-                        String result = Dialog.getInstance().choiceNameOpponent();
+                        String result = Dialog.getInstance().choiceNameOpponent("Entrez le nom de votre adversaire");
 
                         if (result != null){
                             dto.addParticpant(result);

@@ -29,4 +29,6 @@ public interface Constants {
     int MAX_GAMES_PER_DAY = 2;
     int MAX_HOURS_ELAPSED_IN_TOURNAMENT_FOR_PLAYER_TO_JOIN_MODE = 23;
 
+    int NB_COINS_AT_START = 50;
+
 }

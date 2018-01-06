@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.Map;
 
+import static ch.heigvd.wordoff.common.Constants.NB_COINS_AT_START;
+
 /**
  * Class that represents a user in the application.
  */
@@ -23,7 +25,7 @@ public class User extends Player {
 
     private int level;
 
-    private int coins = 0;
+    private int coins = NB_COINS_AT_START;
 
     protected User() {
         this.relations = new HashMap<>();

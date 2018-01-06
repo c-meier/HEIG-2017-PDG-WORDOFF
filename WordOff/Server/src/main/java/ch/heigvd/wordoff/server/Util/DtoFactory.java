@@ -293,6 +293,7 @@ public class DtoFactory {
     
     public static MeDto createMeFrom(User entity) {
         MeDto dto = new MeDto();
+        dto.setCoins(entity.getCoins());
         dto.setSelf(modelMapper.map(entity, UserSummaryDto.class));
         return dto;
     }

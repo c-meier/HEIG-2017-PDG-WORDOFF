@@ -90,6 +90,7 @@ public class UserService {
                         .map(Invitation::getTarget)
                         .filter(u -> Objects.equals(u.getId(), owner.getId())))
                 .distinct()
+                .filter(user -> !Objects.equals(owner.getId(), user.getId()))
                 .collect(Collectors.toList());
     }
 

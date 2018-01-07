@@ -145,6 +145,8 @@ public class GameController {
             responseEntity = new ResponseEntity<>(gameService.discardAll(game, player), HttpStatus.OK);
         } else if (powerDto.equals(PowerDto.WORDANALYZER)) {
             // rien de plus à faire
+            game.setWordanalyser(true);
+            gameRepository.save(game);
             responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             throw new ErrorCodeException(Protocol.CHEATING, "Requested power does not exist");

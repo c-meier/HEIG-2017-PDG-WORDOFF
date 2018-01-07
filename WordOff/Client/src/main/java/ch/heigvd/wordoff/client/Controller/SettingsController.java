@@ -113,6 +113,7 @@ public class SettingsController implements Initializable {
             } catch (TokenNotFoundException e) {
                 e.printStackTrace();
             } catch (HTTPException e){
+                //Test to see if correct exception is thrown when user does not exist
                 Dialog.getInstance().signalError(UtilStringReference.PLAYER_NOT_FOUND);
             }
         }

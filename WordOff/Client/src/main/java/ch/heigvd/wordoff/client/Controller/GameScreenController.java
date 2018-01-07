@@ -56,7 +56,9 @@ public class GameScreenController implements Initializable {
     private GameDto game;
     private MeDto me;
     private SideDto otherSide;
+
     private List<Character> alphabet;
+
     @FXML
     private Label p1Name, p2Name, coinLabel;
     @FXML
@@ -65,6 +67,8 @@ public class GameScreenController implements Initializable {
     private Button discardButton;
     @FXML
     private Button playButton;
+    @FXML
+    private Button wordalyserButton;
     @FXML
     private Label tilesRemaining;
     @FXML
@@ -77,6 +81,8 @@ public class GameScreenController implements Initializable {
     private CheckBox checkWordAlyzer;
     @FXML
     private Circle circle1WordAlyzer, circle2WordAlyzer, circle3WordAlyzer, circle4WordAlyzer, circle5WordAlyzer;
+    @FXML
+    private AnchorPane pane;
 
     private int numberTilesOnChallengeRack = 0;
     // Listes Player 1
@@ -169,6 +175,12 @@ public class GameScreenController implements Initializable {
             Dialog.getInstance().signalError("Une erreur s'est produite. Veuillez vous reconnecter");
         }
         setState(this.game);
+        //If wordalyser isn't activated, hide it, else hide activation button
+        if(!game.isWordanalyser()){
+            pane.setVisible(false);
+        }else{
+            wordalyserButton.setVisible(false);
+        }
         DictionaryLoader dicoLoad = new DictionaryLoader();
         this.dico = dicoLoad.getDico(this.game.getLang());
 
@@ -315,6 +327,9 @@ public class GameScreenController implements Initializable {
         }
     }
 
+    /**
+     * Activates the Hint power if the user has enough coins
+     */
     @FXML
     private void hint() {
         if(me.getCoins() >= PowerDto.HINT.getCost()){
@@ -884,11 +899,31 @@ public class GameScreenController implements Initializable {
         }
     }
 
+
     private void addConentListStackPane(List<StackPane> list, StackPane... content) {
         for (StackPane p : content) {
             list.add(p);
         }
     }
 
+    /**
+     * Activates the Wordalyser if the player has enough coins.
+     * @param mouseEvent
+     */
+    public void activateWordalyser(MouseEvent mouseEvent) {
+        if(me.getCoins() >= PowerDto.WORDANALYZER.getCost()){
+            try {
+                Api.post(game.getPowers(), PowerDto.WORDANALYZER);
+                me.setCoins(me.getCoins() - PowerDto.WORDANALYZER.getCost());
+                coinLabel.setText(String.valueOf(me.getCoins()));
+                wordalyserButton.setVisible(false);
+                pane.setVisible(true);
+            } catch (TokenNotFoundException e) {
+                e.printStackTrace();
+            }
+        }else{
+            Dialog.getInstance().signalPowerError(PowerDto.WORDANALYZER);
+        }
+    }
 }
 

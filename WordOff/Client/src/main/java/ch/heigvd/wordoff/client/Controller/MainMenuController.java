@@ -208,6 +208,9 @@ public class MainMenuController implements Initializable {
         sortGames();
     }
 
+    /**
+     * Sorts all retrieved modes into the correct lists
+     */
     private void sortGames(){
         try {
             modeSummaryDtos = ModeApi.retrieveModes();
@@ -249,6 +252,10 @@ public class MainMenuController implements Initializable {
 
     }
 
+    /**
+     * Create a new game in any mode
+     * @param e
+     */
     @FXML
     private void newGame(MouseEvent e) {
         String lang = "";
@@ -264,7 +271,9 @@ public class MainMenuController implements Initializable {
                 String selection = Dialog.getInstance().choicesBoxDialog("Choix de langue",
                         "Veuillez choisir la langue du tournoi", "Langue",
                         UtilStringReference.LANG_FR, UtilStringReference.LANG_EN);
-
+                if(selection == null){
+                    return;
+                }
                 switch (selection) {
                     case UtilStringReference.LANG_FR:
                         lang = "fr";
@@ -365,7 +374,7 @@ public class MainMenuController implements Initializable {
                 if (result.isPresent()){
                     dto.setName(result.get());
                 }else{
-                    dto.setName("Tournoi amical");
+                    return;
                 }
 
                 List<String> participants = Dialog.getInstance().getFriendlyTournamentParticipants();
@@ -382,8 +391,6 @@ public class MainMenuController implements Initializable {
 
 
             }
-
-        // TODO demande de créer la nuvelle partie au serveur en fonction du mode => récupérer la source de l'event
 
         }
     }
@@ -419,7 +426,7 @@ public class MainMenuController implements Initializable {
         }
     }
 
-    public void showDetailsTournamentComp(){
+    private void showDetailsTournamentComp(){
         if(!listGamesTournamentCompetition.getListView().getItems().isEmpty()){
             paneTournamentComp.setVisible(true);
             competitiveTournamentVbox.setVisible(false);

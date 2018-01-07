@@ -85,21 +85,37 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <StackPane alignment="CENTER_RIGHT">
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
                                  <children>
-                                    <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="180.0" stylesheets="@../styles/Style_wordAlyzer.css">
+                                    <StackPane alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                                        <children>
-                                          <Circle fx:id="circle1WordAlyzer" fill="DODGERBLUE" layoutX="43.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-                                          <Circle fx:id="circle2WordAlyzer" fill="DODGERBLUE" layoutX="64.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-                                          <Circle fx:id="circle3WordAlyzer" fill="DODGERBLUE" layoutX="86.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-                                          <Circle fx:id="circle4WordAlyzer" fill="DODGERBLUE" layoutX="109.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-                                          <Circle fx:id="circle5WordAlyzer" fill="DODGERBLUE" layoutX="131.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-                                          <Label fx:id="scoreWordAlyzer" layoutX="6.0" layoutY="-7.0" prefHeight="36.0" prefWidth="28.0" text="10" />
-                                          <CheckBox fx:id="checkWordAlyzer" disable="true" layoutX="153.0" layoutY="-6.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="28.0" />
+                                          <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="180.0" stylesheets="@../styles/Style_wordAlyzer.css">
+                                             <children>
+                                                <Circle fx:id="circle1WordAlyzer" fill="DODGERBLUE" layoutX="43.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                                                <Circle fx:id="circle2WordAlyzer" fill="DODGERBLUE" layoutX="64.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                                                <Circle fx:id="circle3WordAlyzer" fill="DODGERBLUE" layoutX="86.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                                                <Circle fx:id="circle4WordAlyzer" fill="DODGERBLUE" layoutX="109.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                                                <Circle fx:id="circle5WordAlyzer" fill="DODGERBLUE" layoutX="131.0" layoutY="12.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+                                                <Label fx:id="scoreWordAlyzer" layoutX="6.0" layoutY="-7.0" prefHeight="36.0" prefWidth="28.0" text="10" />
+                                                <CheckBox fx:id="checkWordAlyzer" disable="true" layoutX="153.0" layoutY="-6.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="28.0" />
+                                             </children>
+                                          </AnchorPane>
                                        </children>
-                                    </AnchorPane>
+                                    </StackPane>
+                                    <StackPane stylesheets="@../styles/Style_toolBarBottom.css">
+                                       <children>
+                                          <Button fx:id="wordalyserButton" mnemonicParsing="false" onMouseClicked="#activateWordalyser" text="Activer le Wordalyser" />
+                                       </children>
+                                    </StackPane>
                                  </children>
-                              </StackPane>
+                              </GridPane>
                            </children>
                         </GridPane>
                         <GridPane>

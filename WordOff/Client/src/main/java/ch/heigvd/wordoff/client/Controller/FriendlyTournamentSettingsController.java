@@ -101,6 +101,14 @@ public class FriendlyTournamentSettingsController implements Initializable {
 
         friendsList.setOnMouseClicked(addToParticipantsHandler);
         recentList.setOnMouseClicked(addToParticipantsHandler);
+        participantsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(event.getClickCount() == 2){
+                    participantsList.getItems().remove(participantsList.getSelectionModel().getSelectedItem());
+                }
+            }
+        });
 
         //initialize friend and recent opponent list
         try {

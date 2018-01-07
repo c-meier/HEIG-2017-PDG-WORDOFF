@@ -352,6 +352,7 @@ public class MainMenuController implements Initializable {
 
                 try {
                     ModeSummaryDto modeSummaryDto = ModeApi.createMode(dto);
+                    listGamesTournamentCompetition.addGame(modeSummaryDto);
                     System.out.println("Tournoi envoyé au serveur");
                 } catch (TokenNotFoundException e1) {
                     e1.printStackTrace();
@@ -382,6 +383,7 @@ public class MainMenuController implements Initializable {
                     dto.setParticipants(participants);
                     try {
                         ModeSummaryDto modeSummaryDto = ModeApi.createMode(dto);
+                        listGamesTournamentsFriends.addGame(modeSummaryDto);
                     } catch (TokenNotFoundException e1) {
                         e1.printStackTrace();
                     }

@@ -1,7 +1,6 @@
 package ch.heigvd.wordoff.server.Rest.Endpoint;
 
 import ch.heigvd.wordoff.common.Dto.Game.*;
-import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
 import ch.heigvd.wordoff.common.Protocol;
 import ch.heigvd.wordoff.server.Model.Ai;
 import ch.heigvd.wordoff.server.Model.Challenge;
@@ -131,6 +130,7 @@ public class GameController {
             // rien de plus à faire
         } else if (powerDto.equals(PowerDto.PASS)) {
             gameService.pass(gameRepository.findOne(gameId), player);
+            responseEntity = new ResponseEntity<>(HttpStatus.OK);
         } else if (powerDto.equals(PowerDto.PEEK)) {
             responseEntity = new ResponseEntity<>(gameService.peek(gameRepository.findOne(gameId), player), HttpStatus.OK);
         } else if (powerDto.equals(PowerDto.DISCARD_2)) {
@@ -139,6 +139,7 @@ public class GameController {
             responseEntity = new ResponseEntity<>(gameService.discardAll(gameRepository.findOne(gameId), player), HttpStatus.OK);
         } else if (powerDto.equals(PowerDto.WORDANALYZER)) {
             // rien de plus à faire
+            responseEntity = new ResponseEntity<>(HttpStatus.OK);
         } else {
             throw new ErrorCodeException(Protocol.CHEATING, "Requested power does not exist");
         }

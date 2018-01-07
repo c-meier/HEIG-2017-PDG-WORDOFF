@@ -144,8 +144,7 @@ public class GameController {
         } else if (powerDto.equals(PowerDto.DISCARD_ALL)) {
             responseEntity = new ResponseEntity<>(gameService.discardAll(game, player), HttpStatus.OK);
         } else if (powerDto.equals(PowerDto.WORDANALYZER)) {
-            // rien de plus à faire
-            game.setWordanalyser(true);
+            game.getSideOfPlayer(player).setWordanalyser(true);
             gameRepository.save(game);
             responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {

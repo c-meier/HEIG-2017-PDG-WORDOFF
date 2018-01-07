@@ -33,6 +33,8 @@ public class Side {
 
     private short answerCounter;
 
+    private boolean wordanalyser = false;
+
     public Side() {
         this.playerRack = new PlayerRack();
         this.answers = new ArrayList<>();
@@ -119,5 +121,13 @@ public class Side {
         for (ITile t : tiles) {
             challenge.addTile(t);
         }
+    }
+
+    public boolean isWordanalyser() {
+        return wordanalyser;
+    }
+
+    public void setWordanalyser(boolean wordanalyser) {
+        this.wordanalyser = wordanalyser;
     }
 }

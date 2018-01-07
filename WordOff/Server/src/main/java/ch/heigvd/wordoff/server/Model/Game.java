@@ -35,8 +35,6 @@ public class Game {
 
     private boolean ended;
 
-    private boolean wordanalyser = false;
-
     public Game() {}
 
     public Game(Mode mode, Player p1, Player p2, LangSet tileSet) {
@@ -147,13 +145,5 @@ public class Game {
 
     public void setMode(Mode mode) {
         this.mode = mode;
-    }
-
-    public boolean isWordanalyser() {
-        return wordanalyser;
-    }
-
-    public void setWordanalyser(boolean wordanalyser) {
-        this.wordanalyser = wordanalyser;
     }
 }

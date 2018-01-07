@@ -235,6 +235,7 @@ public class DtoFactory {
         dto.setOtherSide(modelMapper.map(
                 otherSide, OtherSideDto.class));
         dto.setMyTurn(Objects.equals(entity.getCurrPlayer().getId(), viewer.getId()));
+        dto.setWordanalyser(mySide.isWordanalyser());
 
         // If it's the viewer turn, then he sees the last completed challenge (if it exists) of his
         // adversary.

@@ -115,10 +115,24 @@ public class GameController {
         return new ResponseEntity<>(gameDto, HttpStatus.OK);
     }
 
+    /**
+     * Utilise un power en consommant des pièces. Si le nombre de pièces est insuffisant, un code d'erreur est renvoyé.
+     * La valeur du SideDto renvoyée est dépendante du type de power utilisé :
+     *
+     * HINT, PASS, WORDANALYZER => renvoie null
+     * PEEK                     => renvoie le SideDto de l'adversaire
+     * DISCARD_2, DISCARD_ALL   => renvoie le SideDto du l'utilisateur du power
+     *
+     *
+     * @param player
+     * @param gameId
+     * @param powerDto
+     * @return
+     */
     @RequestMapping(value = "/{gameId}/powers", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<SideDto> hint(@RequestAttribute("player") User player,
-                               @PathVariable("gameId") Long gameId,
-                               @RequestBody PowerDto powerDto) {
+    public ResponseEntity<SideDto> power(@RequestAttribute("player") User player,
+                                         @PathVariable("gameId") Long gameId,
+                                         @RequestBody PowerDto powerDto) {
         ResponseEntity responseEntity = null;
 
         Game game = gameRepository.findOne(gameId);

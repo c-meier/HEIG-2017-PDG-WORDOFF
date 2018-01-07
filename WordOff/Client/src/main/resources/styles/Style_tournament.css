@@ -1,0 +1,8 @@
+.label{
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 0 0;
+}
+
+.pane{
+    -fx-background-color: #ffeeba;
+}

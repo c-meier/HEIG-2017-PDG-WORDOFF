@@ -1,11 +1,27 @@
 package ch.heigvd.wordoff.client.Util;
 
+import ch.heigvd.wordoff.client.Controller.FriendlyTournamentSettingsController;
+import ch.heigvd.wordoff.client.MainApp;
+import ch.heigvd.wordoff.common.Dto.Game.PowerDto;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.awt.geom.Line2D;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 
 public class Dialog {
 
@@ -114,8 +130,8 @@ public class Dialog {
 
         alert.getDialogPane().setContent(borderPane);
 
-        ButtonType no = new ButtonType("Non", ButtonBar.ButtonData.OK_DONE);
-        ButtonType yes = new ButtonType("Oui", ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType no = new ButtonType("Annuler", ButtonBar.ButtonData.OK_DONE);
+        ButtonType yes = new ButtonType("Confirmer", ButtonBar.ButtonData.CANCEL_CLOSE);
 
         alert.getButtonTypes().setAll(yes, no);
 
@@ -129,4 +145,121 @@ public class Dialog {
         return null;
     }
 
+    /**
+     * Dialog to retrieve the parameters of a new duel.
+     * Returns the information in a list. Index 0 for the language and index 1 for the duel type
+     * @return informations
+     */
+    public List<String> newGame(){
+        List<String> state = new LinkedList<>();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        applyStyleSheet(alert);
+        alert.setHeaderText("Démarrer une nouvelle partie");
+
+        Label labelLang = new Label();
+        Label labelType = new Label();
+        labelLang.setText("Langue : ");
+        labelType.setText("Type : ");
+
+        ChoiceBox<String> lang = new ChoiceBox<>();
+        for(String choice : UtilStringReference.TEXT_PARAM_LANG){
+            lang.getItems().add(choice);
+        }
+        lang.getSelectionModel().selectFirst();
+
+        ChoiceBox<String> type = new ChoiceBox<>();
+        type.getItems().add("Adversaire aléatoire");
+        type.getItems().add("Contre un ami");
+        type.getSelectionModel().selectFirst();
+
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(25, 25, 25, 25));
+
+        grid.add(labelLang, 0,0);
+        grid.add(lang,1,0);
+        grid.add(labelType,0,1);
+        grid.add(type,1,1);
+
+        alert.getDialogPane().setContent(grid);
+
+        alert.showAndWait();
+        state.add(lang.getValue());
+        state.add(type.getValue());
+
+        if(alert.getResult().getButtonData().isCancelButton())
+            return null;
+
+        return state;
+    }
+
+    /**
+     * Dialog to choice the opponent duel
+     * @return opponent
+     */
+    public String choiceNameOpponent(String header){
+        String opponent = null;
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        applyStyleSheet(alert);
+        alert.setHeaderText(header);
+
+        Label label = new Label();
+        label.setText("Nom : ");
+
+        TextField input = new TextField();
+
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(25, 25, 25, 25));
+
+        grid.add(label, 0,0);
+        grid.add(input,1,0);
+        alert.getDialogPane().setContent(grid);
+
+        alert.showAndWait();
+
+        if(!alert.getResult().getButtonData().isCancelButton() && !input.getText().isEmpty()) {
+            opponent = input.getText();
+            System.out.println(opponent);
+        }
+
+        return opponent;
+    }
+
+
+    public List<String> getFriendlyTournamentParticipants() {
+        final Stage popUp = new Stage();
+        popUp.initOwner(MainApp.getStage());
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource("/fxml/friendlyTournamentSettings.fxml"));
+        BorderPane c;
+        FriendlyTournamentSettingsController controller = new FriendlyTournamentSettingsController();
+        try {
+            loader.setController(controller);
+            c = loader.load();
+            Scene testScene = new Scene(c);
+            popUp.setScene(testScene);
+
+            popUp.setTitle("Tournoi amical");
+            popUp.sizeToScene();
+            popUp.setResizable(false);
+
+            popUp.initModality(Modality.APPLICATION_MODAL);
+            popUp.showAndWait();
+            return controller.getParticipants();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+
+
+    }
+
+    public void signalPowerError(PowerDto power) {
+        signalError(UtilStringReference.TOO_FEW_COINS + "Il vous en faut " + power.getCost() + ".");
+    }
 }

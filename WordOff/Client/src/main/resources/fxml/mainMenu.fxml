@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
 <?import java.lang.String?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.client.Controller.MainMenuController">
    <top>
       <AnchorPane prefHeight="35.0" BorderPane.alignment="CENTER">
@@ -146,7 +161,7 @@
             </AnchorPane>
           <AnchorPane minWidth="200.0">
                <children>
-                  <GridPane prefHeight="573.0" prefWidth="446.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                      </columnConstraints>
@@ -195,9 +210,107 @@
                                     </GridPane>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.rowIndex="1">
+                              <AnchorPane fx:id="parentPaneTournamentComp" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: lightgoldenrodyellow;" GridPane.rowIndex="1">
                                  <children>
-                                    <Accordion fx:id="accordionTournament" layoutY="29.0" styleClass="green" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <VBox fx:id="competitiveTournamentVbox" alignment="CENTER" prefHeight="222.0" prefWidth="446.0" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <GridPane fx:id="paneTournamentComp" prefHeight="222.0" prefWidth="446.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" vgrow="SOMETIMES" />
+                                        <RowConstraints vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <GridPane styleClass="pane" stylesheets="@../styles/Style_tournament.css">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <VBox alignment="CENTER_LEFT" stylesheets="@../styles/Style_tournament.css">
+                                                   <children>
+                                                      <Label fx:id="labelNumber" text="Participants 0/20" />
+                                                      <Label fx:id="labelScore" text="Score : X" />
+                                                      <Label fx:id="labelClassement" text="Classement : 1" />
+                                                   </children>
+                                                </VBox>
+                                                <Button mnemonicParsing="false" onMouseClicked="#playTournamentComp" styleClass="go" stylesheets="@../styles/Style_buttonCircle.css" text="JOUER" GridPane.columnIndex="1" />
+                                                <VBox alignment="CENTER_LEFT" GridPane.columnIndex="2">
+                                                   <children>
+                                                      <Label fx:id="labelChance" text="Tentative : 0/2" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </GridPane>
+                                          <ScrollPane fitToWidth="true" GridPane.rowIndex="1">
+                                             <content>
+                                                <Accordion fx:id="showDetailsComp" stylesheets="@../styles/Style_listView.css">
+                                                   <panes>
+                                                      <TitledPane animated="false" text="Classement">
+                                                         <content>
+                                                            <AnchorPane maxHeight="-Infinity" minWidth="50.0" prefHeight="100.0">
+                                                               <children>
+                                                                  <ListView layoutX="42.0" layoutY="-50.0" prefHeight="150.0" prefWidth="429.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </TitledPane>
+                                                      <TitledPane animated="false" text="Jour 1 - Score X">
+                                                         <content>
+                                                            <AnchorPane maxHeight="-Infinity" minWidth="50.0" prefHeight="100.0">
+                                                               <children>
+                                                                  <ListView layoutX="42.0" layoutY="-50.0" prefHeight="150.0" prefWidth="429.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </TitledPane>
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="10.0" text="Jour 2 - Score X">
+                                                         <content>
+                                                            <AnchorPane maxHeight="-Infinity" minWidth="50.0" prefHeight="100.0">
+                                                               <children>
+                                                                  <ListView layoutX="42.0" layoutY="-50.0" prefHeight="150.0" prefWidth="429.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </TitledPane>
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="10.0" text="Jour 3 - Score X">
+                                                         <content>
+                                                            <AnchorPane maxHeight="-Infinity" minWidth="50.0" prefHeight="100.0">
+                                                               <children>
+                                                                  <ListView layoutX="42.0" layoutY="-50.0" prefHeight="150.0" prefWidth="429.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </TitledPane>
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="10.0" text="Jour 4 - Score X">
+                                                         <content>
+                                                            <AnchorPane maxHeight="-Infinity" minWidth="50.0" prefHeight="100.0">
+                                                               <children>
+                                                                  <ListView layoutX="42.0" layoutY="-50.0" prefHeight="150.0" prefWidth="429.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </TitledPane>
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="10.0" text="Jour 5 - Score X">
+                                                         <content>
+                                                            <AnchorPane maxHeight="-Infinity" minWidth="50.0" prefHeight="100.0">
+                                                               <children>
+                                                                  <ListView layoutX="42.0" layoutY="-50.0" prefHeight="150.0" prefWidth="429.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </TitledPane>
+                                                   </panes>
+                                                </Accordion>
+                                             </content>
+                                          </ScrollPane>
+                                       </children>
+                                    </GridPane>
                                  </children>
                               </AnchorPane>
                            </children>
@@ -211,6 +324,111 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
+                              <AnchorPane fx:id="parentPaneTournamentFriends" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: lightgoldenrodyellow;" GridPane.rowIndex="1">
+                                 <children>
+                                    <VBox fx:id="friendsTournamentVbox" alignment="CENTER" prefHeight="222.0" prefWidth="446.0" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <GridPane fx:id="paneTournamentFriends" prefHeight="222.0" prefWidth="446.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" vgrow="SOMETIMES" />
+                                          <RowConstraints vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <GridPane styleClass="pane" stylesheets="@../styles/Style_tournament.css">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <VBox alignment="CENTER_LEFT" stylesheets="@../styles/Style_tournament.css">
+                                                   <children>
+                                                      <Label fx:id="labelNumberFriend" text="Participants 0/20" />
+                                                      <Label fx:id="labelScoreFriend" text="Score : X" />
+                                                      <Label fx:id="labelClassementFriend" text="Classement : 1" />
+                                                   </children>
+                                                </VBox>
+                                                <Button mnemonicParsing="false" onMouseClicked="#playTournamentFriend" styleClass="go" stylesheets="@../styles/Style_buttonCircle.css" text="JOUER" GridPane.columnIndex="2" />
+                                                <VBox alignment="CENTER_LEFT" GridPane.columnIndex="3">
+                                                   <children>
+                                                      <Label fx:id="labelChanceFriend" text="Tentative : 0/2" />
+                                                   </children>
+                                                </VBox>
+                                                <Button mnemonicParsing="false" onMouseClicked="#backTournamentFriend" styleClass="back" stylesheets="@../styles/Style_buttonCircle.css" text="RETOUR" GridPane.columnIndex="1" />
+                                             </children>
+                                          </GridPane>
+                                          <ScrollPane fitToWidth="true" GridPane.rowIndex="1">
+                                             <content>
+                                                <Accordion fx:id="showDetailsFriend" stylesheets="@../styles/Style_listView.css">
+                                                   <panes>
+                                                      <TitledPane animated="false" text="Classement">
+                                                         <content>
+                                                            <AnchorPane maxHeight="-Infinity" minWidth="50.0" prefHeight="100.0">
+                                                               <children>
+                                                                  <ListView layoutX="42.0" layoutY="-50.0" prefHeight="150.0" prefWidth="429.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </TitledPane>
+                                                      <TitledPane animated="false" text="Jour 1 - Score X">
+                                                         <content>
+                                                            <AnchorPane maxHeight="-Infinity" minWidth="50.0" prefHeight="100.0">
+                                                               <children>
+                                                                  <ListView layoutX="42.0" layoutY="-50.0" prefHeight="150.0" prefWidth="429.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </TitledPane>
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="10.0" text="Jour 2 - Score X">
+                                                         <content>
+                                                            <AnchorPane maxHeight="-Infinity" minWidth="50.0" prefHeight="100.0">
+                                                               <children>
+                                                                  <ListView layoutX="42.0" layoutY="-50.0" prefHeight="150.0" prefWidth="429.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </TitledPane>
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="10.0" text="Jour 3 - Score X">
+                                                         <content>
+                                                            <AnchorPane maxHeight="-Infinity" minWidth="50.0" prefHeight="100.0">
+                                                               <children>
+                                                                  <ListView layoutX="42.0" layoutY="-50.0" prefHeight="150.0" prefWidth="429.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </TitledPane>
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="10.0" text="Jour 4 - Score X">
+                                                         <content>
+                                                            <AnchorPane maxHeight="-Infinity" minWidth="50.0" prefHeight="100.0">
+                                                               <children>
+                                                                  <ListView layoutX="42.0" layoutY="-50.0" prefHeight="150.0" prefWidth="429.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </TitledPane>
+                                                      <TitledPane animated="false" layoutX="10.0" layoutY="10.0" text="Jour 5 - Score X">
+                                                         <content>
+                                                            <AnchorPane maxHeight="-Infinity" minWidth="50.0" prefHeight="100.0">
+                                                               <children>
+                                                                  <ListView layoutX="42.0" layoutY="-50.0" prefHeight="150.0" prefWidth="429.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </TitledPane>
+                                                   </panes>
+                                                </Accordion>
+                                             </content>
+                                          </ScrollPane>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="backgroundGame_withoutShadow" stylesheets="@../styles/Styles.css">
                                  <children>
                                     <GridPane prefHeight="40.0" prefWidth="446.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -226,11 +444,6 @@
                                           <Button fx:id="newTournamentFriend" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="28.0" prefWidth="50.0" styleClass="green" stylesheets="@../styles/Style_buttonCircle.css" text="+" GridPane.columnIndex="1" />
                                        </children>
                                     </GridPane>
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.rowIndex="1">
-                                 <children>
-                                    <VBox fx:id="vBoxgamesTurnamentFriend" layoutX="73.0" layoutY="25.0" prefHeight="225.0" prefWidth="446.0" style="-fx-background-color: lightgoldenrodyellow;" stylesheets="@../styles/Style_listView.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </children>

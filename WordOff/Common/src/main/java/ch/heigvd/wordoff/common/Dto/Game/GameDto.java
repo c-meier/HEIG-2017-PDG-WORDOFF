@@ -27,17 +27,16 @@ public class GameDto implements IResource<GameDto> {
 
     private int bagSize;
 
+    private boolean ended;
+
+    private boolean wordanalyser;
+
+    private static Class<GameDto> resourceType = GameDto.class;
     /**
      * Endpoint to POST challenges.
      * Is used to play a word.
      */
-    private ResourceWriteList<GameDto, ChallengeDto> challenges;
-
-    /**
-     * Endpoint to POST powers.
-     * Is used to activate a power.
-     */
-    private ResourceWriteList<GameDto, PowerDto> powers;
+    private ResourceWriteList<GameDto, ChallengeDto> challenges = new ResourceWriteList<>(GameDto.class, ChallengeDto.class);
 
     /**
      * Endpoint to refresh (GET) the game
@@ -114,6 +113,22 @@ public class GameDto implements IResource<GameDto> {
         this.id = id;
     }
 
+    public boolean isEnded() {
+        return ended;
+    }
+
+    public void setEnded(boolean ended) {
+        this.ended = ended;
+    }
+
+    public boolean isWordanalyser() {
+        return wordanalyser;
+    }
+
+    public void setWordanalyser(boolean wordanalyser) {
+        this.wordanalyser = wordanalyser;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this) return true;
@@ -134,22 +149,32 @@ public class GameDto implements IResource<GameDto> {
     public String getEndpoint() {
         return endpoint;
     }
-
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
-        this.challenges = new ResourceWriteList<>(endpoint + "/challenges");
-        this.powers = new ResourceWriteList<>(endpoint + "/powers");
-    }
+    /**
+     * Endpoint to POST powers.
+     * Is used to activate a power.
+     */
+    private ResourceWriteList<SideDto, PowerDto> powers = new ResourceWriteList<>(SideDto.class, PowerDto.class);
 
     public ResourceWriteList<GameDto, ChallengeDto> getChallenges() {
         return challenges;
     }
 
-    public ResourceWriteList<GameDto, PowerDto> getPowers() {
+    public ResourceWriteList<SideDto, PowerDto> getPowers() {
         return powers;
     }
 
-    public void setPowers(ResourceWriteList<GameDto, PowerDto> powers) {
+    public void setPowers(ResourceWriteList<SideDto, PowerDto> powers) {
         this.powers = powers;
+    }
+
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
+        this.challenges.setEndpoint(endpoint + "/challenges");
+        this.powers.setEndpoint(endpoint + "/powers");
+    }
+
+    @Override
+    public Class<GameDto> getResourceType() {
+        return resourceType;
     }
 }

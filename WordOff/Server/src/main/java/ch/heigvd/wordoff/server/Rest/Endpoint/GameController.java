@@ -1,7 +1,6 @@
 package ch.heigvd.wordoff.server.Rest.Endpoint;
 
 import ch.heigvd.wordoff.common.Dto.Game.*;
-import ch.heigvd.wordoff.common.Dto.Game.Tiles.TileDto;
 import ch.heigvd.wordoff.common.Protocol;
 import ch.heigvd.wordoff.server.Model.Ai;
 import ch.heigvd.wordoff.server.Model.Challenge;
@@ -136,6 +135,11 @@ public class GameController {
                                          @RequestBody PowerDto powerDto) {
         ResponseEntity responseEntity = null;
 
+        Game game = gameRepository.findOne(gameId);
+        if(game == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
         // vérifie la quantité de pièces disponibles
         if(powerDto.getCost() > player.getCoins()) {
             throw new ErrorCodeException(Protocol.NOT_ENOUGH_COINS, "You do not have enough coins to use this power");
@@ -143,16 +147,20 @@ public class GameController {
 
         if(powerDto.equals(PowerDto.HINT)) {
             // rien de plus à faire
+            responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else if (powerDto.equals(PowerDto.PASS)) {
-            gameService.pass(gameRepository.findOne(gameId), player);
+            gameService.pass(game, player);
+            responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else if (powerDto.equals(PowerDto.PEEK)) {
-            responseEntity = new ResponseEntity<>(gameService.peek(gameRepository.findOne(gameId), player), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(gameService.peek(game, player), HttpStatus.OK);
         } else if (powerDto.equals(PowerDto.DISCARD_2)) {
-            responseEntity = new ResponseEntity<>(gameService.discard2(gameRepository.findOne(gameId), player), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(gameService.discard2(game, player), HttpStatus.OK);
         } else if (powerDto.equals(PowerDto.DISCARD_ALL)) {
-            responseEntity = new ResponseEntity<>(gameService.discardAll(gameRepository.findOne(gameId), player), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(gameService.discardAll(game, player), HttpStatus.OK);
         } else if (powerDto.equals(PowerDto.WORDANALYZER)) {
-            // rien de plus à faire
+            game.getSideOfPlayer(player).setWordanalyser(true);
+            gameRepository.save(game);
+            responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             throw new ErrorCodeException(Protocol.CHEATING, "Requested power does not exist");
         }

@@ -35,4 +35,11 @@ public class InvitationDto implements IResource<InvitationDto> {
     public void setEndpoint(String endpoint) {
         this.endpoint = endpoint;
     }
+
+    private static Class<InvitationDto> resourceType = InvitationDto.class;
+
+    @Override
+    public Class<InvitationDto> getResourceType() {
+        return resourceType;
+    }
 }

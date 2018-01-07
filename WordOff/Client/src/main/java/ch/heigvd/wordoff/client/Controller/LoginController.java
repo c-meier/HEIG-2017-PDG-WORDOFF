@@ -32,6 +32,8 @@ import java.util.ResourceBundle;
  */
 public class LoginController implements Initializable {
 
+    public static String currentUser = null;
+
     @FXML
     private TextField userName;
     @FXML
@@ -46,12 +48,13 @@ public class LoginController implements Initializable {
 
     @FXML
     private void signIn(ActionEvent event){
-        if(nameAndPasswordIsEmpty() == false){
+        if (!nameAndPasswordIsEmpty()){
             try {
                 String name = userName.getText();
                 char[] pass = passWord.getText().toCharArray();
 
                 UserApi.signIn(new LoginDto(name, pass));
+                currentUser = name;
                 handleGoToMainMenu();
             }catch(BadRequestException e){
                 e.printStackTrace();
@@ -68,7 +71,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private void signUp(ActionEvent event){
-        if(nameAndPasswordIsEmpty() == false){
+        if(!nameAndPasswordIsEmpty()){
             try {
                 String name = userName.getText();
                 char[] pass = passWord.getText().toCharArray();
@@ -88,7 +91,6 @@ public class LoginController implements Initializable {
             }
         }
     }
-
 
     private boolean nameAndPasswordIsEmpty(){
         if(userName.getText().isEmpty() || passWord.getText().isEmpty()) {

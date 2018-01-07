@@ -35,8 +35,6 @@ public class Game {
 
     private boolean ended;
 
-    private int gameStatus;
-
     public Game() {}
 
     public Game(Mode mode, Player p1, Player p2, LangSet tileSet) {

@@ -2,7 +2,7 @@ package ch.heigvd.wordoff.common.Dto.Mode;
 
 import ch.heigvd.wordoff.common.Dto.Endpoint.IResource;
 
-public class ModeSummaryDto implements IResource<ModeSummaryDto> {
+public class ModeSummaryDto implements IResource<ModeDto> {
     /**
      * The type of the mode.
      */
@@ -68,5 +68,12 @@ public class ModeSummaryDto implements IResource<ModeSummaryDto> {
 
     public void setEndpoint(String endpoint) {
         this.endpoint = endpoint;
+    }
+
+    private static Class<ModeDto> resourceType = ModeDto.class;
+
+    @Override
+    public Class<ModeDto> getResourceType() {
+        return resourceType;
     }
 }

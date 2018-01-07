@@ -26,4 +26,11 @@ public class RelationDto implements IResource<RelationDto> {
     public void setEndpoint(String endpoint) {
         this.endpoint = endpoint;
     }
+
+    private static Class<RelationDto> resourceType = RelationDto.class;
+
+    @Override
+    public Class<RelationDto> getResourceType() {
+        return resourceType;
+    }
 }

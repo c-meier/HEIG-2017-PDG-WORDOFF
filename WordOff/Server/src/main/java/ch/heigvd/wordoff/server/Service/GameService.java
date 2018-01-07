@@ -133,7 +133,8 @@ public class GameService {
             // Update the player side
             updatePlayerSide(side, side.getChallenge(), newTiles);
 
-            // switch player
+            // switch player and reset wordanalyzer
+            game.getSideOfPlayer(player).setWordanalyser(false);
             game.setCurrPlayer(game.getOtherPlayer(player));
         } else {
             throw new ErrorCodeException(Protocol.NOT_YOUR_TURN, "Not player turn to play !");
@@ -305,7 +306,8 @@ public class GameService {
         // update
         updatePlayerSide(game.getSideOfPlayer(player), game.getSideOfPlayer(player).getChallenge(), newTiles);
 
-        // switch player
+        // switch player and reset wordanalyzer
+        game.getSideOfPlayer(player).setWordanalyser(false);
         game.setCurrPlayer(game.getOtherPlayer(player));
 
         gameRepository.save(game);
@@ -381,7 +383,8 @@ public class GameService {
         // update
         updatePlayerSide(game.getSideOfPlayer(player), game.getSideOfPlayer(player).getChallenge(), new ArrayList<>());
 
-        // switch player
+        // switch player and reset wordanalyzer
+        game.getSideOfPlayer(player).setWordanalyser(false);
         game.setCurrPlayer(game.getOtherPlayer(player));
 
         // Si l'adversaire a aussi passé son tour (sa dernière réponse est vide) et qu'il n'y a plus de pièces à ajouter

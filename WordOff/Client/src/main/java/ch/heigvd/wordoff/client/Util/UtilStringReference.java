@@ -8,7 +8,8 @@ public class UtilStringReference {
 
     public static final String ERROR_TOKEN= new String("Une erreur s'est produire, veuilleu vous reconnecter");
     public static final String ERROR = new String("Une erreur s'est produite");
-    public static final String TOO_FEW_COINS = new String("Nombre de pièces insuffisant pour ce pouvoir.");
+    public static final String TOO_FEW_COINS = new String("Nombre de pièces insuffisant pour ce pouvoir. ");
+    public static final String PLAYER_NOT_FOUND = new String("Ce joueur n'existe pas. ");
 
     public static final String INFOS_SELECT_LANGUAGE = new String("Veuillez sélectionner la langue");
 

@@ -22,6 +22,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+import javax.xml.ws.http.HTTPException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -111,6 +112,8 @@ public class SettingsController implements Initializable {
                 blackList.getItems().remove(friend);
             } catch (TokenNotFoundException e) {
                 e.printStackTrace();
+            } catch (HTTPException e){
+                Dialog.getInstance().signalError(UtilStringReference.PLAYER_NOT_FOUND);
             }
         }
 

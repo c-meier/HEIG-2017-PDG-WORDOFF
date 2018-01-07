@@ -330,28 +330,37 @@ public class GameScreenController implements Initializable {
                     }
                 }
                 clear(p1SlotsCh);
-                clear(p1SlotsCh);
                 List<ITile> hintTiles = WordAnalyzer.getHint(dico, game.getMySide().getChallenge(), game.getMySide().getPlayerRack(), beginning);
 
-                for(int i = 0; i < hintTiles.size(); ++i){ //For each hint tile, try to find it in PlayerRack then swaprack to move it
+                for(int i = 0; i < hintTiles.size(); ++i){ //For each hint tile, try to find it in SwapRack then PlayerRack to move it
                     int tileID = hintTiles.get(i).getId();
-                    for(StackPane slotParent : p1SlotsPr){  //Check each Pane in playerrack
-                        AnchorPane childPane = (AnchorPane) slotParent.getChildren().get(0);
-                        if(!slotParent.getChildren().isEmpty() && (Integer.valueOf(
-                                ((Label) (childPane.getChildren().get(2))).getText()) == tileID)){
-                            //If the ID corresponds to the hint ID, move it to the challenge
-                            move(childPane, slotParent);
+                    boolean found = false;
+                    for(StackPane slotParent : p1SlotsSr){  //Check each Pane in swaprack
+                        if(!slotParent.getChildren().isEmpty()){
+                            AnchorPane childPane = (AnchorPane) slotParent.getChildren().get(0);
+                            if(Integer.valueOf(((Label) (childPane.getChildren().get(2))).getText()) == tileID){
+                                //If the ID corresponds to the hint ID, move it to the challenge
+                                move(childPane, slotParent);
+                                found = true;
+                                break;
+                            }
                         }
                     }
-                    for(StackPane slotParent : p1SlotsCh){  //Check each Pane in Swaprack
-                        AnchorPane childPane = (AnchorPane) slotParent.getChildren().get(0);
-                        if(!slotParent.getChildren().isEmpty() && (Integer.valueOf(
-                                ((Label) (childPane.getChildren().get(2))).getText()) == tileID)){
-                            move(childPane, slotParent);
+                    if(!found){
+                        for(StackPane slotParent : p1SlotsPr){  //Check each Pane in Swaprack
+                            if(!slotParent.getChildren().isEmpty()){
+                                AnchorPane childPane = (AnchorPane) slotParent.getChildren().get(0);
+                                if(Integer.valueOf(
+                                        ((Label) (childPane.getChildren().get(2))).getText()) == tileID){
+                                    move(childPane, slotParent);
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
                 me.setCoins(me.getCoins() - PowerDto.HINT.getCost());
+                coinLabel.setText(String.valueOf(me.getCoins()));
             } catch (TokenNotFoundException e) {
                 e.printStackTrace();
             }

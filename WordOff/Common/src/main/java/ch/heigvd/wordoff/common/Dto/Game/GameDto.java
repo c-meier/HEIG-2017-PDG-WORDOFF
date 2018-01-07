@@ -143,17 +143,17 @@ public class GameDto implements IResource<GameDto> {
      * Endpoint to POST powers.
      * Is used to activate a power.
      */
-    private ResourceWriteList<GameDto, PowerDto> powers = new ResourceWriteList<>(GameDto.class, PowerDto.class);
+    private ResourceWriteList<SideDto, PowerDto> powers = new ResourceWriteList<>(SideDto.class, PowerDto.class);
 
     public ResourceWriteList<GameDto, ChallengeDto> getChallenges() {
         return challenges;
     }
 
-    public ResourceWriteList<GameDto, PowerDto> getPowers() {
+    public ResourceWriteList<SideDto, PowerDto> getPowers() {
         return powers;
     }
 
-    public void setPowers(ResourceWriteList<GameDto, PowerDto> powers) {
+    public void setPowers(ResourceWriteList<SideDto, PowerDto> powers) {
         this.powers = powers;
     }
 

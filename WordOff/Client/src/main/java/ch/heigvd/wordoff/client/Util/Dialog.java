@@ -2,6 +2,7 @@ package ch.heigvd.wordoff.client.Util;
 
 import ch.heigvd.wordoff.client.Controller.FriendlyTournamentSettingsController;
 import ch.heigvd.wordoff.client.MainApp;
+import ch.heigvd.wordoff.common.Dto.Game.PowerDto;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -129,8 +130,8 @@ public class Dialog {
 
         alert.getDialogPane().setContent(borderPane);
 
-        ButtonType no = new ButtonType("Non", ButtonBar.ButtonData.OK_DONE);
-        ButtonType yes = new ButtonType("Oui", ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType no = new ButtonType("Annuler", ButtonBar.ButtonData.OK_DONE);
+        ButtonType yes = new ButtonType("Confirmer", ButtonBar.ButtonData.CANCEL_CLOSE);
 
         alert.getButtonTypes().setAll(yes, no);
 
@@ -256,5 +257,9 @@ public class Dialog {
         return null;
 
 
+    }
+
+    public void signalPowerError(PowerDto power) {
+        signalError(UtilStringReference.TOO_FEW_COINS + "Il vous en faut " + power.getCost() + ".");
     }
 }

@@ -13,6 +13,7 @@ import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.client.Util.Dialog;
 import ch.heigvd.wordoff.client.Util.ListCustom;
 import ch.heigvd.wordoff.client.Util.UtilStringReference;
+import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
 import ch.heigvd.wordoff.common.Dto.Mode.*;
@@ -38,6 +39,8 @@ import javax.xml.ws.http.HTTPException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+
+import static ch.heigvd.wordoff.common.Constants.*;
 
 public class MainMenuController implements Initializable {
     // Classe de test
@@ -440,7 +443,7 @@ public class MainMenuController implements Initializable {
         for(TitledPane tp : accordion.getPanes()){
             ((ListView)((AnchorPane)tp.getContent()).getChildren().get(0)).getItems().clear();
         }
-        labelNumber.setText("Participants : " + tmDto.getParticipants().size() + "/20");
+        labelNumber.setText("Participants : " + tmDto.getParticipants().size() + "/" + MAX_USER_IN_TOURNAMENT);
         List<TournamentModeDto.UserScore> globalScores = tmDto.getPlayerScoreForGlobal();
         int myScore = 0;
         //Find my score in global scores
@@ -462,7 +465,7 @@ public class MainMenuController implements Initializable {
         }
 
         labelClassement.setText("Classement : " + myRank);
-        labelChance.setText("Tentatives restantes : " + tmDto.getNbGameRemaining() + "/2");
+        labelChance.setText("Tentatives restantes : " + tmDto.getNbGameRemaining() + "/" + MAX_GAMES_PER_DAY);
         ObservableList<TitledPane> panes = accordion.getPanes();
 
         //Add ranking

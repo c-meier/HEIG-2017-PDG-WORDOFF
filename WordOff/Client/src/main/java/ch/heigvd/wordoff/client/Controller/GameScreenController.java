@@ -18,8 +18,10 @@ import ch.heigvd.wordoff.common.Dto.Game.Slots.L3SlotDto;
 import ch.heigvd.wordoff.common.Dto.Game.Slots.LastSlotDto;
 import ch.heigvd.wordoff.common.Dto.Game.Slots.SwapSlotDto;
 import ch.heigvd.wordoff.common.Dto.MeDto;
+import ch.heigvd.wordoff.common.IModel.IChallenge;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
+import ch.heigvd.wordoff.common.WordAnalyzer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -42,10 +44,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -320,10 +319,39 @@ public class GameScreenController implements Initializable {
     private void hint() {
         if(me.getCoins() >= PowerDto.HINT.getCost()){
             try {
-                SideDto newSide = Api.post(game.getPowers(), PowerDto.HINT);
-                game.setMySide(newSide);
+                Api.post(game.getPowers(), PowerDto.HINT);
+                IChallenge myChallenge = game.getMySide().getChallenge();
+                LinkedList<ITile> beginning = new LinkedList<>();
+                for(int i = 0; i < Constants.PLAYER_RACK_SIZE; ++i){
+                    if(myChallenge.getSlots().get(i).getTile() != null){
+                        beginning.add(myChallenge.getSlots().get(i).getTile());
+                    }else{
+                        break;
+                    }
+                }
+                clear(p1SlotsCh);
+                clear(p1SlotsCh);
+                List<ITile> hintTiles = WordAnalyzer.getHint(dico, game.getMySide().getChallenge(), game.getMySide().getPlayerRack(), beginning);
+
+                for(int i = 0; i < hintTiles.size(); ++i){ //For each hint tile, try to find it in PlayerRack then swaprack to move it
+                    int tileID = hintTiles.get(i).getId();
+                    for(StackPane slotParent : p1SlotsPr){  //Check each Pane in playerrack
+                        AnchorPane childPane = (AnchorPane) slotParent.getChildren().get(0);
+                        if(!slotParent.getChildren().isEmpty() && (Integer.valueOf(
+                                ((Label) (childPane.getChildren().get(2))).getText()) == tileID)){
+                            //If the ID corresponds to the hint ID, move it to the challenge
+                            move(childPane, slotParent);
+                        }
+                    }
+                    for(StackPane slotParent : p1SlotsCh){  //Check each Pane in Swaprack
+                        AnchorPane childPane = (AnchorPane) slotParent.getChildren().get(0);
+                        if(!slotParent.getChildren().isEmpty() && (Integer.valueOf(
+                                ((Label) (childPane.getChildren().get(2))).getText()) == tileID)){
+                            move(childPane, slotParent);
+                        }
+                    }
+                }
                 me.setCoins(me.getCoins() - PowerDto.HINT.getCost());
-                refresh(game);
             } catch (TokenNotFoundException e) {
                 e.printStackTrace();
             }

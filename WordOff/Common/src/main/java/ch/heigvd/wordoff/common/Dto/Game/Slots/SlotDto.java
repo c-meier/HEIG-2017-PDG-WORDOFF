@@ -45,7 +45,7 @@ public class SlotDto implements ISlot, IDto {
     @Override
     public ISlot duplicate() {
         SlotDto copy = new SlotDto(new Short(pos.shortValue()));
-        copy.setTile(tile.duplicate());
+        copy.setTile(tile == null ? null : tile.duplicate());
         return copy;
     }
 

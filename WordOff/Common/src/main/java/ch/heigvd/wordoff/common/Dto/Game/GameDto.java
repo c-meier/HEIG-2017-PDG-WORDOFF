@@ -29,6 +29,8 @@ public class GameDto implements IResource<GameDto> {
 
     private boolean ended;
 
+    private boolean wordanalyser;
+
     private static Class<GameDto> resourceType = GameDto.class;
     /**
      * Endpoint to POST challenges.
@@ -117,6 +119,14 @@ public class GameDto implements IResource<GameDto> {
 
     public void setEnded(boolean ended) {
         this.ended = ended;
+    }
+
+    public boolean isWordanalyser() {
+        return wordanalyser;
+    }
+
+    public void setWordanalyser(boolean wordanalyser) {
+        this.wordanalyser = wordanalyser;
     }
 
     @Override

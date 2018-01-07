@@ -56,6 +56,7 @@ public class GameScreenController implements Initializable {
 
     private GameDto game;
     private MeDto me;
+    private SideDto otherSide;
     private List<Character> alphabet;
     @FXML
     private Label p1Name, p2Name, coinLabel;
@@ -227,23 +228,27 @@ public class GameScreenController implements Initializable {
             if(choice != null){
                 if(choice.equals("Deux")){ //Discard two
                     try {
-                        this.game = Api.post(game.getPowers(), PowerDto.DISCARD_2);
+                        Api.post(game.getPowers(), PowerDto.DISCARD_2);
                         refresh();
                     } catch (TokenNotFoundException e) {
                         e.printStackTrace();
                     }
                 } else { //Discard all
-                    try {
-                        this.game = Api.post(game.getPowers(), PowerDto.DISCARD_ALL);
-                        refresh();
-                    } catch (TokenNotFoundException e) {
-                        e.printStackTrace();
+                    if(me.getCoins() >= PowerDto.DISCARD_ALL.getCost()){
+                        try {
+                            Api.post(game.getPowers(), PowerDto.DISCARD_ALL);
+                            refresh();
+                        } catch (TokenNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }else{
+                        Dialog.getInstance().signalPowerError(PowerDto.DISCARD_ALL);
                     }
                 }
             }
         }else{ //Pass turn
             try {
-                this.game = Api.post(game.getPowers(), PowerDto.PASS);
+                Api.post(game.getPowers(), PowerDto.PASS);
                 refresh();
             } catch (TokenNotFoundException e) {
                 e.printStackTrace();
@@ -264,23 +269,24 @@ public class GameScreenController implements Initializable {
 
     @FXML
     private void peek() {
-        // TODO test confirmation du hint côté serveur et réception du rack à afficher
         if(me.getCoins() >= PowerDto.PEEK.getCost()){
             try {
-                SideDto otherSide = Api.post(game.getPowers(), PowerDto.PEEK);
-                refresh();
+                otherSide = Api.post(game.getPowers(), PowerDto.PEEK);
+                showOtherSide();
+                me.setCoins(me.getCoins() - PowerDto.PEEK.getCost());
             } catch (TokenNotFoundException e) {
                 e.printStackTrace();
             }
         }else{
             Dialog.getInstance().signalPowerError(PowerDto.PEEK);
         }
-        /*
-        if(   ){
-            setTiles(game.getOtherSide().getPlayerRack().getTiles(), p2TilesPr, false);
-            setVisible(p2TilesPr,true);
+    }
+
+    private void showOtherSide() {
+        if(otherSide != null){
+            setTiles(otherSide.getPlayerRack().getTiles(), p2TilesPr, false);
+            setVisible(p2TilesPr, true);
         }
-     */
     }
 
     @FXML
@@ -312,8 +318,18 @@ public class GameScreenController implements Initializable {
 
     @FXML
     private void hint() {
-        // TODO etat temporaire
-        System.out.println("Click hint");
+        if(me.getCoins() >= PowerDto.HINT.getCost()){
+            try {
+                SideDto newSide = Api.post(game.getPowers(), PowerDto.HINT);
+                game.setMySide(newSide);
+                me.setCoins(me.getCoins() - PowerDto.HINT.getCost());
+                refresh(game);
+            } catch (TokenNotFoundException e) {
+                e.printStackTrace();
+            }
+        }else{
+            Dialog.getInstance().signalPowerError(PowerDto.HINT);
+        }
     }
 
     @FXML
@@ -380,8 +396,8 @@ public class GameScreenController implements Initializable {
         if (majWordAlyzer() == true) {
             try {
                 this.game = GameApi.play(game.getId(), game.getMySide().getChallenge());
-                // Cache les cases du player 2 (cas du pouvoir apercu activé pendant le tour
-                setVisible(p2TilesPr, false);
+                // No longer show other side since end of turn
+                otherSide = null;
                 // Clear les valeurs des tiles GUI
                 clearTiles(p1TilesPr);
                 clearTiles(p1TilesSr);
@@ -490,6 +506,11 @@ public class GameScreenController implements Initializable {
         setTiles(this.game.getMySide().getPlayerRack().getTiles(), p1TilesPr, true);
         // Set coins
         coinLabel.setText(String.valueOf(me.getCoins()));
+        if(otherSide == null){
+            setVisible(p2TilesPr, false);
+        }else{
+            showOtherSide();
+        }
 
 
         // Maj de myTurn

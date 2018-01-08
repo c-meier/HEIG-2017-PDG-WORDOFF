@@ -26,6 +26,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
 
+import static ch.heigvd.wordoff.common.Constants.DUEL_PREFIX;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -261,7 +262,7 @@ public class EntityDtoConverterTest {
 
         InvitationDto dto = DtoFactory.createFrom(entity);
 
-        assertEquals(entity.getName(), dto.getName());
+        assertEquals(DUEL_PREFIX + entity.getName(), dto.getName());
         assertEquals(entity.getStatus(), dto.getStatus());
         assertEquals("/me/invitations/" + entity.getMode().getId(), dto.getEndpoint());
     }

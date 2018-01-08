@@ -38,6 +38,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static ch.heigvd.wordoff.common.Constants.DUEL_PREFIX;
+import static ch.heigvd.wordoff.common.Constants.TOURNAMENT_PREFIX;
+
 @Component
 public class DtoFactory {
     private static ModelMapper modelMapper = configuredModelMapper();
@@ -319,11 +322,11 @@ public class DtoFactory {
         switch (entity.getMode().getType()) {
             case FRIEND_DUEL:
             case RANDOM_DUEL:
-                dto.setName("Duel: " + dto.getName());
+                dto.setName(DUEL_PREFIX + dto.getName());
                 break;
             case COMPETITIVE_TOURNAMENT:
             case FRIENDLY_TOURNAMENT:
-                dto.setName("Tournoi: " + dto.getName());
+                dto.setName(TOURNAMENT_PREFIX + dto.getName());
                 break;
         }
         return dto;

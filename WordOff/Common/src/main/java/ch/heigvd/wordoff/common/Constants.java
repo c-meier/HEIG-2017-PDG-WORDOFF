@@ -23,6 +23,9 @@ public interface Constants {
 
     String COMPETITION_TOURNAMENT_NAME = "Tournoi Compétitif";
 
+    String DUEL_PREFIX = "Duel: ";
+    String TOURNAMENT_PREFIX = "Tournoi: ";
+
     // The number of days of the tournament.
     int TOURNAMENT_DURATION = 5;
     int MAX_USER_IN_TOURNAMENT = 20;

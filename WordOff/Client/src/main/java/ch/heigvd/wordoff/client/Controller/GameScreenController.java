@@ -43,6 +43,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.URL;
@@ -458,7 +459,79 @@ public class GameScreenController implements Initializable {
         }
         scoreWordAlyzer.setText(String.valueOf(score));
         checkWordAlyzer.setSelected(isValidWord);
+
+        if(isValidWord){
+            List<Pair<Integer, List<ITile>>> wordsByScore = WordAnalyzer.getWordsByScore(dico,
+                    game.getMySide().getChallenge(), game.getMySide().getPlayerRack());
+
+            int sizeWordsByScore = wordsByScore.size();
+            int first = sizeWordsByScore / 5;
+            int second = (first*2)+1;
+            int third = (first*3)+1;
+            int four = (first*4)+1;
+
+            if(score <= first){
+                setCircleWordAlyzer(1);
+            }else if(score <= second){
+                setCircleWordAlyzer(2);
+            }else if(score <= third){
+                setCircleWordAlyzer(3);
+            }else if(score <= four){
+                setCircleWordAlyzer(4);
+            }else{
+                setCircleWordAlyzer(5);
+            }
+        }else {
+            setCircleWordAlyzer(0);
+        }
         return isValidWord;
+    }
+
+    private void setCircleWordAlyzer(int number){
+       switch (number){
+           case 1:
+               circle1WordAlyzer.setStyle("-fx-fill : greenyellow ");
+               circle2WordAlyzer.setStyle("-fx-fill : #1e90ff ");
+               circle3WordAlyzer.setStyle("-fx-fill : #1e90ff ");
+               circle4WordAlyzer.setStyle("-fx-fill : #1e90ff ");
+               circle5WordAlyzer.setStyle("-fx-fill : #1e90ff ");
+               break;
+           case 2:
+               circle1WordAlyzer.setStyle("-fx-fill : greenyellow ");
+               circle2WordAlyzer.setStyle("-fx-fill : greenyellow ");
+               circle3WordAlyzer.setStyle("-fx-fill : #1e90ff ");
+               circle4WordAlyzer.setStyle("-fx-fill : #1e90ff ");
+               circle5WordAlyzer.setStyle("-fx-fill : #1e90ff ");
+               break;
+           case 3:
+               circle1WordAlyzer.setStyle("-fx-fill : greenyellow ");
+               circle2WordAlyzer.setStyle("-fx-fill : greenyellow ");
+               circle3WordAlyzer.setStyle("-fx-fill : greenyellow ");
+               circle4WordAlyzer.setStyle("-fx-fill : #1e90ff ");
+               circle5WordAlyzer.setStyle("-fx-fill : #1e90ff ");
+               break;
+           case 4:
+               circle1WordAlyzer.setStyle("-fx-fill : greenyellow ");
+               circle2WordAlyzer.setStyle("-fx-fill : greenyellow ");
+               circle3WordAlyzer.setStyle("-fx-fill : greenyellow ");
+               circle4WordAlyzer.setStyle("-fx-fill : greenyellow ");
+               circle5WordAlyzer.setStyle("-fx-fill : #1e90ff ");
+               break;
+           case 5:
+               circle1WordAlyzer.setStyle("-fx-fill : greenyellow ");
+               circle2WordAlyzer.setStyle("-fx-fill : greenyellow ");
+               circle3WordAlyzer.setStyle("-fx-fill : greenyellow ");
+               circle4WordAlyzer.setStyle("-fx-fill : greenyellow ");
+               circle5WordAlyzer.setStyle("-fx-fill : greenyellow ");
+               break;
+           default:
+               circle1WordAlyzer.setStyle("-fx-fill : #1e90ff ");
+               circle2WordAlyzer.setStyle("-fx-fill : #1e90ff ");
+               circle3WordAlyzer.setStyle("-fx-fill : #1e90ff ");
+               circle4WordAlyzer.setStyle("-fx-fill : #1e90ff ");
+               circle5WordAlyzer.setStyle("-fx-fill : #1e90ff ");
+               break;
+       }
     }
 
     private void verif() {

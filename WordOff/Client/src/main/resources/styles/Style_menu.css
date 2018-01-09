@@ -14,8 +14,20 @@
 	-fx-my-border-button-highlighted : #deb186 ;
 }
 
+.label{
+    -fx-cursor: hand;
+}
+.label:hover {
+    -fx-text-fill: red;
+}
+
+.pane{
+    -fx-background-color: #ffd3a3;
+    -fx-background-image: url("../images/wood_texture.png");
+}
+
 .context-menu {
-    -fx-background-color: -fx-my-menu-color;
+    -fx-background-color: -fx-color-brown;
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
     -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em;
@@ -25,8 +37,7 @@
 /* MENU BAR + Top-level MENU BUTTONS */
 /*** The menu bar itself ***/    
 .menu-bar{
-	-fx-background-color: #ffd3a3;
-	-fx-background-image: url("../images/wood_texture.png");
+	-fx-background-color: transparent;
 }
 
 /*** Top-level menu itself (not selected / hovered) ***/
@@ -44,6 +55,7 @@
     -fx-font-size: 9pt;
     -fx-cursor: hand;
 }
+
 
 
 /*** Top-level menu itself (selected / hovered) ***/

@@ -161,6 +161,11 @@ public class MainMenuController implements Initializable {
         FXMLLoader loader = getLoader("/fxml/alertes.fxml");
         changeScene(getScene(loader));
     }
+    @FXML
+    private void handleGotoInvitationsLabel(){
+        FXMLLoader loader = getLoader("/fxml/invitations.fxml");
+        changeScene(getScene(loader));
+    }
 
     // Envoi la scène au MainApp pour changer la scene dans le stage
     private void changeScene(Scene scene) {
@@ -402,6 +407,7 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private void goToGame(ListView games) {
+
         // Partie de test static
         if (games.getSelectionModel().getSelectedItem().equals("Game Test Static")) {
             selectGame = gameTest.getGameDto();
@@ -418,9 +424,11 @@ public class MainMenuController implements Initializable {
             }
             try {
                 ModeDto mode = ModeApi.getMode(endpoint);
-                selectGame = GameApi.getGame(mode.getGame().getId());
-                System.out.println(endpoint);
-                handleGotoGame();
+                if(!mode.getName().equalsIgnoreCase("pas encore d'adversaire")) {
+                    selectGame = GameApi.getGame(mode.getGame().getId());
+                    System.out.println(endpoint);
+                    handleGotoGame();
+                }
             } catch (TokenNotFoundException e) {
                 //e.printStackTrace();
                 Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);

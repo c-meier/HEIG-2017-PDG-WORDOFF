@@ -22,6 +22,7 @@ public interface Constants {
     String YOU_RE_SCREWED = "YOU_RE_SCREWED";
 
     String COMPETITION_TOURNAMENT_NAME = "Tournoi Compétitif";
+    String NO_ADVERSARY = "Pas encore d'adversaire";
 
     String DUEL_PREFIX = "Duel: ";
     String TOURNAMENT_PREFIX = "Tournoi: ";

@@ -37,9 +37,7 @@ public class InvitationsController implements Initializable {
     @FXML
     ListView<InvitationDto> listNewInvitation;
     @FXML
-    ListView<InvitationDto> listAcceptInvitation;
-    @FXML
-    ListView<InvitationDto> listRefusedInvitation;
+    ListView<InvitationDto> listNewAlerts;
 
     private MeDto meDto;
     private List<InvitationDto> invitations = new LinkedList<>();
@@ -59,29 +57,13 @@ public class InvitationsController implements Initializable {
         try {
             meDto = MeApi.getCurrentUser();
             invitations = Api.get(meDto.getInvitations());
-
         } catch (TokenNotFoundException e) {
             Dialog.getInstance().signalError("Impossible de récupérer les données du profil");
         }
         listNewInvitation.setCellFactory(param -> new InvitationDtoListCellNew());
-        listAcceptInvitation.setCellFactory(param -> new InvitationDtoListCell());
-        listRefusedInvitation.setCellFactory(param -> new InvitationDtoListCell());
+        listNewAlerts.setCellFactory(param -> new InvitationDtoListCell());
 
-        for(InvitationDto iDto : invitations){
-            switch(iDto.getStatus()){
-                case ACCEPT:
-                    listAcceptInvitation.getItems().add(iDto);
-                    break;
-                case DENY:
-                    listRefusedInvitation.getItems().add(iDto);
-                    break;
-                case WAITING:
-                    listNewInvitation.getItems().add(iDto);
-                    break;
-                case ORIGIN:
-                    break;
-            }
-        }
+        listNewInvitation.getItems().addAll(invitations);
 
     }
 
@@ -163,7 +145,6 @@ public class InvitationsController implements Initializable {
         try {
             Api.put(iDto);
             listNewInvitation.getItems().remove(iDto);
-            listAcceptInvitation.getItems().add(iDto);
         } catch (TokenNotFoundException e) {
             e.printStackTrace();
         }
@@ -178,7 +159,6 @@ public class InvitationsController implements Initializable {
         try {
             Api.put(iDto);
             listNewInvitation.getItems().remove(iDto);
-            listRefusedInvitation.getItems().add(iDto);
         } catch (TokenNotFoundException e) {
             e.printStackTrace();
         }

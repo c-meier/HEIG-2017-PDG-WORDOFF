@@ -40,22 +40,14 @@
               <rowConstraints>
                   <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="titleMainMenu_Background" stylesheets="@../styles/Styles.css">
                      <children>
-                        <Label layoutX="237.0" layoutY="12.0" prefHeight="40.0" prefWidth="450.0" styleClass="titleMainMenu" stylesheets="@../styles/Styles.css" text="Invitations acceptées" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label layoutX="237.0" layoutY="12.0" prefHeight="40.0" prefWidth="450.0" styleClass="titleMainMenu" stylesheets="@../styles/Styles.css" text="Nouvelles notifications" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="titleMainMenu_Background" stylesheets="@../styles/Styles.css" GridPane.rowIndex="2">
-                     <children>
-                        <Label layoutX="255.0" layoutY="12.0" prefHeight="40.0" prefWidth="450.0" styleClass="titleMainMenu" stylesheets="@../styles/Styles.css" text="Invitations refusées " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-                  <ListView fx:id="listAcceptInvitation" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Style_listView.css" GridPane.rowIndex="1" />
-                  <ListView fx:id="listRefusedInvitation" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Style_listView.css" GridPane.rowIndex="3" />
+                  <ListView fx:id="listNewAlerts" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/Style_listView.css" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <GridPane>

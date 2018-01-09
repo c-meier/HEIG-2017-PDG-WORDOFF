@@ -46,8 +46,7 @@
                               <Menu mnemonicParsing="false" text="Notifications">
                                  <items>
                                     <MenuItem mnemonicParsing="false" onAction="#handleGotoMessages" text="Messages" />
-                                    <MenuItem mnemonicParsing="false" onAction="#handleGotoInvitations" text="Invitations" />
-                                    <MenuItem mnemonicParsing="false" onAction="#handleGotoAlert" text="Alertes" />
+                                    <MenuItem mnemonicParsing="false" onAction="#handleGotoInvitations" text="Notifications" />
                                  </items>
                               </Menu>
                            </items>
@@ -57,7 +56,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </MenuBar>
-                  <Label fx:id="labelInvitation" onMouseClicked="#handleGotoInvitationsLabel" text="0 invitations" GridPane.columnIndex="1">
+                  <Label fx:id="labelInvitation" onMouseClicked="#handleGotoInvitationsLabel" text="0 notifications" GridPane.columnIndex="1">
                      <padding>
                         <Insets right="15.0" />
                      </padding>

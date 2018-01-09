@@ -375,7 +375,8 @@ public class GameScreenController implements Initializable {
                     for(StackPane slotParent : p1SlotsSr){  //Check each Pane in swaprack
                         if(!slotParent.getChildren().isEmpty()){
                             AnchorPane childPane = (AnchorPane) slotParent.getChildren().get(0);
-                            if(Integer.valueOf(((Label) (childPane.getChildren().get(2))).getText()) == tileID){
+                            Label idLabel = (Label) childPane.getChildren().get(2);
+                            if(!idLabel.getText().equals("") && Integer.valueOf(idLabel.getText()) == tileID){
                                 //If the ID corresponds to the hint ID, move it to the challenge
                                 move(childPane, slotParent);
                                 found = true;
@@ -387,8 +388,8 @@ public class GameScreenController implements Initializable {
                         for(StackPane slotParent : p1SlotsPr){  //Check each Pane in Swaprack
                             if(!slotParent.getChildren().isEmpty()){
                                 AnchorPane childPane = (AnchorPane) slotParent.getChildren().get(0);
-                                if(Integer.valueOf(
-                                        ((Label) (childPane.getChildren().get(2))).getText()) == tileID){
+                                Label idLabel = (Label) childPane.getChildren().get(2);
+                                if(!idLabel.getText().equals("") && Integer.valueOf(idLabel.getText()) == tileID){
                                     move(childPane, slotParent);
                                     break;
                                 }

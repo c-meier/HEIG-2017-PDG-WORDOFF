@@ -1,11 +1,8 @@
 package ch.heigvd.wordoff.client.Controller;
 
-import ch.heigvd.wordoff.client.Api.Api;
-import ch.heigvd.wordoff.client.Api.GameApi;
-import ch.heigvd.wordoff.client.Api.ModeApi;
+import ch.heigvd.wordoff.client.Api.*;
 import ch.heigvd.wordoff.client.Exception.TokenNotFoundException;
 import ch.heigvd.wordoff.client.Exception.UnauthorizedException;
-import ch.heigvd.wordoff.client.Api.LetterApi;
 import ch.heigvd.wordoff.client.Exception.*;
 import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.client.Logic.Game;
@@ -16,6 +13,7 @@ import ch.heigvd.wordoff.client.Util.UtilStringReference;
 import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
+import ch.heigvd.wordoff.common.Dto.MeDto;
 import ch.heigvd.wordoff.common.Dto.Mode.*;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
@@ -97,6 +95,10 @@ public class MainMenuController implements Initializable {
     private AnchorPane parentPaneTournamentComp;
     @FXML
     private AnchorPane parentPaneTournamentFriends;
+    @FXML
+    private Label labelInvitation;
+
+    private MeDto meDto;
 
     // MouseEvent d'un double clique, appelle l'ouverture de la game.
     private EventHandler<MouseEvent> eventGoToGame = new EventHandler<MouseEvent>() {
@@ -157,11 +159,6 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    private void handleGotoAlert(ActionEvent event) {
-        FXMLLoader loader = getLoader("/fxml/alertes.fxml");
-        changeScene(getScene(loader));
-    }
-    @FXML
     private void handleGotoInvitationsLabel(){
         FXMLLoader loader = getLoader("/fxml/invitations.fxml");
         changeScene(getScene(loader));
@@ -196,6 +193,12 @@ public class MainMenuController implements Initializable {
 
     public void setState() {
         // TODO Récupérer l'id joueur
+        try {
+            meDto = MeApi.getCurrentUser();
+            labelInvitation.setText( String.valueOf((Api.get(meDto.getInvitations())).size()) + " notifications");
+        } catch (TokenNotFoundException e) {
+            e.printStackTrace();
+        }
 
         // Créations des listes et de leurs listener
         listGamesDuel = new ListCustom(vBoxgamesPlayer);
@@ -211,6 +214,7 @@ public class MainMenuController implements Initializable {
         listGamesTournamentCompetition.getListView().setOnMouseClicked(eventShowDetails);
         listGamesTournamentsFriends.getListView().setOnMouseClicked(eventShowDetailsFriends);
         sortGames();
+
     }
 
     /**

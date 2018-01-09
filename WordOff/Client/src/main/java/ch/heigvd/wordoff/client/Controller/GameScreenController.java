@@ -200,7 +200,6 @@ public class GameScreenController implements Initializable {
                         refresh();
                     }
                 }
-                System.out.println("this is called every 1 second on UI thread. \n MyTurn: " + game.isMyTurn() + " tiles on rack: " + numberTilesOnChallengeRack);
             }
         }));
         UIrefresher.setCycleCount(Timeline.INDEFINITE);

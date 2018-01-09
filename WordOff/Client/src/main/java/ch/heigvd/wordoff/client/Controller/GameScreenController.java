@@ -8,7 +8,6 @@ import ch.heigvd.wordoff.client.Exception.UnprocessableEntityException;
 import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.client.Util.Dialog;
 import ch.heigvd.wordoff.client.Util.UtilChangeScene;
-import ch.heigvd.wordoff.client.Util.UtilStringReference;
 import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dictionary;
 import ch.heigvd.wordoff.common.DictionaryLoader;
@@ -22,6 +21,8 @@ import ch.heigvd.wordoff.common.IModel.IChallenge;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
 import ch.heigvd.wordoff.common.WordAnalyzer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -41,6 +42,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -73,6 +75,8 @@ public class GameScreenController implements Initializable {
     private Label tilesRemaining;
     @FXML
     private ImageView flag;
+    @FXML
+    private Timeline UIrefresher;
 
     // Composant du WordAlyzer
     @FXML
@@ -141,6 +145,7 @@ public class GameScreenController implements Initializable {
 
     @FXML
     private void handleGotoMenu(ActionEvent event) {
+        UIrefresher.stop();
         UtilChangeScene.getInstance().handleGotoMenu();
     }
 
@@ -183,6 +188,23 @@ public class GameScreenController implements Initializable {
         }
         DictionaryLoader dicoLoad = new DictionaryLoader();
         this.dico = dicoLoad.getDico(this.game.getLang());
+
+        //Create UI refresh thread
+        UIrefresher = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                GameDto game = GameScreenController.this.game;
+                if(game != null){
+                    if(!game.isMyTurn() && numberTilesOnChallengeRack == 0){
+                        refresh();
+                    }
+                }
+            }
+        }));
+        UIrefresher.setCycleCount(Timeline.INDEFINITE);
+        UIrefresher.play();
+
 
     }
 
@@ -456,6 +478,7 @@ public class GameScreenController implements Initializable {
                 clearTiles(p2TilesSr);
                 // Replace les tiles aux slots d'origines
                 replaceTilesOrigin(p1SlotsCh);
+                numberTilesOnChallengeRack = 0;
                 // Actualise l'état du jeu
                 setStateGame();
                 setNumberOfTiles();

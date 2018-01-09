@@ -1,3 +1,8 @@
+.labelParam{
+	-fx-font-weight: bolder;
+	-fx-font-size: 1.5em;
+}
+
 .backgroundGame{
 	-fx-background-color: #ffd3a3;
 	-fx-background-image: url("../images/wood_texture.png");

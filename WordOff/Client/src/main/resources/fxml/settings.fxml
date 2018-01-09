@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.client.Controller.SettingsController">
+<BorderPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.client.Controller.SettingsController">
    <center>
       <AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="mainFxmlClass">
           <stylesheets>
@@ -62,16 +62,38 @@
                               <RowConstraints prefHeight="262.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <AnchorPane>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="400.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" prefWidth="450.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
                                  <children>
-                                    <ImageView fx:id="playerAvatar" fitHeight="67.0" fitWidth="71.0" layoutX="39.0" layoutY="12.0" onMouseClicked="#changeAvatar" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/icon.png" />
-                                       </image></ImageView>
-                                    <Label fx:id="playerName" layoutX="120.0" layoutY="36.0" text="Joueur Name" />
-                                    <Button layoutX="27.0" layoutY="53.0" mnemonicParsing="false" onMouseClicked="#changeAvatar" styleClass="green" stylesheets="@../styles/Style_buttonCircle.css" text="+" />
+                                    <AnchorPane prefWidth="446.0">
+                                       <children>
+                                          <ImageView fx:id="playerAvatar" fitHeight="67.0" fitWidth="71.0" layoutX="39.0" layoutY="12.0" onMouseClicked="#changeAvatar" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/icon.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Label fx:id="playerName" layoutX="125.0" layoutY="32.0" styleClass="labelParam" stylesheets="@../styles/Styles.css" text="Joueur Name" />
+                                          <Button layoutX="27.0" layoutY="53.0" mnemonicParsing="false" onMouseClicked="#changeAvatar" styleClass="green" stylesheets="@../styles/Style_buttonCircle.css" text="+" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane GridPane.columnIndex="1">
+                                       <children>
+                                          <ImageView fitHeight="55.0" fitWidth="55.0" layoutX="14.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/piece.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Label fx:id="coinLabel" layoutX="95.0" layoutY="32.0" styleClass="labelParam" stylesheets="@../styles/Styles.css" text="0" />
+                                       </children>
+                                    </AnchorPane>
                                  </children>
-                              </AnchorPane>
+                              </GridPane>
                               <GridPane GridPane.rowIndex="1">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" />

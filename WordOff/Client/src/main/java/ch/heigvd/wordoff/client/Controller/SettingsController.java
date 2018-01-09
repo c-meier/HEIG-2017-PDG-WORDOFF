@@ -48,6 +48,8 @@ public class SettingsController implements Initializable {
     @FXML
     private ImageView playerAvatar;
     @FXML
+    private Label coinLabel;
+    @FXML
     private ListView<String> friendsList;
     @FXML
     private ListView<String> blackList;
@@ -81,6 +83,7 @@ public class SettingsController implements Initializable {
         choiceBoxLang.getItems().addAll(UtilStringReference.TEXT_PARAM_LANG);
         choiceBoxLang.setValue(UtilStringReference.TEXT_PARAM_LANG.get(0));
         playerName.setText(user.getName());
+        coinLabel.setText(String.valueOf(meDto.getCoins()));
         for(RelatedUserSummaryDto rusDto : relatedUsers){
             switch(rusDto.getRelation().getStatus()){
                 case FRIEND:

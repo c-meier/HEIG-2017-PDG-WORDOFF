@@ -78,6 +78,7 @@ public class ModeService {
             case FRIEND_DUEL:
                 mode = new DuelMode(participantsUsers);
                 mode.setType(modeType);
+                mode.setLang(lang);
                 break;
             case RANDOM_DUEL:
                 // Get a list of mode that are of the type RANDOM_DUEL with only 1 player
@@ -93,7 +94,8 @@ public class ModeService {
                 if(!oMode.isPresent()) {
                     mode = new DuelMode(user);
                     mode.setType(modeType);
-                } else {
+                    mode.setLang(lang);
+                } else if (!oMode.get().getOriginInvitation().getTarget().getId().equals(user.getId())) {
                     mode = oMode.get();
                     Invitation originInvitation = mode.getOriginInvitation();
                     mode.putInvitation(new Invitation(mode, user, InvitationStatus.ACCEPT, originInvitation.getTarget().getName()));
@@ -102,6 +104,8 @@ public class ModeService {
                     // Start the game directly
                     gameService.initGame(mode, originInvitation.getTarget(), user);
                     mode.setStartDate(LocalDateTime.now());
+                } else {
+                    return oMode.get();
                 }
                 break;
             case FRIENDLY_TOURNAMENT:
@@ -109,6 +113,7 @@ public class ModeService {
                     mode = new TournamentMode(participantsUsers, name);
                     mode.setType(modeType);
                     mode.setStartDate(LocalDateTime.now());
+                    mode.setLang(lang);
                 } else {
                     throw new ErrorCodeException(Protocol.TOO_MANY_PARTICIPANTS, "Too many participants for the tournament (Max. 20).");
                 }
@@ -128,14 +133,15 @@ public class ModeService {
                     mode = new TournamentMode(user, Constants.COMPETITION_TOURNAMENT_NAME);
                     mode.setType(modeType);
                     mode.setStartDate(LocalDateTime.now());
-                } else {
+                    mode.setLang(lang);
+                } else if (oMode.get().getInvitations().stream().noneMatch(i -> i.getTarget().getId().equals(user.getId()))) {
                     mode = oMode.get();
                     mode.putInvitation(new Invitation(mode, user, InvitationStatus.ACCEPT, Constants.COMPETITION_TOURNAMENT_NAME));
+                } else {
+                    return oMode.get();
                 }
                 break;
         }
-
-        mode.setLang(lang);
 
         modeRepository.save(mode);
 

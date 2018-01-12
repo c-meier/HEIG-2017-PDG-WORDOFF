@@ -394,6 +394,7 @@ public class GameService {
                     game.getSideInit().getPlayer() : game.getSideResp().getPlayer();
             if (winner instanceof User) {
                 ((User) winner).setCoins(((User) winner).getCoins() + 20);
+                playerRepository.save(winner);
             }
 
             // If the player beats the AI in a tournament mode, + 50 points to his score

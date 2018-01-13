@@ -65,7 +65,7 @@ public class GameScreenController implements Initializable {
     private List<Character> alphabet;
 
     @FXML
-    private Label p1Name, p2Name, coinLabel;
+    private Label p1Name, p2Name, coinLabel, labelScorePlayer, labelScoreAdversary;
     @FXML
     private Button shuffleButton;
     @FXML
@@ -756,6 +756,8 @@ public class GameScreenController implements Initializable {
         setTiles(this.game.getMySide().getPlayerRack().getTiles(), p1TilesPr, true);
         // Set coins
         coinLabel.setText(String.valueOf(me.getCoins()));
+        labelScorePlayer.setText(game.getOtherSide().getScore() + " pts");
+        labelScoreAdversary.setText(game.getMySide().getScore() + " pts");
         if (otherSide == null) {
             setVisible(p2TilesPr, false);
         } else {

@@ -8,6 +8,7 @@ import ch.heigvd.wordoff.client.Exception.UnprocessableEntityException;
 import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.client.Util.Dialog;
 import ch.heigvd.wordoff.client.Util.UtilChangeScene;
+import ch.heigvd.wordoff.client.Util.UtilStringReference;
 import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dictionary;
 import ch.heigvd.wordoff.common.DictionaryLoader;
@@ -178,7 +179,7 @@ public class GameScreenController implements Initializable {
         try {
             me = MeApi.getCurrentUser();
         } catch (TokenNotFoundException e) {
-            Dialog.getInstance().signalError("Une erreur s'est produite. Veuillez vous reconnecter");
+            Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
         }
         setState(this.game);
         //If wordalyser isn't activated, hide it, else hide activation button
@@ -285,20 +286,10 @@ public class GameScreenController implements Initializable {
                 Api.post(game.getPowers(), PowerDto.PASS);
                 refresh();
             } catch (TokenNotFoundException e) {
-                e.printStackTrace();
+                Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
             }
 
         }
-    }
-
-    private void discard() {
-        // TODO appeler discard au serveur
-        System.out.println("Click discard");
-    }
-
-    private void passed() {
-        // TODO appeler passer le tour au serveur
-        System.out.println("Click passed");
     }
 
     @FXML
@@ -308,6 +299,7 @@ public class GameScreenController implements Initializable {
                 otherSide = Api.post(game.getPowers(), PowerDto.PEEK);
                 showOtherSide();
                 me.setCoins(me.getCoins() - PowerDto.PEEK.getCost());
+                coinLabel.setText(String.valueOf(me.getCoins()));
             } catch (TokenNotFoundException e) {
                 e.printStackTrace();
             }
@@ -346,7 +338,7 @@ public class GameScreenController implements Initializable {
             this.me = MeApi.getCurrentUser();
             refresh(game);
         } catch (TokenNotFoundException e) {
-            Dialog.getInstance().signalError("Une erreur s'est produite. Veuillez vous reconnecter");
+            Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
         }
     }
 
@@ -401,7 +393,9 @@ public class GameScreenController implements Initializable {
                 me.setCoins(me.getCoins() - PowerDto.HINT.getCost());
                 coinLabel.setText(String.valueOf(me.getCoins()));
             } catch (TokenNotFoundException e) {
-                e.printStackTrace();
+                Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
+            } catch (Exception e) {
+                Dialog.getInstance().signalError("Impossible d'utiliser ce pouvoir.");
             }
         }else{
             Dialog.getInstance().signalPowerError(PowerDto.HINT);
@@ -881,7 +875,7 @@ public class GameScreenController implements Initializable {
             popUp.showAndWait();
             return controller.getSelectedChar();
         } catch (IOException ex) {
-            Logger.getLogger(GameScreenController.class.getName()).log(Level.SEVERE, null, ex);
+            Dialog.getInstance().signalError("Erreur lors de la selection du joker. Veuillez réessayer");
         }
         return null;
     }
@@ -1016,7 +1010,7 @@ public class GameScreenController implements Initializable {
                 wordalyserButton.setVisible(false);
                 pane.setVisible(true);
             } catch (TokenNotFoundException e) {
-                e.printStackTrace();
+                Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
             }
         }else{
             Dialog.getInstance().signalPowerError(PowerDto.WORDANALYZER);

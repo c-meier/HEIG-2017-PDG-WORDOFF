@@ -619,6 +619,8 @@ public class MainMenuController implements Initializable {
             handleGotoGame();
         } catch (TokenNotFoundException e) {
             Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
+        } catch (Exception e){
+            Dialog.getInstance().signalError(e.getMessage());
         }
 
     }

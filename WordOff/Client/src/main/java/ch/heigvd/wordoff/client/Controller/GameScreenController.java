@@ -309,6 +309,9 @@ public class GameScreenController implements Initializable {
                         e.printStackTrace();
                     }
                 } else { //Discard all
+                    if(!Dialog.getInstance().powerConfirm(PowerDto.DISCARD_ALL)) {
+                        return;
+                    }
                     if (me.getCoins() >= PowerDto.DISCARD_ALL.getCost()) {
                         try {
                             Api.post(game.getPowers(), PowerDto.DISCARD_ALL);
@@ -342,7 +345,9 @@ public class GameScreenController implements Initializable {
             Dialog.getInstance().signalError("Cette partie est terminée.");
             return;
         }
-
+        if(!Dialog.getInstance().powerConfirm(PowerDto.PEEK)) {
+            return;
+        }
         if (me.getCoins() >= PowerDto.PEEK.getCost()) {
             try {
                 otherSide = Api.post(game.getPowers(), PowerDto.PEEK);
@@ -402,6 +407,9 @@ public class GameScreenController implements Initializable {
     private void hint() {
         if (game.isEnded()) {
             Dialog.getInstance().signalError("Cette partie est terminée.");
+            return;
+        }
+        if(!Dialog.getInstance().powerConfirm(PowerDto.HINT)) {
             return;
         }
         if (me.getCoins() >= PowerDto.HINT.getCost()) {
@@ -1103,6 +1111,10 @@ public class GameScreenController implements Initializable {
      * @param mouseEvent
      */
     public void activateWordalyser(MouseEvent mouseEvent) {
+        if(!Dialog.getInstance().powerConfirm(PowerDto.WORDANALYZER)) {
+            return;
+        }
+
         if (me.getCoins() >= PowerDto.WORDANALYZER.getCost()) {
             try {
                 Api.post(game.getPowers(), PowerDto.WORDANALYZER);

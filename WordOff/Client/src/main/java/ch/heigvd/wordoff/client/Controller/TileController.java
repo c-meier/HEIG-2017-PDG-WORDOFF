@@ -8,6 +8,9 @@ import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for a game Tile
+ */
 public class TileController extends AnchorPane implements Initializable{
 
     @FXML

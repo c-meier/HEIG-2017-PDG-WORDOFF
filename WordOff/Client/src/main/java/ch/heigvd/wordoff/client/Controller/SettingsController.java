@@ -29,9 +29,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * FXML Controller class
- *
- * @author Gabriel Luthier
+ * JavaFX controller for the settings screen
  */
 public class SettingsController implements Initializable {
 
@@ -56,6 +54,7 @@ public class SettingsController implements Initializable {
     private MeDto meDto;
     private UserSummaryDto user;
     private List<RelatedUserSummaryDto> relatedUsers;
+
     @FXML
     private void handleGotoMenu(ActionEvent event) {
         UtilChangeScene.getInstance().handleGotoMenu();
@@ -69,7 +68,7 @@ public class SettingsController implements Initializable {
         initState();
     }
 
-    private void initState(){
+    private void initState() {
         try {
             meDto = MeApi.getCurrentUser();
             relatedUsers = Api.get(meDto.getRelations());
@@ -84,8 +83,8 @@ public class SettingsController implements Initializable {
         choiceBoxLang.setValue(UtilStringReference.TEXT_PARAM_LANG.get(0));
         playerName.setText(user.getName());
         coinLabel.setText(String.valueOf(meDto.getCoins()));
-        for(RelatedUserSummaryDto rusDto : relatedUsers){
-            switch(rusDto.getRelation().getStatus()){
+        for (RelatedUserSummaryDto rusDto : relatedUsers) {
+            switch (rusDto.getRelation().getStatus()) {
                 case FRIEND:
                     friendsList.getItems().add(rusDto.getName());
                     break;
@@ -98,24 +97,24 @@ public class SettingsController implements Initializable {
     }
 
     @FXML
-    private void changeAvatar(){
+    private void changeAvatar() {
         // TODO Charger un nouvel avatar (playerAvatar)
 
     }
 
     @FXML
-    private void addNewFriend(){
+    private void addNewFriend() {
         String friend = null;
         friend = Dialog.getInstance().choiceNameOpponent("Entrez le nom de votre ami");
-        if(friend != null && !friendsList.getItems().contains(friend)){
+        if (friend != null && !friendsList.getItems().contains(friend)) {
             CreateRelationDto newRelation = new CreateRelationDto(friend, RelationStatus.FRIEND);
             try {
                 RelatedUserSummaryDto rusDto = Api.post(meDto.getRelations(), newRelation);
                 friendsList.getItems().add(rusDto.getName());
                 blackList.getItems().remove(friend);
             } catch (TokenNotFoundException e) {
-                e.printStackTrace();
-            } catch (HTTPException e){
+                Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
+            } catch (HTTPException e) {
                 //Test to see if correct exception is thrown when user does not exist
                 Dialog.getInstance().signalError(UtilStringReference.PLAYER_NOT_FOUND);
             }
@@ -125,45 +124,51 @@ public class SettingsController implements Initializable {
     }
 
     @FXML
-    private void addBlackList(){
+    private void addBlackList() {
         String friend = null;
         friend = Dialog.getInstance().choiceNameOpponent("Entrez le nom du joueur à bloquer");
-        if(friend != null && !blackList.getItems().contains(friend)){
+        if (friend != null && !blackList.getItems().contains(friend)) {
             CreateRelationDto newRelation = new CreateRelationDto(friend, RelationStatus.BLOCKED);
             try {
                 RelatedUserSummaryDto rusDto = Api.post(meDto.getRelations(), newRelation);
                 blackList.getItems().add(rusDto.getName());
                 friendsList.getItems().remove(friend);
             } catch (TokenNotFoundException e) {
-                e.printStackTrace();
+                Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
+            } catch (HTTPException e) {
+                Dialog.getInstance().signalError(UtilStringReference.PLAYER_NOT_FOUND);
             }
         }
     }
 
     @FXML
-    private void removeFriend(){
+    private void removeFriend() {
         String selectedFriend = friendsList.getSelectionModel().getSelectedItem();
-        if(!(selectedFriend == null)){
+        if (!(selectedFriend == null)) {
             CreateRelationDto newRelation = new CreateRelationDto(selectedFriend, RelationStatus.NONE);
             try {
                 RelatedUserSummaryDto rusDto = Api.post(meDto.getRelations(), newRelation);
                 friendsList.getItems().remove(selectedFriend);
             } catch (TokenNotFoundException e) {
-                e.printStackTrace();
+                Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
+            } catch (HTTPException e) {
+                Dialog.getInstance().signalError(UtilStringReference.PLAYER_NOT_FOUND);
             }
         }
     }
 
     @FXML
-    private void removeBlackList(){
+    private void removeBlackList() {
         String selectedFriend = blackList.getSelectionModel().getSelectedItem();
-        if(!(selectedFriend == null)){
+        if (!(selectedFriend == null)) {
             CreateRelationDto newRelation = new CreateRelationDto(selectedFriend, RelationStatus.NONE);
             try {
                 RelatedUserSummaryDto rusDto = Api.post(meDto.getRelations(), newRelation);
                 blackList.getItems().remove(selectedFriend);
             } catch (TokenNotFoundException e) {
-                e.printStackTrace();
+                Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
+            } catch (HTTPException e) {
+                Dialog.getInstance().signalError(UtilStringReference.PLAYER_NOT_FOUND);
             }
         }
     }

@@ -40,6 +40,9 @@ import java.util.*;
 
 import static ch.heigvd.wordoff.common.Constants.*;
 
+/**
+ * JavaFX controller for the main menu screen.
+ */
 public class MainMenuController implements Initializable {
     // Classe de test
     private Game gameTest = new Game();
@@ -78,7 +81,7 @@ public class MainMenuController implements Initializable {
     @FXML
     private Button newTournamentFriend;
     //@FXML
-   // private HBox resultTournamentComp;
+    // private HBox resultTournamentComp;
     @FXML
     private Label labelScore, labelClassement, labelNumber, labelChance;
     @FXML
@@ -100,7 +103,7 @@ public class MainMenuController implements Initializable {
 
     private MeDto meDto;
 
-    // MouseEvent d'un double clique, appelle l'ouverture de la game.
+    // Handler to go to a game
     private EventHandler<MouseEvent> eventGoToGame = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent click) {
@@ -111,7 +114,8 @@ public class MainMenuController implements Initializable {
         }
     };
 
-    private EventHandler<MouseEvent>  eventShowDetails = new EventHandler<MouseEvent>() {
+    // Handler to show tournament details
+    private EventHandler<MouseEvent> eventShowDetails = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent click) {
             if (click.getClickCount() == 2) {
@@ -119,7 +123,9 @@ public class MainMenuController implements Initializable {
             }
         }
     };
-    private EventHandler<MouseEvent>  eventShowDetailsFriends = new EventHandler<MouseEvent>() {
+
+    // Handler to show friendly tournament details
+    private EventHandler<MouseEvent> eventShowDetailsFriends = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent click) {
             ListView list = (ListView) click.getSource(); // Source du clique
@@ -129,6 +135,9 @@ public class MainMenuController implements Initializable {
         }
     };
 
+    /**
+     * Goes to current game (selectedGame attribute)
+     */
     private void handleGotoGame() {
         FXMLLoader loader = getLoader("/fxml/gameScreen.fxml");
         Scene scene = getScene(loader);
@@ -140,26 +149,41 @@ public class MainMenuController implements Initializable {
         changeScene(scene);
     }
 
+    /**
+     * Goes to messages screen.
+     * @param event
+     */
     @FXML
     private void handleGotoMessages(ActionEvent event) {
         FXMLLoader loader = getLoader("/fxml/messages.fxml");
         changeScene(getScene(loader));
     }
 
+    /**
+     * Goes to settings screen
+     * @param event
+     */
     @FXML
     private void handleGotoSettings(ActionEvent event) {
         FXMLLoader loader = getLoader("/fxml/settings.fxml");
         changeScene(getScene(loader));
     }
 
+    /**
+     * Goes to invitations screen
+     * @param event
+     */
     @FXML
     private void handleGotoInvitations(ActionEvent event) {
         FXMLLoader loader = getLoader("/fxml/invitations.fxml");
         changeScene(getScene(loader));
     }
 
+    /**
+     * Goes to invitations screen via invitations label
+     */
     @FXML
-    private void handleGotoInvitationsLabel(){
+    private void handleGotoInvitationsLabel() {
         FXMLLoader loader = getLoader("/fxml/invitations.fxml");
         changeScene(getScene(loader));
     }
@@ -175,7 +199,7 @@ public class MainMenuController implements Initializable {
         return loader;
     }
 
-    // Création de la scène du loader
+    // Creates scene from loader
     private Scene getScene(FXMLLoader loader) {
         Parent root = null;
         try {
@@ -186,16 +210,22 @@ public class MainMenuController implements Initializable {
         return new Scene(root);
     }
 
+    /**
+     * Called when initializing a JavaFX controller
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
     }
 
+    /**
+     * Sets the state of the main menu by connection to the server and
+     * retrieving a MeDto and setting all handlers to correct lists
+     */
     public void setState() {
-        // TODO Récupérer l'id joueur
         try {
             meDto = MeApi.getCurrentUser();
-            labelInvitation.setText( String.valueOf((Api.get(meDto.getInvitations())).size()) + " notifications");
+            labelInvitation.setText(String.valueOf((Api.get(meDto.getInvitations())).size()) + " notifications");
         } catch (TokenNotFoundException e) {
             e.printStackTrace();
         }
@@ -220,21 +250,18 @@ public class MainMenuController implements Initializable {
     /**
      * Sorts all retrieved modes into the correct lists
      */
-    private void sortGames(){
+    private void sortGames() {
         try {
             modeSummaryDtos = ModeApi.retrieveModes();
-            //For testing:
-            //List<ModeSummaryDto> mode  = gameTest.getModeSummaryDtosList();
-            // TODO trier les différentes games pour les mettre dans les bonnes listes
             for (ModeSummaryDto dto : modeSummaryDtos) {
-                switch(dto.getType()){
+                switch (dto.getType()) {
                     case FRIEND_DUEL:
                     case RANDOM_DUEL:
-                        if(dto.isEnded()){
+                        if (dto.isEnded()) {
                             listGamesDuelFinish.addGame(dto);
-                        }else if (dto.isActive()){
+                        } else if (dto.isActive()) {
                             listGamesDuel.addGame(dto);
-                        }else{
+                        } else {
                             listGamesDuelWait.addGame(dto);
                         }
                         break;
@@ -244,17 +271,14 @@ public class MainMenuController implements Initializable {
                         break;
                     case COMPETITIVE_TOURNAMENT:
                         listGamesTournamentCompetition.addGame(dto);
-                     /*   TitledPane titledPane = new TitledPane();
-                        titledPane.setText(dto.getName());
-                        titledPane.setContent(competitiveTournamentVbox);*/
                         break;
                 }
             }
 
         } catch (TokenNotFoundException e) {
-            Dialog.getInstance().signalInformation(UtilStringReference.ERROR + " " + e.getMessage());
+            Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
         } catch (UnauthorizedException e) {
-            Dialog.getInstance().signalInformation(UtilStringReference.ERROR + " "+ e.getMessage());
+            Dialog.getInstance().signalInformation(UtilStringReference.ERROR + " " + e.getMessage());
         } catch (HTTPException e) {
             Dialog.getInstance().signalInformation(UtilStringReference.ERROR + " " + e.getMessage());
         }
@@ -263,7 +287,8 @@ public class MainMenuController implements Initializable {
 
     /**
      * Create a new game in any mode
-     * @param e
+     *
+     * @param e a mouse click event
      */
     @FXML
     private void newGame(MouseEvent e) {
@@ -271,16 +296,16 @@ public class MainMenuController implements Initializable {
         String type = null;
         Object source = e.getSource();
         List<String> choice = null;
-        if(source.equals(newGamePlayer)){
+        if (source.equals(newGamePlayer)) {
             choice = Dialog.getInstance().newGame();
-        }else {
-            if(!source.equals(newTournament) || listGamesTournamentCompetition
-                    .getListView().getItems().isEmpty()){ //Check if competitive tournament already exists
+        } else {
+            if (!source.equals(newTournament) || listGamesTournamentCompetition
+                    .getListView().getItems().isEmpty()) { //Check if competitive tournament already exists
                 choice = new LinkedList<>();
                 String selection = Dialog.getInstance().choicesBoxDialog("Choix de langue",
                         "Veuillez choisir la langue du tournoi", "Langue",
                         UtilStringReference.LANG_FR, UtilStringReference.LANG_EN);
-                if(selection == null){
+                if (selection == null) {
                     return;
                 }
                 switch (selection) {
@@ -291,13 +316,13 @@ public class MainMenuController implements Initializable {
                         lang = "en";
                         break;
                 }
-            } else{
+            } else {
                 Dialog.getInstance().signalError("Un tournoi est deja en cours");
             }
         }
 
         if (null != choice) {
-            if(source.equals(newGamePlayer)){
+            if (source.equals(newGamePlayer)) {
                 lang = choice.get(0);
                 type = choice.get(1);
                 switch (choice.get(0)) {
@@ -316,19 +341,19 @@ public class MainMenuController implements Initializable {
             dto.setLang(lang);
             dto.setParticipants(new LinkedList<>());
 
-            if(e.getSource().equals(newGamePlayer)){
-                if(type != null && type.equals("Contre un ami")){
+            if (e.getSource().equals(newGamePlayer)) {
+                if (type != null && type.equals("Contre un ami")) {
                     try {
                         dto.setType(ModeType.FRIEND_DUEL);
 
                         // Dialog to select the opponent
                         String result = Dialog.getInstance().choiceNameOpponent("Entrez le nom de votre adversaire");
 
-                        if (result != null){
+                        if (result != null) {
                             dto.addParticpant(result);
                             dto.setName(result);
                             ModeSummaryDto modeSummaryDto = ModeApi.createMode(dto);
-                            if(modeSummaryDto.isActive()){
+                            if (modeSummaryDto.isActive()) {
                                 listGamesDuel.addGame(modeSummaryDto);
                             } else {
                                 listGamesDuelWait.addGame(modeSummaryDto);
@@ -337,26 +362,26 @@ public class MainMenuController implements Initializable {
                         }
 
                     } catch (TokenNotFoundException e1) {
-                        e1.printStackTrace();
+                        Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
                     }
                 } else {
                     try {
                         dto.setType(ModeType.RANDOM_DUEL);
                         ModeSummaryDto modeSummaryDto = ModeApi.createMode(dto);
-                        if(modeSummaryDto.isActive()){
+                        if (modeSummaryDto.isActive()) {
                             listGamesDuel.addGame(modeSummaryDto);
                         } else {
                             listGamesDuelWait.addGame(modeSummaryDto);
                         }
                     } catch (TokenNotFoundException e1) {
-                        e1.printStackTrace();
-                    } catch (NoSuchElementException ex){
+                        Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
+                    } catch (NoSuchElementException ex) {
                         Dialog.getInstance().signalError(ex.getMessage());
-                    }catch(Exception exep){
+                    } catch (Exception exep) {
                         Dialog.getInstance().signalError(exep.getMessage());
                     }
                 }
-            }else if (e.getSource().equals(newTournament)){ //new competitive
+            } else if (e.getSource().equals(newTournament)) { //new competitive
                 dto.setType(ModeType.COMPETITIVE_TOURNAMENT);
 
                 try {
@@ -364,10 +389,10 @@ public class MainMenuController implements Initializable {
                     listGamesTournamentCompetition.addGame(modeSummaryDto);
                     System.out.println("Tournoi envoyé au serveur");
                 } catch (TokenNotFoundException e1) {
-                    e1.printStackTrace();
+                    Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
                 }
 
-            }else { // new friendly tournament
+            } else { // new friendly tournament
                 dto.setType(ModeType.FRIENDLY_TOURNAMENT);
                 TextInputDialog dialog = new TextInputDialog();
                 dialog.setTitle("Nouveau tournoi amical");
@@ -381,22 +406,22 @@ public class MainMenuController implements Initializable {
                 dialogPane.getStyleClass().add("myDialog");
 
                 Optional<String> result = dialog.showAndWait();
-                if (result.isPresent()){
+                if (result.isPresent()) {
                     dto.setName(result.get());
-                }else{
+                } else {
                     return;
                 }
 
                 List<String> participants = Dialog.getInstance().getFriendlyTournamentParticipants();
-                if(!participants.isEmpty()){
+                if (!participants.isEmpty()) {
                     dto.setParticipants(participants);
                     try {
                         ModeSummaryDto modeSummaryDto = ModeApi.createMode(dto);
                         listGamesTournamentsFriends.addGame(modeSummaryDto);
                     } catch (TokenNotFoundException e1) {
-                        e1.printStackTrace();
+                        Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
                     }
-                }else{
+                } else {
                     System.out.println("Le tournoi n'a pas été créé.");
                 }
 
@@ -407,8 +432,10 @@ public class MainMenuController implements Initializable {
     }
 
 
-
-
+    /**
+     * Allows user to go to a game using the handleGoToGame method.
+     * @param games ListView of games
+     */
     @FXML
     private void goToGame(ListView games) {
 
@@ -419,29 +446,31 @@ public class MainMenuController implements Initializable {
         } else {
             // Partie venant du serveur
             String endpoint = null;
-            if(listGamesDuel.getListView().equals(games)){
+            if (listGamesDuel.getListView().equals(games)) {
                 endpoint = listGamesDuel.getDtos().get(games.getSelectionModel().getSelectedIndex()).getEndpoint();
-            }else if(listGamesDuelWait.getListView().equals(games)){
+            } else if (listGamesDuelWait.getListView().equals(games)) {
                 endpoint = listGamesDuelWait.getDtos().get(games.getSelectionModel().getSelectedIndex()).getEndpoint();
-            }else{
+            } else {
                 endpoint = listGamesDuelFinish.getDtos().get(games.getSelectionModel().getSelectedIndex()).getEndpoint();
             }
             try {
                 ModeDto mode = ModeApi.getMode(endpoint);
-                if(!mode.getName().equalsIgnoreCase("pas encore d'adversaire")) {
+                if (!mode.getName().equalsIgnoreCase("pas encore d'adversaire")) {
                     selectGame = GameApi.getGame(mode.getGame().getId());
                     System.out.println(endpoint);
                     handleGotoGame();
                 }
             } catch (TokenNotFoundException e) {
-                //e.printStackTrace();
                 Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
             }
         }
     }
 
-    private void showDetailsTournamentComp(){
-        if(!listGamesTournamentCompetition.getListView().getItems().isEmpty()){
+    /**
+     * Shows details of a competitive tournament
+     */
+    private void showDetailsTournamentComp() {
+        if (!listGamesTournamentCompetition.getListView().getItems().isEmpty()) {
             paneTournamentComp.setVisible(true);
             competitiveTournamentVbox.setVisible(false);
             ModeSummaryDto modeSummaryDto = listGamesTournamentCompetition.getDtos().get(0);
@@ -450,10 +479,10 @@ public class MainMenuController implements Initializable {
                 tmDto = (TournamentModeDto) ModeApi.getMode(modeSummaryDto.getEndpoint());
                 setupGraphicalTournament(tmDto, labelNumber, labelScore, labelClassement, labelChance, showDetailsComp);
             } catch (TokenNotFoundException e) {
-                e.printStackTrace();
+                Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
             }
 
-        }else{
+        } else {
             paneTournamentComp.setVisible(false);
             competitiveTournamentVbox.setVisible(true);
         }
@@ -461,15 +490,15 @@ public class MainMenuController implements Initializable {
 
     private void setupGraphicalTournament(TournamentModeDto tmDto, Label labelNumber, Label labelScore, Label labelClassement, Label labelChance, Accordion accordion) {
         //Clear current view
-        for(TitledPane tp : accordion.getPanes()){
-            ((ListView)((AnchorPane)tp.getContent()).getChildren().get(0)).getItems().clear();
+        for (TitledPane tp : accordion.getPanes()) {
+            ((ListView) ((AnchorPane) tp.getContent()).getChildren().get(0)).getItems().clear();
         }
         labelNumber.setText("Participants : " + tmDto.getParticipants().size() + "/" + MAX_USER_IN_TOURNAMENT);
         List<TournamentModeDto.UserScore> globalScores = tmDto.getPlayerScoreForGlobal();
         int myScore = 0;
         //Find my score in global scores
-        for(TournamentModeDto.UserScore us : globalScores){
-            if(us.getUser().getName().equals(LoginController.currentUser)){
+        for (TournamentModeDto.UserScore us : globalScores) {
+            if (us.getUser().getName().equals(LoginController.currentUser)) {
                 myScore = us.getScore();
                 break;
             }
@@ -477,9 +506,9 @@ public class MainMenuController implements Initializable {
         labelScore.setText("Score : " + myScore);
         int myRank = 1;
         //Find players with higher scores than mine
-        for(TournamentModeDto.UserScore us : globalScores){
-            if(!(us.getUser().getName().equals(LoginController.currentUser))){
-                if(us.getScore() > myScore){
+        for (TournamentModeDto.UserScore us : globalScores) {
+            if (!(us.getUser().getName().equals(LoginController.currentUser))) {
+                if (us.getScore() > myScore) {
                     myRank++;
                 }
             }
@@ -492,26 +521,26 @@ public class MainMenuController implements Initializable {
         //Add ranking
         AnchorPane rankPane = (AnchorPane) panes.get(0).getContent();
         ListView<String> rankListView = (ListView<String>) rankPane.getChildren().get(0);
-        for(int i = 0; i < globalScores.size(); ++i) {
+        for (int i = 0; i < globalScores.size(); ++i) {
             rankListView.getItems().add(i + 1 + ": " + globalScores.get(i).getUser().getName() +
                     " " + globalScores.get(i).getScore() + " pts.");
         }
 
         //Add days
-        for(int i = 1; i < accordion.getPanes().size(); ++i){
+        for (int i = 1; i < accordion.getPanes().size(); ++i) {
             List<TournamentModeDto.UserScore> dailyScores = tmDto.getPlayerScoreForDay(i - 1);
             TitledPane dayTitlePane = accordion.getPanes().get(i);
             int myCurrentDayScore = 0;
-            for(TournamentModeDto.UserScore us : dailyScores){
-                if(us.getUser().getName().equals(LoginController.currentUser)){
+            for (TournamentModeDto.UserScore us : dailyScores) {
+                if (us.getUser().getName().equals(LoginController.currentUser)) {
                     myCurrentDayScore = us.getScore();
                     break;
                 }
             }
             dayTitlePane.setText("Jour " + i + " - " + " Score " + myCurrentDayScore);
-            AnchorPane dayPane = (AnchorPane)dayTitlePane.getContent();
+            AnchorPane dayPane = (AnchorPane) dayTitlePane.getContent();
             ListView<String> dailyRankListView = (ListView<String>) dayPane.getChildren().get(0);
-            for(int j = 0; j < dailyScores.size(); ++j) {
+            for (int j = 0; j < dailyScores.size(); ++j) {
                 dailyRankListView.getItems().add(j + 1 + ": " + dailyScores.get(j).getUser().getName() +
                         " " + dailyScores.get(j).getScore() + " pts.");
             }
@@ -520,12 +549,16 @@ public class MainMenuController implements Initializable {
 
     }
 
-    private void showDetailsTournamentFriends(ListView list){
+    /**
+     * Shows details of a friendly tournament
+     * @param list
+     */
+    private void showDetailsTournamentFriends(ListView list) {
         // Utilisé pour récupérer les infos relative au tournoi sélectionné
         String nameTournament = (String) list.getSelectionModel().getSelectedItem();
         System.out.println(nameTournament);
 
-        if(!listGamesTournamentsFriends.getListView().getItems().isEmpty()) {
+        if (!listGamesTournamentsFriends.getListView().getItems().isEmpty()) {
             paneTournamentFriends.setVisible(true);
             friendsTournamentVbox.setVisible(false);
 
@@ -537,56 +570,59 @@ public class MainMenuController implements Initializable {
                 tmDto = (TournamentModeDto) ModeApi.getMode(modeSummaryDto.getEndpoint());
                 setupGraphicalTournament(tmDto, labelNumberFriend, labelScoreFriend, labelClassementFriend, labelChanceFriend, showDetailsFriend);
             } catch (TokenNotFoundException e) {
-                e.printStackTrace();
+                Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
             }
 
-        }else{
+        } else {
             paneTournamentFriends.setVisible(false);
             friendsTournamentVbox.setVisible(true);
         }
 
     }
 
+    /**
+     * Play a tournament game.
+     */
     @FXML
-    private void playTournamentComp(){
-        if(!listGamesTournamentCompetition.getListView().getItems().isEmpty()){
+    private void playTournamentComp() {
+        if (!listGamesTournamentCompetition.getListView().getItems().isEmpty()) {
             ModeSummaryDto modeSummaryDto = listGamesTournamentCompetition.getDtos().get(0);
             try {
-                TournamentModeDto tmDto = (TournamentModeDto)ModeApi.getMode(modeSummaryDto.getEndpoint());
-                if(tmDto.getGame() == null){
+                TournamentModeDto tmDto = (TournamentModeDto) ModeApi.getMode(modeSummaryDto.getEndpoint());
+                if (tmDto.getGame() == null) {
                     Object o = Api.post(tmDto.getGames(), null, GameDto.class);
                     this.selectGame = (GameDto) o;
-                }else{
+                } else {
                     this.selectGame = GameApi.getGame(tmDto.getGame().getId());
                 }
                 handleGotoGame();
             } catch (TokenNotFoundException e) {
-                e.printStackTrace();
+                Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
             }
         }
     }
 
     @FXML
-    private void backTournamentFriend(){
+    private void backTournamentFriend() {
         paneTournamentFriends.setVisible(false);
         friendsTournamentVbox.setVisible(true);
     }
 
     @FXML
-    private void playTournamentFriend(){
-        if(!listGamesTournamentsFriends.getListView().getItems().isEmpty()){
+    private void playTournamentFriend() {
+        if (!listGamesTournamentsFriends.getListView().getItems().isEmpty()) {
             ModeSummaryDto modeSummaryDto = listGamesTournamentsFriends.getDtos().get(listGamesTournamentsFriends.getListView().getSelectionModel().getSelectedIndex());
             try {
-                TournamentModeDto tmDto = (TournamentModeDto)ModeApi.getMode(modeSummaryDto.getEndpoint());
-                if(tmDto.getGame() == null){
+                TournamentModeDto tmDto = (TournamentModeDto) ModeApi.getMode(modeSummaryDto.getEndpoint());
+                if (tmDto.getGame() == null) {
                     Object o = Api.post(tmDto.getGames(), null, GameDto.class);
                     this.selectGame = (GameDto) o;
-                }else{
+                } else {
                     this.selectGame = GameApi.getGame(tmDto.getGame().getId());
                 }
                 handleGotoGame();
             } catch (TokenNotFoundException e) {
-                e.printStackTrace();
+                Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
             }
         }
     }

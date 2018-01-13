@@ -28,9 +28,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * FXML Controller class
- *
- * @author Gabriel Luthier
+ * JavaFX controller for the invitations screen.
  */
 public class InvitationsController implements Initializable {
 
@@ -42,8 +40,10 @@ public class InvitationsController implements Initializable {
     private MeDto meDto;
     private List<InvitationDto> invitations = new LinkedList<>();
 
-
-
+    /**
+     * Returns to main menu.
+     * @param event
+     */
     @FXML
     private void handleGotoMenu(ActionEvent event) {
         UtilChangeScene.getInstance().handleGotoMenu();
@@ -67,11 +67,15 @@ public class InvitationsController implements Initializable {
 
     }
 
-    private class InvitationDtoListCellNew extends ListCell<InvitationDto>{
+    /**
+     * Invitations list nested class. Allows custom list cells to be used.
+     */
+    private class InvitationDtoListCellNew extends ListCell<InvitationDto> {
         private GridPane grid;
         private Button accept, decline;
         private Label inviteName;
-        public InvitationDtoListCellNew(){
+
+        public InvitationDtoListCellNew() {
             grid = new GridPane();
             accept = new Button("Accepter");
             decline = new Button("Decliner");
@@ -92,10 +96,15 @@ public class InvitationsController implements Initializable {
             grid.add(decline, 2, 0);
         }
 
+        /**
+         * Update method called when modifying the list.
+         * @param iDto an InvitationDto
+         * @param empty true if new cell is empty
+         */
         @Override
-        public void updateItem(InvitationDto iDto, boolean empty){
+        public void updateItem(InvitationDto iDto, boolean empty) {
             super.updateItem(iDto, empty);
-            if(empty){
+            if (empty) {
                 setText(null);
                 setGraphic(null);
             } else {
@@ -122,11 +131,14 @@ public class InvitationsController implements Initializable {
         }
     }
 
+    /**
+     * Custom cell for nested list class
+     */
     private class InvitationDtoListCell extends ListCell<InvitationDto> {
         @Override
-        public void updateItem(InvitationDto iDto, boolean empty){
+        public void updateItem(InvitationDto iDto, boolean empty) {
             super.updateItem(iDto, empty);
-            if(empty){
+            if (empty) {
                 setText(null);
                 setGraphic(null);
             } else {
@@ -138,7 +150,8 @@ public class InvitationsController implements Initializable {
 
     /**
      * Accepts an invite and sends updated DTO to server
-     * @param iDto
+     *
+     * @param iDto an InvitationDto
      */
     private void acceptInvite(InvitationDto iDto) {
         iDto.setStatus(InvitationStatus.ACCEPT);
@@ -152,7 +165,8 @@ public class InvitationsController implements Initializable {
 
     /**
      * Declines an invite and sends updated DTO to server
-     * @param iDto
+     *
+     * @param iDto an InvitationDto
      */
     private void declineInvite(InvitationDto iDto) {
         iDto.setStatus(InvitationStatus.DENY);
@@ -163,6 +177,5 @@ public class InvitationsController implements Initializable {
             e.printStackTrace();
         }
     }
-
 
 }

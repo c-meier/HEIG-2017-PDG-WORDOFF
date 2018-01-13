@@ -161,7 +161,11 @@ public class GameService {
         int sizeWordsByScore = wordsByScore.size();
 
         if (sizeWordsByScore == 0) {
-            discard2(game, game.getCurrPlayer());
+            if (game.getBag().getTiles().size() == 0) {
+                pass(game, game.getCurrPlayer());
+            } else {
+                discard2(game, game.getCurrPlayer());
+            }
         } else if (sizeWordsByScore == 1) {
             // The AI play the only best possible word
             word = new ArrayList<>(wordsByScore.get(0).getValue());

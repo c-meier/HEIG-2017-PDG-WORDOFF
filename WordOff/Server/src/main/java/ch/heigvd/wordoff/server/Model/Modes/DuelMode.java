@@ -1,5 +1,6 @@
 package ch.heigvd.wordoff.server.Model.Modes;
 
+import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dto.InvitationStatus;
 import ch.heigvd.wordoff.server.Model.Game;
 import ch.heigvd.wordoff.server.Model.Invitation;
@@ -18,7 +19,7 @@ public class DuelMode extends Mode {
     public DuelMode() {}
 
     public DuelMode(User participant) {
-        putInvitation(new Invitation(this, participant, InvitationStatus.ORIGIN, "NO ADVERSARY YET"));
+        putInvitation(new Invitation(this, participant, InvitationStatus.ORIGIN, Constants.NO_ADVERSARY));
     }
 
     public DuelMode(List<User> participants) {

@@ -63,10 +63,8 @@ public class Api {
                         throw new UnauthorizedException();
                     case UNPROCESSABLE_ENTITY: // 422
                         ErrorDto err = mapper.readValue(clientHttpResponse.getBody(), ErrorDto.class);
-                        LOG.warning(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(err));
                         throw new UnprocessableEntityException(err.getErrorCode(), err.getMsg());
                     default:
-                        LOG.severe(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(clientHttpResponse.getBody())));
                         throw new HTTPException(clientHttpResponse.getStatusCode().value());
                 }
             }

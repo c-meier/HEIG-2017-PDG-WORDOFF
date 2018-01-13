@@ -337,7 +337,7 @@ public class GameScreenController implements Initializable {
                 me.setCoins(me.getCoins() - PowerDto.PEEK.getCost());
                 coinLabel.setText(String.valueOf(me.getCoins()));
             } catch (TokenNotFoundException e) {
-                e.printStackTrace();
+                Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
             }
         } else {
             Dialog.getInstance().signalPowerError(PowerDto.PEEK);

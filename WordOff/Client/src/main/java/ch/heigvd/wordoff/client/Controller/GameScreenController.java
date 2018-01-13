@@ -179,6 +179,7 @@ public class GameScreenController implements Initializable {
     /**
      * Allows the controller to set the state of the game before showing the
      * scene.
+     *
      * @param game a GameDto object
      */
     protected void setGame(GameDto game) {
@@ -228,6 +229,7 @@ public class GameScreenController implements Initializable {
 
     /**
      * Sets the alphabet to correct List<Character>
+     *
      * @param alphabet
      */
     protected void setAlphabet(List<Character> alphabet) {
@@ -271,6 +273,7 @@ public class GameScreenController implements Initializable {
 
     /**
      * Clear the current Challenge and put all tiles back to the player rack
+     *
      * @param slotsChallenge
      */
     private void clear(List<StackPane> slotsChallenge) {
@@ -289,6 +292,11 @@ public class GameScreenController implements Initializable {
      */
     @FXML
     private void discardOrPasse() {
+        if (game.isEnded()) {
+            Dialog.getInstance().signalError("Cette partie est terminée.");
+            return;
+        }
+
         if (discardButton.getText().equals("Jeter")) { //Suggest discard
             String choice = Dialog.getInstance().choicesBoxDialog("Jeter", "Jeter combien de tuiles?",
                     "Jeter: ", "Toutes", "Deux");
@@ -330,6 +338,11 @@ public class GameScreenController implements Initializable {
      */
     @FXML
     private void peek() {
+        if (game.isEnded()) {
+            Dialog.getInstance().signalError("Cette partie est terminée.");
+            return;
+        }
+
         if (me.getCoins() >= PowerDto.PEEK.getCost()) {
             try {
                 otherSide = Api.post(game.getPowers(), PowerDto.PEEK);
@@ -387,6 +400,10 @@ public class GameScreenController implements Initializable {
      */
     @FXML
     private void hint() {
+        if (game.isEnded()) {
+            Dialog.getInstance().signalError("Cette partie est terminée.");
+            return;
+        }
         if (me.getCoins() >= PowerDto.HINT.getCost()) {
             try {
                 Api.post(game.getPowers(), PowerDto.HINT);
@@ -448,6 +465,11 @@ public class GameScreenController implements Initializable {
      */
     @FXML
     private void playOrVerif() {
+        if (game.isEnded()) {
+            Dialog.getInstance().signalError("Cette partie est terminée.");
+            return;
+        }
+
         if (playButton.getText().equals("Jouer")) {
             play();
         } else {
@@ -457,6 +479,7 @@ public class GameScreenController implements Initializable {
 
     /**
      * Checks if the current word on the player's challenge rack is valid.
+     *
      * @param challenge
      * @return
      */
@@ -533,6 +556,7 @@ public class GameScreenController implements Initializable {
     /**
      * Graphically updates Wordalyser based on the score of the word in the
      * challenge rack.
+     *
      * @param number number of Wordalyser circles to fill
      */
     private void setCircleWordAlyzer(int number) {
@@ -612,7 +636,7 @@ public class GameScreenController implements Initializable {
                 setNumberOfTiles();
                 majWordAlyzer();
             } catch (TokenNotFoundException e) {
-                Dialog.getInstance().signalError("Une erreur s'est produite. Veuillez vous reconnecter");
+                Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
             } catch (UnprocessableEntityException e) {
                 Dialog.getInstance().signalInformation("Ce n'est pas votre tour de jouer");
             }
@@ -623,6 +647,7 @@ public class GameScreenController implements Initializable {
 
     /**
      * Returns all tiles to player rack.
+     *
      * @param slotsChallenge the challenge rack to clear
      */
     private void replaceTilesOrigin(List<StackPane> slotsChallenge) {
@@ -655,6 +680,7 @@ public class GameScreenController implements Initializable {
 
     /**
      * Clear all tiles in a list of tiles.
+     *
      * @param tiles a list of tiles
      */
     private void clearTiles(List<AnchorPane> tiles) {

@@ -139,14 +139,18 @@ public class MainMenuController implements Initializable {
      * Goes to current game (selectedGame attribute)
      */
     private void handleGotoGame() {
-        FXMLLoader loader = getLoader("/fxml/gameScreen.fxml");
-        Scene scene = getScene(loader);
+        if(selectGame != null && !selectGame.isEnded()){
+            FXMLLoader loader = getLoader("/fxml/gameScreen.fxml");
+            Scene scene = getScene(loader);
 
-        GameScreenController controller = loader.getController();
-        controller.setGame(this.selectGame);
-        controller.setAlphabet(LetterApi.retrieveLetters(selectGame.getLang()));
+            GameScreenController controller = loader.getController();
+            controller.setGame(this.selectGame);
+            controller.setAlphabet(LetterApi.retrieveLetters(selectGame.getLang()));
 
-        changeScene(scene);
+            changeScene(scene);
+        }else{
+            Dialog.getInstance().signalError("Cette partie est déjà terminée.");
+        }
     }
 
     /**

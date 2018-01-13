@@ -41,6 +41,9 @@ import java.util.stream.Collectors;
 import static ch.heigvd.wordoff.common.Constants.DUEL_PREFIX;
 import static ch.heigvd.wordoff.common.Constants.TOURNAMENT_PREFIX;
 
+/**
+ * Class that converts Entities to Dtos.
+ */
 @Component
 public class DtoFactory {
     private static ModelMapper modelMapper = configuredModelMapper();

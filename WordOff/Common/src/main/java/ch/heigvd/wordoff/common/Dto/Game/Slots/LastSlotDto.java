@@ -1,8 +1,8 @@
 package ch.heigvd.wordoff.common.Dto.Game.Slots;
 
-public class LastSlotDto extends SlotDto {
-    private final int bonus = 10;
+import static ch.heigvd.wordoff.common.Constants.LAST_SLOT_BONUS;
 
+public class LastSlotDto extends SlotDto {
     // Necessary for Jackson deserialization
     public LastSlotDto() {}
 
@@ -11,7 +11,7 @@ public class LastSlotDto extends SlotDto {
     }
 
     public int getScore() {
-        return isEmpty() ? 0 : super.getScore() + bonus;
+        return isEmpty() ? 0 : super.getScore() + LAST_SLOT_BONUS;
     }
 
     @Override

@@ -12,10 +12,8 @@ import org.springframework.context.annotation.Bean;
 import javax.annotation.PostConstruct;
 
 /**
- * Project : WordOff
- * Date : 26.09.17
+ * Main entry point for the server.
  */
-
 @SpringBootApplication
 @EntityScan(basePackageClasses = {Constants.class, MainServer.class})
 public class MainServer {

@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+/**
+ * Repository for the notifications.
+ */
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
     List<Notification> findAllByTargetId(Long targetId);
 }

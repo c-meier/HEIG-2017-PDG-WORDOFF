@@ -19,6 +19,9 @@ import java.util.List;
         property = "dtype"
 )
 public abstract class Rack implements IRack, Serializable {
+    /**
+     * The tiles which this Rack holds.
+     */
     @JsonDeserialize(contentAs = Tile.class)
     private List<ITile> tiles;
 

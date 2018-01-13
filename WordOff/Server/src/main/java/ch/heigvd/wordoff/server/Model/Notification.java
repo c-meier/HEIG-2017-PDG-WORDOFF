@@ -6,6 +6,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
+/**
+ * Class that represents a notification to a user.
+ */
 @Entity
 public class Notification {
     @Id

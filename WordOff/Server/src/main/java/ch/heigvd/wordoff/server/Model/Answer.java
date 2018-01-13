@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Class that represents a player's answer to a challenge.
+ */
 @Entity
 public class Answer {
     @Lob

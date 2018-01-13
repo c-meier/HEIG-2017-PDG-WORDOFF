@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * This interceptor is enabled for all request path in the RestConfig class.
+ * This interceptor is enabled for some request paths in the RestConfig class.
+ *
+ * It adds the authorized user to the request if the JWT token is authentic.
  */
 public class AuthInterceptor extends HandlerInterceptorAdapter {
     @Autowired

@@ -412,6 +412,10 @@ public class GameScreenController implements Initializable {
         if(!Dialog.getInstance().powerConfirm(PowerDto.HINT)) {
             return;
         }
+        if(!game.isMyTurn()){
+            Dialog.getInstance().signalError("Ce n'est pas votre tour.");
+            return;
+        }
         if (me.getCoins() >= PowerDto.HINT.getCost()) {
             try {
                 Api.post(game.getPowers(), PowerDto.HINT);

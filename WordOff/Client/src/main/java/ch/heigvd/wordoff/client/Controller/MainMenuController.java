@@ -239,7 +239,6 @@ public class MainMenuController implements Initializable {
         UIrefresher = new Timeline(new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Refresh de du menu");
                 try {
                     meDto = MeApi.getCurrentUser();
                     listGamesDuel.clear();
@@ -531,7 +530,7 @@ public class MainMenuController implements Initializable {
         int myScore = 0;
         //Find my score in global scores
         for (TournamentModeDto.UserScore us : globalScores) {
-            if (us.getUser().getName().equals(LoginController.currentUser)) {
+            if (us.getUser().getName().equals(meDto.getSelf().getName())) {
                 myScore = us.getScore();
                 break;
             }
@@ -540,7 +539,7 @@ public class MainMenuController implements Initializable {
         int myRank = 1;
         //Find players with higher scores than mine
         for (TournamentModeDto.UserScore us : globalScores) {
-            if (!(us.getUser().getName().equals(LoginController.currentUser))) {
+            if (!(us.getUser().getName().equals(meDto.getSelf().getName()))) {
                 if (us.getScore() > myScore) {
                     myRank++;
                 }
@@ -565,7 +564,7 @@ public class MainMenuController implements Initializable {
             TitledPane dayTitlePane = accordion.getPanes().get(i);
             int myCurrentDayScore = 0;
             for (TournamentModeDto.UserScore us : dailyScores) {
-                if (us.getUser().getName().equals(LoginController.currentUser)) {
+                if (us.getUser().getName().equals(meDto.getSelf().getName())) {
                     myCurrentDayScore = us.getScore();
                     break;
                 }

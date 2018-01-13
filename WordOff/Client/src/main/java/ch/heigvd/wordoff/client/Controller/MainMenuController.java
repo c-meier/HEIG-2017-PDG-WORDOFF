@@ -591,19 +591,36 @@ public class MainMenuController implements Initializable {
     private void playTournamentComp() {
         if (!listGamesTournamentCompetition.getListView().getItems().isEmpty()) {
             ModeSummaryDto modeSummaryDto = listGamesTournamentCompetition.getDtos().get(0);
-            try {
-                TournamentModeDto tmDto = (TournamentModeDto) ModeApi.getMode(modeSummaryDto.getEndpoint());
-                if (tmDto.getGame() == null) {
-                    Object o = Api.post(tmDto.getGames(), null, GameDto.class);
-                    this.selectGame = (GameDto) o;
-                } else {
+            playTournamentGame(modeSummaryDto);
+        }
+    }
+
+    private void playTournamentGame(ModeSummaryDto modeSummaryDto) {
+        try {
+            TournamentModeDto tmDto = (TournamentModeDto) ModeApi.getMode(modeSummaryDto.getEndpoint());
+            if (tmDto.getGame() == null) {
+                this.selectGame = Api.post(tmDto.getGames(), null, GameDto.class);
+            } else {
+                if(tmDto.getGame().isEnded()){
+                    if(tmDto.getNbGameRemaining() > 0){
+                        boolean result = Dialog.getInstance().popUpYesNo("Utiliser une tentative et réessayer?");
+                        if(!result){
+                            return;
+                        } else {
+                            this.selectGame = Api.post(tmDto.getGames(), null, GameDto.class);
+                        }
+                    } else {
+                        Dialog.getInstance().signalError("Vous n'avez plus de tentatives pour aujourd'hui!");
+                    }
+                }else{
                     this.selectGame = GameApi.getGame(tmDto.getGame().getId());
                 }
-                handleGotoGame();
-            } catch (TokenNotFoundException e) {
-                Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
             }
+            handleGotoGame();
+        } catch (TokenNotFoundException e) {
+            Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
         }
+
     }
 
     @FXML
@@ -616,18 +633,7 @@ public class MainMenuController implements Initializable {
     private void playTournamentFriend() {
         if (!listGamesTournamentsFriends.getListView().getItems().isEmpty()) {
             ModeSummaryDto modeSummaryDto = listGamesTournamentsFriends.getDtos().get(listGamesTournamentsFriends.getListView().getSelectionModel().getSelectedIndex());
-            try {
-                TournamentModeDto tmDto = (TournamentModeDto) ModeApi.getMode(modeSummaryDto.getEndpoint());
-                if (tmDto.getGame() == null) {
-                    Object o = Api.post(tmDto.getGames(), null, GameDto.class);
-                    this.selectGame = (GameDto) o;
-                } else {
-                    this.selectGame = GameApi.getGame(tmDto.getGame().getId());
-                }
-                handleGotoGame();
-            } catch (TokenNotFoundException e) {
-                Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
-            }
+            playTournamentGame(modeSummaryDto);
         }
     }
 }

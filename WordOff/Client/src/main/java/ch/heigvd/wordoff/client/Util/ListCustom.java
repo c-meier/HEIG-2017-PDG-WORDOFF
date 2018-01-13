@@ -111,4 +111,10 @@ public class ListCustom {
             }
         });
     }
+
+    public void clear(){
+        listDto.clear();
+        listGames.clear();
+        listImages.clear();
+    }
 }

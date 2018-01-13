@@ -202,7 +202,7 @@ public class GameScreenController implements Initializable {
         this.dico = dicoLoad.getDico(this.game.getLang());
 
         //Create UI refresh thread
-        UIrefresher = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+        UIrefresher = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {

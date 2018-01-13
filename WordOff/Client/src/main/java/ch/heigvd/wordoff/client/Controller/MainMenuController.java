@@ -15,6 +15,8 @@ import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
 import ch.heigvd.wordoff.common.Dto.MeDto;
 import ch.heigvd.wordoff.common.Dto.Mode.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,6 +33,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import javax.xml.ws.http.HTTPException;
@@ -102,6 +105,9 @@ public class MainMenuController implements Initializable {
     private Label labelInvitation;
 
     private MeDto meDto;
+
+    @FXML
+    private Timeline UIrefresher;
 
     // Handler to go to a game
     private EventHandler<MouseEvent> eventGoToGame = new EventHandler<MouseEvent>() {
@@ -194,6 +200,8 @@ public class MainMenuController implements Initializable {
 
     // Envoi la scène au MainApp pour changer la scene dans le stage
     private void changeScene(Scene scene) {
+        UIrefresher.stop();
+        UIrefresher = null;
         MainApp.changeScene(scene);
     }
 
@@ -227,11 +235,32 @@ public class MainMenuController implements Initializable {
      * retrieving a MeDto and setting all handlers to correct lists
      */
     public void setState() {
+
+        UIrefresher = new Timeline(new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Refresh de du menu");
+                try {
+                    meDto = MeApi.getCurrentUser();
+                    listGamesDuel.clear();
+                    listGamesDuelFinish.clear();
+                    listGamesDuelWait.clear();
+                    listGamesTournamentCompetition.clear();
+                    listGamesTournamentsFriends.clear();
+                    sortGames();
+                } catch (TokenNotFoundException e) {
+                    Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
+                }
+            }
+        }));
+        UIrefresher.setCycleCount(Timeline.INDEFINITE);
+        UIrefresher.play();
+
         try {
             meDto = MeApi.getCurrentUser();
             labelInvitation.setText(String.valueOf((Api.get(meDto.getInvitations())).size()) + " notifications");
         } catch (TokenNotFoundException e) {
-            e.printStackTrace();
+            Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
         }
 
         // Créations des listes et de leurs listener

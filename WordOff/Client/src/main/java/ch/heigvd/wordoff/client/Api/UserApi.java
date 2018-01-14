@@ -10,10 +10,17 @@ import java.util.List;
 
 import static ch.heigvd.wordoff.common.Constants.SERVER_URI;
 
+/**
+ * Api used to log and create a user.
+ */
 public class UserApi {
 
     private final static RestTemplate restTemplate = Api.getRestTemplate();
 
+    /**
+     * Create a new user
+     * @param loginDto The credentials of the new user
+     */
     public static void signUp(LoginDto loginDto) {
         final String uri = SERVER_URI + "/users";
 
@@ -26,6 +33,11 @@ public class UserApi {
                 ResponseEntity.class);
     }
 
+    /**
+     * Sign in a user
+     * @param loginDto The credentials of the user
+     * @return The user
+     */
     public static MeDto signIn(LoginDto loginDto) {
         final String uri = SERVER_URI + "/users/sign-in";
 

@@ -26,7 +26,10 @@ import java.util.logging.Logger;
 import static ch.heigvd.wordoff.common.Constants.AUTHORIZATION_HEADER;
 import static ch.heigvd.wordoff.common.Constants.SERVER_URI;
 
-
+/**
+ * Class that holds the instance of a RestTemplate used to query the server.
+ * Provides also methods to follow up the queries based on endpoints returned by the server.
+ */
 public class Api {
     private final RestTemplate restTemplate;
     private final ObjectMapper mapper = new ObjectMapper();
@@ -41,6 +44,10 @@ public class Api {
         return instance;
     }
 
+    /**
+     * Let the others classes of the api use the RestTemplate
+     * @return The RestTemplate
+     */
     static RestTemplate getRestTemplate() {
         return getInstance().restTemplate;
     }
@@ -71,6 +78,13 @@ public class Api {
         });
     }
 
+    /**
+     * Do a GET query on a endpoint to retrieve a single object
+     * @param endpoint The endpoint
+     * @param <T> The type of the objet wanted
+     * @return The object
+     * @throws TokenNotFoundException If the user is not logged in
+     */
     static public <T> T get(IResource<T> endpoint) throws TokenNotFoundException {
         HttpHeaders headers = new HttpHeaders();
         headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());
@@ -84,6 +98,13 @@ public class Api {
         return responseEntity.getBody();
     }
 
+    /**
+     * Do a PUT query on a endpoint to update an object
+     * @param endpoint The endpoint
+     * @param <T> The type of the object updated
+     * @return The object
+     * @throws TokenNotFoundException If the user is not logged in
+     */
     static public <T> T put(IResource<T> endpoint) throws TokenNotFoundException {
         HttpHeaders headers = new HttpHeaders();
         headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());
@@ -98,6 +119,13 @@ public class Api {
         return responseEntity.getBody();
     }
 
+    /**
+     * Do a GET query on a endpoint to get a list of objects
+     * @param endpoint The endpoing
+     * @param <T> The type of the objects wanted
+     * @return The list of objects
+     * @throws TokenNotFoundException If the user is not logged in
+     */
     static public <T> List<T> get(ResourceList<T> endpoint) throws TokenNotFoundException {
         HttpHeaders headers = new HttpHeaders();
         headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());
@@ -128,6 +156,15 @@ public class Api {
         return responseEntity.getBody();
     }
 
+    /**
+     * Do a POST query on a endpoint
+     * @param endpoint The endpoint
+     * @param dto The DTO of the object posted
+     * @param <T> The typoe of the object returned
+     * @param <U> The type of the object posted
+     * @return The object returned by the server
+     * @throws TokenNotFoundException If the user is not logged in
+     */
     static public <T, U> T post(ResourceWriteList<T, U> endpoint, U dto) throws TokenNotFoundException {
         HttpHeaders headers = new HttpHeaders();
         headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());
@@ -142,6 +179,16 @@ public class Api {
         return responseEntity.getBody();
     }
 
+    /**
+     * Do a POST on a endpoint
+     * @param endpoint The endpoint
+     * @param dto The DTO of the object posted
+     * @param respType The Class of the object returned
+     * @param <T> The type of the object returned
+     * @param <U> The type of the object posted
+     * @return The objet returned by the server
+     * @throws TokenNotFoundException If the user is not logged in
+     */
     static public <T, U> T post(ResourceWriteList<T, U> endpoint, U dto, Class<T> respType) throws TokenNotFoundException {
         HttpHeaders headers = new HttpHeaders();
         headers.add(AUTHORIZATION_HEADER, TokenManager.loadToken());

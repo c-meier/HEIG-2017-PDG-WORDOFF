@@ -16,22 +16,50 @@ import java.util.Map;
 import static ch.heigvd.wordoff.common.Constants.AUTHORIZATION_HEADER;
 import static ch.heigvd.wordoff.common.Constants.SERVER_URI;
 
+/**
+ * Api that holds the calls to handle a game.
+ */
 public class GameApi {
 
     private final static RestTemplate restTemplate = Api.getRestTemplate();
 
+    /**
+     * Retrieve the list of games of the user
+     * @return The games
+     * @throws TokenNotFoundException If the user is not logged in
+     */
     public static List<GameSummaryDto> retrieveGames() throws TokenNotFoundException {
         return retrieveGames(TokenManager.loadToken());
     }
 
+    /**
+     * Create a new game
+     * @param lang The language of the game
+     * @param playerIds The player IDs
+     * @return A summary of the game created
+     * @throws TokenNotFoundException If the user is not logged in
+     */
     public static GameSummaryDto createGame(String lang, List<Long> playerIds) throws TokenNotFoundException {
         return createGame(TokenManager.loadToken(), lang, playerIds);
     }
 
+    /**
+     * Retrieve a specific game
+     * @param gameId The id of the game wanted
+     * @return The game
+     * @throws TokenNotFoundException If the user is not logged in
+     */
     public static GameDto getGame(Long gameId) throws TokenNotFoundException {
         return getGame(TokenManager.loadToken(), gameId);
     }
 
+    /**
+     * Play a challenge for a game
+     * @param gameId The game ID
+     * @param challengeDto The challenge played
+     * @return The game new state
+     * @throws TokenNotFoundException If the user is not logged in
+     */
     public static GameDto play(Long gameId, ChallengeDto challengeDto) throws TokenNotFoundException {
         return play(TokenManager.loadToken(), gameId, challengeDto);
     }

@@ -9,10 +9,18 @@ import org.springframework.web.client.RestTemplate;
 import static ch.heigvd.wordoff.common.Constants.AUTHORIZATION_HEADER;
 import static ch.heigvd.wordoff.common.Constants.SERVER_URI;
 
+/**
+ * Api used to get the current user.
+ */
 public class MeApi {
 
     private final static RestTemplate restTemplate = Api.getRestTemplate();
 
+    /**
+     * Retrieve the current user
+     * @return The current use
+     * @throws TokenNotFoundException If the user is not logged in
+     */
     public static MeDto getCurrentUser() throws TokenNotFoundException {
         return getCurrentUser(TokenManager.loadToken());
     }

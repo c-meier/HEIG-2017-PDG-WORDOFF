@@ -760,8 +760,8 @@ public class GameScreenController implements Initializable {
         setTiles(this.game.getMySide().getPlayerRack().getTiles(), p1TilesPr, true);
         // Set coins
         coinLabel.setText(String.valueOf(me.getCoins()));
-        labelScorePlayer.setText(game.getOtherSide().getScore() + " pts");
-        labelScoreAdversary.setText(game.getMySide().getScore() + " pts");
+        labelScoreAdversary.setText(game.getOtherSide().getScore() + " pts");
+        labelScorePlayer.setText(game.getMySide().getScore() + " pts");
         if (otherSide == null) {
             setVisible(p2TilesPr, false);
         } else {

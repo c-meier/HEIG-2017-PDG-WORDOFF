@@ -7,7 +7,15 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
+/**
+ * Repository for the modes.
+ */
 public interface ModeRepository extends JpaRepository<Mode, Long> {
+    /**
+     * Get a list of mode of the given type which have only one participant.
+     * @param modeType The given type.
+     * @return The list of modes.
+     */
     @Query("SELECT m FROM Mode m INNER JOIN m.invitations AS i WHERE m.type = ?1 GROUP BY m HAVING COUNT(i) = 1")
     List<Mode> getModesByTypeAndPlayerIsAlone(ModeType modeType);
     List<Mode> findModesByType(ModeType modeType);

@@ -17,9 +17,14 @@ import java.io.Serializable;
         property = "dtype"
 )
 public class Slot implements ISlot, Serializable {
-
+    /**
+     * The position of the slot in the challenge.
+     */
     Short pos;
 
+    /**
+     * The tile if it exists held in this slot.
+     */
     @JsonDeserialize(as = Tile.class)
     private ITile tile;
 
@@ -46,13 +51,6 @@ public class Slot implements ISlot, Serializable {
         return null == tile ? 0 : tile.getScore();
     }
 
-    @Override
-    public ISlot duplicate() {
-        Slot copy = new Slot(new Short(pos.shortValue()));
-        copy.setTile(tile == null ? null : tile.duplicate());
-        return copy;
-    }
-
     public Short getPos() {
         return pos;
     }
@@ -60,5 +58,12 @@ public class Slot implements ISlot, Serializable {
     @Override
     public void setPos(Short pos) {
         this.pos = pos;
+    }
+
+    @Override
+    public ISlot duplicate() {
+        Slot copy = new Slot(pos);
+        copy.setTile(tile == null ? null : tile.duplicate());
+        return copy;
     }
 }

@@ -81,7 +81,7 @@ public class Invitation {
         @ManyToOne
         private User target;
 
-        InvitationId() {}
+        public InvitationId() {}
 
         public InvitationId(Mode mode, User target) {
             this.mode = mode;

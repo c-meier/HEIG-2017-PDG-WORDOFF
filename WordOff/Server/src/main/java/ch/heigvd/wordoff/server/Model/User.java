@@ -4,6 +4,7 @@ import ch.heigvd.wordoff.common.Dto.User.RelationStatus;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +27,8 @@ public class User extends Player {
     private int level;
 
     private int coins = NB_COINS_AT_START;
+
+    private LocalDateTime lastNotifsRecup;
 
     protected User() {
         this.relations = new HashMap<>();

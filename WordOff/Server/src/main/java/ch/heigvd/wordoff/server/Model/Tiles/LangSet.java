@@ -10,6 +10,9 @@ public class LangSet {
     @GeneratedValue
     private Integer id;
 
+    /**
+     * The 2 letters code which qualifies the language.
+     */
     private String name;
 
     /**

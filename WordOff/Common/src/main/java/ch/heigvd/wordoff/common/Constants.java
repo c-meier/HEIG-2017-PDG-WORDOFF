@@ -11,6 +11,8 @@ public interface Constants {
     int PLAYER_RACK_SIZE = 7;
     int SWAP_RACK_SIZE = 2;
 
+    int LAST_SLOT_BONUS = 10;
+
     String AUTHORIZATION_HEADER = "Authorization";
     String SERVER_ADDRESS = "localhost";
     int SERVER_PORT = 8080;

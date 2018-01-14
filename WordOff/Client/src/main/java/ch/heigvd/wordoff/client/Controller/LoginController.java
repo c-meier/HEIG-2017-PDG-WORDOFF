@@ -71,7 +71,12 @@ public class LoginController implements Initializable {
             try {
                 String name = userName.getText();
                 char[] pass = passWord.getText().toCharArray();
-                UserApi.signUp(new LoginDto(name, pass));
+                LoginDto loginDto = new LoginDto(name, pass);
+
+                UserApi.signUp(loginDto);
+                Dialog.getInstance().signalInformation("Utilisateur " + name + " créé!");
+                UserApi.signIn(loginDto);
+
                 handleGoToMainMenu();
             }catch(BadRequestException e){
                 Dialog.getInstance().signalInformation("Une erreur s'est produite " + e.getMessage());

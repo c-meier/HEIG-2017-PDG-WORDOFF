@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.client.Controller.MainMenuController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.client.Controller.MainMenuController">
    <top>
       <AnchorPane prefHeight="35.0" BorderPane.alignment="CENTER">
          <children>
@@ -49,6 +49,7 @@
                                     <MenuItem mnemonicParsing="false" onAction="#handleGotoInvitations" text="Notifications" />
                                  </items>
                               </Menu>
+                              <MenuItem mnemonicParsing="false" onAction="#handleLogout" text="Déconnection" />
                            </items>
                         </Menu>
                     </menus>

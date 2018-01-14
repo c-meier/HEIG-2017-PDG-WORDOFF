@@ -9,6 +9,7 @@ import ch.heigvd.wordoff.client.Logic.Game;
 import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.client.Util.Dialog;
 import ch.heigvd.wordoff.client.Util.ListCustom;
+import ch.heigvd.wordoff.client.Util.TokenManager;
 import ch.heigvd.wordoff.client.Util.UtilStringReference;
 import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
@@ -665,5 +666,15 @@ public class MainMenuController implements Initializable {
             ModeSummaryDto modeSummaryDto = listGamesTournamentsFriends.getDtos().get(listGamesTournamentsFriends.getListView().getSelectionModel().getSelectedIndex());
             playTournamentGame(modeSummaryDto);
         }
+    }
+
+    /**
+     * Log out the user
+     */
+    @FXML
+    private void handleLogout() {
+        TokenManager.deleteToken();
+        FXMLLoader loader = getLoader("/fxml/login.fxml");
+        changeScene(getScene(loader));
     }
 }

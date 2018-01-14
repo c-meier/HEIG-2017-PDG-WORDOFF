@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.*;
 
 public class TokenManager {
 
@@ -41,6 +42,20 @@ public class TokenManager {
             file.write(obj.toJSONString());
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void deleteToken() {
+        try {
+            Path path = FileSystems.getDefault().getPath(tokenFileName);
+            Files.delete(path);
+        } catch (NoSuchFileException x) {
+            System.err.format("%s: no such" + " file or directory%n", tokenFileName);
+        } catch (DirectoryNotEmptyException x) {
+            System.err.format("%s not empty%n", tokenFileName);
+        } catch (IOException x) {
+            // File permission problems are caught here.
+            System.err.println(x);
         }
     }
 }

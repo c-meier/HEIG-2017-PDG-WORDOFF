@@ -11,11 +11,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.*;
 
+/**
+ * Management class of the token. Load, save and delete a token.
+ */
 public class TokenManager {
 
+    // Token
     private static final String tokenFileName = "./token.json";
     private static final String tokenKey = "token";
 
+    /**
+     * Load a existing token of the current user
+     * @return token
+     * @throws TokenNotFoundException
+     */
     public static String loadToken() throws TokenNotFoundException {
         JSONParser parser = new JSONParser();
         String token = "";
@@ -34,6 +43,10 @@ public class TokenManager {
         return token;
     }
 
+    /**
+     * Save the token of the current connexion
+     * @param token token to save
+     */
     public static void saveToken(String token) {
         JSONObject obj = new JSONObject();
         obj.put(tokenKey, token);
@@ -45,6 +58,9 @@ public class TokenManager {
         }
     }
 
+    /**
+     * Delete the existing token save in memory
+     */
     public static void deleteToken() {
         try {
             Path path = FileSystems.getDefault().getPath(tokenFileName);

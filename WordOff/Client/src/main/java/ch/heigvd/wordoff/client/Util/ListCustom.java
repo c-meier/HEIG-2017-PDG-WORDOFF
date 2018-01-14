@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * List of ModeSummaryDto preconfigured for displaying games in the main menu
+ */
 public class ListCustom {
 
     private VBox vBox;
@@ -112,6 +115,9 @@ public class ListCustom {
         });
     }
 
+    /**
+     * Clear the content of the lists
+     */
     public void clear(){
         listDto.clear();
         listGames.clear();

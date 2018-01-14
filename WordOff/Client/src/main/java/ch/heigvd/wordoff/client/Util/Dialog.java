@@ -13,41 +13,43 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.awt.geom.Line2D;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 
+
+/**
+ * Utility Class for managing dialog windows.
+ * Works with the Singleton principe and propose different models.
+ */
 public class Dialog {
 
     /**
-     * Constructeur privé
+     * private constructor
      */
     private Dialog() {
     }
 
     /**
-     * Instance unique pré-initialisée
+     * Single instance of the classe
      */
     private static Dialog INSTANCE = new Dialog();
 
     /**
-     * Point d'accès pour l'instance unique du singleton
+     * Return the single instance of the classe
      */
     public static Dialog getInstance() {
         return INSTANCE;
     }
 
+    /**
+     * Apply the StyleSheet to dialog window
+     */
     private void applyStyleSheet(Alert alert) {
-        // Set Icon
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image(getClass().getResource("/images/icon.png").toExternalForm()));
-        //   stage.initStyle(StageStyle.UNDECORATED);
 
         DialogPane dialogPane = alert.getDialogPane();
         ObservableList<String> st = dialogPane.getStylesheets();
@@ -57,6 +59,11 @@ public class Dialog {
 
     }
 
+
+    /**
+     * Dialog to type error
+     * @param error error message to display
+     */
     public void signalError(String error) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -68,6 +75,10 @@ public class Dialog {
         alert.showAndWait();
     }
 
+    /**
+     * Dialog to type informations
+     * @param information information message to display
+     */
     public void signalInformation(String information) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
@@ -79,6 +90,11 @@ public class Dialog {
         alert.showAndWait();
     }
 
+    /**
+     * Dialog to type choice with simple message
+     * @param msg question to display
+     * @return the choice of user
+     */
     public boolean popUpYesNo(String msg) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Question");
@@ -100,7 +116,14 @@ public class Dialog {
     }
 
 
-
+    /**
+     * Dialog to type choice with more informations, title, content, typeChoice and choices
+     * @param title title of demand
+     * @param content content text
+     * @param typeChoice type of choice
+     * @param choices choices
+     * @return return choice of user
+     */
     public String choicesBoxDialog(String title, String content, String typeChoice, String ... choices){
         final String[] choose = {""};
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -110,14 +133,14 @@ public class Dialog {
         Label labelContent = new Label();
         labelContent.setText(content);
 
-        Label labLang = new Label();
-        labLang.setText(typeChoice);
+        Label labelTypeChoice = new Label();
+        labelTypeChoice.setText(typeChoice);
 
-        ChoiceBox<String> lang = new ChoiceBox<>();
+        ChoiceBox<String> choicesBox = new ChoiceBox<>();
         for(String choice : choices){
-            lang.getItems().add(choice);
+            choicesBox.getItems().add(choice);
         }
-        lang.getSelectionModel().selectFirst();
+        choicesBox.getSelectionModel().selectFirst();
 
         BorderPane borderPane = new BorderPane();
         FlowPane paneCenter = new FlowPane();
@@ -125,8 +148,8 @@ public class Dialog {
         borderPane.setTop(labelContent);
         borderPane.setCenter(paneCenter);
         borderPane.getCenter().setStyle("-fx-padding: 20,20,20,20");
-        paneCenter.getChildren().add(labLang);
-        paneCenter.getChildren().add(lang);
+        paneCenter.getChildren().add(labelTypeChoice);
+        paneCenter.getChildren().add(choicesBox);
 
         alert.getDialogPane().setContent(borderPane);
 
@@ -140,7 +163,7 @@ public class Dialog {
         alert.showAndWait();
 
         if (alert.getResult().getButtonData().getTypeCode() == yes.getButtonData().getTypeCode()) {
-            return lang.getSelectionModel().getSelectedItem().toString();
+            return choicesBox.getSelectionModel().getSelectedItem().toString();
         }
         return null;
     }
@@ -231,6 +254,10 @@ public class Dialog {
     }
 
 
+    /**
+     * Dialog to slect participants to a friendly tournament
+     * @return list of participant
+     */
     public List<String> getFriendlyTournamentParticipants() {
         final Stage popUp = new Stage();
         popUp.initOwner(MainApp.getStage());
@@ -259,10 +286,19 @@ public class Dialog {
 
     }
 
+    /**
+     * Dialog to report a cost error of a power
+     * @param power power causing the error
+     */
     public void signalPowerError(PowerDto power) {
         signalError(UtilStringReference.TOO_FEW_COINS + "Il vous en faut " + power.getCost() + ".");
     }
 
+    /**
+     * Dialog to confirm the payment of a power
+     * @param power power to want activate
+     * @return choice of user
+     */
     public boolean powerConfirm(PowerDto power) {
         return popUpYesNo("Ce pouvoir coûte " + power.getCost() + ". Êtes-vous sûrs de vouloir l'utiliser?");
     }

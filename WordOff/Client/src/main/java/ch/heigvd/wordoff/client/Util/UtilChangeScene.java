@@ -8,16 +8,31 @@ import javafx.scene.Scene;
 
 import java.io.IOException;
 
+/**
+ * Utility class for controllers. This class is a singleton and returns to the main menu
+ */
 public class UtilChangeScene {
 
+    /**
+     * private constructor
+     */
+    private UtilChangeScene(){}
+
+    /**
+     * Single instance of the classe
+     */
    private static UtilChangeScene INSTANCE = new UtilChangeScene();
 
-   private UtilChangeScene(){}
-
+    /**
+     * Return the single instance of the classe
+     */
    public static UtilChangeScene getInstance(){
        return INSTANCE;
    }
 
+    /**
+     * Loading the main menu window
+     */
    public void handleGotoMenu(){
        String controllerPath = "/fxml/mainMenu.fxml";
        FXMLLoader loader = new FXMLLoader(getClass().getResource(controllerPath));

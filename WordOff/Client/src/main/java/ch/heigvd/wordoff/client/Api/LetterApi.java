@@ -13,10 +13,18 @@ import java.util.Map;
 
 import static ch.heigvd.wordoff.common.Constants.SERVER_URI;
 
+/**
+ * Api used to get the letters of a language.
+ */
 public class LetterApi {
 
     private final static RestTemplate restTemplate = Api.getRestTemplate();
 
+    /**
+     * Retrieve the letters of a specific language
+     * @param lang The language
+     * @return The letters
+     */
     public static List<Character> retrieveLetters(String lang) {
         final String uri = SERVER_URI + "/letters/{lang}";
 

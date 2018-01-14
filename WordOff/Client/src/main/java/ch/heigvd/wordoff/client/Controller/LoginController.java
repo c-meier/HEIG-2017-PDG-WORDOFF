@@ -32,8 +32,6 @@ import java.util.ResourceBundle;
  */
 public class LoginController implements Initializable {
 
-    public static String currentUser = null;
-
     @FXML
     private TextField userName;
     @FXML
@@ -43,7 +41,6 @@ public class LoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }
 
     @FXML
@@ -54,7 +51,6 @@ public class LoginController implements Initializable {
                 char[] pass = passWord.getText().toCharArray();
 
                 UserApi.signIn(new LoginDto(name, pass));
-                currentUser = name;
                 handleGoToMainMenu();
             }catch(BadRequestException e){
                 e.printStackTrace();
@@ -75,13 +71,18 @@ public class LoginController implements Initializable {
             try {
                 String name = userName.getText();
                 char[] pass = passWord.getText().toCharArray();
-                UserApi.signUp(new LoginDto(name, pass));
+                LoginDto loginDto = new LoginDto(name, pass);
+
+                UserApi.signUp(loginDto);
+                Dialog.getInstance().signalInformation("Utilisateur " + name + " créé!");
+                UserApi.signIn(loginDto);
+
                 handleGoToMainMenu();
-            }catch(BadRequestException e){
+            }catch(BadRequestException e) {
                 Dialog.getInstance().signalInformation("Une erreur s'est produite " + e.getMessage());
                 //e.printStackTrace();
             }catch(UnprocessableEntityException e) {
-                Dialog.getInstance().signalInformation("Une erreur s'est produite " + e.getMessage());
+                Dialog.getInstance().signalInformation("L'utilisateur existe déjà! Veuillez entrer un autre nom.");
                 //e.printStackTrace();
             }catch(HTTPException e){
                // e.printStackTrace();
@@ -94,7 +95,7 @@ public class LoginController implements Initializable {
 
     private boolean nameAndPasswordIsEmpty(){
         if(userName.getText().isEmpty() || passWord.getText().isEmpty()) {
-            Dialog.getInstance().signalInformation("Please enter your userName and passWord");
+            Dialog.getInstance().signalInformation("Entrez un nom d'utilisateur et un mot de passe!");
             return true;
         }
         return false;

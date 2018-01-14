@@ -9,12 +9,15 @@ import ch.heigvd.wordoff.client.Logic.Game;
 import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.client.Util.Dialog;
 import ch.heigvd.wordoff.client.Util.ListCustom;
+import ch.heigvd.wordoff.client.Util.TokenManager;
 import ch.heigvd.wordoff.client.Util.UtilStringReference;
 import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
 import ch.heigvd.wordoff.common.Dto.MeDto;
 import ch.heigvd.wordoff.common.Dto.Mode.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,6 +34,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import javax.xml.ws.http.HTTPException;
@@ -102,6 +106,9 @@ public class MainMenuController implements Initializable {
     private Label labelInvitation;
 
     private MeDto meDto;
+
+    @FXML
+    private Timeline UIrefresher;
 
     // Handler to go to a game
     private EventHandler<MouseEvent> eventGoToGame = new EventHandler<MouseEvent>() {
@@ -194,6 +201,8 @@ public class MainMenuController implements Initializable {
 
     // Envoi la scène au MainApp pour changer la scene dans le stage
     private void changeScene(Scene scene) {
+        UIrefresher.stop();
+        UIrefresher = null;
         MainApp.changeScene(scene);
     }
 
@@ -227,11 +236,31 @@ public class MainMenuController implements Initializable {
      * retrieving a MeDto and setting all handlers to correct lists
      */
     public void setState() {
+
+        UIrefresher = new Timeline(new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    meDto = MeApi.getCurrentUser();
+                    listGamesDuel.clear();
+                    listGamesDuelFinish.clear();
+                    listGamesDuelWait.clear();
+                    listGamesTournamentCompetition.clear();
+                    listGamesTournamentsFriends.clear();
+                    sortGames();
+                } catch (TokenNotFoundException e) {
+                    Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
+                }
+            }
+        }));
+        UIrefresher.setCycleCount(Timeline.INDEFINITE);
+        UIrefresher.play();
+
         try {
             meDto = MeApi.getCurrentUser();
             labelInvitation.setText(String.valueOf((Api.get(meDto.getInvitations())).size()) + " notifications");
         } catch (TokenNotFoundException e) {
-            e.printStackTrace();
+            Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
         }
 
         // Créations des listes et de leurs listener
@@ -502,7 +531,7 @@ public class MainMenuController implements Initializable {
         int myScore = 0;
         //Find my score in global scores
         for (TournamentModeDto.UserScore us : globalScores) {
-            if (us.getUser().getName().equals(LoginController.currentUser)) {
+            if (us.getUser().getName().equals(meDto.getSelf().getName())) {
                 myScore = us.getScore();
                 break;
             }
@@ -511,7 +540,7 @@ public class MainMenuController implements Initializable {
         int myRank = 1;
         //Find players with higher scores than mine
         for (TournamentModeDto.UserScore us : globalScores) {
-            if (!(us.getUser().getName().equals(LoginController.currentUser))) {
+            if (!(us.getUser().getName().equals(meDto.getSelf().getName()))) {
                 if (us.getScore() > myScore) {
                     myRank++;
                 }
@@ -536,7 +565,7 @@ public class MainMenuController implements Initializable {
             TitledPane dayTitlePane = accordion.getPanes().get(i);
             int myCurrentDayScore = 0;
             for (TournamentModeDto.UserScore us : dailyScores) {
-                if (us.getUser().getName().equals(LoginController.currentUser)) {
+                if (us.getUser().getName().equals(meDto.getSelf().getName())) {
                     myCurrentDayScore = us.getScore();
                     break;
                 }
@@ -637,5 +666,15 @@ public class MainMenuController implements Initializable {
             ModeSummaryDto modeSummaryDto = listGamesTournamentsFriends.getDtos().get(listGamesTournamentsFriends.getListView().getSelectionModel().getSelectedIndex());
             playTournamentGame(modeSummaryDto);
         }
+    }
+
+    /**
+     * Log out the user
+     */
+    @FXML
+    private void handleLogout() {
+        TokenManager.deleteToken();
+        FXMLLoader loader = getLoader("/fxml/login.fxml");
+        changeScene(getScene(loader));
     }
 }

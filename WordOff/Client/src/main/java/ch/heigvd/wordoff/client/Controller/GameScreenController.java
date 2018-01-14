@@ -65,7 +65,7 @@ public class GameScreenController implements Initializable {
     private List<Character> alphabet;
 
     @FXML
-    private Label p1Name, p2Name, coinLabel;
+    private Label p1Name, p2Name, coinLabel, labelScorePlayer, labelScoreAdversary;
     @FXML
     private Button shuffleButton;
     @FXML
@@ -202,7 +202,7 @@ public class GameScreenController implements Initializable {
         this.dico = dicoLoad.getDico(this.game.getLang());
 
         //Create UI refresh thread
-        UIrefresher = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+        UIrefresher = new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
@@ -410,6 +410,10 @@ public class GameScreenController implements Initializable {
             return;
         }
         if(!Dialog.getInstance().powerConfirm(PowerDto.HINT)) {
+            return;
+        }
+        if(!game.isMyTurn()){
+            Dialog.getInstance().signalError("Ce n'est pas votre tour.");
             return;
         }
         if (me.getCoins() >= PowerDto.HINT.getCost()) {
@@ -756,6 +760,8 @@ public class GameScreenController implements Initializable {
         setTiles(this.game.getMySide().getPlayerRack().getTiles(), p1TilesPr, true);
         // Set coins
         coinLabel.setText(String.valueOf(me.getCoins()));
+        labelScorePlayer.setText(game.getOtherSide().getScore() + " pts");
+        labelScoreAdversary.setText(game.getMySide().getScore() + " pts");
         if (otherSide == null) {
             setVisible(p2TilesPr, false);
         } else {

@@ -78,11 +78,11 @@ public class LoginController implements Initializable {
                 UserApi.signIn(loginDto);
 
                 handleGoToMainMenu();
-            }catch(BadRequestException e){
+            }catch(BadRequestException e) {
                 Dialog.getInstance().signalInformation("Une erreur s'est produite " + e.getMessage());
                 //e.printStackTrace();
             }catch(UnprocessableEntityException e) {
-                Dialog.getInstance().signalInformation("Une erreur s'est produite " + e.getMessage());
+                Dialog.getInstance().signalInformation("L'utilisateur existe déjà! Veuillez entrer un autre nom.");
                 //e.printStackTrace();
             }catch(HTTPException e){
                // e.printStackTrace();
@@ -95,7 +95,7 @@ public class LoginController implements Initializable {
 
     private boolean nameAndPasswordIsEmpty(){
         if(userName.getText().isEmpty() || passWord.getText().isEmpty()) {
-            Dialog.getInstance().signalInformation("Please enter your userName and passWord");
+            Dialog.getInstance().signalInformation("Entrez un nom d'utilisateur et un mot de passe!");
             return true;
         }
         return false;

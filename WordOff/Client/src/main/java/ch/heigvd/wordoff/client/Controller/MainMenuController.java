@@ -386,7 +386,13 @@ public class MainMenuController implements Initializable {
                         if (result != null) {
                             dto.addParticpant(result);
                             dto.setName(result);
-                            ModeSummaryDto modeSummaryDto = ModeApi.createMode(dto);
+                            ModeSummaryDto modeSummaryDto = null;
+                            try{
+                                modeSummaryDto = ModeApi.createMode(dto);
+                            } catch (HTTPException h) {
+                                Dialog.getInstance().signalError(UtilStringReference.PLAYER_NOT_FOUND);
+                                return;
+                            }
                             if (modeSummaryDto.isActive()) {
                                 listGamesDuel.addGame(modeSummaryDto);
                             } else {

@@ -70,7 +70,6 @@ public class ModeController {
 
         ModeSummaryDto modeSummaryDto = DtoFactory.createSummaryFrom(mode, player);
 
-        // TODO -> discussion, le mode n'est pas tjrs créer, parfois ou plutôt souvent, l'utilisateur rejoindra un mode. Laissons-nous le status CREATED ?
         return new ResponseEntity<>(modeSummaryDto, HttpStatus.CREATED);
     }
 

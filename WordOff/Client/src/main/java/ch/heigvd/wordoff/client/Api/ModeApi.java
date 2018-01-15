@@ -16,18 +16,38 @@ import java.util.Map;
 import static ch.heigvd.wordoff.common.Constants.AUTHORIZATION_HEADER;
 import static ch.heigvd.wordoff.common.Constants.SERVER_URI;
 
+/**
+ * Api that holds the calls to handle the differents modes.
+ */
 public class ModeApi {
 
     private final static RestTemplate restTemplate = Api.getRestTemplate();
 
+    /**
+     * Retrieve the list of the user's modes
+     * @return The modes
+     * @throws TokenNotFoundException If the user is not logged in
+     */
     public static List<ModeSummaryDto> retrieveModes() throws TokenNotFoundException {
         return retrieveModes(TokenManager.loadToken());
     }
 
+    /**
+     * Create a new mode
+     * @param modeDto The new mode
+     * @return The summary of the mode created
+     * @throws TokenNotFoundException If the user is not logged in
+     */
     public static ModeSummaryDto createMode(CreateModeDto modeDto) throws TokenNotFoundException {
         return createMode(TokenManager.loadToken(), modeDto);
     }
 
+    /**
+     * Get a specific mode
+     * @param endpoint The endpoint the get the mode
+     * @return The mode
+     * @throws TokenNotFoundException If the user is not logged in
+     */
     public static ModeDto getMode(String endpoint) throws TokenNotFoundException {
         return getMode(TokenManager.loadToken(), endpoint);
     }

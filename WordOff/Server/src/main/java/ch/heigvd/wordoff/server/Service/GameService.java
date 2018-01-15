@@ -393,7 +393,13 @@ public class GameService {
         List<Answer> opponentAnswers = game.getSideOfPlayer(game.getOtherPlayer(player)).getAnswers();
         if(game.getBag().getTiles().isEmpty() && opponentAnswers.get(opponentAnswers.size() - 1).getChallenge().getSlots().get(0).isEmpty()) {
 
-            // TODO ajuster les classements des joueurs, donner une récompense en pièces ?
+            // donner des récompenses en pièces
+            Player winner = game.getSideInit().getScore() > game.getSideResp().getScore() ?
+                    game.getSideInit().getPlayer() : game.getSideResp().getPlayer();
+            if (winner instanceof User) {
+                ((User) winner).setCoins(((User) winner).getCoins() + 20);
+                playerRepository.save(winner);
+            }
 
             // If the player beats the AI in a tournament mode, + 50 points to his score
             int playerScore = game.getSideInit().getScore();

@@ -11,6 +11,10 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Main entry point for the WordOff client. Used to launch the initial Scene,
+ * the login screen.
+ */
 public class MainApp extends Application {
 
     private static Stage stage;
@@ -43,7 +47,7 @@ public class MainApp extends Application {
         launch(args);
     }
 
-    private void applyStyleSheet(Parent root){
+    private void applyStyleSheet(Parent root) {
         root.getStylesheets().add(
                 getClass().getResource("/styles/Style_window.css").toExternalForm());
         root.getStyleClass().add("rootPane");
@@ -59,11 +63,21 @@ public class MainApp extends Application {
         }
     }
 
-    public static void changeScene(Scene scene){
+    /**
+     * Allows changing the current Scene on the Stage
+     *
+     * @param scene a Scene
+     */
+    public static void changeScene(Scene scene) {
         stage.setScene(scene);
     }
-    
-    public static Stage getStage(){
+
+    /**
+     * Retrieves the current Stage
+     *
+     * @return the current Stage
+     */
+    public static Stage getStage() {
         return stage;
     }
 

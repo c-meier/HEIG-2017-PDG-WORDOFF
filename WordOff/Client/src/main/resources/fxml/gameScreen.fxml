@@ -22,7 +22,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.client.Controller.GameScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.heigvd.wordoff.client.Controller.GameScreenController">
    <center>
       <SplitPane dividerPositions="0.6714922048997772" BorderPane.alignment="CENTER">
         <items>
@@ -50,7 +50,12 @@
                            <children>
                             <AnchorPane styleClass="backgroundGame_withoutShadow" stylesheets="@../styles/Styles.css">
                                  <children>
-                                    <ImageView id="languageFlag" fx:id="flag" fitHeight="42.0" fitWidth="56.0" layoutX="77.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView id="languageFlag" fx:id="flag" fitHeight="28.0" fitWidth="44.0" layoutX="82.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/fr.png" />
+                                       </image></ImageView>
+                                    <Label fx:id="labelScoreAdversary" layoutX="14.0" layoutY="4.0" styleClass="labelParam" stylesheets="@../styles/Style_toolBarBottom.css" text="400 pts" />
+                                    <Label fx:id="labelScorePlayer" layoutX="137.0" layoutY="39.0" styleClass="labelParam" stylesheets="@../styles/Style_toolBarBottom.css" text="400 pts" />
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="-Infinity" styleClass="backgroundGame_withoutShadow" stylesheets="@../styles/Styles.css" GridPane.columnIndex="1">
@@ -716,7 +721,8 @@
                   <Button mnemonicParsing="false" onAction="#handleGotoMenu" text="Retour">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Button>
+                     </cursor>
+                  </Button>
                </graphic>
           </Menu>
         </menus>
@@ -758,7 +764,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#peek" onMouseClicked="#peek" text="Aperçu">
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#peek" text="Aperçu">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -774,11 +780,7 @@
             </AnchorPane>
             <AnchorPane GridPane.columnIndex="1">
                <children>
-                  <ToolBar stylesheets="@../styles/Style_toolBarBottom.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <items>
-                        <Button mnemonicParsing="false" onAction="#refresh" text="Refresh" />
-                     </items>
-                  </ToolBar>
+                  <ToolBar stylesheets="@../styles/Style_toolBarBottom.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
          </children>

@@ -262,4 +262,8 @@ public class Dialog {
     public void signalPowerError(PowerDto power) {
         signalError(UtilStringReference.TOO_FEW_COINS + "Il vous en faut " + power.getCost() + ".");
     }
+
+    public boolean powerConfirm(PowerDto power) {
+        return popUpYesNo("Ce pouvoir coûte " + power.getCost() + ". Êtes-vous sûrs de vouloir l'utiliser?");
+    }
 }

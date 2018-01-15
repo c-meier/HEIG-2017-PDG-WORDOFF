@@ -28,24 +28,22 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * FXML Controller class
- *
- * @author Gabriel Luthier
+ * JavaFX controller for the invitations screen.
  */
 public class InvitationsController implements Initializable {
 
     @FXML
     ListView<InvitationDto> listNewInvitation;
     @FXML
-    ListView<InvitationDto> listAcceptInvitation;
-    @FXML
-    ListView<InvitationDto> listRefusedInvitation;
+    ListView<InvitationDto> listNewAlerts;
 
     private MeDto meDto;
     private List<InvitationDto> invitations = new LinkedList<>();
 
-
-
+    /**
+     * Returns to main menu.
+     * @param event
+     */
     @FXML
     private void handleGotoMenu(ActionEvent event) {
         UtilChangeScene.getInstance().handleGotoMenu();
@@ -59,37 +57,25 @@ public class InvitationsController implements Initializable {
         try {
             meDto = MeApi.getCurrentUser();
             invitations = Api.get(meDto.getInvitations());
-
         } catch (TokenNotFoundException e) {
             Dialog.getInstance().signalError("Impossible de récupérer les données du profil");
         }
         listNewInvitation.setCellFactory(param -> new InvitationDtoListCellNew());
-        listAcceptInvitation.setCellFactory(param -> new InvitationDtoListCell());
-        listRefusedInvitation.setCellFactory(param -> new InvitationDtoListCell());
+        listNewAlerts.setCellFactory(param -> new InvitationDtoListCell());
 
-        for(InvitationDto iDto : invitations){
-            switch(iDto.getStatus()){
-                case ACCEPT:
-                    listAcceptInvitation.getItems().add(iDto);
-                    break;
-                case DENY:
-                    listRefusedInvitation.getItems().add(iDto);
-                    break;
-                case WAITING:
-                    listNewInvitation.getItems().add(iDto);
-                    break;
-                case ORIGIN:
-                    break;
-            }
-        }
+        listNewInvitation.getItems().addAll(invitations);
 
     }
 
-    private class InvitationDtoListCellNew extends ListCell<InvitationDto>{
+    /**
+     * Invitations list nested class. Allows custom list cells to be used.
+     */
+    private class InvitationDtoListCellNew extends ListCell<InvitationDto> {
         private GridPane grid;
         private Button accept, decline;
         private Label inviteName;
-        public InvitationDtoListCellNew(){
+
+        public InvitationDtoListCellNew() {
             grid = new GridPane();
             accept = new Button("Accepter");
             decline = new Button("Decliner");
@@ -110,10 +96,15 @@ public class InvitationsController implements Initializable {
             grid.add(decline, 2, 0);
         }
 
+        /**
+         * Update method called when modifying the list.
+         * @param iDto an InvitationDto
+         * @param empty true if new cell is empty
+         */
         @Override
-        public void updateItem(InvitationDto iDto, boolean empty){
+        public void updateItem(InvitationDto iDto, boolean empty) {
             super.updateItem(iDto, empty);
-            if(empty){
+            if (empty) {
                 setText(null);
                 setGraphic(null);
             } else {
@@ -140,11 +131,14 @@ public class InvitationsController implements Initializable {
         }
     }
 
+    /**
+     * Custom cell for nested list class
+     */
     private class InvitationDtoListCell extends ListCell<InvitationDto> {
         @Override
-        public void updateItem(InvitationDto iDto, boolean empty){
+        public void updateItem(InvitationDto iDto, boolean empty) {
             super.updateItem(iDto, empty);
-            if(empty){
+            if (empty) {
                 setText(null);
                 setGraphic(null);
             } else {
@@ -156,14 +150,14 @@ public class InvitationsController implements Initializable {
 
     /**
      * Accepts an invite and sends updated DTO to server
-     * @param iDto
+     *
+     * @param iDto an InvitationDto
      */
     private void acceptInvite(InvitationDto iDto) {
         iDto.setStatus(InvitationStatus.ACCEPT);
         try {
             Api.put(iDto);
             listNewInvitation.getItems().remove(iDto);
-            listAcceptInvitation.getItems().add(iDto);
         } catch (TokenNotFoundException e) {
             e.printStackTrace();
         }
@@ -171,18 +165,17 @@ public class InvitationsController implements Initializable {
 
     /**
      * Declines an invite and sends updated DTO to server
-     * @param iDto
+     *
+     * @param iDto an InvitationDto
      */
     private void declineInvite(InvitationDto iDto) {
         iDto.setStatus(InvitationStatus.DENY);
         try {
             Api.put(iDto);
             listNewInvitation.getItems().remove(iDto);
-            listRefusedInvitation.getItems().add(iDto);
         } catch (TokenNotFoundException e) {
             e.printStackTrace();
         }
     }
-
 
 }

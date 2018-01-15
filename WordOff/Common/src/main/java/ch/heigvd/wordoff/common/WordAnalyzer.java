@@ -29,6 +29,9 @@ public class WordAnalyzer {
     public static List<ITile> getHint(Dictionary dico, IChallenge challIn, IRack plRackIn, List<ITile> beginsWith) {
         IChallenge challenge = challIn.duplicate();
         List<Pair<Integer, List<ITile>>> bestWords = getWordsByScore(dico, challIn, plRackIn);
+        if(bestWords.isEmpty()) {
+            return new ArrayList<>();
+        }
         List<ITile> bestWord = bestWords.get(bestWords.size() - 1).getValue();
         List<ITile> result = new ArrayList<>(beginsWith);
 

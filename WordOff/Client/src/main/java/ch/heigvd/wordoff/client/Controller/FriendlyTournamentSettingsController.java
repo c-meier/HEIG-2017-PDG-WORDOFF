@@ -23,6 +23,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+/**
+ * JavaFX controller for the friendly tournament settings window.
+ */
 public class FriendlyTournamentSettingsController implements Initializable {
 
     @FXML
@@ -51,29 +54,39 @@ public class FriendlyTournamentSettingsController implements Initializable {
     EventHandler<MouseEvent> addToParticipantsHandler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-            ListView lv = (ListView)event.getSource();
-            if(event.getClickCount() == 2){
-                String s = (String)lv.getSelectionModel().getSelectedItem();
-                if(!participantsList.getItems().contains(s)){
+            ListView lv = (ListView) event.getSource();
+            if (event.getClickCount() == 2) {
+                String s = (String) lv.getSelectionModel().getSelectedItem();
+                if (!participantsList.getItems().contains(s)) {
                     participantsList.getItems().add(s);
                 }
             }
         }
     };
 
+    /**
+     * Cancel tournament and close window
+     * @param event Click event
+     */
     @FXML
     void closeWindow(MouseEvent event) {
         cancel();
     }
 
+    /**
+     * Used to cancel tournament creation
+     */
     private void cancel() {
-        Stage stage = (Stage)confirmButton.getScene().getWindow();
+        Stage stage = (Stage) confirmButton.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Called when initializing a JavaFX controller
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        cancelButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        cancelButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 cancel();
@@ -84,7 +97,7 @@ public class FriendlyTournamentSettingsController implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 participants.addAll(participantsList.getItems());
-                Stage stage = (Stage)confirmButton.getScene().getWindow();
+                Stage stage = (Stage) confirmButton.getScene().getWindow();
                 stage.close();
             }
         });
@@ -92,7 +105,7 @@ public class FriendlyTournamentSettingsController implements Initializable {
         addButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(nameTextField.getText() != null && !nameTextField.getText().equals("")){
+                if (nameTextField.getText() != null && !nameTextField.getText().equals("")) {
                     participantsList.getItems().add(nameTextField.getText());
                     nameTextField.clear();
                 }
@@ -104,7 +117,7 @@ public class FriendlyTournamentSettingsController implements Initializable {
         participantsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(event.getClickCount() == 2){
+                if (event.getClickCount() == 2) {
                     participantsList.getItems().remove(participantsList.getSelectionModel().getSelectedItem());
                 }
             }
@@ -115,8 +128,8 @@ public class FriendlyTournamentSettingsController implements Initializable {
             MeDto meDto = MeApi.getCurrentUser();
             List<RelatedUserSummaryDto> rusDtos = Api.get(meDto.getRelations());
             List<UserSummaryDto> recentOpponents = Api.get(meDto.getAdversaries());
-            for(RelatedUserSummaryDto r : rusDtos){
-                if(r.getRelation().getStatus().equals(RelationStatus.FRIEND)){
+            for (RelatedUserSummaryDto r : rusDtos) {
+                if (r.getRelation().getStatus().equals(RelationStatus.FRIEND)) {
                     friendsList.getItems().add(r.getName());
                 }
             }
@@ -126,7 +139,11 @@ public class FriendlyTournamentSettingsController implements Initializable {
         }
     }
 
-    public List<String> getParticipants(){
+    /**
+     * Returns participants as String list
+     * @return list of participants, empty if no other users participating
+     */
+    public List<String> getParticipants() {
         return participants;
     }
 

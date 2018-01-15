@@ -3,23 +3,16 @@ package ch.heigvd.wordoff.client.Controller;
 import ch.heigvd.wordoff.client.Api.*;
 import ch.heigvd.wordoff.client.Exception.TokenNotFoundException;
 import ch.heigvd.wordoff.client.Exception.UnauthorizedException;
-import ch.heigvd.wordoff.client.Exception.*;
-import ch.heigvd.wordoff.client.MainApp;
-import ch.heigvd.wordoff.client.Logic.Game;
 import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.client.Util.Dialog;
 import ch.heigvd.wordoff.client.Util.ListCustom;
 import ch.heigvd.wordoff.client.Util.TokenManager;
 import ch.heigvd.wordoff.client.Util.UtilStringReference;
-import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
-import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
 import ch.heigvd.wordoff.common.Dto.MeDto;
 import ch.heigvd.wordoff.common.Dto.Mode.*;
-import ch.heigvd.wordoff.common.Dto.User.PlayerDto;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -32,26 +25,21 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import javax.xml.ws.http.HTTPException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-import static ch.heigvd.wordoff.common.Constants.*;
+import static ch.heigvd.wordoff.common.Constants.MAX_GAMES_PER_DAY;
+import static ch.heigvd.wordoff.common.Constants.MAX_USER_IN_TOURNAMENT;
 
 /**
  * JavaFX controller for the main menu screen.
  */
 public class MainMenuController implements Initializable {
-    // Classe de test
-    private Game gameTest = new Game();
-    private GameDto gameTestDto = gameTest.getGameDto();
 
     // GameDto selected to list
     private GameDto selectGame = null;
@@ -147,7 +135,7 @@ public class MainMenuController implements Initializable {
      * Goes to current game (selectedGame attribute)
      */
     private void handleGotoGame() {
-        if(selectGame != null && !selectGame.isEnded()){
+        if (selectGame != null && !selectGame.isEnded()) {
             FXMLLoader loader = getLoader("/fxml/gameScreen.fxml");
             Scene scene = getScene(loader);
 
@@ -156,13 +144,14 @@ public class MainMenuController implements Initializable {
             controller.setAlphabet(LetterApi.retrieveLetters(selectGame.getLang()));
 
             changeScene(scene);
-        }else{
+        } else {
             Dialog.getInstance().signalError("Cette partie est déjà terminée.");
         }
     }
 
     /**
      * Goes to messages screen.
+     *
      * @param event
      */
     @FXML
@@ -173,6 +162,7 @@ public class MainMenuController implements Initializable {
 
     /**
      * Goes to settings screen
+     *
      * @param event
      */
     @FXML
@@ -183,6 +173,7 @@ public class MainMenuController implements Initializable {
 
     /**
      * Goes to invitations screen
+     *
      * @param event
      */
     @FXML
@@ -247,8 +238,10 @@ public class MainMenuController implements Initializable {
                     listGamesDuelFinish.clear();
                     listGamesDuelWait.clear();
                     listGamesTournamentCompetition.clear();
+                    int selectedFriendIndex = listGamesTournamentsFriends.getListView().getSelectionModel().getSelectedIndex();
                     listGamesTournamentsFriends.clear();
                     sortGames();
+                    listGamesTournamentsFriends.getListView().getSelectionModel().select(selectedFriendIndex);
                 } catch (TokenNotFoundException e) {
                     Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
                 }
@@ -387,7 +380,7 @@ public class MainMenuController implements Initializable {
                             dto.addParticpant(result);
                             dto.setName(result);
                             ModeSummaryDto modeSummaryDto = null;
-                            try{
+                            try {
                                 modeSummaryDto = ModeApi.createMode(dto);
                             } catch (HTTPException h) {
                                 Dialog.getInstance().signalError(UtilStringReference.PLAYER_NOT_FOUND);
@@ -474,37 +467,32 @@ public class MainMenuController implements Initializable {
 
     /**
      * Allows user to go to a game using the handleGoToGame method.
+     *
      * @param games ListView of games
      */
     @FXML
     private void goToGame(ListView games) {
-
-        // Partie de test static
-        if (games.getSelectionModel().getSelectedItem().equals("Game Test Static")) {
-            selectGame = gameTest.getGameDto();
-            handleGotoGame();
+        // Partie venant du serveur
+        String endpoint = null;
+        if (listGamesDuel.getListView().equals(games)) {
+            endpoint = listGamesDuel.getDtos().get(games.getSelectionModel().getSelectedIndex()).getEndpoint();
+        } else if (listGamesDuelWait.getListView().equals(games)) {
+            endpoint = listGamesDuelWait.getDtos().get(games.getSelectionModel().getSelectedIndex()).getEndpoint();
         } else {
-            // Partie venant du serveur
-            String endpoint = null;
-            if (listGamesDuel.getListView().equals(games)) {
-                endpoint = listGamesDuel.getDtos().get(games.getSelectionModel().getSelectedIndex()).getEndpoint();
-            } else if (listGamesDuelWait.getListView().equals(games)) {
-                endpoint = listGamesDuelWait.getDtos().get(games.getSelectionModel().getSelectedIndex()).getEndpoint();
-            } else {
-                endpoint = listGamesDuelFinish.getDtos().get(games.getSelectionModel().getSelectedIndex()).getEndpoint();
-            }
-            try {
-                ModeDto mode = ModeApi.getMode(endpoint);
-                if (mode.getGame() != null && !mode.getName().equalsIgnoreCase("pas encore d'adversaire")) {
-                    selectGame = GameApi.getGame(mode.getGame().getId());
-                    handleGotoGame();
-                } else {
-                    Dialog.getInstance().signalInformation("Pas encore d'adversaire pour cette partie.");
-                }
-            } catch (TokenNotFoundException e) {
-                Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
-            }
+            endpoint = listGamesDuelFinish.getDtos().get(games.getSelectionModel().getSelectedIndex()).getEndpoint();
         }
+        try {
+            ModeDto mode = ModeApi.getMode(endpoint);
+            if (mode.getGame() != null && !mode.getName().equalsIgnoreCase("pas encore d'adversaire")) {
+                selectGame = GameApi.getGame(mode.getGame().getId());
+                handleGotoGame();
+            } else {
+                Dialog.getInstance().signalInformation("Pas encore d'adversaire pour cette partie.");
+            }
+        } catch (TokenNotFoundException e) {
+            Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
+        }
+
     }
 
     /**
@@ -592,6 +580,7 @@ public class MainMenuController implements Initializable {
 
     /**
      * Shows details of a friendly tournament
+     *
      * @param list
      */
     private void showDetailsTournamentFriends(ListView list) {
@@ -638,10 +627,10 @@ public class MainMenuController implements Initializable {
             if (tmDto.getGame() == null) {
                 this.selectGame = Api.post(tmDto.getGames(), null, GameDto.class);
             } else {
-                if(tmDto.getGame().isEnded()){
-                    if(tmDto.getNbGameRemaining() > 0){
+                if (tmDto.getGame().isEnded()) {
+                    if (tmDto.getNbGameRemaining() > 0) {
                         boolean result = Dialog.getInstance().popUpYesNo("Utiliser une tentative et réessayer?");
-                        if(!result){
+                        if (!result) {
                             return;
                         } else {
                             this.selectGame = Api.post(tmDto.getGames(), null, GameDto.class);
@@ -649,14 +638,14 @@ public class MainMenuController implements Initializable {
                     } else {
                         Dialog.getInstance().signalError("Vous n'avez plus de tentatives pour aujourd'hui!");
                     }
-                }else{
+                } else {
                     this.selectGame = GameApi.getGame(tmDto.getGame().getId());
                 }
             }
             handleGotoGame();
         } catch (TokenNotFoundException e) {
             Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);
-        } catch (Exception e){
+        } catch (Exception e) {
             Dialog.getInstance().signalError(e.getMessage());
         }
 

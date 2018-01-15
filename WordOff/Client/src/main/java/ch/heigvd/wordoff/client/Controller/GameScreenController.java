@@ -1,22 +1,27 @@
 package ch.heigvd.wordoff.client.Controller;
 
+import ch.heigvd.wordoff.client.Api.Api;
 import ch.heigvd.wordoff.client.Api.GameApi;
+import ch.heigvd.wordoff.client.Api.MeApi;
 import ch.heigvd.wordoff.client.Exception.TokenNotFoundException;
 import ch.heigvd.wordoff.client.Exception.UnprocessableEntityException;
 import ch.heigvd.wordoff.client.MainApp;
 import ch.heigvd.wordoff.client.Util.Dialog;
 import ch.heigvd.wordoff.client.Util.UtilChangeScene;
+import ch.heigvd.wordoff.client.Util.UtilStringReference;
 import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dictionary;
 import ch.heigvd.wordoff.common.DictionaryLoader;
-import ch.heigvd.wordoff.common.Dto.Game.ChallengeDto;
-import ch.heigvd.wordoff.common.Dto.Game.GameDto;
+import ch.heigvd.wordoff.common.Dto.Game.*;
 import ch.heigvd.wordoff.common.Dto.Game.Slots.L2SlotDto;
 import ch.heigvd.wordoff.common.Dto.Game.Slots.L3SlotDto;
 import ch.heigvd.wordoff.common.Dto.Game.Slots.LastSlotDto;
 import ch.heigvd.wordoff.common.Dto.Game.Slots.SwapSlotDto;
+import ch.heigvd.wordoff.common.Dto.MeDto;
+import ch.heigvd.wordoff.common.IModel.IChallenge;
 import ch.heigvd.wordoff.common.IModel.ISlot;
 import ch.heigvd.wordoff.common.IModel.ITile;
+import ch.heigvd.wordoff.common.WordAnalyzer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -39,10 +44,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -52,15 +54,21 @@ import java.util.logging.Logger;
 public class GameScreenController implements Initializable {
 
     private GameDto game;
+    private MeDto me;
+    private SideDto otherSide;
+
     private List<Character> alphabet;
+
     @FXML
-    private Label p1Name, p2Name;
+    private Label p1Name, p2Name, coinLabel;
     @FXML
     private Button shuffleButton;
     @FXML
     private Button discardButton;
     @FXML
     private Button playButton;
+    @FXML
+    private Button wordalyserButton;
     @FXML
     private Label tilesRemaining;
     @FXML
@@ -73,6 +81,8 @@ public class GameScreenController implements Initializable {
     private CheckBox checkWordAlyzer;
     @FXML
     private Circle circle1WordAlyzer, circle2WordAlyzer, circle3WordAlyzer, circle4WordAlyzer, circle5WordAlyzer;
+    @FXML
+    private AnchorPane pane;
 
     private int numberTilesOnChallengeRack = 0;
     // Listes Player 1
@@ -159,9 +169,21 @@ public class GameScreenController implements Initializable {
         this.game = game;
         setNumberOfTiles();
         setLang();
+        try {
+            me = MeApi.getCurrentUser();
+        } catch (TokenNotFoundException e) {
+            Dialog.getInstance().signalError("Une erreur s'est produite. Veuillez vous reconnecter");
+        }
         setState(this.game);
+        //If wordalyser isn't activated, hide it, else hide activation button
+        if(!game.isWordanalyser()){
+            pane.setVisible(false);
+        }else{
+            wordalyserButton.setVisible(false);
+        }
         DictionaryLoader dicoLoad = new DictionaryLoader();
         this.dico = dicoLoad.getDico(this.game.getLang());
+
     }
 
     private void setLang() {
@@ -211,10 +233,38 @@ public class GameScreenController implements Initializable {
 
     @FXML
     private void discardOrPasse() {
-        if (discardButton.getText().equals("Jeter")) {
-            discard();
-        } else {
-            // TODO demande au serveur pour passer
+        if(discardButton.getText().equals("Jeter")){ //Suggest discard
+            String choice = Dialog.getInstance().choicesBoxDialog("Jeter", "Jeter combien de tuiles?",
+                    "Jeter: ", "Toutes", "Deux");
+            if(choice != null){
+                if(choice.equals("Deux")){ //Discard two
+                    try {
+                        Api.post(game.getPowers(), PowerDto.DISCARD_2);
+                        refresh();
+                    } catch (TokenNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                } else { //Discard all
+                    if(me.getCoins() >= PowerDto.DISCARD_ALL.getCost()){
+                        try {
+                            Api.post(game.getPowers(), PowerDto.DISCARD_ALL);
+                            refresh();
+                        } catch (TokenNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }else{
+                        Dialog.getInstance().signalPowerError(PowerDto.DISCARD_ALL);
+                    }
+                }
+            }
+        }else{ //Pass turn
+            try {
+                Api.post(game.getPowers(), PowerDto.PASS);
+                refresh();
+            } catch (TokenNotFoundException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
@@ -230,40 +280,108 @@ public class GameScreenController implements Initializable {
 
     @FXML
     private void peek() {
-        // TODO test confirmation du hint côté serveur et réception du rack à afficher
-        /*
-        if(   ){
-            setTiles(game.getOtherSide().getPlayerRack().getTiles(), p2TilesPr, false);
-            setVisible(p2TilesPr,true);
+        if(me.getCoins() >= PowerDto.PEEK.getCost()){
+            try {
+                otherSide = Api.post(game.getPowers(), PowerDto.PEEK);
+                showOtherSide();
+                me.setCoins(me.getCoins() - PowerDto.PEEK.getCost());
+            } catch (TokenNotFoundException e) {
+                e.printStackTrace();
+            }
+        }else{
+            Dialog.getInstance().signalPowerError(PowerDto.PEEK);
         }
-     */
+    }
+
+    private void showOtherSide() {
+        if(otherSide != null){
+            setTiles(otherSide.getPlayerRack().getTiles(), p2TilesPr, false);
+            setVisible(p2TilesPr, true);
+        }
+    }
+
+    @FXML
+    private void refresh(GameDto game){
+        // Cache les cases du player 2 (cas du pouvoir apercu activé pendant le tour
+        setVisible(p2TilesPr, false);
+        // Clear les valeurs des tiles GUI
+        clearTiles(p1TilesPr);
+        clearTiles(p1TilesSr);
+        clearTiles(p2TilesSr);
+        // Replace les tiles aux slots d'origines
+        replaceTilesOrigin(p1SlotsCh);
+        // Actualise l'état du jeu
+        setStateGame();
+        setNumberOfTiles();
+        majWordAlyzer();
     }
 
     @FXML
     private void refresh(){
         try {
             this.game = GameApi.getGame(game.getId());
-            // Cache les cases du player 2 (cas du pouvoir apercu activé pendant le tour
-            setVisible(p2TilesPr, false);
-            // Clear les valeurs des tiles GUI
-            clearTiles(p1TilesPr);
-            clearTiles(p1TilesSr);
-            clearTiles(p2TilesSr);
-            // Replace les tiles aux slots d'origines
-            replaceTilesOrigin(p1SlotsCh);
-            // Actualise l'état du jeu
-            setStateGame();
-            setNumberOfTiles();
-            majWordAlyzer();
+            this.me = MeApi.getCurrentUser();
+            refresh(game);
         } catch (TokenNotFoundException e) {
             Dialog.getInstance().signalError("Une erreur s'est produite. Veuillez vous reconnecter");
         }
     }
 
+    /**
+     * Activates the Hint power if the user has enough coins
+     */
     @FXML
     private void hint() {
-        // TODO etat temporaire
-        System.out.println("Click hint");
+        if(me.getCoins() >= PowerDto.HINT.getCost()){
+            try {
+                Api.post(game.getPowers(), PowerDto.HINT);
+                IChallenge myChallenge = game.getMySide().getChallenge();
+                LinkedList<ITile> beginning = new LinkedList<>();
+                for(int i = 0; i < Constants.PLAYER_RACK_SIZE; ++i){
+                    if(myChallenge.getSlots().get(i).getTile() != null){
+                        beginning.add(myChallenge.getSlots().get(i).getTile());
+                    }else{
+                        break;
+                    }
+                }
+                clear(p1SlotsCh);
+                List<ITile> hintTiles = WordAnalyzer.getHint(dico, game.getMySide().getChallenge(), game.getMySide().getPlayerRack(), beginning);
+
+                for(int i = 0; i < hintTiles.size(); ++i){ //For each hint tile, try to find it in SwapRack then PlayerRack to move it
+                    int tileID = hintTiles.get(i).getId();
+                    boolean found = false;
+                    for(StackPane slotParent : p1SlotsSr){  //Check each Pane in swaprack
+                        if(!slotParent.getChildren().isEmpty()){
+                            AnchorPane childPane = (AnchorPane) slotParent.getChildren().get(0);
+                            if(Integer.valueOf(((Label) (childPane.getChildren().get(2))).getText()) == tileID){
+                                //If the ID corresponds to the hint ID, move it to the challenge
+                                move(childPane, slotParent);
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                    if(!found){
+                        for(StackPane slotParent : p1SlotsPr){  //Check each Pane in Swaprack
+                            if(!slotParent.getChildren().isEmpty()){
+                                AnchorPane childPane = (AnchorPane) slotParent.getChildren().get(0);
+                                if(Integer.valueOf(
+                                        ((Label) (childPane.getChildren().get(2))).getText()) == tileID){
+                                    move(childPane, slotParent);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                me.setCoins(me.getCoins() - PowerDto.HINT.getCost());
+                coinLabel.setText(String.valueOf(me.getCoins()));
+            } catch (TokenNotFoundException e) {
+                e.printStackTrace();
+            }
+        }else{
+            Dialog.getInstance().signalPowerError(PowerDto.HINT);
+        }
     }
 
     @FXML
@@ -330,8 +448,8 @@ public class GameScreenController implements Initializable {
         if (majWordAlyzer() == true) {
             try {
                 this.game = GameApi.play(game.getId(), game.getMySide().getChallenge());
-                // Cache les cases du player 2 (cas du pouvoir apercu activé pendant le tour
-                setVisible(p2TilesPr, false);
+                // No longer show other side since end of turn
+                otherSide = null;
                 // Clear les valeurs des tiles GUI
                 clearTiles(p1TilesPr);
                 clearTiles(p1TilesSr);
@@ -438,12 +556,23 @@ public class GameScreenController implements Initializable {
         setTiles(this.game.getOtherSide().getChallenge().getSwapRack().getTiles(), p2TilesSr, false);
         // Set le playerRack
         setTiles(this.game.getMySide().getPlayerRack().getTiles(), p1TilesPr, true);
+        // Set coins
+        coinLabel.setText(String.valueOf(me.getCoins()));
+        if(otherSide == null){
+            setVisible(p2TilesPr, false);
+        }else{
+            showOtherSide();
+        }
+
 
         // Maj de myTurn
         if (this.game.isMyTurn() == false) {
             playButton.setText("Vérifier");
         } else {
             playButton.setText("Jouer");
+        }
+        if(this.game.getBagSize() == 0){
+            discardButton.setText("Passer");
         }
     }
 
@@ -770,11 +899,31 @@ public class GameScreenController implements Initializable {
         }
     }
 
+
     private void addConentListStackPane(List<StackPane> list, StackPane... content) {
         for (StackPane p : content) {
             list.add(p);
         }
     }
 
+    /**
+     * Activates the Wordalyser if the player has enough coins.
+     * @param mouseEvent
+     */
+    public void activateWordalyser(MouseEvent mouseEvent) {
+        if(me.getCoins() >= PowerDto.WORDANALYZER.getCost()){
+            try {
+                Api.post(game.getPowers(), PowerDto.WORDANALYZER);
+                me.setCoins(me.getCoins() - PowerDto.WORDANALYZER.getCost());
+                coinLabel.setText(String.valueOf(me.getCoins()));
+                wordalyserButton.setVisible(false);
+                pane.setVisible(true);
+            } catch (TokenNotFoundException e) {
+                e.printStackTrace();
+            }
+        }else{
+            Dialog.getInstance().signalPowerError(PowerDto.WORDANALYZER);
+        }
+    }
 }
 

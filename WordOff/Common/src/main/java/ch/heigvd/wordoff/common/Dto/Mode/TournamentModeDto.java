@@ -84,6 +84,8 @@ public class TournamentModeDto extends ModeDto {
         private UserSummaryDto user;
         private List<Integer> scores;
 
+        public UserScores() {}
+
         public UserScores(UserSummaryDto user, List<Integer> scores) {
             this.user = user;
             this.scores = scores;
@@ -95,6 +97,14 @@ public class TournamentModeDto extends ModeDto {
 
         public List<Integer> getScores() {
             return scores;
+        }
+
+        public void setUser(UserSummaryDto user) {
+            this.user = user;
+        }
+
+        public void setScores(List<Integer> scores) {
+            this.scores = scores;
         }
 
         public int getDayScore(int day) {

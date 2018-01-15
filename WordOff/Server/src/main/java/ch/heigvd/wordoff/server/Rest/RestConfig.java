@@ -8,6 +8,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+/**
+ * Configuration for the endpoints. Set which endpoints need authorization.
+ */
 @Configuration
 @EnableWebMvc
 public class RestConfig extends WebMvcConfigurerAdapter {

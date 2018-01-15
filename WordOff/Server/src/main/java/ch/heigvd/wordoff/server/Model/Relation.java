@@ -6,6 +6,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Class that represents the relation between two users.
+ */
 @Entity
 @AssociationOverrides({
         @AssociationOverride(name = "pk.owner",

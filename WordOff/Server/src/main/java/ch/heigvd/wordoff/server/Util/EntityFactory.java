@@ -20,6 +20,9 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
 
+/**
+ * Class that converts Dtos to Entities.
+ */
 @Component
 public class EntityFactory {
     private static ModelMapper modelMapper = configuredModelMapper();

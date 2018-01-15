@@ -13,7 +13,14 @@ public class Letter implements Serializable {
     @GeneratedValue
     private Integer id;
 
+    /**
+     * The value of the letter.
+     */
     private char value;
+
+    /**
+     * The score of the letter.
+     */
     private int score;
 
     @Column(name = "lang_set_id")

@@ -38,6 +38,12 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static ch.heigvd.wordoff.common.Constants.DUEL_PREFIX;
+import static ch.heigvd.wordoff.common.Constants.TOURNAMENT_PREFIX;
+
+/**
+ * Class that converts Entities to Dtos.
+ */
 @Component
 public class DtoFactory {
     private static ModelMapper modelMapper = configuredModelMapper();
@@ -126,7 +132,15 @@ public class DtoFactory {
         Converter<Bag, Integer> bagConverter = ctx -> ctx.getSource().getTiles().size();
 
         TypeMap<Game, GameDto> gameMap = modelMapper.createTypeMap(Game.class, GameDto.class);
-        gameMap.addMappings(mapper -> mapper.using(bagConverter).map(Game::getBag, GameDto::setBagSize));
+        gameMap.addMappings(mapper -> {
+            mapper.using(bagConverter).map(Game::getBag, GameDto::setBagSize);
+            mapper.using(getUrlConverter("/games")).map(Game::getId, GameDto::setEndpoint);
+        });
+
+        TypeMap<Game, GameSummaryDto> gameSummaryMap = modelMapper.createTypeMap(Game.class, GameSummaryDto.class);
+        gameSummaryMap.addMappings(mapper -> {
+            mapper.using(getUrlConverter("/games")).map(Game::getId, GameSummaryDto::setEndpoint);
+        });
 
         //
         // Relations
@@ -227,6 +241,7 @@ public class DtoFactory {
         dto.setOtherSide(modelMapper.map(
                 otherSide, OtherSideDto.class));
         dto.setMyTurn(Objects.equals(entity.getCurrPlayer().getId(), viewer.getId()));
+        dto.setWordanalyser(mySide.isWordanalyser());
 
         // If it's the viewer turn, then he sees the last completed challenge (if it exists) of his
         // adversary.
@@ -253,7 +268,7 @@ public class DtoFactory {
 
         // Check if mode is active.
         Optional<Game> optGame = entity.getActiveGame(viewer);
-        dto.setActive(optGame.isPresent() && Objects.equals(optGame.get().getCurrPlayer(), viewer));
+        dto.setActive(optGame.isPresent() && Objects.equals(optGame.get().getCurrPlayer().getId(), viewer.getId()));
 
         return dto;
     }
@@ -285,6 +300,7 @@ public class DtoFactory {
     
     public static MeDto createMeFrom(User entity) {
         MeDto dto = new MeDto();
+        dto.setCoins(entity.getCoins());
         dto.setSelf(modelMapper.map(entity, UserSummaryDto.class));
         return dto;
     }
@@ -305,7 +321,18 @@ public class DtoFactory {
     }
 
     public static InvitationDto createFrom(Invitation entity) {
-        return modelMapper.map(entity, InvitationDto.class);
+        InvitationDto dto = modelMapper.map(entity, InvitationDto.class);
+        switch (entity.getMode().getType()) {
+            case FRIEND_DUEL:
+            case RANDOM_DUEL:
+                dto.setName(DUEL_PREFIX + dto.getName());
+                break;
+            case COMPETITIVE_TOURNAMENT:
+            case FRIENDLY_TOURNAMENT:
+                dto.setName(TOURNAMENT_PREFIX + dto.getName());
+                break;
+        }
+        return dto;
     }
 
     public static NotificationDto createFrom(Notification entity) {

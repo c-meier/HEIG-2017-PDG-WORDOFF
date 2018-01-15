@@ -8,10 +8,13 @@ package ch.heigvd.wordoff.common.Dto.Endpoint;
 public class ResourceList<RES> implements IEndpoint{
     String endpoint;
 
-    public ResourceList() {}
+    Class<RES> responseType;
 
-    public ResourceList(String endpoint) {
-        this.endpoint = endpoint;
+    public ResourceList() {
+    }
+
+    public ResourceList(Class<RES> responseType) {
+        this.responseType = responseType;
     }
 
     @Override
@@ -21,5 +24,13 @@ public class ResourceList<RES> implements IEndpoint{
 
     public void setEndpoint(String endpoint) {
         this.endpoint = endpoint;
+    }
+
+    public Class<RES> getResponseType() {
+        return responseType;
+    }
+
+    public void setResponseType(Class<RES> responseType) {
+        this.responseType = responseType;
     }
 }

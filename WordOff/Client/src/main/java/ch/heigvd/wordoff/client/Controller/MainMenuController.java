@@ -16,6 +16,7 @@ import ch.heigvd.wordoff.common.Dto.Game.GameDto;
 import ch.heigvd.wordoff.common.Dto.Game.GameSummaryDto;
 import ch.heigvd.wordoff.common.Dto.MeDto;
 import ch.heigvd.wordoff.common.Dto.Mode.*;
+import ch.heigvd.wordoff.common.Dto.User.PlayerDto;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
@@ -488,10 +489,11 @@ public class MainMenuController implements Initializable {
             }
             try {
                 ModeDto mode = ModeApi.getMode(endpoint);
-                if (!mode.getName().equalsIgnoreCase("pas encore d'adversaire")) {
+                if (mode.getGame() != null && !mode.getName().equalsIgnoreCase("pas encore d'adversaire")) {
                     selectGame = GameApi.getGame(mode.getGame().getId());
-                    System.out.println(endpoint);
                     handleGotoGame();
+                } else {
+                    Dialog.getInstance().signalInformation("Pas encore d'adversaire pour cette partie.");
                 }
             } catch (TokenNotFoundException e) {
                 Dialog.getInstance().signalError(UtilStringReference.ERROR_TOKEN);

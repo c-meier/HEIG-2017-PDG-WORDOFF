@@ -23,21 +23,21 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class to present user with dialog popups and error messages
+ */
 public class Dialog {
 
-    /**
-     * Constructeur privé
-     */
     private Dialog() {
     }
 
     /**
-     * Instance unique pré-initialisée
+     * Singleton instance of the class
      */
     private static Dialog INSTANCE = new Dialog();
 
     /**
-     * Point d'accès pour l'instance unique du singleton
+     * Retrieves class instance
      */
     public static Dialog getInstance() {
         return INSTANCE;
@@ -57,6 +57,10 @@ public class Dialog {
 
     }
 
+    /**
+     * Presents an error popup with parameter as message
+     * @param error an error String
+     */
     public void signalError(String error) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -68,6 +72,11 @@ public class Dialog {
         alert.showAndWait();
     }
 
+    /**
+     * Presents an information popup with parameter as information
+     * @param information an information String
+     * @return
+     */
     public void signalInformation(String information) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
@@ -79,6 +88,11 @@ public class Dialog {
         alert.showAndWait();
     }
 
+    /**
+     * Allows a selection of yes or no based on parameter string
+     * @param msg a question String
+     * @return true if accepted, false otherwise
+     */
     public boolean popUpYesNo(String msg) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Question");
@@ -100,7 +114,14 @@ public class Dialog {
     }
 
 
-
+    /**
+     * Allows a multiple choice dialog box
+     * @param title
+     * @param content
+     * @param typeChoice
+     * @param choices
+     * @return
+     */
     public String choicesBoxDialog(String title, String content, String typeChoice, String ... choices){
         final String[] choose = {""};
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -259,10 +280,19 @@ public class Dialog {
 
     }
 
+    /**
+     * Signals a user does not have enough coins to use a power
+     * @param power a PowerDto
+     */
     public void signalPowerError(PowerDto power) {
         signalError(UtilStringReference.TOO_FEW_COINS + "Il vous en faut " + power.getCost() + ".");
     }
 
+    /**
+     * Asks user to confirms they would like to use parameter power
+     * @param power a PowerDto
+     * @return true if user wants to use power, false otherwise
+     */
     public boolean powerConfirm(PowerDto power) {
         return popUpYesNo("Ce pouvoir coûte " + power.getCost() + ". Êtes-vous sûrs de vouloir l'utiliser?");
     }

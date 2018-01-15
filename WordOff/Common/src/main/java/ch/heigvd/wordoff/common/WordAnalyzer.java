@@ -113,7 +113,6 @@ public class WordAnalyzer {
             // pour chaque lettre
             for (int i = 0; i < str.length(); i++) {
                 boolean tileFound = false;
-                // TODO: refactor to remove code duplication
                 // cherche la tile dans le tempSwap en premier
                 for (ITile tile : swapRack.getTiles()) {
                     if ((tile.isJoker() && str.charAt(i) == '#') || (tile.getValue() == str.charAt(i) && !tile

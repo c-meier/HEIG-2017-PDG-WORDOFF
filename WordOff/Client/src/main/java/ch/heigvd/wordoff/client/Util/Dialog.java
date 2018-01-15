@@ -19,26 +19,21 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-
 /**
- * Utility Class for managing dialog windows.
- * Works with the Singleton principe and propose different models.
+ * Class to present user with dialog popups and error messages
  */
 public class Dialog {
 
-    /**
-     * private constructor
-     */
     private Dialog() {
     }
 
     /**
-     * Single instance of the classe
+     * Singleton instance of the class
      */
     private static Dialog INSTANCE = new Dialog();
 
     /**
-     * Return the single instance of the classe
+     * Retrieves class instance
      */
     public static Dialog getInstance() {
         return INSTANCE;
@@ -59,10 +54,9 @@ public class Dialog {
 
     }
 
-
     /**
-     * Dialog to type error
-     * @param error error message to display
+     * Presents an error popup with parameter as message
+     * @param error an error String
      */
     public void signalError(String error) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -76,8 +70,8 @@ public class Dialog {
     }
 
     /**
-     * Dialog to type informations
-     * @param information information message to display
+     * Presents an information popup with parameter as information
+     * @param information an information String
      */
     public void signalInformation(String information) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -91,9 +85,9 @@ public class Dialog {
     }
 
     /**
-     * Dialog to type choice with simple message
-     * @param msg question to display
-     * @return the choice of user
+     * Allows a selection of yes or no based on parameter string
+     * @param msg a question String
+     * @return true if accepted, false otherwise
      */
     public boolean popUpYesNo(String msg) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -255,7 +249,7 @@ public class Dialog {
 
 
     /**
-     * Dialog to slect participants to a friendly tournament
+     * Dialog to select participants to a friendly tournament
      * @return list of participant
      */
     public List<String> getFriendlyTournamentParticipants() {
@@ -287,17 +281,17 @@ public class Dialog {
     }
 
     /**
-     * Dialog to report a cost error of a power
-     * @param power power causing the error
+     * Signals a user does not have enough coins to use a power
+     * @param power a PowerDto
      */
     public void signalPowerError(PowerDto power) {
         signalError(UtilStringReference.TOO_FEW_COINS + "Il vous en faut " + power.getCost() + ".");
     }
 
     /**
-     * Dialog to confirm the payment of a power
-     * @param power power to want activate
-     * @return choice of user
+     * Asks user to confirms they would like to use parameter power
+     * @param power a PowerDto
+     * @return true if user wants to use power, false otherwise
      */
     public boolean powerConfirm(PowerDto power) {
         return popUpYesNo("Ce pouvoir coûte " + power.getCost() + ". Êtes-vous sûrs de vouloir l'utiliser?");

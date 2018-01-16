@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Custom list.
+ */
 public class ListCustom {
 
     private VBox vBox;

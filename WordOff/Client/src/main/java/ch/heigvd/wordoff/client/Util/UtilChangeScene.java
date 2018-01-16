@@ -8,6 +8,9 @@ import javafx.scene.Scene;
 
 import java.io.IOException;
 
+/**
+ * Helper to change the scene of the GUI.
+ */
 public class UtilChangeScene {
 
    private static UtilChangeScene INSTANCE = new UtilChangeScene();

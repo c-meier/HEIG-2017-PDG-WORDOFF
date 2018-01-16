@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Holds the messages used by the GUI.
+ */
 public class UtilStringReference {
 
     public static final String ERROR_TOKEN= "Session expirée, veuillez vous reconnecter";

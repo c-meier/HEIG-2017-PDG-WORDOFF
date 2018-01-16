@@ -1,5 +1,8 @@
 package ch.heigvd.wordoff.client.Exception;
 
+/**
+ * Error thrown when a request is malformed.
+ */
 public class BadRequestException extends ProtocolException {
 
     private static final int statusCode = 400;

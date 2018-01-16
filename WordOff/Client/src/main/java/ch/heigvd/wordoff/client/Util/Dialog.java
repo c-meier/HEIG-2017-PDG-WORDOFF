@@ -23,6 +23,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Dialog box to show a message to the user.
+ */
 public class Dialog {
 
     /**

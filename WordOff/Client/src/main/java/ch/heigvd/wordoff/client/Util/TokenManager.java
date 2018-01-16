@@ -11,11 +11,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.*;
 
+/**
+ * Handle all interaction regarding the authentification token that is saved on disk.
+ */
 public class TokenManager {
 
     private static final String tokenFileName = "./token.json";
     private static final String tokenKey = "token";
 
+    /**
+     * Load the token from disk
+     * @return The String representation of the token
+     * @throws TokenNotFoundException If the file is not found
+     */
     public static String loadToken() throws TokenNotFoundException {
         JSONParser parser = new JSONParser();
         String token = "";
@@ -34,6 +42,10 @@ public class TokenManager {
         return token;
     }
 
+    /**
+     * Save the String representation of the token to disk
+     * @param token The token
+     */
     public static void saveToken(String token) {
         JSONObject obj = new JSONObject();
         obj.put(tokenKey, token);
@@ -45,6 +57,9 @@ public class TokenManager {
         }
     }
 
+    /**
+     * Delete the file containing the token
+     */
     public static void deleteToken() {
         try {
             Path path = FileSystems.getDefault().getPath(tokenFileName);
@@ -54,7 +69,6 @@ public class TokenManager {
         } catch (DirectoryNotEmptyException x) {
             System.err.format("%s not empty%n", tokenFileName);
         } catch (IOException x) {
-            // File permission problems are caught here.
             System.err.println(x);
         }
     }

@@ -1,3 +1,9 @@
+/*
+ * File: GameService.java
+ * Authors: Antoine FRIANT, Gabriel LUTHIER, Christopher MEIER, Daniel PALUMBO, Edward RANSOME, Michela ZUCCA
+ * Date: 16 janvier 2018
+ */
+
 package ch.heigvd.wordoff.server.Service;
 
 import ch.heigvd.wordoff.common.Constants;
@@ -19,11 +25,8 @@ import ch.heigvd.wordoff.server.Repository.PlayerRepository;
 import ch.heigvd.wordoff.server.Repository.SideRepository;
 import ch.heigvd.wordoff.server.Rest.Exception.ErrorCodeException;
 import ch.heigvd.wordoff.server.Util.ChallengeFactory;
-import ch.heigvd.wordoff.common.DictionaryLoader;
 import ch.heigvd.wordoff.server.Util.DtoFactory;
 import javafx.util.Pair;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -48,16 +51,6 @@ public class GameService {
         this.playerRepository = playerRepository;
         this.gameRepository = gameRepository;
         this.sideRepository = sideRepository;
-
-        // TODO -> Need to be removed
-        Player ai = playerRepository.findOne(1L);
-        Player one = playerRepository.findOne(2L);
-        Player two = playerRepository.findOne(3L);
-
-        // TODO -> Need to be removed
-        // create and convert the new games.
-        // initGame( , one, ai, "fr");
-        // initGame( , two, one, "fr");
     }
 
     /**

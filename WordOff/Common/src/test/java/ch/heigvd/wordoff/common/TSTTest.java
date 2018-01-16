@@ -1,3 +1,9 @@
+/*
+ * File: TSTTest.java
+ * Authors: Antoine FRIANT, Gabriel LUTHIER, Christopher MEIER, Daniel PALUMBO, Edward RANSOME, Michela ZUCCA
+ * Date: 16 janvier 2018
+ */
+
 package ch.heigvd.wordoff.common;
 
 import org.junit.Test;
@@ -5,10 +11,6 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Project : WordOff
- * Date : 27.09.17
- */
 public class TSTTest {
     @Test
     public void mainTest() {

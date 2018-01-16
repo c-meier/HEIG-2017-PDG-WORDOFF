@@ -1,9 +1,18 @@
+/*
+ * File: MeApi.java
+ * Authors: Antoine FRIANT, Gabriel LUTHIER, Christopher MEIER, Daniel PALUMBO, Edward RANSOME, Michela ZUCCA
+ * Date: 16 janvier 2018
+ */
+
 package ch.heigvd.wordoff.client.Api;
 
 import ch.heigvd.wordoff.client.Exception.TokenNotFoundException;
 import ch.heigvd.wordoff.client.Util.TokenManager;
 import ch.heigvd.wordoff.common.Dto.MeDto;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import static ch.heigvd.wordoff.common.Constants.AUTHORIZATION_HEADER;

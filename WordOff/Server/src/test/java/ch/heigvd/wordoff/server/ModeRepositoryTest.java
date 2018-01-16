@@ -1,3 +1,9 @@
+/*
+ * File: ModeRepositoryTest.java
+ * Authors: Antoine FRIANT, Gabriel LUTHIER, Christopher MEIER, Daniel PALUMBO, Edward RANSOME, Michela ZUCCA
+ * Date: 16 janvier 2018
+ */
+
 package ch.heigvd.wordoff.server;
 
 import ch.heigvd.wordoff.server.Model.Modes.DuelMode;
@@ -11,6 +17,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -19,7 +26,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.slf4j.Logger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

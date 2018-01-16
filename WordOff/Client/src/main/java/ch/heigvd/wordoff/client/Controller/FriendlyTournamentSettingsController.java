@@ -1,3 +1,9 @@
+/*
+ * File: FriendlyTournamentSettingsController.java
+ * Authors: Antoine FRIANT, Gabriel LUTHIER, Christopher MEIER, Daniel PALUMBO, Edward RANSOME, Michela ZUCCA
+ * Date: 16 janvier 2018
+ */
+
 package ch.heigvd.wordoff.client.Controller;
 
 import ch.heigvd.wordoff.client.Api.Api;
@@ -5,7 +11,6 @@ import ch.heigvd.wordoff.client.Api.MeApi;
 import ch.heigvd.wordoff.client.Exception.TokenNotFoundException;
 import ch.heigvd.wordoff.common.Dto.MeDto;
 import ch.heigvd.wordoff.common.Dto.User.RelatedUserSummaryDto;
-import ch.heigvd.wordoff.common.Dto.User.RelationDto;
 import ch.heigvd.wordoff.common.Dto.User.RelationStatus;
 import ch.heigvd.wordoff.common.Dto.User.UserSummaryDto;
 import javafx.event.EventHandler;

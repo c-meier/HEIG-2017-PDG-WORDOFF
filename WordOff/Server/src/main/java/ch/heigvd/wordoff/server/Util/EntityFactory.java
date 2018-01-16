@@ -1,3 +1,9 @@
+/*
+ * File: EntityFactory.java
+ * Authors: Antoine FRIANT, Gabriel LUTHIER, Christopher MEIER, Daniel PALUMBO, Edward RANSOME, Michela ZUCCA
+ * Date: 16 janvier 2018
+ */
+
 package ch.heigvd.wordoff.server.Util;
 
 import ch.heigvd.wordoff.common.Dto.Game.ChallengeDto;
@@ -84,7 +90,6 @@ public class EntityFactory {
     }
 
     public static Tile createFrom(TileDto dto) {
-        // TODO: check with LangSet
         return modelMapper.map(dto, Tile.class);
     }
 

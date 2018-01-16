@@ -1,3 +1,9 @@
+/*
+ * File: Game.java
+ * Authors: Antoine FRIANT, Gabriel LUTHIER, Christopher MEIER, Daniel PALUMBO, Edward RANSOME, Michela ZUCCA
+ * Date: 16 janvier 2018
+ */
+
 package ch.heigvd.wordoff.server.Model;
 
 import ch.heigvd.wordoff.server.Model.Modes.Mode;
@@ -54,7 +60,6 @@ public class Game {
         } else if (Objects.equals(sideResp.getPlayer().getId(), player.getId())) {
             return sideResp;
         } else {
-            /* TODO -> EXCEPTION*/
             return null;
         }
     }
@@ -65,7 +70,6 @@ public class Game {
         } else if (Objects.equals(player.getId(), sideResp.getPlayer().getId())) {
             return sideInit.getPlayer();
         } else {
-            /* TODO -> EXCEPTION */
             return null;
         }
     }

@@ -1,3 +1,9 @@
+/*
+ * File: UtilStringReference.java
+ * Authors: Antoine FRIANT, Gabriel LUTHIER, Christopher MEIER, Daniel PALUMBO, Edward RANSOME, Michela ZUCCA
+ * Date: 16 janvier 2018
+ */
+
 package ch.heigvd.wordoff.client.Util;
 
 import java.util.Arrays;
@@ -5,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Utility class of the content of differents elements of the game.
+ * Holds the messages used by the GUI.
  */
 public class UtilStringReference {
 

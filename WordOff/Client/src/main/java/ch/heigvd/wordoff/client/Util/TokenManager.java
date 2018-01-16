@@ -1,3 +1,9 @@
+/*
+ * File: TokenManager.java
+ * Authors: Antoine FRIANT, Gabriel LUTHIER, Christopher MEIER, Daniel PALUMBO, Edward RANSOME, Michela ZUCCA
+ * Date: 16 janvier 2018
+ */
+
 package ch.heigvd.wordoff.client.Util;
 
 import ch.heigvd.wordoff.client.Exception.TokenNotFoundException;
@@ -21,9 +27,9 @@ public class TokenManager {
     private static final String tokenKey = "token";
 
     /**
-     * Load a existing token of the current user
-     * @return token
-     * @throws TokenNotFoundException
+     * Load the token from disk
+     * @return The String representation of the token
+     * @throws TokenNotFoundException If the file is not found
      */
     public static String loadToken() throws TokenNotFoundException {
         JSONParser parser = new JSONParser();
@@ -44,8 +50,8 @@ public class TokenManager {
     }
 
     /**
-     * Save the token of the current connexion
-     * @param token token to save
+     * Save the String representation of the token to disk
+     * @param token The token
      */
     public static void saveToken(String token) {
         JSONObject obj = new JSONObject();
@@ -59,7 +65,7 @@ public class TokenManager {
     }
 
     /**
-     * Delete the existing token save in memory
+     * Delete the file containing the token
      */
     public static void deleteToken() {
         try {
@@ -70,7 +76,6 @@ public class TokenManager {
         } catch (DirectoryNotEmptyException x) {
             System.err.format("%s not empty%n", tokenFileName);
         } catch (IOException x) {
-            // File permission problems are caught here.
             System.err.println(x);
         }
     }

@@ -1,3 +1,9 @@
+/*
+ * File: SettingsController.java
+ * Authors: Antoine FRIANT, Gabriel LUTHIER, Christopher MEIER, Daniel PALUMBO, Edward RANSOME, Michela ZUCCA
+ * Date: 16 janvier 2018
+ */
+
 package ch.heigvd.wordoff.client.Controller;
 
 import ch.heigvd.wordoff.client.Api.Api;
@@ -6,7 +12,6 @@ import ch.heigvd.wordoff.client.Exception.TokenNotFoundException;
 import ch.heigvd.wordoff.client.Util.Dialog;
 import ch.heigvd.wordoff.client.Util.UtilChangeScene;
 import ch.heigvd.wordoff.client.Util.UtilStringReference;
-import ch.heigvd.wordoff.common.Dto.Endpoint.ResourceList;
 import ch.heigvd.wordoff.common.Dto.MeDto;
 import ch.heigvd.wordoff.common.Dto.User.CreateRelationDto;
 import ch.heigvd.wordoff.common.Dto.User.RelatedUserSummaryDto;
@@ -20,11 +25,9 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 
 import javax.xml.ws.http.HTTPException;
 import java.net.URL;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -98,7 +101,7 @@ public class SettingsController implements Initializable {
 
     @FXML
     private void changeAvatar() {
-        // TODO Charger un nouvel avatar (playerAvatar)
+        // pas implémenté
 
     }
 

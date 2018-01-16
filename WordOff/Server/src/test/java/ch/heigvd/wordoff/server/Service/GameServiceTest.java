@@ -1,3 +1,9 @@
+/*
+ * File: GameServiceTest.java
+ * Authors: Antoine FRIANT, Gabriel LUTHIER, Christopher MEIER, Daniel PALUMBO, Edward RANSOME, Michela ZUCCA
+ * Date: 16 janvier 2018
+ */
+
 package ch.heigvd.wordoff.server.Service;
 
 import ch.heigvd.wordoff.common.DictionaryLoader;
@@ -28,9 +34,6 @@ import java.util.LinkedList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * Created by Daniel on 06.11.2017.
- */
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @Import({GameService.class, DictionaryLoader.class})

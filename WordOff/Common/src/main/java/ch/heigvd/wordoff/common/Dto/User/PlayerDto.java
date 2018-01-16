@@ -1,8 +1,10 @@
-package ch.heigvd.wordoff.common.Dto.User;
-
-/**
- * Created by Daniel on 05.11.2017.
+/*
+ * File: PlayerDto.java
+ * Authors: Antoine FRIANT, Gabriel LUTHIER, Christopher MEIER, Daniel PALUMBO, Edward RANSOME, Michela ZUCCA
+ * Date: 16 janvier 2018
  */
+
+package ch.heigvd.wordoff.common.Dto.User;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 

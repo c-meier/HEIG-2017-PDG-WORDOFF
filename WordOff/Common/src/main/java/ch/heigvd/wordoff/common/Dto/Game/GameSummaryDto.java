@@ -1,7 +1,7 @@
 package ch.heigvd.wordoff.common.Dto.Game;
 
+import ch.heigvd.wordoff.common.Dto.Endpoint.IEndpoint;
 import ch.heigvd.wordoff.common.Dto.Endpoint.IResource;
-import ch.heigvd.wordoff.common.Dto.ISummaryDto;
 import ch.heigvd.wordoff.common.Dto.User.PlayerDto;
 
 import java.util.Objects;
@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * Created by Daniel on 05.11.2017.
  */
-public class GameSummaryDto implements ISummaryDto, IResource<GameDto> {
+public class GameSummaryDto implements IResource<GameDto>, IEndpoint {
     private Long id;
 
     private PlayerDto otherPlayer;

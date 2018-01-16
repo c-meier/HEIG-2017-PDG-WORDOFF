@@ -98,7 +98,7 @@ public class SettingsController implements Initializable {
 
     @FXML
     private void changeAvatar() {
-        // TODO Charger un nouvel avatar (playerAvatar)
+        // pas implémenté
 
     }
 

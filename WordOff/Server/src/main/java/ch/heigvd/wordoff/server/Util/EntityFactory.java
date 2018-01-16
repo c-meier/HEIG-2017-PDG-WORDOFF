@@ -84,7 +84,6 @@ public class EntityFactory {
     }
 
     public static Tile createFrom(TileDto dto) {
-        // TODO: check with LangSet
         return modelMapper.map(dto, Tile.class);
     }
 

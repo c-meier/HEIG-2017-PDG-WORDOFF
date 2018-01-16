@@ -24,9 +24,9 @@ public class Dictionary {
     private TST tst;
 
     /**
-     * Initialise un dictionaire à partir du fichier en argument
-     * Il doit contenir un mot par ligne
-     * Il doit être en UTF-8
+     * Initialize a dictionary from a file
+     * The file must contain one word per line
+     * It must be encoded in UTF-8
      *
      * @param file
      */
@@ -40,7 +40,7 @@ public class Dictionary {
                         .replaceAll("[^A-Za-z]", "");
 
                 if (w.length() > 1) {
-                    // les mots doivent avoir plus d'une lettre pour être joués dans WordOff
+                    // words must have at least 2 characters to be valid in WordOff
                     tst.insert(w);
                 }
             });
@@ -52,7 +52,7 @@ public class Dictionary {
 
     /**
      * @param str
-     * @return vrai ssi str se trouve dans le dictionaire
+     * @return true if and only if the dictionary contains str
      */
     public boolean contains(String str) {
         return tst.contains(str.toUpperCase());
@@ -60,7 +60,7 @@ public class Dictionary {
 
     /**
      * @param str
-     * @return une liste de mots formés des lettres de str se trouvant dans le dictionaire
+     * @return a list of correct words that can be written only using the letters in str
      */
     public List<String> getAnagrams(String str) {
         return tst.getAnagrams(str.toUpperCase());

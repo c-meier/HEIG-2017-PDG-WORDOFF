@@ -12,14 +12,14 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * Classe permettant de charger les dictionnaires en mémoire à partir de leur nom
- * Une instance de DictionaryLoader ne chargera pas inutilement un dictionnaire qu'elle a déjà chargé.
+ * DictionaryLoader loads dictionaries into mememory for a given name.
+ * A given instance of DictionaryLoader won't load a dictionary if it has already been loaded.
  */
 public class DictionaryLoader {
     private Map<String, Dictionary> loadedDico = new TreeMap<>();
 
     /**
-     * Charge en mémoire le dictionnaire du fichier "lang".txt
+     * Load the file "lang".txt into memory and makes a Dictionary
      * @param lang
      */
     public void loadDictionary(String lang) {
@@ -36,7 +36,7 @@ public class DictionaryLoader {
     }
 
     /**
-     * Récupère le dictionnaire correspondant au nom de fichier "lang".txt
+     * Gets the loaded Dictionary corresponding to the file "lang".txt
      * @param lang
      * @return dictionnaire
      */

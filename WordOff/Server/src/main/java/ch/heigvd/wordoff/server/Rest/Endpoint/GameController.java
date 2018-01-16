@@ -122,13 +122,12 @@ public class GameController {
     }
 
     /**
-     * Utilise un power en consommant des pièces. Si le nombre de pièces est insuffisant, un code d'erreur est renvoyé.
-     * La valeur du SideDto renvoyée est dépendante du type de power utilisé :
+     * Uses a power and consumes coins. If there aren't enough coins, an error code is sent back.
+     * The value of the returned SideDto depends on the type of power that was used.
      *
-     * HINT, PASS, WORDANALYZER => renvoie null
-     * PEEK                     => renvoie le SideDto de l'adversaire
-     * DISCARD_2, DISCARD_ALL   => renvoie le SideDto du l'utilisateur du power
-     *
+     * HINT, PASS, WORDANALYZER => sends null (HTTP code NO_CONTENT)
+     * PEEK                     => sends the opponent's SideDto
+     * DISCARD_2, DISCARD_ALL   => sends the user's SideDto
      *
      * @param player
      * @param gameId
@@ -146,13 +145,13 @@ public class GameController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        // vérifie la quantité de pièces disponibles
+        // checkes the number of available coins
         if(powerDto.getCost() > player.getCoins()) {
             throw new ErrorCodeException(Protocol.NOT_ENOUGH_COINS, "You do not have enough coins to use this power");
         }
 
         if(powerDto.equals(PowerDto.HINT)) {
-            // rien de plus à faire
+            // nothing more to do
             responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else if (powerDto.equals(PowerDto.PASS)) {
             gameService.pass(game, player);
@@ -171,7 +170,7 @@ public class GameController {
             throw new ErrorCodeException(Protocol.CHEATING, "Requested power does not exist");
         }
 
-        // consomme les pièces
+        // deletes the coins
         player.setCoins(player.getCoins() - powerDto.getCost());
         playerRepository.save(player);
 

@@ -335,10 +335,10 @@ public class GameService {
     }
 
     /**
-     * Retourne le side de l'adversaire
+     * Returns the opponent's side
      *
      * @param game
-     * @param player le joueur qui demande le side de l'adversaire
+     * @param player the player that wants to know his opponent's side
      * @return SideDto
      */
     public SideDto peek(Game game, User player) {
@@ -346,10 +346,10 @@ public class GameService {
     }
 
     /**
-     * jette toutes les tuiles et en pioches des nouvelles
-     * @param game partie concernée
-     * @param player joueur qui jette les tuiles
-     * @return le side du joueur "player"
+     * Discards all the player's tiles and gets new ones from the bag
+     * @param game
+     * @param player player who's discarding the tiles
+     * @return side of "player"
      */
     public SideDto discardAll(Game game, Player player) {
         if(!game.getCurrPlayer().getId().equals(player.getId())) {
@@ -358,10 +358,10 @@ public class GameService {
 
         PlayerRack rack =  game.getSideOfPlayer(player).getPlayerRack();
 
-        // retire toutes les tuiles du rack
+        // removes all tiles from the rack
         rack.getTiles().clear();
 
-        // remplit le rack avec de nouvelles tuiles
+        // fills the rack with new tiles
         List<ITile> newTiles = game.getBag().getXTile(Constants.PLAYER_RACK_SIZE);
         game.getSideOfPlayer(player).addTilesToPlayerRack(newTiles);
 
@@ -381,12 +381,11 @@ public class GameService {
         // switch player
         game.setCurrPlayer(game.getOtherPlayer(player));
 
-        // Si l'adversaire a aussi passé son tour (sa dernière réponse est vide) et qu'il n'y a plus de pièces à ajouter
-        // => fin du jeu
+        // If the opponent also passed his turn and there are no more tiles in the bag => end the game
         List<Answer> opponentAnswers = game.getSideOfPlayer(game.getOtherPlayer(player)).getAnswers();
         if(game.getBag().getTiles().isEmpty() && opponentAnswers.get(opponentAnswers.size() - 1).getChallenge().getSlots().get(0).isEmpty()) {
 
-            // donner des récompenses en pièces
+            // rewards the player with coins
             Player winner = game.getSideInit().getScore() > game.getSideResp().getScore() ?
                     game.getSideInit().getPlayer() : game.getSideResp().getPlayer();
             if (winner instanceof User) {

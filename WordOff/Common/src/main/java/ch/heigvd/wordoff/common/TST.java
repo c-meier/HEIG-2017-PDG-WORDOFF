@@ -10,26 +10,23 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Project : WordOff
- * Date : 27.09.17
- *
- * @brief Implémentation des Tertiary Search Tries dans le but de stocker un dictionnaire
+ * Implementation of Tertiary Search Tries so it can contain a dictionary and generate anagrams
  */
 class TST {
     /**
-     * @brief Structure d'un noeud du TST
+     * Structure of a TST node
      */
     class Node {
-        Node left;      // noeud de gauche
-        Node middle;    // noeud suivant (centre)
-        Node right;     // noeud de droite
-        char data;      // caractère contenu par le noeud
-        boolean isEnd;  // true si le noeud est la fin d'un mot
-        int nodeHeight; // hauteur du noeud dans l'arbre (sert à l'équilibrage)
+        Node left;      // left node
+        Node middle;    // next node (center)
+        Node right;     // right node
+        char data;      // character in the node
+        boolean isEnd;  // true if the node is the end of a word
+        int nodeHeight; // height of a node (useful for balancing the tree)
 
         /**
-         * @param data le caractère du noeud
-         * @brief Constructeur du noeud
+         * Node constructor
+         * @param data character key of the node
          */
         public Node(char data) {
             this.data = data;
@@ -41,43 +38,43 @@ class TST {
         }
     }
 
-    private Node root;  // noeud racine de l'arbre
+    private Node root;  // root node
 
     /**
-     * @brief Constructeur de l'arbre vide
+     * Empty tree constructor
      */
     public TST() {
         root = null;
     }
 
     /**
-     * @return true ssi l'arbre est vide
+     * @return true if and only if the tree is empty
      */
     public boolean isEmpty() {
         return root == null;
     }
 
     /**
-     * @brief Vide l'arbre
+     * Makes the tree empty
      */
     public void clear() {
         root = null;
     }
 
     /**
+     * Inserst un word in the tree
      * @param key
-     * @brief insère un mot dans l'arbre
      */
     public void insert(String key) {
         root = insert(root, key, 0);
     }
 
     /**
-     * @param r     racine du mot
-     * @param key   mot à insérer
-     * @param index index de la première lettre
-     * @return le noeud auquel la dernière lettre a été insérée
-     * @brief insère un mot dans l'arbre à partir de la index-ième lettre
+     * Inserts a word in the tree, starting from the letter at index "index"
+     * @param r     word root
+     * @param key   word to insert
+     * @param index index of the first letter in the word
+     * @return node in which the last letter was inserted
      */
     private Node insert(Node r, String key, int index) {
         char c = key.charAt(index);
@@ -99,18 +96,18 @@ class TST {
     }
 
     /**
-     * @param word mot recherché
-     * @return true ssi le mot est contenu dans l'arbre
+     * @param word word to look up
+     * @return true if and only if the word is in the tree
      */
     public boolean contains(String word) {
         return contains(root, word, 0);
     }
 
     /**
-     * @param r     noeud racine de la recherche
-     * @param key   mot recherché
-     * @param index première lettre du mot cherché
-     * @return true ssi le mot est contenu dans l'arbre
+     * @param r     root node of the lookup
+     * @param key   word to look up
+     * @param index first letter of the wanted word
+     * @return true if and only if the word is in the tree
      */
     private boolean contains(Node r, String key, int index) {
         char c;
@@ -135,8 +132,8 @@ class TST {
     }
 
     /**
-     * @param r le noeud racine du sous-arbre à équilibrer
-     * @return le (nouveau) noeud racine du sous-arbre équilibré
+     * @param r the root of the subtree to balance
+     * @return the new root of the now balanced subtree
      */
     private Node restoreBalance(Node r) {
         if (balance(r) < -1) { // left < right-1
@@ -156,16 +153,16 @@ class TST {
     }
 
     /**
+     * Update the height of node r
      * @param r
-     * @brief Met à jour la hauteur du noeud en argument
      */
     private void updateNodeHeight(Node r) {
         r.nodeHeight = Math.max(height(r.right), height(r.left)) + 1;
     }
 
     /**
-     * @param r noeud
-     * @return hauteur du noeud
+     * @param r node
+     * @return height of the node
      */
     private int height(Node r) {
         if (r == null) {
@@ -175,9 +172,9 @@ class TST {
     }
 
     /**
+     * Executes a rotation to the right of the subtree of root r
      * @param r
-     * @return la nouvelle racine du sous-arbre
-     * @brief effectue une rotation du sous arbre de racine r vers la droite
+     * @return new root of the subtree
      */
     private Node rotateRight(Node r) {
         Node y = r.left;
@@ -190,9 +187,9 @@ class TST {
     }
 
     /**
+     * Executes a rotation to the left of the subtree of root r
      * @param r
-     * @return la nouvelle racine du sous-arbre
-     * @brief effectue une rotation du sous arbre de racine r vers la gauche
+     * @return new root of the subtree
      */
     private Node rotateLeft(Node r) {
         Node y = r.right;
@@ -206,7 +203,7 @@ class TST {
 
     /**
      * @param r
-     * @return différence de hauteur des sous-arbres gauche et droit de racine r
+     * @return height difference between the subtrees to the left and right of node r
      */
     private int balance(Node r) {
         if (r == null) {
@@ -215,6 +212,11 @@ class TST {
         return height(r.left) - height(r.right);
     }
 
+    /**
+     * Returns all anagrams of str
+     * @param str
+     * @return anagrams list
+     */
     public List<String> getAnagrams(String str) {
         LinkedList<String> list = new LinkedList<>();
         if (root != null) {
@@ -224,8 +226,8 @@ class TST {
     }
 
     /**
-     * Remplit la liste list avec des anagrammes de str et de toutes ses sous-chaines de caractères
-     * Le caractère "#" est un joker
+     * Fills list with anagrams of str and all its substrings.
+     * Character '#' is a wildcard and can be replaced with any letter while looking for anagrams.
      *
      * @param str
      * @param key
@@ -237,31 +239,32 @@ class TST {
             return;
         }
 
-        // cherche dans les sous-arbres gauche et droit
+        // searches subtrees right and left
         fillAnagrams(str, key, r.left, list);
         fillAnagrams(str, key, r.right, list);
 
-        // si la lettre du noeud est dans le mot, on la retire et on descend
+        // if the node's character is in the word, remove it and go down in the tree
         if (str.contains("" + r.data)) {
 
-            // si le mot en formation existe, on ajoute sa clé à la liste
+            // if the word we're building exists, add it's key to the list
             if (r.isEnd) {
                 list.add(key + r.data);
             }
 
-            // on descend avec une lettre en moins
+            // go down in the tree without this character
             String newstr = str.replaceFirst("" + r.data, "");
             fillAnagrams(newstr, key + r.data, r.middle, list);
         }
 
+        // wildcard
         if (str.contains("#")) {
 
-            // si le mot en formation existe, on ajoute sa clé à la liste
+            // if the word exists and we still have a wildcard, go down a level
             if (r.isEnd) {
                 list.add(key + "#" + r.data);
             }
 
-            // on descend avec une lettre en moins
+            // go down in the tree without this wildcard
             String newstr = str.replaceFirst("#", "");
             fillAnagrams(newstr, key + "#" + r.data, r.middle, list);
         }

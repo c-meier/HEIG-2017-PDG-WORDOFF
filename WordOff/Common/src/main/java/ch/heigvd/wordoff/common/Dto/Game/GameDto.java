@@ -43,8 +43,6 @@ public class GameDto implements IResource<GameDto> {
      */
     private String endpoint;
 
-    /* TODO -> create GameSummaryDto */
-
     // Necessary for Jackson deserialization
     protected GameDto() {}
 

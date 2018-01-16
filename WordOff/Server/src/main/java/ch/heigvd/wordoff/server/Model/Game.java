@@ -54,7 +54,6 @@ public class Game {
         } else if (Objects.equals(sideResp.getPlayer().getId(), player.getId())) {
             return sideResp;
         } else {
-            /* TODO -> EXCEPTION*/
             return null;
         }
     }
@@ -65,7 +64,6 @@ public class Game {
         } else if (Objects.equals(player.getId(), sideResp.getPlayer().getId())) {
             return sideInit.getPlayer();
         } else {
-            /* TODO -> EXCEPTION */
             return null;
         }
     }

@@ -1,14 +1,14 @@
 package ch.heigvd.wordoff.common.Dto.User;
 
+import ch.heigvd.wordoff.common.Dto.Endpoint.IEndpoint;
 import ch.heigvd.wordoff.common.Dto.Endpoint.IResource;
-import ch.heigvd.wordoff.common.Dto.ISummaryDto;
 
 import java.util.Objects;
 
 /**
  * Summary information about a user.
  */
-public class UserSummaryDto extends PlayerDto implements ISummaryDto, IResource<UserDto> {
+public class UserSummaryDto extends PlayerDto implements IResource<UserDto>, IEndpoint {
     /**
      * Endpoint to GET the full user information.
      */

@@ -897,7 +897,7 @@ public class GameScreenController implements Initializable {
     }
 
     private void moveOnDragAndDrop(DragEvent event) {
-        // TODO drag and drop
+        // pas implémentée
     }
 
     /**
@@ -914,7 +914,6 @@ public class GameScreenController implements Initializable {
         int tileId = Integer.valueOf(((Label) tileSelect.getChildren().get(2)).getText());
         boolean cancelMove = false;
 
-        // TODO Modifier la logique. On test d'abbord si la tile est un jocker et seulement après son origine.
         //If the tile is in the challenge
         if (p1SlotsCh.contains(slotParent)) {
             //And contains a joker (score 0), reset to a joker tile before move

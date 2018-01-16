@@ -1,8 +1,13 @@
+/*
+ * File: Protocol.java
+ * Authors: Antoine FRIANT, Gabriel LUTHIER, Christopher MEIER, Daniel PALUMBO, Edward RANSOME, Michela ZUCCA
+ * Date: 16 janvier 2018
+ */
+
 package ch.heigvd.wordoff.common;
 
 /**
- * Project : WordOff
- * Date : 26.09.17
+ * Error code used in the protocol to allow for quick understanding of an error.
  */
 public interface Protocol {
     // Error codes

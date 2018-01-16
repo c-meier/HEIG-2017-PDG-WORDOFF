@@ -1,3 +1,9 @@
+/*
+ * File: DictionaryTest.java
+ * Authors: Antoine FRIANT, Gabriel LUTHIER, Christopher MEIER, Daniel PALUMBO, Edward RANSOME, Michela ZUCCA
+ * Date: 16 janvier 2018
+ */
+
 package ch.heigvd.wordoff.server;
 
 import ch.heigvd.wordoff.common.Dictionary;
@@ -7,10 +13,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-/**
- * Project : WordOff
- * Date : 27.09.17
- */
 public class DictionaryTest {
     static Dictionary dicoFr;
     static Dictionary dicoEng;

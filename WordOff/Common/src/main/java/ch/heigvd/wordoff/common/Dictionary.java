@@ -1,3 +1,9 @@
+/*
+ * File: Dictionary.java
+ * Authors: Antoine FRIANT, Gabriel LUTHIER, Christopher MEIER, Daniel PALUMBO, Edward RANSOME, Michela ZUCCA
+ * Date: 16 janvier 2018
+ */
+
 package ch.heigvd.wordoff.common;
 
 import jdk.nashorn.internal.ir.annotations.Immutable;
@@ -10,8 +16,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * Project : WordOff
- * Date : 27.09.17
+ * Dictionary describes a dictionary loaded in a TST capable of generating anagrams
+ * and efficiently looking up words.
  */
 @Immutable
 public class Dictionary {

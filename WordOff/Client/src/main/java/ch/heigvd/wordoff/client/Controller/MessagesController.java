@@ -1,13 +1,19 @@
+/*
+ * File: MessagesController.java
+ * Authors: Antoine FRIANT, Gabriel LUTHIER, Christopher MEIER, Daniel PALUMBO, Edward RANSOME, Michela ZUCCA
+ * Date: 16 janvier 2018
+ */
+
 package ch.heigvd.wordoff.client.Controller;
 
 import ch.heigvd.wordoff.client.Util.UtilChangeScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.scene.control.ListView;
 
 /**
  * FXML Controller class

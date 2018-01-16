@@ -1,3 +1,9 @@
+/*
+ * File: GameScreenController.java
+ * Authors: Antoine FRIANT, Gabriel LUTHIER, Christopher MEIER, Daniel PALUMBO, Edward RANSOME, Michela ZUCCA
+ * Date: 16 janvier 2018
+ */
+
 package ch.heigvd.wordoff.client.Controller;
 
 import ch.heigvd.wordoff.client.Api.Api;
@@ -12,7 +18,10 @@ import ch.heigvd.wordoff.client.Util.UtilStringReference;
 import ch.heigvd.wordoff.common.Constants;
 import ch.heigvd.wordoff.common.Dictionary;
 import ch.heigvd.wordoff.common.DictionaryLoader;
-import ch.heigvd.wordoff.common.Dto.Game.*;
+import ch.heigvd.wordoff.common.Dto.Game.ChallengeDto;
+import ch.heigvd.wordoff.common.Dto.Game.GameDto;
+import ch.heigvd.wordoff.common.Dto.Game.PowerDto;
+import ch.heigvd.wordoff.common.Dto.Game.SideDto;
 import ch.heigvd.wordoff.common.Dto.Game.Slots.L2SlotDto;
 import ch.heigvd.wordoff.common.Dto.Game.Slots.L3SlotDto;
 import ch.heigvd.wordoff.common.Dto.Game.Slots.LastSlotDto;
@@ -49,8 +58,6 @@ import javafx.util.Pair;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * JavaFX controller to handle the game screen and all user interactions with

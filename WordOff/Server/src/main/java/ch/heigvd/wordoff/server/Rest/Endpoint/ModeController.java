@@ -1,3 +1,9 @@
+/*
+ * File: ModeController.java
+ * Authors: Antoine FRIANT, Gabriel LUTHIER, Christopher MEIER, Daniel PALUMBO, Edward RANSOME, Michela ZUCCA
+ * Date: 16 janvier 2018
+ */
+
 package ch.heigvd.wordoff.server.Rest.Endpoint;
 
 import ch.heigvd.wordoff.common.Dto.Game.GameDto;
@@ -11,7 +17,6 @@ import ch.heigvd.wordoff.server.Model.Invitation;
 import ch.heigvd.wordoff.server.Model.Modes.Mode;
 import ch.heigvd.wordoff.server.Model.User;
 import ch.heigvd.wordoff.server.Repository.InvitationRepository;
-import ch.heigvd.wordoff.server.Rest.Exception.ErrorCodeException;
 import ch.heigvd.wordoff.server.Service.ModeService;
 import ch.heigvd.wordoff.server.Util.DtoFactory;
 import org.springframework.http.HttpStatus;

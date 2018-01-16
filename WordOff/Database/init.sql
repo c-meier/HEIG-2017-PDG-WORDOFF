@@ -11,28 +11,28 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- Schema mydb
 -- -----------------------------------------------------
 -- -----------------------------------------------------
--- Schema wordoff
+-- Schema WordOff
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `wordoff` ;
+DROP SCHEMA IF EXISTS `WordOff` ;
 
 -- -----------------------------------------------------
--- Schema wordoff
+-- Schema WordOff
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `wordoff` DEFAULT CHARACTER SET utf8mb4 ;
-USE `wordoff` ;
+CREATE SCHEMA IF NOT EXISTS `WordOff` DEFAULT CHARACTER SET utf8mb4 ;
+USE `WordOff` ;
 
 -- -----------------------------------------------------
--- User for wordoff
+-- User for WordOff
 -- -----------------------------------------------------
-CREATE USER 'wordoffuser'@'localhost' IDENTIFIED BY 'wordoffpass'; -- Creates the user
-GRANT ALL ON WordOff.* TO 'wordoffuser'@'localhost'; -- Gives all the privileges to the new user on the newly created database
+CREATE USER IF NOT EXISTS 'WordOffuser'@'localhost' IDENTIFIED BY 'WordOffpass'; -- Creates the user
+GRANT ALL ON WordOff.* TO 'WordOffuser'@'localhost'; -- Gives all the privileges to the new user on the newly created database
 
 -- -----------------------------------------------------
--- Table `wordoff`.`player`
+-- Table `WordOff`.`player`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `wordoff`.`player` ;
+DROP TABLE IF EXISTS `WordOff`.`player` ;
 
-CREATE TABLE IF NOT EXISTS `wordoff`.`player` (
+CREATE TABLE IF NOT EXISTS `WordOff`.`player` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
@@ -43,27 +43,27 @@ COLLATE = utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `wordoff`.`ai`
+-- Table `WordOff`.`ai`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `wordoff`.`ai` ;
+DROP TABLE IF EXISTS `WordOff`.`ai` ;
 
-CREATE TABLE IF NOT EXISTS `wordoff`.`ai` (
+CREATE TABLE IF NOT EXISTS `WordOff`.`ai` (
   `id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `FKppamqja2oifefw563wfsry7xl`
     FOREIGN KEY (`id`)
-    REFERENCES `wordoff`.`player` (`id`))
+    REFERENCES `WordOff`.`player` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `wordoff`.`side`
+-- Table `WordOff`.`side`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `wordoff`.`side` ;
+DROP TABLE IF EXISTS `WordOff`.`side` ;
 
-CREATE TABLE IF NOT EXISTS `wordoff`.`side` (
+CREATE TABLE IF NOT EXISTS `WordOff`.`side` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `answer_counter` SMALLINT(6) NOT NULL,
   `challenge` LONGBLOB NULL DEFAULT NULL,
@@ -75,18 +75,18 @@ CREATE TABLE IF NOT EXISTS `wordoff`.`side` (
   INDEX `FKnp6qrawkhr82t3gc9ybr0gcqh` (`player_id` ASC),
   CONSTRAINT `FKnp6qrawkhr82t3gc9ybr0gcqh`
     FOREIGN KEY (`player_id`)
-    REFERENCES `wordoff`.`player` (`id`))
+    REFERENCES `WordOff`.`player` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `wordoff`.`answer`
+-- Table `WordOff`.`answer`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `wordoff`.`answer` ;
+DROP TABLE IF EXISTS `WordOff`.`answer` ;
 
-CREATE TABLE IF NOT EXISTS `wordoff`.`answer` (
+CREATE TABLE IF NOT EXISTS `WordOff`.`answer` (
   `num` SMALLINT(6) NOT NULL,
   `challenge` LONGBLOB NULL DEFAULT NULL,
   `side_id` BIGINT(20) NOT NULL,
@@ -94,18 +94,18 @@ CREATE TABLE IF NOT EXISTS `wordoff`.`answer` (
   INDEX `FKobtqoo2eu8wbrdypbmgmvw7va` (`side_id` ASC),
   CONSTRAINT `FKobtqoo2eu8wbrdypbmgmvw7va`
     FOREIGN KEY (`side_id`)
-    REFERENCES `wordoff`.`side` (`id`))
+    REFERENCES `WordOff`.`side` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `wordoff`.`mode`
+-- Table `WordOff`.`mode`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `wordoff`.`mode` ;
+DROP TABLE IF EXISTS `WordOff`.`mode` ;
 
-CREATE TABLE IF NOT EXISTS `wordoff`.`mode` (
+CREATE TABLE IF NOT EXISTS `WordOff`.`mode` (
   `dtype` VARCHAR(31) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `lang` VARCHAR(255) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NULL DEFAULT NULL,
@@ -118,11 +118,11 @@ COLLATE = utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `wordoff`.`game`
+-- Table `WordOff`.`game`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `wordoff`.`game` ;
+DROP TABLE IF EXISTS `WordOff`.`game` ;
 
-CREATE TABLE IF NOT EXISTS `wordoff`.`game` (
+CREATE TABLE IF NOT EXISTS `WordOff`.`game` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `bag` LONGBLOB NULL DEFAULT NULL,
   `ended` BIT(1) NOT NULL,
@@ -138,27 +138,27 @@ CREATE TABLE IF NOT EXISTS `wordoff`.`game` (
   INDEX `FKer5l5j5kcf6s8cwvq6ehhgb09` (`side_resp_id` ASC),
   CONSTRAINT `FK6s1uxa5abxem7g58h8twyrjil`
     FOREIGN KEY (`curr_player_id`)
-    REFERENCES `wordoff`.`player` (`id`),
+    REFERENCES `WordOff`.`player` (`id`),
   CONSTRAINT `FKer5l5j5kcf6s8cwvq6ehhgb09`
     FOREIGN KEY (`side_resp_id`)
-    REFERENCES `wordoff`.`side` (`id`),
+    REFERENCES `WordOff`.`side` (`id`),
   CONSTRAINT `FKiqnk445svrtiuyigl13qi7ic2`
     FOREIGN KEY (`side_init_id`)
-    REFERENCES `wordoff`.`side` (`id`),
+    REFERENCES `WordOff`.`side` (`id`),
   CONSTRAINT `FKq2rn2hdqw2pgx20orc28kl68l`
     FOREIGN KEY (`mode_id`)
-    REFERENCES `wordoff`.`mode` (`id`))
+    REFERENCES `WordOff`.`mode` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `wordoff`.`user`
+-- Table `WordOff`.`user`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `wordoff`.`user` ;
+DROP TABLE IF EXISTS `WordOff`.`user` ;
 
-CREATE TABLE IF NOT EXISTS `wordoff`.`user` (
+CREATE TABLE IF NOT EXISTS `WordOff`.`user` (
   `coins` INT(11) NOT NULL,
   `login` VARCHAR(255) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NULL DEFAULT NULL,
   `password` VARCHAR(255) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NULL DEFAULT NULL,
@@ -168,18 +168,18 @@ CREATE TABLE IF NOT EXISTS `wordoff`.`user` (
   PRIMARY KEY (`id`),
   CONSTRAINT `FKp23d49isj1h8qfx7sjmpa2u0m`
     FOREIGN KEY (`id`)
-    REFERENCES `wordoff`.`player` (`id`))
+    REFERENCES `WordOff`.`player` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `wordoff`.`invitation`
+-- Table `WordOff`.`invitation`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `wordoff`.`invitation` ;
+DROP TABLE IF EXISTS `WordOff`.`invitation` ;
 
-CREATE TABLE IF NOT EXISTS `wordoff`.`invitation` (
+CREATE TABLE IF NOT EXISTS `WordOff`.`invitation` (
   `name` VARCHAR(255) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NULL DEFAULT NULL,
   `status` INT(11) NULL DEFAULT NULL,
   `target_id` BIGINT(20) NOT NULL,
@@ -188,21 +188,21 @@ CREATE TABLE IF NOT EXISTS `wordoff`.`invitation` (
   INDEX `FK7hdwihi6nkphjr3448wesg88j` (`target_id` ASC),
   CONSTRAINT `FK7hdwihi6nkphjr3448wesg88j`
     FOREIGN KEY (`target_id`)
-    REFERENCES `wordoff`.`user` (`id`),
+    REFERENCES `WordOff`.`user` (`id`),
   CONSTRAINT `FKo5s4n13bmkmt3kdctcgighsg1`
     FOREIGN KEY (`mode_id`)
-    REFERENCES `wordoff`.`mode` (`id`))
+    REFERENCES `WordOff`.`mode` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `wordoff`.`lang_set`
+-- Table `WordOff`.`lang_set`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `wordoff`.`lang_set` ;
+DROP TABLE IF EXISTS `WordOff`.`lang_set` ;
 
-CREATE TABLE IF NOT EXISTS `wordoff`.`lang_set` (
+CREATE TABLE IF NOT EXISTS `WordOff`.`lang_set` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
@@ -213,11 +213,11 @@ COLLATE = utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `wordoff`.`letter`
+-- Table `WordOff`.`letter`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `wordoff`.`letter` ;
+DROP TABLE IF EXISTS `WordOff`.`letter` ;
 
-CREATE TABLE IF NOT EXISTS `wordoff`.`letter` (
+CREATE TABLE IF NOT EXISTS `WordOff`.`letter` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `lang_set_id` INT(11) NULL DEFAULT NULL,
   `score` INT(11) NOT NULL,
@@ -226,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `wordoff`.`letter` (
   INDEX `FKf64vmekm7al78h9r0jg48q69r` (`lang_set_id` ASC),
   CONSTRAINT `FKf64vmekm7al78h9r0jg48q69r`
     FOREIGN KEY (`lang_set_id`)
-    REFERENCES `wordoff`.`lang_set` (`id`))
+    REFERENCES `WordOff`.`lang_set` (`id`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 54
 DEFAULT CHARACTER SET = utf8mb4
@@ -234,11 +234,11 @@ COLLATE = utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `wordoff`.`notification`
+-- Table `WordOff`.`notification`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `wordoff`.`notification` ;
+DROP TABLE IF EXISTS `WordOff`.`notification` ;
 
-CREATE TABLE IF NOT EXISTS `wordoff`.`notification` (
+CREATE TABLE IF NOT EXISTS `WordOff`.`notification` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `content` VARCHAR(255) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NULL DEFAULT NULL,
   `date` TINYBLOB NULL DEFAULT NULL,
@@ -247,18 +247,18 @@ CREATE TABLE IF NOT EXISTS `wordoff`.`notification` (
   INDEX `FKbo9iww48qpdrlmkd08qgvtypv` (`target_id` ASC),
   CONSTRAINT `FKbo9iww48qpdrlmkd08qgvtypv`
     FOREIGN KEY (`target_id`)
-    REFERENCES `wordoff`.`user` (`id`))
+    REFERENCES `WordOff`.`user` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `wordoff`.`relation`
+-- Table `WordOff`.`relation`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `wordoff`.`relation` ;
+DROP TABLE IF EXISTS `WordOff`.`relation` ;
 
-CREATE TABLE IF NOT EXISTS `wordoff`.`relation` (
+CREATE TABLE IF NOT EXISTS `WordOff`.`relation` (
   `status` INT(11) NULL DEFAULT NULL,
   `target_id` BIGINT(20) NOT NULL,
   `owner_id` BIGINT(20) NOT NULL,
@@ -266,21 +266,21 @@ CREATE TABLE IF NOT EXISTS `wordoff`.`relation` (
   INDEX `FK1jsx5ceoh0vh855ebdvq7cc88` (`target_id` ASC),
   CONSTRAINT `FK1jsx5ceoh0vh855ebdvq7cc88`
     FOREIGN KEY (`target_id`)
-    REFERENCES `wordoff`.`user` (`id`),
+    REFERENCES `WordOff`.`user` (`id`),
   CONSTRAINT `FKe9967yi3pd7790emidb5ig3xy`
     FOREIGN KEY (`owner_id`)
-    REFERENCES `wordoff`.`user` (`id`))
+    REFERENCES `WordOff`.`user` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `wordoff`.`tile`
+-- Table `WordOff`.`tile`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `wordoff`.`tile` ;
+DROP TABLE IF EXISTS `WordOff`.`tile` ;
 
-CREATE TABLE IF NOT EXISTS `wordoff`.`tile` (
+CREATE TABLE IF NOT EXISTS `WordOff`.`tile` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `lang_set_id` INT(11) NULL DEFAULT NULL,
   `letter_id` INT(11) NULL DEFAULT NULL,
@@ -289,10 +289,10 @@ CREATE TABLE IF NOT EXISTS `wordoff`.`tile` (
   INDEX `FKhctaa32o0u4w3dmksqis70e37` (`lang_set_id` ASC),
   CONSTRAINT `FKhctaa32o0u4w3dmksqis70e37`
     FOREIGN KEY (`lang_set_id`)
-    REFERENCES `wordoff`.`lang_set` (`id`),
+    REFERENCES `WordOff`.`lang_set` (`id`),
   CONSTRAINT `FKt4ggomh6o3fcgt7rm22buwjcs`
     FOREIGN KEY (`letter_id`)
-    REFERENCES `wordoff`.`letter` (`id`))
+    REFERENCES `WordOff`.`letter` (`id`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 223
 DEFAULT CHARACTER SET = utf8mb4

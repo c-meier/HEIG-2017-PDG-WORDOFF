@@ -1,3 +1,7 @@
+USE `WordOff`;
+
+SET FOREIGN_KEY_CHECKS = 0;
+
 INSERT INTO lang_set (name) VALUES
   ('fr'),
   ('en');
@@ -141,3 +145,5 @@ INSERT INTO user (id, level, login, password, coins) VALUES
   (2, 1, 'one', 'pass', 50), (3, 1, 'two', 'pass', 50), (4, 1, 'three', 'pass', 50);
 INSERT INTO relation (owner_id, target_id, status) VALUES
   (2, 3, 0), (3, 2, 0), (2, 4, 1);
+
+SET FOREIGN_KEY_CHECKS = 1;

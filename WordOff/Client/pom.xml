@@ -107,6 +107,21 @@
                     </additionalClasspathElements>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>../build/Client</outputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <version>1.5.8.RELEASE</version>
+            </plugin>
         </plugins>
     </build>
     <dependencies>

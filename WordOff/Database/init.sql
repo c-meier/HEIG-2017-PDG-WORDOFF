@@ -207,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `WordOff`.`lang_set` (
   `name` VARCHAR(255) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
@@ -228,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `WordOff`.`letter` (
     FOREIGN KEY (`lang_set_id`)
     REFERENCES `WordOff`.`lang_set` (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 54
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
@@ -294,7 +294,7 @@ CREATE TABLE IF NOT EXISTS `WordOff`.`tile` (
     FOREIGN KEY (`letter_id`)
     REFERENCES `WordOff`.`letter` (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 223
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
